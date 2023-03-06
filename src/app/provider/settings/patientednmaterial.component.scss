@@ -15,6 +15,18 @@
   border: 1px solid #41b6a6;
 }
 
+.download-attachment{
+  color:#41b6a6;
+}
+
+.download-attachment:hover{
+  color:#41b6a6;
+  //font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
 .modal-dialog {
   max-width: 780px;
   margin-top: 34px;
@@ -227,6 +239,30 @@ mat-header-row{
   border-radius: 6px;
   text-align: center;
   padding: 4px 0 0 0;
+  :hover{
+    color: white;
+    background-color:  #41b6a6;
+  }
+}
+#modal-Patient-Education .download{
+  margin: 10px 10px;
+  float: right;
+  color: #41b6a6;
+  border-radius: 6px;
+  text-align: center;
+  padding: 4px 0 0 0;
+  :hover{
+    color: white;
+    background-color:  #41b6a6;
+  }
+}
+
+.attached-files .download{
+  float: right;
+  color: #41b6a6;
+  border-radius: 6px;
+  text-align: center;
+  padding: 0 0 0 10px;
   :hover{
     color: white;
     background-color:  #41b6a6;

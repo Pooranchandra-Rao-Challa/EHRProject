@@ -60,7 +60,7 @@
       </div>
       <div class="row test-code-box">
         <div class="col-md-12 test-code-search-result">
-          <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
+          <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
           <mat-list role="list">
             <mat-list-item role="listitem" *ngFor="let opt of filteredOptions | async ">
               <mat-radio-button [value]="opt" (change)="selection = $event.value">

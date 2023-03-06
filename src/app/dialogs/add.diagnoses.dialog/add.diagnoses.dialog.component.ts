@@ -106,8 +106,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
   }
 
   disableDiagnosis() {
-    return !(this.patientDiagnoses.CodeSystem && this.patientDiagnoses.Code && this.patientDiagnoses.Description && this.patientDiagnoses.StartAt
-      && this.patientDiagnoses.StopAt && this.patientDiagnoses.Note)
+    return !(this.patientDiagnoses.CodeSystem && this.patientDiagnoses.Code &&
+      this.patientDiagnoses.Description && this.patientDiagnoses.StartAt
+      && this.patientDiagnoses.Note)
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,

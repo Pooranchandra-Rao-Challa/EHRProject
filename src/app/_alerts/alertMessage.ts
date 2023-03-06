@@ -97,7 +97,8 @@ export class AlertMessage {
       customClass: {
         container: 'swal2-container-high-zindex',
         actions: 'user-swal2-actions',
-        title: 'user-swal2-actions'
+        title: 'user-swal2-title',
+        popup: 'swal2-user-popup.',
       }
 
     })

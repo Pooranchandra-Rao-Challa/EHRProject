@@ -40,8 +40,12 @@
             </div>
           </div>
         </div>
+
       </div>
       <div class="row">
+        <div class="col-12">
+          <mat-progress-bar mode="indeterminate" style="margin-bottom: 10px;" bufferValue="20" value=100 *ngIf="dialogIsLoading" ></mat-progress-bar>
+        </div>
         <mat-accordion class="schedule-accordion" >
           <mat-expansion-panel #panel1 [expanded]="togglePanel === 0" hideToggle  >
             <mat-expansion-panel-header class="bg-color" >

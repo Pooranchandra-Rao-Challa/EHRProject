@@ -66,8 +66,15 @@ export class AttachmentNopreviewComponent implements OnInit {
 
   UploadCompleted(data) {
     if (data.event.body) {
-      if (!this.Attachments) this.Attachments = [];
-      this.Attachments.push(data.event.body as Attachment)
+      if (this.Attachments == null) this.Attachments = [];
+      var temp = data.event.body as Attachment
+      let attachment:Attachment = {
+        EntityId : temp.EntityId,
+        EntityName : temp.EntityName,
+        AttachmentId : temp.AttachmentId,
+        FileName : temp.FileName
+      };
+      this.Attachments.push(attachment)
       this.attachmentSubject.next(this._attachments);
       this.raiseItemsModified();
     }

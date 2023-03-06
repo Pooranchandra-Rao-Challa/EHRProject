@@ -296,9 +296,28 @@
   height: 45px;
 }
 
-::ng-deep .user-swal2-actions{
-  margin: 0px;
+
+
+::ng-deep .swal2-title.user-swal2-title {
+  padding: 20px  !important;
+  background-color: #41b6a6;
+  color: #fff;
+  font-size: 24px;
+  font-family: 'Roboto';
+  font-weight: 400;
+  margin-top: unset !important;
+  margin-bottom: 10px  !important;
 }
+
+::ng-deep .swal2-actions.user-swal2-actions{
+  margin: 1.25em auto 1.25em;
+}
+
+::ng-deep .swal2-popup.swal2-user-popup{
+  top: calc(100vh - 60%);
+}
+
+
 .required::before {
   content: "*" !important;
   color: red !important;

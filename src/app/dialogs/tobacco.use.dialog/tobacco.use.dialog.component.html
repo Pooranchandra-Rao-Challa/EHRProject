@@ -60,9 +60,9 @@
                 </mat-radio-group>
               </div>
             </div>
-            <div class="row">
+            <div class="row"> <!-- [disabled]="patientTobaccoUse.CI_Type != undefined"-->
               <div class="col-lg-6 col-md-6 col-12">
-                <button class="btn btn-green w-100" [disabled]="patientTobaccoUse.CI_Type != undefined"
+                <button class="btn btn-green w-100"
                   (click)="openComponentDialog(cqmNotPerformedDialogComponent,null,ActionTypes.view)">Add Not
                   Performed</button>
               </div>

@@ -62,3 +62,13 @@ border: 1px solid #41b6a6  !important;
 // .medication-modal .disabled input{
 //   cursor: not-allowed;
 // }
+
+.fa-hourglass::before {
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.fontawesomesvg {width: 1em;
+  height: 1em;
+  vertical-align: -.125em;
+}

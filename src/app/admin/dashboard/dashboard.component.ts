@@ -49,6 +49,7 @@ export class DashboardComponent implements OnInit {
   ActionTypes = Actions;
   search?: string;
   userIP:string;
+  dialogIsLoading:boolean = false;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -60,28 +61,22 @@ export class DashboardComponent implements OnInit {
     private accountservice: Accountservice) { }
 
   ngOnInit(): void {
+    this.dialogIsLoading = true;
     this.GetProivderList();
     this.filterSubject.subscribe(value => {
-      //console.log(value);
-
-      // this.filtededProviders = this.providers.filter(x =>
-      //   (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
-      //     x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
-      //   && x.Status == value.Active
-      //   && (x.Paid == value.Paid || value.Paid == null)
-      // );
-
-      // console.log(this.filtededProviders);
-      // console.log(this.providers);
-      this.GetProivderList(value);
-
+      this.filtededProviders = this.providers.filter(x =>
+        (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
+          x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
+        && x.Status == value.Active
+        && (x.Paid == value.Paid || value.Paid == null)
+      );
     })
     this.UserIP();
     this.providerListBehaviour.subscribe(value => {
     })
   }
 
-  StageChange(event) {
+  StateChange(event) {
     this.page = 1;
     if (event.target.id == 'Suspended')
       this.filterQueryParams.Active = !event.target.checked;
@@ -96,14 +91,18 @@ export class DashboardComponent implements OnInit {
 
   GetProivderList(value: FilterQueryParams = null) {
     this.adminservice.GetProviderList().subscribe(resp => {
+      this.dialogIsLoading = false;
+
+
       if (resp.IsSuccess) {
         this.providers = resp.ListResult;
         this.filtededProviders = this._filterProviders(value);
         this.providerListBehaviour.next(this.filtededProviders == null ||
           (this.filtededProviders != null && this.filtededProviders.length == 0));
-      } else
+      } else{
         this.providerListBehaviour.next(true);
         this.providers = [];
+      }
     });
   }
 

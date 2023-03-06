@@ -336,9 +336,15 @@ export class OrderDialogComponent implements OnInit {
 
   public UploadCompleted(data): any {
     if (data.event.body) {
-      if (!this.labandImaging.Attachments)
-        this.labandImaging.Attachments = [];
-      this.labandImaging.Attachments.push(data.event.body as Attachment);
+      if (this.labandImaging.Attachments == null) this.labandImaging.Attachments = [];
+      var temp = data.event.body as Attachment
+      let attachment:Attachment = {
+        EntityId : temp.EntityId,
+        EntityName : temp.EntityName,
+        AttachmentId : temp.AttachmentId,
+        FileName : temp.FileName
+      };
+      this.labandImaging.Attachments.push(attachment);
     }
   }
   DeleteAttachment(attachment: Attachment) {

@@ -1,18 +1,19 @@
+import { PatientSearchResults, SearchPatient } from './../../../_models/_provider/smart.scheduler.data';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { fromEvent, Observable, of, Subject } from 'rxjs';
-import { PracticeLocation, User } from 'src/app/_models';
+import { PatientSearch, PracticeLocation, User } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { areaCodes } from 'src/app/_models/_patient/patientprofile';
-import { ParticularInsuranceCompanyDetails, PrimaryInsurance, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
+import { ParticularInsuranceCompanyDetails, InsuranceDto, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
 import { DatePipe } from '@angular/common';
 import { AreaCode } from 'src/app/_models/_admin/Admins';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { DataExtractorService } from 'mat-table-exporter';
 import { I } from '@angular/cdk/keycodes';
 declare var $: any;
@@ -36,8 +37,8 @@ export class InsuranceComponent implements OnInit {
   PatientDetails: any = [];
   insuranceList: any = [];
   InsuranceID: any;
-  primlist: PrimaryInsurance = {} as PrimaryInsurance;
-  secList: SecondaryInsurance = {} as SecondaryInsurance;
+  primaryInsurance: InsuranceDto = {} as InsuranceDto;
+  secondaryInsurance: InsuranceDto = {} as InsuranceDto;
   insuraceComplanyPlan: ParticularInsuranceCompanyDetails;
   practiceLocation: PracticeLocation;
   secondaryInsurancelist: any;
@@ -71,7 +72,7 @@ export class InsuranceComponent implements OnInit {
   searchText: string;
   @Input() max: any;
   tomorrow = new Date();
-  sample : any
+  sample: any
   AreaCodes: AreaCode[];
   filteredAreacodes: any
   myControlPrimary = new FormControl();
@@ -79,33 +80,32 @@ export class InsuranceComponent implements OnInit {
   endDateForPrimary: Date;
   minDateToSecondary = new Subject<string>();
   endDateForSecondary: Date;
+  hideSubscriber: boolean = false;
 
   dateChangeForPrimary(e) {
     this.minDateToPrimary.next(e.value.toString());
   }
-  dateChangeForSecondary(e)
-  {
+  dateChangeForSecondary(e) {
     this.minDateToSecondary.next(e.value.toString());
   }
   constructor(private patientservice: PatientService,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
-    private accountservice: Accountservice, private utilityService: UtilityService, private datePipe: DatePipe) {
-    this.primlist = {} as PrimaryInsurance;
-    this.secList = {} as SecondaryInsurance;
+    private accountservice: Accountservice,
+    private utilityService: UtilityService,
+    private datePipe: DatePipe) {
+
     this.insuraceComplanyPlan = {} as ParticularInsuranceCompanyDetails;
     this.user = authService.userValue;
     this.changedLocationId = this.user.CurrentLocation;
-    this.InsuranceCompanyPlanList();
     this.tomorrow.setDate(this.tomorrow.getDate());
     this.minDateToPrimary.subscribe(minDate => {
       this.endDateForPrimary = new Date(minDate);
     })
-    this.minDateToSecondary.subscribe(minDate=>
-      {
-        this.endDateForSecondary = new Date(minDate);
-      })
+    this.minDateToSecondary.subscribe(minDate => {
+      this.endDateForSecondary = new Date(minDate);
+    })
   }
 
   ngOnInit(): void {
@@ -116,27 +116,96 @@ export class InsuranceComponent implements OnInit {
     this.getInsuranceList();
     this.loadDefaults();
     this.filteredAreacodes = this.myControlPrimary.valueChanges.pipe(startWith(''), map(value => this._filterAreaCode(value)));
-    //   $('#modal-primary-Insurance').on('shown', function () {
-    //     $(".divScroll").scrollTop(0);
-    // });
-    //   var scrollPos = 0;
-    // $('.modal')
-    // .on('show.bs.modal', function (){
-    // scrollPos = $('.divScroll').scrollTop();
-    // $('body').css({
-    // overflow: 'hidden',
-    // position: '',
-    // top : -scrollPos
-    // });
-    // })
-    // .on('hide.bs.modal', function (){
-    // $('body').css({
-    // overflow: '',
-    // position: '',
-    // top: ''
-    // }).scrollTop(scrollPos);
-    // });
+
+    if (this.searchPrimaryInsurancePatient != null)
+
+      fromEvent(this.searchPrimaryInsurancePatient.nativeElement, 'keyup').pipe(
+        // get value
+        map((event: any) => {
+          return event.target.value;
+        })
+        // if character length greater then 2
+        , filter(res => res.length > 2)
+        // Time in milliseconds between key events
+        , debounceTime(1000)
+        // If previous query is diffent from current
+        , distinctUntilChanged()
+        // subscription for response
+      ).subscribe(value => this._filterPatients(value, 'primary'));
+
+    if (this.searchPrimaryInsurancePatient != null)
+
+      fromEvent(this.searchSecondaryInsurancePatient.nativeElement, 'keyup').pipe(
+        // get value
+        map((event: any) => {
+          return event.target.value;
+        })
+        // if character length greater then 2
+        , filter(res => res.length > 2)
+        // Time in milliseconds between key events
+        , debounceTime(1000)
+        // If previous query is diffent from current
+        , distinctUntilChanged()
+        // subscription for response
+      ).subscribe(value => this._filterPatients(value, 'secondary'));
   }
+
+  _filterPatients(term, filterfor) {
+    this.isPrimaryInsuranceLoading = true;
+    this.patientservice
+      .PatientSearch({
+        ProviderId: this.user.ProviderId,
+        ClinicId: this.authService.userValue.ClinicId,
+        SearchTerm: term
+      })
+      .subscribe(resp => {
+        this.isPrimaryInsuranceLoading = false;
+        if (resp.IsSuccess) {
+          this.filteredPatients = of(
+            resp.ListResult as PatientSearch[]);
+        } else {
+          this.filteredPatients = of([]);
+          if (/^([a-zA-Z])\w+([\s]([a-zA-Z]*))*/.test(term)) {
+            if (filterfor == 'primary')
+              this.primaryInsurance.SubscriberName = term;
+            else if (filterfor == 'secondary')
+              this.secondaryInsurance.SubscriberName = term;
+          }
+        }
+      })
+  }
+
+  displayPrimaryInsurancePatient(value: PatientSearch) {
+    return value != null ? value.Name : "";
+
+  }
+  displaySecondaryInsurancePatient(value: PatientSearch) {
+    return value != null ? value.Name : "";
+
+  }
+  onPrimaryInsurancePatientSelected($event) {
+    this.primaryInsurancePatientSearch = $event.option.value;
+    this.primaryInsurance.SubscriberName = this.primaryInsurancePatientSearch.Name
+    this.primaryInsurance.DateOfBirth = this.datePipe.transform(this.primaryInsurancePatientSearch.Dob, "yyyy-MM-dd");
+    this.primaryInsurance.Gender = this.primaryInsurancePatientSearch.Gender
+  }
+
+  onSecondaryInsurancePatientSelected($event) {
+    this.secondaryInsurancePatientSearch = $event.option.value;
+    this.secondaryInsurance.SubscriberName = this.secondaryInsurancePatientSearch.Name
+    this.secondaryInsurance.DateOfBirth = this.datePipe.transform(this.secondaryInsurancePatientSearch.Dob, "yyyy-MM-dd");
+    this.secondaryInsurance.Gender = this.secondaryInsurancePatientSearch.Gender
+  }
+
+  isPrimaryInsuranceLoading: boolean = false;
+  isSecondaryInsuranceLoading: boolean = false;
+  @ViewChild('searchPrimaryInsurancePatient', { static: true })
+  searchPrimaryInsurancePatient: ElementRef;
+  filteredPatients: Observable<PatientSearch[]>;
+
+  @ViewChild('searchSecondaryInsurancePatient', { static: true })
+  searchSecondaryInsurancePatient: ElementRef;
+
   loadDefaults() {
 
     this.utilityService.AreaCodes()
@@ -211,9 +280,9 @@ export class InsuranceComponent implements OnInit {
     this.btnstate = event;
 
   }
-  resetTheInsurancePlansContentScrollPosition(){
+  resetTheInsurancePlansContentScrollPosition() {
     let aa = document.getElementsByClassName("insurancePlansContent");
-    if(aa.length == 1){
+    if (aa.length == 1) {
       aa[0].scrollTop = 0;
     }
   }
@@ -240,15 +309,15 @@ export class InsuranceComponent implements OnInit {
   }
   Selected() {
     if (this.plusvalue == "primary") {
-      this.primlist.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
-      this.primlist.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
+      this.primaryInsurance.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
+      this.primaryInsurance.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
       this.viewpidetailsforprimary = false;
       this.searchText = "";
 
     }
     else {
-      this.secList.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
-      this.secList.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
+      this.secondaryInsurance.InsuranceCompanyPlan = this.selectingInsuranceCompanyName;
+      this.secondaryInsurance.InsuranceCompanyPlanID = this.selectingInsuranceCompanyPlanId;
       this.viewpidetailsforsecondary = false;
       this.searchText = "";
 
@@ -283,11 +352,11 @@ export class InsuranceComponent implements OnInit {
         }));
         this.SourceOfPaymentTypologyCodesFilter = this.SourceOfPaymentTypologyCodes.slice();
         this.secondarySptcFilter = this.SourceOfPaymentTypologyCodes.slice();
-        if (this.primlist.SourceOfPaymentTypology) {
-          let data = this.primlist.SourceOfPaymentTypology;
+        if (this.primaryInsurance.SourceOfPaymentTypology) {
+          let data = this.primaryInsurance.SourceOfPaymentTypology;
           let SourceOfPaymentTypologyCodes = this.SourceOfPaymentTypologyCodes.find(x => x.Code == data);
-          this.primlist.SourceOfPaymentTypology = SourceOfPaymentTypologyCodes.Code;
-          this.primlist.PaymentTypologyDescription = SourceOfPaymentTypologyCodes.Description;
+          this.primaryInsurance.SourceOfPaymentTypology = SourceOfPaymentTypologyCodes.Code;
+          this.primaryInsurance.PaymentTypologyDescription = SourceOfPaymentTypologyCodes.Description;
         }
       }
     })
@@ -308,6 +377,13 @@ export class InsuranceComponent implements OnInit {
     this.PatientDetails = this.authService.viewModel.Patient;
   }
 
+  primaryInsurancePatientSearch: PatientSearch = {};
+  secondaryInsurancePatientSearch: PatientSearch = {};
+  updateSearchTermInsurance(source: InsuranceDto, destination: PatientSearch) {
+    destination.Name = source.SubscriberName;
+    destination.Dob = new Date(source.DateOfBirth);
+    destination.Gender = source.Gender;
+  }
   // get patient details by id
   getInsuranceList() {
 
@@ -317,34 +393,42 @@ export class InsuranceComponent implements OnInit {
     this.patientservice.Insurance(reqparam).subscribe(resp => {
       if (resp.IsSuccess) {
         this.insuranceList = resp.ListResult;
-        let primarydata = this.insuranceList.filter(x =>
+        let insuraceData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Primary')
         );
-        this.primlist = primarydata[0];
-        this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "yyyy-MM-dd");
-        this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "yyyy-MM-dd");
-        this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "yyyy-MM-dd");
-        this.endDateForPrimary = new Date(this.primlist.StartDate);
-        let secondaryData = this.insuranceList.filter(x =>
+        this.primaryInsurance = insuraceData.length > 0 ? insuraceData[0] as InsuranceDto : {};
+        this.primaryInsurance.StartDate = this.datePipe.transform(this.primaryInsurance.StartDate, "yyyy-MM-dd");
+        this.primaryInsurance.DateOfBirth = this.datePipe.transform(this.primaryInsurance.DateOfBirth, "yyyy-MM-dd");
+        this.primaryInsurance.EndDate = this.datePipe.transform(this.primaryInsurance.EndDate, "yyyy-MM-dd");
+        this.endDateForPrimary = new Date(this.primaryInsurance.StartDate);
+
+        insuraceData = this.insuranceList.filter(x =>
           (x.InsuranceType === 'Secondary')
         )
-        this.secList = secondaryData[0];
-        this.secList = this.secList == undefined ? {} : this.secList;
-        if (this.secList != undefined) {
-          this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "yyyy-MM-dd");
-          this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "yyyy-MM-dd");
-          this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "yyyy-MM-dd");
-          this.endDateForSecondary = new Date(this.secList.StartDate);
+        this.secondaryInsurance = insuraceData.length > 0 ? insuraceData[0] as SecondaryInsurance : {};
+        this.secondaryInsurance = this.secondaryInsurance == undefined ? {} : this.secondaryInsurance;
+        if (this.secondaryInsurance != undefined) {
+          this.secondaryInsurance.StartDate = this.datePipe.transform(this.secondaryInsurance.StartDate, "yyyy-MM-dd");
+          this.secondaryInsurance.DateOfBirth = this.datePipe.transform(this.secondaryInsurance.DateOfBirth, "yyyy-MM-dd");
+          this.secondaryInsurance.EndDate = this.datePipe.transform(this.secondaryInsurance.EndDate, "yyyy-MM-dd");
+          this.endDateForSecondary = new Date(this.secondaryInsurance.StartDate);
 
         }
+        this.updateSearchTermInsurance(this.primaryInsurance, this.primaryInsurancePatientSearch);
+        this.updateSearchTermInsurance(this.secondaryInsurance, this.secondaryInsurancePatientSearch);
+      } else {
+        this.primaryInsurance = {};
+        this.secondaryInsurance = {};
       }
+      console.log(this.primaryInsurance);
+
     });
   }
 
   getInsuranceDetails(item) {
     if (item == 'primary') {
       var reqparam = {
-        "InsuranceId": this.primlist.InsuranceCompanyPlanID
+        "InsuranceId": this.primaryInsurance.InsuranceCompanyPlanID
       }
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {
@@ -357,7 +441,7 @@ export class InsuranceComponent implements OnInit {
     }
     else {
       var reqparam = {
-        "InsuranceId": this.secList.InsuranceCompanyPlanID
+        "InsuranceId": this.secondaryInsurance.InsuranceCompanyPlanID
       }
       this.patientservice.InsurancDetails(reqparam).subscribe(
         resp => {
@@ -447,19 +531,22 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuranceDetails(item) {
+    console.log(item);
+
+    return;
     if (item == "primary") {
 
-      let isAdd = this.primlist.InsuranceId == undefined;
+      let isAdd = this.primaryInsurance.InsuranceId == undefined;
 
-      this.primlist.ProviderId = this.user.ProviderId;
-      this.primlist.PatientId = this.PatientDetails.PatientId;
-      this.primlist.LocationId = this.changedLocationId;
-      this.primlist.InsuranceType = this.primaryInsuranceType;
-      this.primlist.DateOfBirth = this.datePipe.transform(this.primlist.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
-      this.primlist.StartDate = this.datePipe.transform(this.primlist.StartDate, "MM/dd/yyyy hh:mm:ss a");
-      this.primlist.EndDate = this.datePipe.transform(this.primlist.EndDate, "MM/dd/yyyy hh:mm:ss a");
+      this.primaryInsurance.ProviderId = this.user.ProviderId;
+      this.primaryInsurance.PatientId = this.PatientDetails.PatientId;
+      this.primaryInsurance.LocationId = this.changedLocationId;
+      this.primaryInsurance.InsuranceType = this.primaryInsuranceType;
+      this.primaryInsurance.DateOfBirth = this.datePipe.transform(this.primaryInsurance.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+      this.primaryInsurance.StartDate = this.datePipe.transform(this.primaryInsurance.StartDate, "MM/dd/yyyy hh:mm:ss a");
+      this.primaryInsurance.EndDate = this.datePipe.transform(this.primaryInsurance.EndDate, "MM/dd/yyyy hh:mm:ss a");
 
-      this.patientservice.CreateUpdateInsuranceDetails(this.primlist).subscribe((resp) => {
+      this.patientservice.CreateUpdateInsuranceDetails(this.primaryInsurance).subscribe((resp) => {
         if (resp.IsSuccess) {
           this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI004" : "M2CI005"]);
@@ -474,17 +561,17 @@ export class InsuranceComponent implements OnInit {
     }
     else {
 
-      let isAdd = this.secList.InsuranceId == undefined;
+      let isAdd = this.secondaryInsurance.InsuranceId == undefined;
 
-      this.secList.ProviderId = this.user.ProviderId;
-      this.secList.PatientId = this.PatientDetails.PatientId;
-      this.secList.LocationId = this.changedLocationId;
-      this.secList.InsuranceType = this.secondaryInsuranceType;
-      this.secList.DateOfBirth = this.datePipe.transform(this.secList.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
-      this.secList.StartDate = this.datePipe.transform(this.secList.StartDate, "MM/dd/yyyy hh:mm:ss a");
-      this.secList.EndDate = this.datePipe.transform(this.secList.EndDate, "MM/dd/yyyy hh:mm:ss a");
+      this.secondaryInsurance.ProviderId = this.user.ProviderId;
+      this.secondaryInsurance.PatientId = this.PatientDetails.PatientId;
+      this.secondaryInsurance.LocationId = this.changedLocationId;
+      this.secondaryInsurance.InsuranceType = this.secondaryInsuranceType;
+      this.secondaryInsurance.DateOfBirth = this.datePipe.transform(this.secondaryInsurance.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
+      this.secondaryInsurance.StartDate = this.datePipe.transform(this.secondaryInsurance.StartDate, "MM/dd/yyyy hh:mm:ss a");
+      this.secondaryInsurance.EndDate = this.datePipe.transform(this.secondaryInsurance.EndDate, "MM/dd/yyyy hh:mm:ss a");
 
-      this.patientservice.CreateUpdateInsuranceDetails(this.secList).subscribe((resp) => {
+      this.patientservice.CreateUpdateInsuranceDetails(this.secondaryInsurance).subscribe((resp) => {
         if (resp.IsSuccess) {
           this.getInsuranceList();
           this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CI006" : "M2CI007"]);
@@ -500,13 +587,13 @@ export class InsuranceComponent implements OnInit {
   }
 
   AddressVerification() {
-    this.accountservice.VerifyAddress(this.primlist.Street).subscribe(resp => {
+    this.accountservice.VerifyAddress(this.primaryInsurance.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.primlist.City = resp.Result.components.city_name
-        this.primlist.State = resp.Result.components.state_abbreviation
-        this.primlist.StreetAddress = resp.Result.delivery_line_1
-        this.primlist.Zip = resp.Result.components.zipcode
-        this.primlist.Street = "";
+        this.primaryInsurance.City = resp.Result.components.city_name
+        this.primaryInsurance.State = resp.Result.components.state_abbreviation
+        this.primaryInsurance.StreetAddress = resp.Result.delivery_line_1
+        this.primaryInsurance.Zip = resp.Result.components.zipcode
+        this.primaryInsurance.Street = "";
         this.addressVerfied = true;
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI008"]);
 
@@ -524,19 +611,19 @@ export class InsuranceComponent implements OnInit {
   }
 
   clearAddress() {
-    this.primlist.Street = "";
-    this.primlist.City = ""
-    this.primlist.State = ""
-    this.primlist.StreetAddress = ""
-    this.primlist.Zip = ""
+    this.primaryInsurance.Street = "";
+    this.primaryInsurance.City = ""
+    this.primaryInsurance.State = ""
+    this.primaryInsurance.StreetAddress = ""
+    this.primaryInsurance.Zip = ""
   }
 
   secondaryclearAddress() {
-    this.secList.Street = "";
-    this.secList.City = ""
-    this.secList.State = ""
-    this.secList.StreetAddress = ""
-    this.secList.Zip = ""
+    this.secondaryInsurance.Street = "";
+    this.secondaryInsurance.City = ""
+    this.secondaryInsurance.State = ""
+    this.secondaryInsurance.StreetAddress = ""
+    this.secondaryInsurance.Zip = ""
   }
 
   enterAddressManually(item) {
@@ -544,13 +631,13 @@ export class InsuranceComponent implements OnInit {
   }
 
   secondaryAddressverfied() {
-    this.accountservice.VerifyAddress(this.secList.Street).subscribe(resp => {
+    this.accountservice.VerifyAddress(this.secondaryInsurance.Street).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.secList.City = resp.Result.components.city_name
-        this.secList.State = resp.Result.components.state_abbreviation
-        this.secList.StreetAddress = resp.Result.delivery_line_1
-        this.secList.Zip = resp.Result.components.zipcode
-        this.secList.Street = "";
+        this.secondaryInsurance.City = resp.Result.components.city_name
+        this.secondaryInsurance.State = resp.Result.components.state_abbreviation
+        this.secondaryInsurance.StreetAddress = resp.Result.delivery_line_1
+        this.secondaryInsurance.Zip = resp.Result.components.zipcode
+        this.secondaryInsurance.Street = "";
         this.secondaryAdressVerfied = true;
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CI009"]);
       }
@@ -571,12 +658,12 @@ export class InsuranceComponent implements OnInit {
 
   primaryspt(item) {
 
-    this.primlist.SourceOfPaymentTypology = item.Code;
-    this.primlist.PaymentTypologyDescription = item.Description;
+    this.primaryInsurance.SourceOfPaymentTypology = item.Code;
+    this.primaryInsurance.PaymentTypologyDescription = item.Description;
   }
   secondaryspt(item) {
-    this.secList.SourceOfPaymentTypology = item.Code;
-    this.secList.PaymentTypologyDescription = item.Description;
+    this.secondaryInsurance.SourceOfPaymentTypology = item.Code;
+    this.secondaryInsurance.PaymentTypologyDescription = item.Description;
   }
   enableSave() {
     return !(
@@ -587,33 +674,36 @@ export class InsuranceComponent implements OnInit {
 
   }
   primaryenableSave() {
-    return !(this.primlist.SubscriberNane != null && this.primlist.SubscriberNane != ""
-      && this.primlist.DateOfBirth != null && this.primlist.DateOfBirth != ""
-      && this.primlist.Gender != null && this.primlist.Gender != ""
-      && this.primlist.StreetAddress != null && this.primlist.StreetAddress != ""
-      && this.primlist.City != null && this.primlist.City != ""
-      && this.primlist.State != null && this.primlist.State != ""
-      && this.primlist.Zip != null && this.primlist.Zip != ""
-      && this.primlist.InsuranceCompanyPlanID != null && this.primlist.InsuranceCompanyPlanID != ""
-      && this.primlist.InsuranceCompanyPlan != null && this.primlist.InsuranceCompanyPlan != ""
-      && this.primlist.RelationshipToSubscriber != null && this.primlist.RelationshipToSubscriber != ""
-      && this.primlist.SourceOfPaymentTypology != null && this.primlist.SourceOfPaymentTypology != ""
-      && this.primlist.StartDate != null && this.primlist.StartDate != ""
+    return !(this.primaryInsurance.SubscriberName != null && this.primaryInsurance.SubscriberName != ""
+      && this.primaryInsurance.DateOfBirth != null && this.primaryInsurance.DateOfBirth != ""
+      && this.primaryInsurance.Gender != null && this.primaryInsurance.Gender != ""
+      && this.primaryInsurance.StreetAddress != null && this.primaryInsurance.StreetAddress != ""
+      && this.primaryInsurance.City != null && this.primaryInsurance.City != ""
+      && this.primaryInsurance.State != null && this.primaryInsurance.State != ""
+      && this.primaryInsurance.Zip != null && this.primaryInsurance.Zip != ""
+      && this.primaryInsurance.InsuranceCompanyPlanID != null && this.primaryInsurance.InsuranceCompanyPlanID != ""
+      && this.primaryInsurance.InsuranceCompanyPlan != null && this.primaryInsurance.InsuranceCompanyPlan != ""
+      && this.primaryInsurance.RelationshipToSubscriber != null && this.primaryInsurance.RelationshipToSubscriber != ""
+      && this.primaryInsurance.SourceOfPaymentTypology != null && this.primaryInsurance.SourceOfPaymentTypology != ""
+      && this.primaryInsurance.StartDate != null && this.primaryInsurance.StartDate != ""
     )
   }
   secondaryenableSave() {
-    return !(this.secList.SubscriberNane != null && this.secList.SubscriberNane != ""
-      && this.secList.DateOfBirth != null && this.secList.DateOfBirth != ""
-      && this.secList.Gender != null && this.secList.Gender != ""
-      && this.secList.StreetAddress != null && this.secList.StreetAddress != ""
-      && this.secList.City != null && this.secList.City != ""
-      && this.secList.State != null && this.secList.State != ""
-      && this.secList.Zip != null && this.secList.Zip != ""
-      && this.secList.InsuranceCompanyPlanID != null && this.secList.InsuranceCompanyPlanID != ""
-      && this.secList.InsuranceCompanyPlan != null && this.secList.InsuranceCompanyPlan != ""
-      && this.secList.RelationshipToSubscriber != null && this.secList.RelationshipToSubscriber != ""
-      && this.secList.SourceOfPaymentTypology != null && this.secList.SourceOfPaymentTypology != ""
-      && this.secList.StartDate != null && this.secList.StartDate != ""
+
+    console.log(this.secondaryInsurance);
+
+    return !(this.secondaryInsurance.SubscriberName != null && this.secondaryInsurance.SubscriberName != ""
+      && this.secondaryInsurance.DateOfBirth != null && this.secondaryInsurance.DateOfBirth != ""
+      && this.secondaryInsurance.Gender != null && this.secondaryInsurance.Gender != ""
+      && this.secondaryInsurance.StreetAddress != null && this.secondaryInsurance.StreetAddress != ""
+      && this.secondaryInsurance.City != null && this.secondaryInsurance.City != ""
+      && this.secondaryInsurance.State != null && this.secondaryInsurance.State != ""
+      && this.secondaryInsurance.Zip != null && this.secondaryInsurance.Zip != ""
+      && this.secondaryInsurance.InsuranceCompanyPlanID != null && this.secondaryInsurance.InsuranceCompanyPlanID != ""
+      && this.secondaryInsurance.InsuranceCompanyPlan != null && this.secondaryInsurance.InsuranceCompanyPlan != ""
+      && this.secondaryInsurance.RelationshipToSubscriber != null && this.secondaryInsurance.RelationshipToSubscriber != ""
+      && this.secondaryInsurance.SourceOfPaymentTypology != null && this.secondaryInsurance.SourceOfPaymentTypology != ""
+      && this.secondaryInsurance.StartDate != null && this.secondaryInsurance.StartDate != ""
     )
   }
 }

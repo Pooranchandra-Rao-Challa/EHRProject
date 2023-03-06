@@ -14,12 +14,12 @@
                         <div class="search-box col-lg-5 col-md-5 col-12 ">
                           <input type="text" #serchFilter placeholder="Search Patients"
                           placeholder="Search by Name">
-
                         </div>
                     </div>
-                    <div class="portlet-body admin-sort mt-4">
-                      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100
+                    <mat-progress-bar mode="indeterminate" bufferValue="20" value=100
                       *ngIf="patientsDataSource.loading$ | async" ></mat-progress-bar>
+                    <div class="portlet-body admin-sort mt-4">
+                      <hr/>
                       <mat-table [dataSource]=patientsDataSource
                         matSort matSortActive="FullName" matSortDirection="asc" class="resp-width" matSortDisableClear>
 
@@ -70,7 +70,7 @@
                         <mat-row *matRowDef="let row; columns: patientColumns;">
                         </mat-row>
                       </mat-table>
-                      <div class="table-NoRecord text-center text-danger py-2 col-12" *ngIf="patientsDataSource.TotalRecordSize == 0">
+                      <div class="table-NoRecord text-center text-danger py-2 col-12" *ngIf="patientsDataSource.TotalRecordSize == 0 && (!patientsDataSource.loading$ | async)">
                         No Active Patients Found
                       </div>
                     </div>
@@ -78,7 +78,7 @@
                 <div class="d-flex justify-content-end  mx-3">
 
 
-                  <div class="admin-pg-container" [hidden]="!patientsDataSource.TotalRecordSize">
+                  <div class="admin-pg-container" [hidden]="patientsDataSource.loading$ | async">
                     <mat-paginator adminPagination
                        [length]="patientsDataSource.TotalRecordSize" [pageSize]="pageSize"
                        [pageIndex]="page"

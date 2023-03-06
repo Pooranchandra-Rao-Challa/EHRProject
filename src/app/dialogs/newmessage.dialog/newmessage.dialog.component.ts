@@ -216,9 +216,15 @@ export class NewmessageDialogComponent implements OnInit {
 
   public UploadCompleted(data): any {
     if (data.event.body) {
-      if (!this.message.Attachments)
-        this.message.Attachments = [];
-      this.message.Attachments.push(data.event.body as Attachment);
+      if (this.message.Attachments == null) this.message.Attachments = [];
+      var temp = data.event.body as Attachment
+      let attachment:Attachment = {
+        EntityId : temp.EntityId,
+        EntityName : temp.EntityName,
+        AttachmentId : temp.AttachmentId,
+        FileName : temp.FileName
+      };
+      this.message.Attachments.push(attachment);
       this.attachmentSubject.next(this.message.Attachments);
     }
   }

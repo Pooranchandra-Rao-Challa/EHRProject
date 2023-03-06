@@ -174,6 +174,37 @@ export class DownloadService {
         }
       );
   }
+
+  ViewAttachment(reqObj: any){
+    const endpointUrl = this.baseUrl + 'DownloadAttachment';
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
+      .subscribe(
+        (resp) => {
+          console.log(resp.headers.get("content-type"));
+          const blob = new Blob([resp.body], {
+            type: resp.headers.get("content-type"),
+          });
+          // const document = window.URL.createObjectURL(blob);
+          // FileSaver.saveAs(document, reqObj.AttachmentId);
+          // if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+          //   window.navigator.msSaveOrOpenBlob(blob, fileName);
+          //   return;
+          // }
+
+          // Other Browsers
+          const url = (window.URL || window.webkitURL).createObjectURL(blob);
+          window.open(url, '_blank');
+
+          // rewoke URL after 15 minutes
+          setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+          }, 15 * 60 * 1000);
+        },
+        (error) => {
+        }
+      );
+  }
   // ImagetoBase64String(reqparams: any){
   //   const endpointUrl = this.baseUrl + 'DownloadImage';
   //   return this._ProcessPostRequest<any>(this._imagetoBase64StringUrl, reqparams);

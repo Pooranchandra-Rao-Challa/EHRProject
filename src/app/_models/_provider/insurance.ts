@@ -1,6 +1,6 @@
-export class    PrimaryInsurance {
+export class    InsuranceDto {
     InsuranceId?: string;
-    SubscriberNane?: string;
+    SubscriberName?: string;
     DateOfBirth?: string;
     Gender?: string;
     Street?:string;
@@ -21,7 +21,7 @@ export class    PrimaryInsurance {
     LocationId?:string;
     PatientId?:string;
     ProviderId?:string;
-    
+
 }
 export class SecondaryInsurance {
     InsuranceId?: string;

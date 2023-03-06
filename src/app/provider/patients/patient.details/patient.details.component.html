@@ -7,89 +7,97 @@
   </div>
 </div>
 <div class="patients-navigation-info" style="clear: both;">
-  <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty">
-  <ul class="patient-main-info">
-    <li>{{patient?.FirstName}} {{patient?.LastName}}</li>
-    <li>{{patient?.Age}} yrs {{patient?.Gender}}</li>
-    <li *ngIf="patient?.Dob != null">
-      <b>DOB:</b>
-      <time>{{patient?.Dob | date: 'MM/dd/yyyy'}}</time>
-    </li>
-    <li *ngIf="patient?.MobilePhone != null">
-      <b>C:</b>{{patient.MobilePhone}}
-    </li>
-    <li *ngIf="patient?.PrimaryPhone != null">
-      <b>H:</b>{{patient.PrimaryPhone}}
-    </li>
-    <li *ngIf="patientAccountInfo.HasAccount">
-      <span class="fa fa-check-circle"></span> Patient Portal: Enrolled
-    </li>
-    <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt != null">
-      <span class="fa fa-minus-circle"></span> Patient Portal: Pending
-    </li>
-    <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
-      <a class="btn-modal inivte-to-portal-button"
-        (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">
-        <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
-    </li>
-  </ul>
-  <div class="dropdown float-lg-end" style="margin-top:10px; display: flex;">
-    <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
-      data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
-      Patient Actions
-    </button>
-    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-      <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a>
+
+  <div style="display: flex;float:left;">
+    <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty" style="margin-top:10px">
+    <ul class="patient-main-info" style="display: inline-flex;
+    padding-right: 10px;">
+      <li>{{patient?.FirstName}} {{patient?.LastName}}</li>
+      <li>{{patient?.Age}} yrs {{patient?.Gender}}</li>
+      <li *ngIf="patient?.Dob != null">
+        <b>DOB:</b>
+        <time>{{patient?.Dob | date: 'MM/dd/yyyy'}}</time>
       </li>
-      <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
-      <li>
-        <hr class="dropdown-divider">
+      <li *ngIf="patient?.MobilePhone != null">
+        <b>C:</b>{{patient.MobilePhone}}
       </li>
-      <li><a (click)="openLabDialogs('Lab','Order')">Add Lab Order</a></li>
-      <li><a (click)="openLabDialogs('Lab','Result')">Add Lab Results</a></li>
-      <li><a (click)="openLabDialogs('Image','Order')">Add Imaging Order</a></li>
-      <li><a (click)="openLabDialogs('Image','Result')">Add Imaging Results</a></li>
-      <li>
-        <hr class="dropdown-divider">
+      <li *ngIf="patient?.PrimaryPhone != null">
+        <b>H:</b>{{patient.PrimaryPhone}}
       </li>
-      <li><a (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">Invite to Patient Portal</a></li>
-      <li><a (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">Send a
-          Message</a></li>
-      <li>
-        <hr class="dropdown-divider">
+      <li *ngIf="patientAccountInfo.HasAccount">
+        <span class="fa fa-check-circle"></span> Patient Portal: Enrolled
       </li>
-      <li class="dropend">
-        <a class="dropdown-toggle" id="dropdownSubMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          <span>Print / Send To</span>
-        </a>
-        <ul class="dropdown-menu" aria-labelledby="dropdownSubMenuLink">
-          <li><a class="disabled">
-              <p>Patient Chart</p>
-              <p>| (includes everything)</p>
-            </a></li>
-          <li><a class="disabled">Treatments</a></li>
-          <li><a class="disabled">Encounter Note(s)</a></li>
-          <li><a class="disabled">Perio Chart</a></li>
-        </ul>
+      <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt != null">
+        <span class="fa fa-minus-circle"></span> Patient Portal: Pending
       </li>
-      <li><a class="create-ccda" (click)="openComponentDialog(cCdaDialogComponent,null,ActionTypes.view)">Create
-          C-CDA</a></li>
-      <li><a class="Authorized-Represtative"
-          (click)="openComponentDialog(authorizedRepresentativeDialogComponent,null,ActionTypes.view)">Authorized
-          Representative</a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li data-bs-toggle="modal" data-bs-target="#delete-patient-modal"><a class="delete-patient">Delete Patient</a>
+      <li *ngIf="!patientAccountInfo.HasAccount && patientAccountInfo.InvitationSentAt == null">
+        <a class="btn-modal inivte-to-portal-button"
+          (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">
+          <span class="fa fa-plus-circle"></span> Invite to Patient Portal</a>
       </li>
     </ul>
-    <button class="btn btn-orange font-family" type="button"
-    (click)="openComponentDialog(e_PrescribeDialogComponent,null,ActionTypes.new)" style="margin-left: 10px">
-    Open eRX
-  </button>
   </div>
+  <div style="display: flex;float:right;">
+    <div class="dropdown float-lg-end" style="margin-top:10px; display: flex;">
+      <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
+        data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        Patient Actions
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+        <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a>
+        </li>
+        <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a (click)="openLabDialogs('Lab','Order')">Add Lab Order</a></li>
+        <li><a (click)="openLabDialogs('Lab','Result')">Add Lab Results</a></li>
+        <li><a (click)="openLabDialogs('Image','Order')">Add Imaging Order</a></li>
+        <li><a (click)="openLabDialogs('Image','Result')">Add Imaging Results</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li><a (click)="InvitePatient(patientPortalAccountComponent,ActionTypes.view)">Invite to Patient Portal</a></li>
+        <li><a (click)="openComponentDialogmessage(MessageDialogComponent,null,ActionTypes.view, 'Patient')">Send a
+            Message</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li class="dropend">
+          <a class="dropdown-toggle" id="dropdownSubMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            <span>Print / Send To</span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownSubMenuLink">
+            <li><a class="disabled">
+                <p>Patient Chart</p>
+                <p>| (includes everything)</p>
+              </a></li>
+            <li><a class="disabled">Treatments</a></li>
+            <li><a class="disabled">Encounter Note(s)</a></li>
+            <li><a class="disabled">Perio Chart</a></li>
+          </ul>
+        </li>
+        <li><a class="create-ccda" (click)="openComponentDialog(cCdaDialogComponent,null,ActionTypes.view)">Create
+            C-CDA</a></li>
+        <li><a class="Authorized-Represtative"
+            (click)="openComponentDialog(authorizedRepresentativeDialogComponent,null,ActionTypes.view)">Authorized
+            Representative</a></li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li data-bs-toggle="modal" data-bs-target="#delete-patient-modal"><a class="delete-patient">Delete Patient</a>
+        </li>
+      </ul>
+    </div>
+    <button class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
+      (click)="openComponentDialog(e_PrescribeDialogComponent,null,ActionTypes.new)">
+      Open eRX
+    </button>
+
 </div>
-<div class="show-patient" role="tabpanel">
+</div>
+<div class="show-patient" role="tabpanel" style="    clear: both;
+display: list-item;">
   <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart" type="button"
@@ -136,7 +144,7 @@
     </li>
   </ul>
 
-  <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="loading$ | async"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="loading$ | async"></mat-progress-bar>
 
   <div class="tab-content" id="pills-tabContent">
     <ng-template #chartview></ng-template>
@@ -156,7 +164,8 @@
         </span>
       </div>
       <div class="modal-body">
-        <p class="Helvetica-sans-serif-medium">Delete {{viewModel.Patient.FirstName + ' ' + this.viewModel.Patient.LastName}} ?</p>
+        <p class="Helvetica-sans-serif-medium">Delete {{viewModel.Patient?.FirstName + ' ' +
+          this.viewModel.Patient?.LastName}} ?</p>
         <p class="Helvetica-sans-serif-medium">Note: This deletion is permanent and can not be undone.</p>
         <mat-checkbox class="col-lg-12 col-12" [(ngModel)]="confirmPatientDeletion">
           Confirm patient deletion

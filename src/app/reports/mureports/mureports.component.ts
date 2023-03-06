@@ -327,6 +327,17 @@ export class MureportsComponent implements OnInit {
   syndromicvalue = null;
   specializedvalue = null;
 
+
+  endDateCalculation(Days) {
+    let startDate = this.muReportForm.value.strSDate;
+    var d = new Date(
+      startDate.getFullYear(),
+      startDate.getMonth() + Days,
+      startDate.getDate() - 1
+    );
+    this.muReportForm.controls["strEDate"].setValue(d);
+  }
+
   public downloadAsPDF() {
     if (this.stage3NumeDenomicount != null) {
       const documenDefinition = {

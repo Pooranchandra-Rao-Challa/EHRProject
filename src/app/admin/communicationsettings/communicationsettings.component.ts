@@ -1,6 +1,7 @@
 import { AdminService } from './../../_services/admin.service';
 import { Component, OnInit } from '@angular/core';
 import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-communicationsettings',
@@ -8,7 +9,7 @@ import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
   styleUrls: ['./communicationsettings.component.scss']
 })
 export class CommunicationsettingsComponent implements OnInit {
-  data: CommunicationSetting;
+  data: CommunicationSetting = {};
   constructor(private adminService:AdminService) { }
 
   ngOnInit(): void {
@@ -19,7 +20,7 @@ export class CommunicationsettingsComponent implements OnInit {
     })
   }
   get Status(): string{
-    return this.data.Status=='disabled' ? 'Disabled' : 'Enabled' ;
+    return this.data.Status == 'disabled' ? 'Disabled' : 'Enabled' ;
   }
 
   get ToggleStatus(): string{
@@ -37,9 +38,36 @@ export class CommunicationsettingsComponent implements OnInit {
     this.adminService.UpdateCommunicationSetting(this.data).subscribe(resp=>{
       if(resp.Result){
         // show message as success.
+        this.alertWithSuccess();
       }else{
         // Show message as error.
+        Swal.fire({
+          position: 'top',
+          icon: 'error',
+          title: "Toggling Status of Communication",
+          text: resp.EndUserMessage,
+          width: '700',
+        });
       }
+    });
+  }
+
+  alertWithSuccess() {
+    Swal.fire({
+      position: 'top',
+      icon: 'success',
+      title: "Toggling Status of Communication Settings",
+      confirmButtonText: 'Close',
+      text:'Status Updated Successfully',
+      width: '700',
+      customClass: {
+        cancelButton: 'admin-cancel-button',
+        title: "admin-swal2-styled"
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      showConfirmButton: false,
+      backdrop: true,
     });
   }
 }

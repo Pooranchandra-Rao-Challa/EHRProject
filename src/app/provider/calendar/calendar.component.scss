@@ -445,11 +445,34 @@ fieldset {
   }
 
   .fc-selected-date {
-    background: #fff !important;
-    color: #41b6a6 !important;
+    background: #fe8f01 !important;
+    //border: #fff 1px solid;
+    color: #fff !important;
     border-radius: 50%;
     width: 80px;
     height: 20px;
+  }
+
+  .fc-resource-toolbar-button{
+    background: #389e90 !important;
+  }
+
+  .fc-WeekButton-button:hover{
+    background: #389e90;
+  }
+
+  .fc-toolbar-chunk .fc-button-group .fc-button-primary.fc-timegrid-switch:hover{
+    background: white;
+    color: #389e90;
+    cursor: pointer !important;
+  }
+
+  .fc-toolbar-chunk .fc-button-group .fc-button-primary.fc-timegrid-switch-2:hover{
+    cursor: default;
+  }
+
+  .fc-resource-title-date{
+    color: #fe8f01 !important;
   }
 
   .fc-timegrid-body .fc-timegrid-slots table tbody tr {
@@ -464,6 +487,14 @@ fieldset {
 
 }
 
+.calender-reset-selecton{
+  color:#41b6a6;
+  background: none;
+  border: none;
+}
+.calender-reset-selecton:hover{
+  font-weight: 600;
+}
 .fc-hide-control {
   display: none;
 }

@@ -237,7 +237,9 @@ export class SmartScheduleComponent implements OnInit {
   RefreshAppointments(event){
     if(event) this.filterAppointments();
   }
+  dialogIsLoading: boolean =false;
   filterAppointments() {
+    this.dialogIsLoading = true;
     let req = {
       "ClinicId": this.authService.userValue.ClinicId,
       "ProviderId": this.SelectedProviderId,
@@ -246,16 +248,12 @@ export class SmartScheduleComponent implements OnInit {
     };
 
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
-
+      this.dialogIsLoading = false;
       if (resp.IsSuccess) {
         this.Appointments = resp.ListResult as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
         this.hasActiveAppointments = this.Appointments.filter(fn => fn.IsCurrent).length > 0
         this.hasFinishedAppointments = this.Appointments.filter(fn => fn.IsPast).length > 0
-
-
-
-
       } else {
         this.NoofAppointment = 0;
         this.Appointments = [];

@@ -5,11 +5,12 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:4345/',
+  //baseUrl: 'http://13.56.245.114:3550/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
 
   EPRESCRIBE_SERVER:'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
-  showemail:true,
+  showemail:false,
 };
 
 export const RX_DRUG_URI = (term:string) => `REST/drugs.json?name=${term}`;

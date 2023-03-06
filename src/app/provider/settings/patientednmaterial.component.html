@@ -13,7 +13,7 @@
         <div class="card-body">
           <div fxLayout="column">
             <mat-accordion [displayMode]="'flat'">
-              <mat-expansion-panel class="expansion" *ngFor="let item of EducationMaterials; let i =index"
+              <mat-expansion-panel class="expansion" *ngFor="let item of educationMaterials; let i =index"
                 [expanded]="indexExpanded == i " disabled="true" hideToggle="true" #example>
                 <mat-expansion-panel-header [ngClass]="!expandedchangecolor?'open-exp':'close-exp'">
                   <mat-icon class="play-left-arrow" (click)="togglePanels(i)" *ngIf="!example.expanded">play_arrow
@@ -39,16 +39,29 @@
                       <th>Resource Notes:</th>
                       <td>{{item.ResourceNotes}}</td>
                     </tr>
-                    <!-- <tr>
+                    <tr *ngIf="item.Attachments != null">
                       <th>Attachments:</th>
-                      <td><b>-</b><a href="#"
-                          class="mx-2">aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=9be1097aaa5b0933a727b46a05d798f008ff20a785c8081883482856f6396544</a>
+                      <td>
+                        <div *ngFor="let attachment of item.Attachments" >
+
+                        <!-- <pdf-viewer [src]="pdfSrc"
+                                    [render-text]="true"
+                                    [original-size]="false"
+                                    style="width: 400px; height: 500px"
+                        > -->
+                        <div style="display: flex;align-items: center;" class="attached-files">
+                        <div class="mx-2 download-attachment" (click)="ViewAttachment(attachment)"> <b>- </b>{{attachment.FileName}}</div>
+                        <div for="forremove" class="download" (click)="DownloadAttachment(attachment)">
+                          <mat-icon>cloud_download</mat-icon>
+                          </div></div>
+                      <!-- </pdf-viewer> -->
+                        </div>
                       </td>
-                    </tr> -->
+                    </tr>
                   </table>
                 </div>
               </mat-expansion-panel>
-              <div class="text-center py-2 col-12" *ngIf="EducationMaterials.length == 0">
+              <div class="text-center py-2 col-12" *ngIf="educationMaterials.length == 0">
                 <h6 class="Helvetica-sans-serif-medium" style="color: red;"> No Education Materials Found.</h6>
               </div>
             </mat-accordion>
@@ -188,7 +201,7 @@
                   <div for="forremove" class="remove" (click)="DeleteAttachment(item)">
                     <mat-icon>delete</mat-icon>
                   </div>
-                  <div for="forremove" class="remove" (click)="DownloadAttachment(item)">
+                  <div for="fordownload" class="download" (click)="DownloadAttachment(item)">
                   <mat-icon>cloud_download</mat-icon>
                   </div>
                 </div>

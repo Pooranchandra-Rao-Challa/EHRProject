@@ -20,6 +20,7 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
   url: string;
   phonepattern = /^[0-9]{10}/;
   email = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  saveButtonInvoked: boolean = false;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -45,6 +46,7 @@ export class AddauthorizedrepresentativeDialogComponent implements OnInit {
   }
 
   CreateAuthorizedRepresentative() {
+    this.saveButtonInvoked = true;
     this.authorizedRepresentative.URL = this.url;
     let isAdd = this.authorizedRepresentative.AuthorizedRepId == undefined
     this.authorizedRepresentative.PatientId = this.currentPatient.PatientId;

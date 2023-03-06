@@ -34,14 +34,14 @@
     <div class="col-md-3">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Active" id="Active" [checked]="filterQueryParams.Active"
-          (change)="StageChange($event)" /> <!-- (change)="FilterProvider('ActiveStatus','Active')"-->
+          (change)="StateChange($event)" /> <!-- (change)="FilterProvider('ActiveStatus','Active')"-->
         <label class="form-check-label" for="Active">Active Providers</label>
       </div>
     </div>
     <div class="col-md-3">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Suspended" id="Suspended"
-          [checked]="!filterQueryParams.Active" (change)="StageChange($event)" />
+          [checked]="!filterQueryParams.Active" (change)="StateChange($event)" />
         <!--(change)="FilterProvider('ActiveStatus','Suspended')"-->
         <label class="form-check-label" for="Suspended">Inactive Providers</label>
       </div>
@@ -49,7 +49,7 @@
     <div class="col-md-3">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Paid" id="Paid"
-          [checked]="filterQueryParams.Paid!= null && filterQueryParams.Paid" (change)="StageChange($event)" />
+          [checked]="filterQueryParams.Paid!= null && filterQueryParams.Paid" (change)="StateChange($event)" />
         <!--(change)="FilterProvider('TrailStatus','Paid')"-->
         <label class="form-check-label" for="Paid">Paid Providers</label>
       </div>
@@ -57,7 +57,7 @@
     <div class="col-md-3">
       <div class="form-check">
         <input class="form-check-input" type="checkbox" value="Trial" id="Trial"
-          [checked]="filterQueryParams.Paid != null && !filterQueryParams.Paid" (change)="StageChange($event)" />
+          [checked]="filterQueryParams.Paid != null && !filterQueryParams.Paid" (change)="StateChange($event)" />
         <!--(change)="FilterProvider('TrailStatus','Trial')"-->
         <label class="form-check-label" for="Trial">Trial Providers</label>
       </div>
@@ -80,14 +80,14 @@
                 </div>
                 <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
                   <input type="text" placeholder="Search Providers Or Practices" matInput
-                    [(ngModel)]="filterQueryParams.SearchTerm" (keyup)="StageChange($event)">
+                    [(ngModel)]="filterQueryParams.SearchTerm" (keyup)="StateChange($event)">
 
                 </div>
               </div>
             </div>
 
 
-
+            <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="dialogIsLoading"></mat-progress-bar>
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <hr>
             </div>

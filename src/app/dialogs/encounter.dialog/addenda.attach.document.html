@@ -37,7 +37,7 @@
           <input id="addendDoc" #fileUpload type="file" hidden (change)="onChange($event)" [accept]="fileTypes">
         </div>
       </div>
-      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="uploadingInProgress"></mat-progress-bar>
+      <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="uploadingInProgress"></mat-progress-bar>
       <div>
         <mat-table [dataSource]=addendaDocs matSort matSortActive="Name" matSortDirection="desc"
           matSortDisableClear>

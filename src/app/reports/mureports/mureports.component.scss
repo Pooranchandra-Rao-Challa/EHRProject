@@ -12,6 +12,20 @@
 .container-xl {
   padding-left: 13px;
 }
+//mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button
+.cstm-addon-btn {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-left-radius: 0%;
+  border-bottom-left-radius: 0%;
+  color: #41b6a6;
+  background-color: #fff;
+  border: 1px solid #41b6a6;
+  border-left: unset;
+  height: 44px;
+  font-size: 14px !important;
+}
+
 #mureports .w3-button {
   width: 30px !important;
   min-height: 10px !important;
@@ -428,9 +442,23 @@
   border-bottom-right-radius: 6px;
   margin-right: -10px;
   border: 1px solid #41b6a6;
-  height: 3.1em !important;
+  height: 3.2em !important;
   width: 3.1em !important;
 }
+
+::ng-deep .mu-report-start-date  mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
+  border-top-right-radius: unset !important;
+  border-bottom-right-radius: unset !important;
+}
+::ng-deep .mu-report-start-date .mat-form-field-appearance-outline .mat-form-field-outline{
+  border-top-right-radius: unset !important;
+  border-bottom-right-radius: unset !important;
+}
+
+// ::ng-deep .mu-report-start-date .mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button{
+//   height: 3.2em !important;
+// }
+
 #mureports .mat-form-field:not(.mat-form-field-appearance-legacy)
   .mat-form-field-suffix
   .mat-icon-button {

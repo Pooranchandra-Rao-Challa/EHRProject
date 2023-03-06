@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   showemail: false,
-  baseUrl: 'http://172.31.26.238:3550/',
+  baseUrl: 'http://13.56.245.114:3550/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
   EPRESCRIBE_SERVER:'https://engine301.drfirst.com/servlet/rcopia.servlet.EngineServlet',

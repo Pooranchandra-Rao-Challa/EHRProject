@@ -319,6 +319,10 @@ export class AuthenticationService {
     return true;
   }
 
+  UpdateTimeZone(user:User){
+    localStorage.setItem('user', JSON.stringify(user as User));
+  }
+
   get isProvider(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.Role.toLowerCase() == "provider"

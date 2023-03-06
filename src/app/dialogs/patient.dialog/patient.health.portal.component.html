@@ -46,9 +46,9 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-green" *ngIf="!doReportProcess" (click)="downloadInviteasPDF()">Download Invite as PDF</button>
+      <button class="btn btn-green" *ngIf="!doReportProcess  && !reportInvoked" (click)="downloadInviteasPDF()">Download Invite as PDF</button>
       <button class="btn btn-green" aria-label="Close" (click)="sendInviteToEmailAddress()"
-      *ngIf="!patientUser.PatientHasNoEmail && !doReportProcess">
+      *ngIf="!patientUser.PatientHasNoEmail && !doReportProcess && !reportInvoked">
         Send Invite to Email Address
       </button>
       <p *ngIf="reportInvoked" style="margin: 5px 0;padding: 5px 10px;">

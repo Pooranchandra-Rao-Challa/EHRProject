@@ -12,7 +12,7 @@ div.patients-navigation{
 
 
 .patients-navigation-info {
-  min-height: 50px;
+  min-height: 58px;
   padding: 0 20px;
   line-height: 50px;
   background-color: #41b6a6;
@@ -46,10 +46,16 @@ ul {
 .patient-main-info li:first-child {
   padding: 0px 10px !important;
   font-size: 30px !important;
+  list-style: none;
+  margin-right: 10px;
+  border-right: 1px solid #fff;
 }
-.patient-main-info li {
+.patient-main-info li:not(:first-child) {
   font-size: 18px !important;
   vertical-align: middle;
+  list-style: none;
+  padding: 15px 5px 10px !important;
+  border-right: 1px solid #fff;
 }
 .patients-navigation-info>ul li {
   list-style: none;
@@ -107,17 +113,17 @@ a.inivte-to-portal-button {
   border: 0;
   padding: 0;
 }
-.dropdown .btn.btn-orange {
+.dropdown .btn.btn-orange, .patients-navigation-info .btn.btn-orange {
   color: #fe8f00;
   background-color: #fff;
   border-color: #fe8f00;
 }
-.dropdown .btn.btn-orange:hover {
+.dropdown .btn.btn-orange:hover, .patients-navigation-info .btn.btn-orange:hover {
   color: #41b6a6;
   background-color: #fff;
   border-color: #41b6a6;
 }
-.dropdown .font-family{
+.dropdown .font-family, .patients-navigation-info .font-family{
   font-family: 'Roboto';
 }
 .btn {

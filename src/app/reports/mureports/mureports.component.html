@@ -43,13 +43,26 @@
             <mat-option value="3">Stage3</mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field appearance="outline" class="col-lg-2 col-md-6 ">
+        <mat-form-field appearance="outline" class="col-lg-2 col-md-6 mu-report-start-date" style="padding-right: 0px;">
           <input matInput class="pointer date-mat-class" autocomplete="off" [max]="tomorrow"
             (dateChange)="disableEndDate()" [matDatepicker]="picker1" (click)="picker1.open()" readonly
             placeholder="Start Date *" formControlName="strSDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
+        <!-- <mat-form-field  class="col-lg-1 col-md-3" style="padding:unset">
+          disableOptionCentering #searchedItem formControlName="ProviderId"
+          panelClass="report-select-option-panel"-->
+        <button appearance="outline" class="cstm-addon-btn" matTooltip="Select Start Date First"
+          [matTooltipDisabled]="!disableEndDateInput"  style="width: 95px !important; padding-left: unset;margin-top: 3px !important;">
+          <mat-select placeholder="Add" disableOptionCentering  panelClass="report-select-option-panel" class="addons" [disabled]="disableEndDateInput">
+            <mat-option value="3" (click)="endDateCalculation(3)"> 3 months </mat-option>
+            <mat-option value="6" (click)="endDateCalculation(6)"> 6 months </mat-option>
+            <mat-option value="9" (click)="endDateCalculation(9)"> 9 months </mat-option>
+            <mat-option value="12" (click)="endDateCalculation(12)"> 12 months </mat-option>
+          </mat-select>
+        </button>
+      <!-- </mat-form-field> -->
         <!-- <span style="font-size: 30px;" class="d-none d-lg-inline-block my-1">-</span> -->
         <mat-form-field appearance="outline" class="col-lg-2 col-md-6">
           <input matInput class="cstm-disable pointer" autocomplete="off" [max]="tomorrow"

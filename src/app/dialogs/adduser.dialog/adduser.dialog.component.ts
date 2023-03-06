@@ -82,8 +82,11 @@ export class AddUserDialogComponent implements OnInit {
       }
       else {
         let list = this.newUser.PrimaryPhone.split('+1');
-        this.newUser.PrimaryPhonePreffix = list[1].slice(0, 3);
-        this.newUser.PrimaryPhoneSuffix = list[1].slice(3, 10);
+
+        let i = list.length - 1;
+        if(i<0 ) i = 0;
+        this.newUser.PrimaryPhonePreffix = list[i].slice(0, 3);
+        this.newUser.PrimaryPhoneSuffix = list[i].slice(3, 10);
       }
       if (!this.newUser.MobilePhone) {
         this.newUser.MobilePhonePreffix = '';
@@ -91,8 +94,10 @@ export class AddUserDialogComponent implements OnInit {
       }
       else {
         let secondarylist = this.newUser.MobilePhone.split('+1');
-        this.newUser.MobilePhonePreffix = secondarylist[1].slice(0, 3);
-        this.newUser.MobilePhoneSuffix = secondarylist[1].slice(3, 10);
+        let i = secondarylist.length - 1;
+        if(i<0 ) i = 0;
+        this.newUser.MobilePhonePreffix = secondarylist[i].slice(0, 3);
+        this.newUser.MobilePhoneSuffix = secondarylist[i].slice(3, 10);
       }
     }
   }

@@ -102,7 +102,7 @@
                       <span> of {{totalRecords}}</span>
             </div>
             <div class="spinner-container mb-2" *ngIf="messageDataSource.loading$ | async">
-              <mat-progress-bar mode="indeterminate" bufferValue="50" value=100></mat-progress-bar>
+              <mat-progress-bar mode="indeterminate" bufferValue="20" value=100></mat-progress-bar>
             </div>
             <div class="message-table-container mat-elevation-z8">
               <mat-table matSort matSortActive="Created" matSortDirection="desc" matSortDisableClear

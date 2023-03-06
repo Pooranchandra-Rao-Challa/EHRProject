@@ -12,6 +12,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { UPLOAD_URL } from 'src/environments/environment';
 import { HttpParams } from '@angular/common/http';
 import { Attachment } from 'src/app/_models/_provider/LabandImage';
+import { PlatformLocation } from '@angular/common';
 
 @Component({
   selector: 'patientednmaterial-settings',
@@ -23,8 +24,8 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
-  codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
-  EducationMaterials: EducationMaterial[] =[];
+  codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
+  educationMaterials: EducationMaterial[] =[];
   patientEducationSearchList = new BehaviorSubject<EducationMaterial[]>([]);
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
   patientEdMaterialSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
@@ -38,10 +39,12 @@ export class PatientEdnMaterialComponent implements OnInit {
   fileSize: number = 20;
   EntityId: string;
   httpRequestParams = new HttpParams();
+  url: string;
 
   constructor(private fb: FormBuilder, private settingservice: SettingsService,
     private authService: AuthenticationService, private alertmsg: AlertMessage,
-    private downloadService: DownloadService) {
+    private plaformLocation: PlatformLocation,private downloadService: DownloadService) {
+    this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
     this.user = authService.userValue;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
 
@@ -59,11 +62,11 @@ export class PatientEdnMaterialComponent implements OnInit {
     }
     this.settingservice.EducationMaterials(reqparams).subscribe(response => {
       if (response.IsSuccess) {
-        this.EducationMaterials = response.ListResult as EducationMaterial[];
-        this.EducationMaterials.forEach(endmaterial =>{
+        this.educationMaterials = response.ListResult as EducationMaterial[];
+        this.educationMaterials.forEach(endmaterial =>{
           endmaterial.Attachments = JSON.parse(endmaterial.strAttachments);
         })
-      } else this.EducationMaterials = []
+      } else this.educationMaterials = []
     })
   }
 
@@ -142,6 +145,8 @@ export class PatientEdnMaterialComponent implements OnInit {
 
   editEducationMaterial(item) {
     this.educationMaterial = item;
+    if (this.educationMaterial.Attachments == null)
+    this.educationMaterial.Attachments = [];
   }
 
   enableSavePEDN() {
@@ -157,12 +162,19 @@ export class PatientEdnMaterialComponent implements OnInit {
 
 
   public UploadCompleted(data): any {
+
     if (data.event.body) {
-      if (!this.educationMaterial.Attachments)
-        this.educationMaterial.Attachments = [];
-      this.educationMaterial.Attachments.push(data.event.body as Attachment);
+      var temp = data.event.body as Attachment
+      let attachment:Attachment = {
+        EntityId : temp.EntityId,
+        EntityName : temp.EntityName,
+        AttachmentId : temp.AttachmentId,
+        FileName : temp.FileName
+      };
+      this.educationMaterial.Attachments.push(attachment);
     }
   }
+
   DeleteAttachment(attachment) {
     if(!attachment.EntityName) attachment.EntityName = this.EntityName;
     if (attachment) {
@@ -181,6 +193,12 @@ export class PatientEdnMaterialComponent implements OnInit {
     attachment.EntityName = this.EntityName;
     this.downloadService.DownloadAttachment(attachment);
   }
+
+  ViewAttachment(attachment: Attachment){
+    attachment.EntityName = this.EntityName;
+    this.downloadService.ViewAttachment(attachment);
+  }
+
 
   get Attachments(): Attachment[] {
     if (!this.educationMaterial.Attachments) this.educationMaterial.Attachments = [];

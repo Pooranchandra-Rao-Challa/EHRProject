@@ -142,20 +142,20 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     let fccolheader = document.getElementsByClassName('fc-col-header');
     let fctimegridbody = document.getElementsByClassName('fc-timegrid-body');
-    if(fccolheader != null && fccolheader.length == 1){
-      document.getElementsByClassName('fc-col-header')[0].setAttribute('style','width:100%')
+    if (fccolheader != null && fccolheader.length == 1) {
+      document.getElementsByClassName('fc-col-header')[0].setAttribute('style', 'width:100%')
     }
-    if(fctimegridbody != null && fctimegridbody.length == 1){
-      document.getElementsByClassName('fc-timegrid-body')[0].setAttribute('style','width:100%')
+    if (fctimegridbody != null && fctimegridbody.length == 1) {
+      document.getElementsByClassName('fc-timegrid-body')[0].setAttribute('style', 'width:100%')
       let tables = document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')
-      if(tables != null && tables.length == 2){
-        document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')[1].setAttribute('style','width:100%')
+      if (tables != null && tables.length == 2) {
+        document.getElementsByClassName('fc-timegrid-body')[0].getElementsByTagName('table')[1].setAttribute('style', 'width:100%')
       }
       let fcTimeGridSlots = document.getElementsByClassName('fc-timegrid-slots');
-      if(fcTimeGridSlots != null && fcTimeGridSlots.length == 1) {
+      if (fcTimeGridSlots != null && fcTimeGridSlots.length == 1) {
         let fcTimeGridSlotsTable = fcTimeGridSlots[0].getElementsByTagName('table');
-        if(fcTimeGridSlotsTable != null && fcTimeGridSlotsTable.length == 1) {
-          document.getElementsByClassName('fc-timegrid-slots')[0].getElementsByTagName('table')[0].setAttribute('style','width:100%');
+        if (fcTimeGridSlotsTable != null && fcTimeGridSlotsTable.length == 1) {
+          document.getElementsByClassName('fc-timegrid-slots')[0].getElementsByTagName('table')[0].setAttribute('style', 'width:100%');
         }
       }
     }
@@ -188,7 +188,32 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
     }
 
-    this.highlightSelectedDate();
+
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.add('fc-timegrid-switch');
+    }
+
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-Previousweek-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-Previousweek-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-Previousweek-button")[0].classList.add('fc-timegrid-switch');
+    }
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-NextWeek-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-NextWeek-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-NextWeek-button")[0].classList.add('fc-timegrid-switch');
+    }
+
+
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.add('fc-resource-toolbar-button');
+
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-timegrid-switch-2');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.add('fc-timegrid-switch-2');
+      //fc-timegrid-switch-2
+    }
+    //fc-WeekButton-button
+    //this.highlightSelectedDate();
   }
 
   UpdateResources() {
@@ -237,7 +262,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentTypes(event) {
     this.removeAllEvents();
-    this.updateBlockOuts(true,null);
+    this.updateBlockOuts(true, null);
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentTypeCheckboxes.toArray().forEach(source => {
@@ -261,7 +286,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   ToggleAllAppointmentStatuses(event) {
     this.removeAllEvents();
-    this.updateBlockOuts(true,null);
+    this.updateBlockOuts(true, null);
     if (event.source.checked) {
       this.updateCalendarEvents();
       this.appointmentStatusCheckboxes.toArray().forEach(source => {
@@ -285,7 +310,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   removeAllEvents() {
     this.fullcalendar.getApi().getEvents().forEach(event => {
-      if(event.extendedProps.IsEvent) event.remove();
+      if (event.extendedProps.IsEvent) event.remove();
     })
   }
 
@@ -322,7 +347,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.removeAllEvents();
     if (event.source.checked) {
       this.updateCalendarEvents();
-      this.updateBlockOuts(true,null);
+      this.updateBlockOuts(true, null);
       this.providerCheckboxes.toArray().forEach(source => {
         source.checked = true;
       })
@@ -340,7 +365,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     })
     this.providerToggle.checked = allchecked;
     this.updateEvents(event.source.checked, { value: provider.ProviderId })
-    this.updateBlockOuts(event.source.checked,{ value: provider.ProviderId });
+    this.updateBlockOuts(event.source.checked, { value: provider.ProviderId });
   }
 
   updateCalendarEvents() {
@@ -385,7 +410,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   SwitchfullcalendarToDate(event) {
     this.selectedDate = new Date(event);
-    this.sundayDate.setDate(this.selectedDate.getDate() - this.selectedDate.getDay());
+    this.sundayDate = new Date(event)
+    this.sundayDate.setDate(this.sundayDate.getDate() - this.sundayDate.getDay());
 
 
     if (this.fullcalendar.getApi().currentData.viewApi.type == "timeGridWeek")
@@ -400,22 +426,36 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   highlightSelectedDate() {
 
-    let curdate = this.datepipe.transform(this.selectedDate, "yyyy-MM-dd")
-    this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement) => {
-      nodeElement.classList.remove('fc-selected-date');
-      nodeElement.removeAttribute("data-selected");
-    });
-
-
-    this.fullcalendar.getApi().el.querySelectorAll("th[data-date='" + curdate + "']").forEach((nodeElement: HTMLElement) => {
-      nodeElement.childNodes.forEach((ne: HTMLElement) => {
-        if (ne.children.length > 0) {
-          ne.children[0].classList.remove('fc-selected-date')
-          ne.children[0].classList.add('fc-selected-date')
-          ne.children[0].setAttribute("data-selected", "true")
-        }
-      })
+    this.fullcalendar.getApi().el.querySelectorAll("h2[id='fc-dom-1']").forEach((nodeElement: HTMLElement) => {
+      nodeElement.classList.remove('fc-resource-title-date');
     })
+
+    if (this.fullcalendar.getApi().view.type == 'timeGridWeek') {
+      let curdate = this.datepipe.transform(this.selectedDate, "yyyy-MM-dd")
+      this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement) => {
+        nodeElement.classList.remove('fc-selected-date');
+        nodeElement.removeAttribute("data-selected");
+      });
+
+
+      this.fullcalendar.getApi().el.querySelectorAll("th[data-date='" + curdate + "']").forEach((nodeElement: HTMLElement) => {
+        nodeElement.childNodes.forEach((ne: HTMLElement) => {
+          if (ne.children.length > 0) {
+            ne.children[0].classList.remove('fc-selected-date')
+            ne.children[0].classList.add('fc-selected-date')
+            ne.children[0].setAttribute("data-selected", "true")
+          }
+        })
+      });
+    } else if (this.fullcalendar.getApi().view.type == 'resourceTimeGridDay' && this.selectedDate != null) {
+      this.fullcalendar.getApi().el.querySelectorAll("h2[id='fc-dom-1']").forEach((nodeElement: HTMLElement) => {
+        nodeElement.classList.remove('fc-resource-title-date');
+        nodeElement.classList.add('fc-resource-title-date');
+      })
+
+    }
+
+
   }
 
   removeAllBlockouts() {
@@ -427,8 +467,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.removeAllBlockouts();
 
     this.blockouts.forEach(blockout => {
-      if((check == null || (check != null && check.value != blockout.BlockoutForId))
-      || (toggler && (check != null && check.value == blockout.BlockoutForId))){
+      if ((check == null || (check != null && check.value != blockout.BlockoutForId))
+        || (toggler && (check != null && check.value == blockout.BlockoutForId))) {
         let bid = blockout.BlockoutId + ':' + blockout.SequenceNumber;
         this.fullcalendar.getApi().addEvent({
           id: bid,
@@ -506,7 +546,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
         },
         timeGrid: {
-          titleFormat: { year: 'numeric', day: '2-digit', month: 'short' }
+          titleFormat: { year: 'numeric', day: '2-digit', month: 'short' },
+
         },
       },
       customButtons: {
@@ -517,14 +558,24 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         Previousweek: {
           text: ' < ',
           click: this.previousCalenderEvents.bind(this)
+        },
+        DayButton: {
+          text: ' Day ',
+          click: this.resourceTimegridDayClick.bind(this)
+        },
+
+        WeekButton: {
+          text: ' Week ',
+          click: this.timegridWeekClick.bind(this)
         }
       },
 
       headerToolbar: {
-        left: 'resourceTimeGridDay,timeGridWeek',
+        left: 'DayButton,WeekButton',
         center: 'title',
         right: 'Previousweek,NextWeek'
       },
+
 
       dateClick: this.handleDateClick.bind(this),
       eventClick: this.handleEventClick.bind(this),
@@ -540,64 +591,54 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           let myPopup = document.getElementById('event-view');
           if (myPopup) { myPopup.remove(); }
           let timer;
+          let top = args.el.parentElement.offsetTop;
           let x = args.el.getBoundingClientRect().left + this.el.offsetWidth / 2; // Get the middle of the element
           let y = args.el.getBoundingClientRect().top + this.el.offsetHeight + 6; // Get the bottom of the element, plus a little extra
           let popup = document.createElement('div');
           popup.id = "event-view"
           popup.style.width = "250px";
 
-
-          // popup.style.top = y.toString() + "px";
-          //popup.style.left = x.toString() + "px";
-          popup.style.background = "#fff"
+          popup.style.background = "transparent"
           popup.style.color = "#41b6a6"
           popup.style.fontSize = "12px"
           popup.style.fontWeight = "600"
-          popup.style.marginTop = "2px"
+          popup.style.marginTop = "30px"
           popup.style.position = "absolute"
           popup.style.zIndex = "1000000"
-
+          popup.style.top = top + "px";
 
           let dcontainer = document.createElement('div');
           dcontainer.id = "dcontainer"
-          dcontainer.style.width = "250px"
+          dcontainer.style.width = "18px"
           dcontainer.style.height = "10px"
           dcontainer.style.display = "inline-flex"
-          dcontainer.style.left = "0px"
+          dcontainer.style.left = "20px"
           dcontainer.style.position = "absolute"
-          dcontainer.style.background = "#fff"
+          dcontainer.style.background = "#41b6a6"
           let d1 = document.createElement('div');
-          d1.style.width = "50px";
+          d1.style.width = "55px";
           d1.style.height = "10px";
+          //d1.style.marginLeft = "4px";
           d1.style.border = "unset"
-          d1.style.borderBottom = "solid 2px #41b6a6"
+          // d1.style.borderBottom = "solid 1px #41b6a6"
+          d1.style.borderRightWidth = "2px";
+          d1.style.borderRightColor = "#41b6a6";
+          d1.style.borderRightStyle = "solid";
+          d1.style.borderBottomRightRadius = "50px"
           d1.style.left = "0px"
+          d1.style.background = "white"
           dcontainer.appendChild(d1);
 
-          let ar = document.createElement('div');
-          ar.style.height = "5px"
-          ar.style.width = "10px";
-          ar.style.border = "unset"
-          ar.style.left = "48px"
-          ar.style.top = " 2px"
-          ar.style.position = "relative"
-          let i = document.createElement("i")
-          i.className = "fa fa-chevron-up"
-          i.style.color = "#41b6a6"
-          i.style.fontSize = "15px"
-          i.style.top = "-5px"
-          i.style.left = "-50px"
-          i.style.position = "absolute"
-
-          ar.appendChild(i);
-          dcontainer.appendChild(ar);
-
           let d3 = document.createElement('div');
-          d3.style.width = "188px";
+          d3.style.width = "55px";
           d3.style.height = "10px";
           d3.style.border = "unset"
-          d3.style.borderBottom = "solid 2px #41b6a6"
           d3.style.left = "63px"
+          d3.style.borderLeftWidth = "1px";
+          d3.style.borderBottomLeftRadius = "50px"
+          d3.style.borderLeftColor = "#41b6a6";
+          d3.style.borderLeftStyle = "solid";
+          d3.style.background = "white"
 
           dcontainer.appendChild(d3);
 
@@ -607,9 +648,14 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           dcontainer.id = "event-content"
           content.style.width = "248px"
           content.style.whiteSpace = "nowrap"
-          content.style.border = "solid 2px #41b6a6"
-          content.style.borderTop = "unset"
-          content.style.padding = "10px"
+          content.style.border = "solid 1px #41b6a6"
+          content.style.borderRadius = "10"
+          content.style.borderTop = "solid 1px #41b6a6"
+          content.style.padding = "5px 10px 10px 10px"
+          content.style.borderRadius = "5px"
+          content.style.marginTop = "10px"
+          content.style.background = "white"
+
           let pn = document.createElement('div');
           pn.style.padding = '5px';
           pn.innerHTML = "Patient: " + data.PatientName;
@@ -624,7 +670,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
           content.appendChild(rm);
           popup.appendChild(content)
 
-          args.el.appendChild(popup);
+          args.el.parentElement.parentElement.appendChild(popup);
           this.myPopup = popup;
           setTimeout(() => {
             if (myPopup) this.myPopup.remove();
@@ -640,6 +686,56 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   }
 
+  resourceTimegridDayClick(arg) {
+
+    this.fullcalendar.getApi().changeView('resourceTimeGridDay',this.selectedDate)
+    this.highlightSelectedDate();
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.add('fc-timegrid-switch');
+    }
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.add('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-timegrid-switch-2');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.add('fc-timegrid-switch-2');
+    }
+  }
+  ResetSelection(){
+    this.selectedDate = null;
+    this.sundayDate = new Date()
+    this.sundayDate.setDate(this.sundayDate.getDate() - this.sundayDate.getDay());
+    this.highlightSelectedDate();
+    if (this.fullcalendar.getApi().currentData.viewApi.type == "timeGridWeek"){
+      this.fullcalendar.getApi().changeView('timeGridWeek',this.sundayDate)
+    }else{
+      this.fullcalendar.getApi().changeView('resourceTimeGridDay',new Date())
+    }
+  }
+  timegridWeekClick(arg) {
+    this.fullcalendar.getApi().changeView('timeGridWeek',this.sundayDate)
+
+
+    this.highlightSelectedDate()
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.add('fc-timegrid-switch');
+
+
+
+    }
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button").length == 1) {
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-timegrid-switch');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.add('fc-resource-toolbar-button');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-timegrid-switch-2');
+      this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.add('fc-timegrid-switch-2');
+    }
+
+  }
   handleEventMount(arg) {
 
   }
@@ -1020,12 +1116,11 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       if (resp.IsSuccess) {
         this.blockouts = resp.ListResult;
         //this.GetBlockouts();
-        this.updateBlockOuts(true,null);
+        this.updateBlockOuts(true, null);
       }
-      else
-      {
-      this.blockouts = [{}]
-      this.updateBlockOuts(true,null);
+      else {
+        this.blockouts = [{}]
+        this.updateBlockOuts(true, null);
       }
     })
   }

@@ -5,11 +5,11 @@
 .authorized-content {
     border: 1px solid #d9534e;
   }
-  
+
   .authorized-header {
     background-color: #D9534E;
   }
-  
+
   .authorized-title {
     font-size: 18px;
     font-weight: 400;
@@ -18,7 +18,7 @@
   .input-group .form-control.input-authorized {
     border: 1px solid #ced4da !important;
   }
-  
+
   .input-group .form-control.input-authorized:hover {
     border: 1px solid #41b6a6 !important;
   }
@@ -47,16 +47,16 @@
     margin-right: 0%;
     box-shadow: none !important;
   }
-  
+
   .form-check-input:checked {
     background-color: #fff;
     border-color: #b4bcc8;
   }
   .form-check-input:focus {
-   
+
     border-color: #41b6a6;
   }
-  
+
 .form-check-input[type=radio]:hover {
     border-color: #41b6a6;
     color: #41b6a6;
@@ -69,7 +69,7 @@
     margin-left: 45px !important;
     font-weight: 400;
   }
-  
+
   .a-authorized {
     text-decoration: underline;
     color: #41b6a6;
@@ -77,10 +77,20 @@
     font-family: 'Roboto';
     margin-left: 7px;
   }
-  
+
   .a-authorized:hover {
     color: #5ad4c4;
   }
   .emailnotallowed{
     cursor: not-allowed !important;
+  }
+
+  .fa-hourglass::before {
+    display: inline-block;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+  }
+  .fontawesomesvg {width: 1em;
+    height: 1em;
+    vertical-align: -.125em;
   }

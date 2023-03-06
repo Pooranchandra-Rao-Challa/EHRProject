@@ -16,6 +16,8 @@
             </div>
           </div>
           <div class="portlet-body mt-4">
+            <mat-progress-bar mode="indeterminate" bufferValue="20" value=100
+                      *ngIf="dialogIsLoading" ></mat-progress-bar>
             <div class="table-responsive table-scrollable-borderless admin-table-scroll">
               <table class="table table-users">
                 <thead class="th-border">

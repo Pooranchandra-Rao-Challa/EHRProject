@@ -1296,19 +1296,19 @@ i {
   }
 }
 
-.portlet-body .mat-progress-bar-fill::after {
-  background-color: #337ab7;
-}
+// .portlet-body .mat-progress-bar-fill::after {
+//   background-color: #337ab7;
+// }
 
-.portlet-body .mat-progress-bar-buffer {
-  background: #E4E8EB;
-}
+// .portlet-body .mat-progress-bar-buffer {
+//   background: #E4E8EB;
+// }
 
-.portlet-body .mat-progress-bar {
-  border-radius: 2px;
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-}
+// .portlet-body .mat-progress-bar {
+//   border-radius: 2px;
+//   padding-bottom: 10px;
+//   margin-bottom: 10px;
+// }
 
 
 .admin-pg-container .mat-paginator-navigation-next {
@@ -1431,4 +1431,17 @@ i {
       flex-direction: column !important;
     }
   }
+}
+
+::ng-deep .swal2-title.user-swal2-actions {
+  margin: unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 20px !important;
+  background-color: #41b6a6 !important;
+  color: #fff;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-bottom: 40px !important;
 }

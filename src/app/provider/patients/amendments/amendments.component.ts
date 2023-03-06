@@ -6,6 +6,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Amendment } from 'src/app/_models/_provider/amendments';
 import { Attachment } from 'src/app/_models/_provider/LabandImage';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DownloadService } from 'src/app/_services/download.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { UPLOAD_URL } from 'src/environments/environment';
@@ -31,7 +32,8 @@ export class AmendmentsComponent implements OnInit {
 
 
   constructor(private patientservice: PatientService, private authService: AuthenticationService,
-    private alertmsg: AlertMessage, private ulilityservice: UtilityService, private datePipe: DatePipe) {
+    private alertmsg: AlertMessage, private ulilityservice: UtilityService,
+    private downloadService: DownloadService,private datePipe: DatePipe) {
     this.amendment = {}
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
     this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
@@ -73,6 +75,13 @@ export class AmendmentsComponent implements OnInit {
     });
   }
 
+  DownloadAttachment(attachment: Attachment){
+    //attachment.forEach(attach=>{
+      attachment.EntityName = this.EntityName;
+      this.downloadService.DownloadAttachment(attachment);
+    //})
+
+  }
 
   createUpadateAmendment() {
     let isAdd = this.amendment.AmendmentId == undefined;
@@ -138,9 +147,15 @@ export class AmendmentsComponent implements OnInit {
 
   public UploadCompleted(data): any {
     if (data.event.body) {
-      if (!this.amendment.Attachments)
-        this.amendment.Attachments = [];
-      this.amendment.Attachments.push(data.event.body as Attachment);
+      if (this.amendment.Attachments == null) this.amendment.Attachments = [];
+      var temp = data.event.body as Attachment
+      let attachment:Attachment = {
+        EntityId : temp.EntityId,
+        EntityName : temp.EntityName,
+        AttachmentId : temp.AttachmentId,
+        FileName : temp.FileName
+      };
+      this.amendment.Attachments.push(attachment);
       this.attachmentSubject.next(this.amendment.Attachments);
     }
   }

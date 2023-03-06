@@ -8,7 +8,7 @@ export const environment = {
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
   EPRESCRIBE_SERVER:'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
-  showemail:true,
+  showemail:false,
 };
 
 export const RX_DRUG_URI = (term:string) => `REST/drugs.json?name=${term}`;

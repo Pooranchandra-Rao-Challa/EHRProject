@@ -9,6 +9,7 @@
           <br>
           <mat-calendar class="mat-calendar" [selected]="selectedDate"
             (selectedChange)="SwitchfullcalendarToDate($event)"></mat-calendar>
+          <button mat-button (click)="ResetSelection()" class="calender-reset-selecton">Reset Selection</button>
           <mat-expansion-panel class="panel providers">
             <mat-expansion-panel-header class="panel-header">
               <mat-panel-title> Provider/Staff </mat-panel-title>

@@ -251,6 +251,7 @@ export class PracticeComponent implements OnInit {
   updateTimeZone() {
     this.settingsService.UpdateTimeZone(this.user).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.authService.UpdateTimeZone(this.user);
         this.DisplayDateTimeZone();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2JP008"])
       }

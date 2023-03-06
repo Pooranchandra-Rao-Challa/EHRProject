@@ -23,6 +23,7 @@ export class PatientHealthPortalComponent {
   doReportProcess: boolean = false;
   reportInvoked: boolean = false;
   url: string;
+
   constructor(private dialogRef: EHROverlayRef,
     private plaformLocation: PlatformLocation,
     private utilityService: UtilityService,
@@ -69,12 +70,12 @@ export class PatientHealthPortalComponent {
   downloadPDF() {
     this.reportInvoked = true;
     html2canvas(this.iframe.nativeElement.contentDocument.body).then((canvas) => {
-      let fileWidth = 208;
+      let fileWidth = 168;
       let fileHeight = (canvas.height * fileWidth) / canvas.width;
       const FILEURI = canvas.toDataURL('image/png');
       let PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 10;
-      PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+      let position = 20;
+      PDF.addImage(FILEURI, 'PNG',position, position, fileWidth, fileHeight);
       PDF.html(this.iframe.nativeElement.contentDocument.body.innerHtml);
       PDF.save(this.patientUser.PatientId + '.pdf');
       this.refreshView()

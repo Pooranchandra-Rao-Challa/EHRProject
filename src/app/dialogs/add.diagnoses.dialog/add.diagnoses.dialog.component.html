@@ -55,7 +55,7 @@
             </div>
           </div>
           <div class="row">
-            <label class="required">End Date</label>
+            <label>End Date</label>
             <mat-form-field appearance="outline" class="green-calendar col-md-8">
               <input matInput class="pointer" [matDatepicker]="enddate" placeholder="End Date" name="enddate"
                 (click)="enddate.open()" readonly [(ngModel)]="patientDiagnoses.StopAt" [min]="endDateForDiagnosis"

@@ -75,7 +75,7 @@
   <div class="row" id="myTabContent">
 
     <div class="col-lg-12 col-md-12  col-12 ">
-      <mat-progress-bar mode="indeterminate" bufferValue="50" value=100 *ngIf="labImageDatasource.loading$ | async">
+      <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="labImageDatasource.loading$ | async">
       </mat-progress-bar>
       <div class="LabsimagingTable table-responsive  lab-order-container">
         <table mat-table [dataSource]="labImageDatasource" matSort matSortDirection="asc" matSortDisableClear>

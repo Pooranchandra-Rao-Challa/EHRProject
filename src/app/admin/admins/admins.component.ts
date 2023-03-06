@@ -45,7 +45,7 @@ export class AdminsComponent implements OnInit {
   adminListBehaviour: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   alertMsgTitle: string;
   alertTextEmail: string;
-
+  dialogIsLoading:boolean = false;
   constructor(private adminservice: AdminService,
     private utilityService: UtilityService,
     private accountservice: Accountservice,
@@ -71,7 +71,9 @@ export class AdminsComponent implements OnInit {
 
 
   getAdminList() {
+    this.dialogIsLoading = true;
     this.adminservice.AdminList().subscribe(resp => {
+      this.dialogIsLoading = false;
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
       }

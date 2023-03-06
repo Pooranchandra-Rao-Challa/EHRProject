@@ -20,6 +20,7 @@ export class PraticeAdduserDialogComponent implements OnInit {
   NewUserData?: NewUser ={};
   user:User;
   url: string;
+  hideSaveButton : boolean = false;
   constructor(  private authService: AuthenticationService,
     private settingsService: SettingsService,
     private utilityService: UtilityService,
@@ -44,6 +45,7 @@ export class PraticeAdduserDialogComponent implements OnInit {
     });
   }
   updateUser() {
+    this.hideSaveButton = true;
     this.NewUserData.ClinicId = this.user.ClinicId;
     this.NewUserData.LocationId = this.user.CurrentLocation;
     if (this.NewUserData.PracticeName == null)
@@ -51,6 +53,7 @@ export class PraticeAdduserDialogComponent implements OnInit {
     this.NewUserData.URL = this.url;
 
     this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
+      this.hideSaveButton = false;
       if (resp.IsSuccess) {
         // this.getProviderDetails();
         this.NewUserData = new NewUser;
