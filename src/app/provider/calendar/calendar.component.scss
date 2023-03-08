@@ -495,13 +495,18 @@ fieldset {
 .calender-reset-selecton:hover{
   font-weight: 600;
 }
-.fc-hide-control {
+.fc-hide-room {
+  display: none;
+}
+.fc-show-room {
   display: none;
 }
 
 #left-drawer {
   padding: 15px 20px 10px 20px;
 }
+
+
 
 .right-container{
   .fc-col-header{
@@ -517,4 +522,8 @@ fieldset {
       width:100% !important;
     }
   }
+}
+
+.fc-toolbar-select{
+  height: 25px;
 }

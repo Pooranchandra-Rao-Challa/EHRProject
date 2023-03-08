@@ -65,7 +65,24 @@
             </div>
           </mat-expansion-panel>
 
-          <mat-expansion-panel class="panel rooms fc-hide-control">
+          <mat-expansion-panel class="panel locations">
+            <mat-expansion-panel-header class="panel-header">
+              <mat-panel-title> Locations </mat-panel-title>
+            </mat-expansion-panel-header>
+            <!-- <div class="row cstm-checkbox-1 pt-2">
+              <mat-checkbox #locationsToggle checked="true" (change)="ToggleAllLocations($event)">
+                <span class="cstm-mat-checkbox-label">Select all</span>
+              </mat-checkbox>
+            </div> -->
+            <div class="row pt-2">
+              <mat-checkbox #locationCheckboxes *ngFor="let location of locations; let i = index;" [checked]="location.LocationId == SelectedLocationId"
+                (change)="updateLocation($event,location,i)" [value]="location">
+                <span>{{location.LocationName}}</span>
+              </mat-checkbox>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="panel rooms fc-hide-room">
             <mat-expansion-panel-header class="panel-header">
               <mat-panel-title> Rooms </mat-panel-title>
             </mat-expansion-panel-header>

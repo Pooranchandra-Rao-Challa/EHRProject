@@ -38,9 +38,8 @@ export class ProblemlistComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
   providerlist: any;
-  filteredproviderList: any;
-  locationslist: any;
-  filteredlocationList: any;
+  filteredproviderList = [];
+  filteredlocationList = [];
   provider_Id: string;
   problemreportform: FormGroup;
   customizedspinner: boolean;
@@ -48,12 +47,13 @@ export class ProblemlistComponent implements OnInit {
   applyButtonToDisableproblem: boolean = true;
   disableEndDateInput: boolean = true;
 
-  problemreportlistdata: {
+  filter: {
     StartDate: any;
     EndDate: any;
     Checked: any;
     ProviderId: any;
     LocationId: any;
+    ClinicId: any;
   };
   public problemreportlist = new MatTableDataSource<ProblemData>();
   ProblemListColumns: string[] = [
@@ -78,7 +78,7 @@ export class ProblemlistComponent implements OnInit {
   showProblemListControls: boolean;
   disabledowloadExportbtn: boolean = true;
   PracticeProviders: PracticeProviders[];
-  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService,
+  constructor(private authenticationService: AuthenticationService, private smartSchedulerService: SmartSchedulerService,
     private service: Accountservice,
     private fb: FormBuilder,
     private tableutil: TableUtil,
@@ -149,7 +149,7 @@ export class ProblemlistComponent implements OnInit {
     ) {
       return;
     }
-    var problemreportlist = {
+    this.filter = {
       StartDate: this.datepipe.transform(
         this.problemreportform.value.StartDate,
         "yyyy-MM-dd",
@@ -160,23 +160,26 @@ export class ProblemlistComponent implements OnInit {
         "yyyy-MM-dd",
         "en-US"
       ),
+      ClinicId: null,
       Checked: this.problemreportform.value.Checked,
       ProviderId:
-        this.problemreportform.value.ProviderId == ""
+        this.problemreportform.value.ProviderId == "" || this.problemreportform.value.ProviderId == "All"
           ? null
           : this.problemreportform.value.ProviderId,
       LocationId:
-        this.problemreportform.value.LocationId == ""
+        this.problemreportform.value.LocationId == "" || this.problemreportform.value.LocationId == "All"
           ? null
           : this.problemreportform.value.LocationId,
     };
-    this.getProblemReportList(problemreportlist);
-    this.problemreportlistdata = problemreportlist;
+    if (this.filter.ProviderId == null && this.filter.LocationId == null)
+      this.filter.ClinicId = this.authenticationService.userValue.ClinicId;
+    this.getProblemReportList();
+
   }
 
-  getProblemReportList(data: any) {
+  getProblemReportList() {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.service.getProblemListReportByProviderId(data).subscribe((data) => {
+    this.service.ProblemListForReport(this.filter).subscribe((data) => {
       this.problemreportlist.data = [];
       this.showPromblemListTable = true;
       if (data.IsSuccess) {
@@ -192,25 +195,84 @@ export class ProblemlistComponent implements OnInit {
   getProviderList() {
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      this.PracticeProviders = [];
       if (resp.IsSuccess) {
-        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+        //this.PracticeProviders = resp.ListResult as PracticeProviders[];
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All Providers'
+        } as PracticeProviders);
+        (resp.ListResult as PracticeProviders[]).forEach((p) => {
+          this.PracticeProviders.push({
+            'ProviderId': p.ProviderId,
+            'FullName': p.FullName
+          } as PracticeProviders);
+        })
+      } else {
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All'
+        } as PracticeProviders)
       }
     });
   }
 
   onProviderSelected(Provider: any) {
-    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
+    let temp = {
+      "ProviderId": Provider.ProviderId == "All" ? null : Provider.ProviderId,
+      "ClinicId": Provider.ProviderId == "All" ? this.authenticationService.userValue.ClinicId : null
+    };
+    this.smartSchedulerService.ProviderPracticeLocations(temp).subscribe(data => {
+      this.filteredlocationList = [];
       if (data.IsSuccess) {
-        this.locationslist = data.ListResult;
-        this.filteredlocationList = this.locationslist.slice();
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
+        (data.ListResult as any[]).forEach((location) => {
+          this.filteredlocationList.push({
+            'LocationId': location.LocationId,
+            'LocationName': location.LocationName
+          });
+        })
+      } else {
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
       }
     });
 
   }
   downloadProblemListExcel() {
-    if (this.problemreportlist.data.length != 0) {
+    let exportdata = []
+    this.problemreportlist.data.forEach((d) => {
+      exportdata.push({
+        'PatientId': d.PatientId,
+        'Patient_Name': d.PatientName,
+        'Sex': d.Sex,
+        'DateofBirth': d.DOB != null ? this.datepipe.transform(new Date(d.DOB), "MM/dd/yyyy") : null,
+        'Address1': d.Address1,
+        'Address2': d.Address2,
+        'City': d.City,
+        'State': d.State,
+        'Zip-Code': d.ZipCode,
+        'Last_Encounter': d.LastEncounter != null ? this.datepipe.transform(new Date(d.LastEncounter), "MM/dd/yyyy") : null,
+        'Active': d.Active,
+        'Dx_ICD10-SNOMED_Code': d.DxCode,
+        'Dx_ICD10-SNOMED_Description': d.DxDescription,
+        'Dx_Start_Date': d.DxStartDate,
+        'Dx_End_Date': d.DxEndDate,
+        'Smoking_Status': d.SmokingStatus,
+        'Allergy': d.Allergy
+      });
+
+
+
+    });
+    if (exportdata.length != 0) {
       this.tableutil.exportAsExcelFileProblem(
-        this.problemreportlist.data,
+        exportdata,
         "Problem-List"
       );
     }

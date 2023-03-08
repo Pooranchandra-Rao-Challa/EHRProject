@@ -21,8 +21,8 @@ export class APIEndPoint extends EndpointBase {
   get _patientListtUrl() {
     return this._baseUrl + "PatientList";
   }
-  get _encountersListUrl() {
-    return this._baseUrl + "GetEncountersList";
+  get _encounterListForReportUrl() {
+    return this._baseUrl + "EncounterListForReport";
   }
   get _stage2NumeratorDenominatorCountUrl() {
     return this._baseUrl + "GetStage2NumeDenomiCount";
@@ -30,8 +30,8 @@ export class APIEndPoint extends EndpointBase {
   get _stage2PatientListUrl() {
     return this._baseUrl + "GetStage2SessionwiseMUReports";
   }
-  get _problemListReportByProviderIdUrl() {
-    return this._baseUrl + "GetProblemList";
+  get _problemListForReportUrl() {
+    return this._baseUrl + "ProblemListForReport";
   }
   get _providersListUrl() {
     return this._baseUrl + "GetProvidersList?Location_Id=";

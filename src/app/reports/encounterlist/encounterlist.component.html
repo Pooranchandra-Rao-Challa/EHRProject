@@ -26,7 +26,7 @@
         <p class="float-left my-4 mr-md-2">Location(s):</p>
       </div>
       <mat-form-field appearance="outline" class="col-lg-2 col-md-6 my-2 hover">
-        <mat-select placeholder="Select One" disableOptionCentering formControlName="locationId"
+        <mat-select placeholder="Select One" disableOptionCentering formControlName="LocationId"
         panelClass="report-select-option-panel">
           <mat-option *ngFor="let name of filteredlocationList" [value]="name.LocationId">
             {{name.LocationName}}
@@ -84,75 +84,75 @@
 </div>
 <div class="ehr-cqm-table-container encounter" [hidden]="!showencounterTable">
   <mat-table [dataSource]="encounterlist" matSort>
-    <ng-container matColumnDef="Encounter_Id">
-      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="Encounter_Id">Encounter Id
+    <ng-container matColumnDef="EncounterId">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="EncounterId">Encounter Id
       </mat-header-cell>
-      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Id}} </mat-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let encounter"> {{encounter.EncounterId}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Patient_Name">
-      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Patient_Name"> Patient Name
+    <ng-container matColumnDef="PatientName">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="PatientName"> Patient Name
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Patient_Name}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.PatientName}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Provider_Name">
-      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Provider_Name">Provider Name
+    <ng-container matColumnDef="ProviderName">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="ProviderName">Provider Name
       </mat-header-cell>
-      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Provider_Name}} </mat-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let encounter"> {{encounter.ProviderName}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Birth_Date">
-      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Birth_Date">Birth Date</mat-header-cell>
-      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Birth_Date | date: 'yyyy/MM/dd' }}
+    <ng-container matColumnDef="DateOfBirth">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="DateOfBirth">Birth Date</mat-header-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let encounter"> {{encounter.DateOfBirth | date: 'yyyy/MM/dd' }}
       </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Patient_Age">
-      <mat-header-cell class="flex1" fxFlex="25%" *matHeaderCellDef mat-sort-header="Patient_Age">Age
+    <ng-container matColumnDef="Age">
+      <mat-header-cell class="flex1" fxFlex="25%" *matHeaderCellDef mat-sort-header="Age">Age
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Patient_Age}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.Age}} </mat-cell>
     </ng-container>
 
 
-    <ng-container matColumnDef="Encounter_Date">
-      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Encounter_Date">Encounter Date
+    <ng-container matColumnDef="ServicedAt">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="ServicedAt">Encounter Date
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Date |
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.ServicedAt |
         date: 'yyyy/MM/dd'}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Proc_Code">
-      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Proc_Code">Proc Code
+    <ng-container matColumnDef="ProcedureCode">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="ProcedureCode">Procedure Code
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Proc_Code}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.ProcedureCode}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="Encounter_Description">
-      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="Encounter_Description">Description
+    <ng-container matColumnDef="EncounterDescription">
+      <mat-header-cell class="flex3" *matHeaderCellDef mat-sort-header="EncounterDescription">Description
       </mat-header-cell>
-      <mat-cell class="flex3 submenu" *matCellDef="let lesson"> {{lesson.Encounter_Description}} </mat-cell>
+      <mat-cell class="flex3 submenu" *matCellDef="let encounter"> {{encounter.EncounterDescription}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="Proc_Fees">
-      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Proc_Fees">Proc Fees
+    <ng-container matColumnDef="ProcedureFee">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="ProcedureFee">Proc Fees
       </mat-header-cell>
-      <mat-cell class="flex2 submenu" *matCellDef="let lesson"> {{lesson.Proc_Fees}} </mat-cell>
+      <mat-cell class="flex2 submenu" *matCellDef="let encounter"> {{encounter.ProcedureFee}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="Prime_Subscriber_No">
-      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="Prime_Subscriber_No">Prime Subscriber Id
+    <ng-container matColumnDef="PrimarySubscriberNo">
+      <mat-header-cell class="flex1" *matHeaderCellDef mat-sort-header="PrimarySubscriberNo">Primary Subscriber Id
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prime_Subscriber_No}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.PrimarySubscriberNo}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="Prime_Ins_Company_Name">
-      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Prime_Ins_Company_Name">Prime Ins Company Name
+    <ng-container matColumnDef="PrimaryInsuranceCompany">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="PrimaryInsuranceCompany">Primary Ins Company Name
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prime_Ins_Company_Name}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.PrimaryInsuranceCompany}} </mat-cell>
     </ng-container>
-    <ng-container matColumnDef="Prim_Source_Payment_Typology">
-      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="Prim_Source_Payment_Typology">Prime Source of
+    <ng-container matColumnDef="PrimarySourcePaymentTypology">
+      <mat-header-cell class="flex2" *matHeaderCellDef mat-sort-header="PrimarySourcePaymentTypology">Primary Source of
         Payment Typology
       </mat-header-cell>
-      <mat-cell class="flex1 submenu" *matCellDef="let lesson"> {{lesson.Prim_Source_Payment_Typology}} </mat-cell>
+      <mat-cell class="flex1 submenu" *matCellDef="let encounter"> {{encounter.PrimarySourcePaymentTypology}} </mat-cell>
     </ng-container>
     <mat-header-row *matHeaderRowDef="EncountersColumns sticky: true"></mat-header-row>
     <mat-row *matRowDef="let row; columns: EncountersColumns;">

@@ -61,8 +61,9 @@
             <div class="form-group">
               <mat-form-field appearance="outline" class="grey-matform grey-calendar">
                 <input class="pointer" matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
-                  #dateofBirth="ngModel" name="DateofBirth" (click)="dp.open()" readonly required
-                  pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" [max]="todayDate" (dateChange)="_filterPatient()">
+                  #dateofBirth="ngModel" name="DateofBirth" (click)="dp.open()" required
+                  pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((19|20)\d\d)" [max]="todayDate"
+                  (dateChange)="_filterPatient()">
                 <mat-datepicker-toggle matSuffix [for]="dp">
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp disabled="false"></mat-datepicker>

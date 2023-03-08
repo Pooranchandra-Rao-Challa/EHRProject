@@ -1,3 +1,4 @@
+import { WeekdayFormatPipe } from './../../_pipes/weekday-format-pipe';
 import { FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
@@ -32,22 +33,24 @@ export class PatientlistComponent implements OnInit {
   pageIndex = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
-  providerlist: any;
-  filteredproviderList: any;
-  locationslist: any;
-  filteredlocationList: any;
+  filteredproviderList = [];
+  filteredlocationList = [];
   provider_Id: string;
   customizedspinner: boolean;
   showpatientTable: boolean;
   patientForm: FormGroup;
   tomorrow = new Date();
   public allPatientList = new MatTableDataSource<PatientData>();
-  patientlistdata: {
-    SstartDate: string;
-    SendDate: string;
-    Checked: any;
-    ProviderId: any;
-    location_Id: any;
+  filter: {
+    SstartDate?: string;
+    SendDate?: string;
+    Checked?: any;
+    ProviderId?: any;
+    LocationId?: any;
+    AstartDate?: string;
+    AendDate?: string;
+    ClinicId?: any;
+
   };
   showPatientControls: boolean;
   PatientListColumns = [
@@ -74,7 +77,7 @@ export class PatientlistComponent implements OnInit {
   disabledowloadExportbtn: boolean = true;
   PracticeProviders: PracticeProviders[];
 
-  constructor(private authenticationService: AuthenticationService,private smartSchedulerService: SmartSchedulerService,
+  constructor(private authenticationService: AuthenticationService, private smartSchedulerService: SmartSchedulerService,
     private service: Accountservice,
     private fb: FormBuilder,
     private tableutil: TableUtil,
@@ -111,7 +114,7 @@ export class PatientlistComponent implements OnInit {
     ) {
       return;
     }
-    var patientlist = {
+    this.filter = {
       SstartDate: this.datepipe.transform(
         this.patientForm.value.SstartDate,
         "yyyy-MM-dd",
@@ -133,17 +136,20 @@ export class PatientlistComponent implements OnInit {
         "en-US"
       ),
       Checked: this.patientForm.value.Checked,
+      ClinicId: null,
       ProviderId:
-        this.patientForm.value.ProviderId == ""
+        this.patientForm.value.ProviderId == "" || this.patientForm.value.ProviderId == "All"
           ? null
           : this.patientForm.value.ProviderId,
-      location_Id:
-        this.patientForm.value.locationId == ""
+      LocationId:
+        this.patientForm.value.locationId == "" || this.patientForm.value.locationId == "All"
           ? null
           : this.patientForm.value.locationId,
     };
-    this.getAllPatientList(patientlist);
-    this.patientlistdata = patientlist;
+    if (this.filter.ProviderId == null && this.filter.LocationId == null)
+      this.filter.ClinicId = this.authenticationService.userValue.ClinicId;
+    console.log(this.filter);
+    this.getAllPatientList();
   }
   disableApplyButton() {
     var ProviderId =
@@ -244,43 +250,95 @@ export class PatientlistComponent implements OnInit {
       this.applyButtonToDisable = true;
     }
   }
-  getAllPatientList(data: any) {
+  getAllPatientList() {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.service.getAllPatientList(data).subscribe((data) => {
+    this.service.getAllPatientList(this.filter).subscribe((data) => {
       this.allPatientList.data = [];
-      this.allPatientList.data = data.ListResult as PatientData[];
-      this.showpatientTable = true;
       if (data.IsSuccess) {
         this.showPatientControls = true;
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
         this.allPatientList.data = data.ListResult as PatientData[];
         this.showpatientTable = true;
         this.disabledowloadExportbtn = false;
-      }
+      } else this.showpatientTable = true;
       this.customizedspinner = false; $('body').removeClass('loadactive');
     });
   }
   getProviderList() {
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      this.PracticeProviders = [];
       if (resp.IsSuccess) {
-        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All Providers'
+        } as PracticeProviders);
+        (resp.ListResult as PracticeProviders[]).forEach((p) => {
+          this.PracticeProviders.push({
+            'ProviderId': p.ProviderId,
+            'FullName': p.FullName
+          } as PracticeProviders);
+        })
+      } else {
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All'
+        } as PracticeProviders)
       }
     });
   }
   downloadPatientListExcel() {
+    let exportdata = [];
+    this.allPatientList.data.forEach((d) => {
+      exportdata.push({
+        'Patient_Id': d.Patient_Id,
+        'Patient_Name': d.Patient_Name,
+        'Date_of_Birth': d.Date_of_Birth,
+        'Age': d.Age,
+        'Gender': d.Gender,
+        'Cell_Phone': d.Cell_Phone,
+        'Home_phone': d.Home_phone,
+        'Work_Phone': d.Work_Phone,
+        'Email_Address': d.Email_Address,
+        'Address': d.Address,
+        'City': d.City,
+        'State': d.State,
+        'Zip': d.Zip,
+        'Prime_Subscriber_Id': d.Prime_Subscriber_No,
+        'Prime_Subscriber_Name': d.Prime_Subscriber_Name,
+      })
+    })
     if (this.allPatientList.data.length != 0) {
       this.tableutil.exportAsExcelFilePatient(
-        this.allPatientList.data,
+        exportdata,
         "Patient"
       );
     }
   }
   onProviderSelected(Provider: any) {
-    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
+    let temp = {
+      "ProviderId": Provider.ProviderId == "All" ? null : Provider.ProviderId,
+      "ClinicId": Provider.ProviderId == "All" ? this.authenticationService.userValue.ClinicId : null
+    };
+    this.smartSchedulerService.ProviderPracticeLocations(temp).subscribe(data => {
+      this.filteredlocationList = [];
       if (data.IsSuccess) {
-        this.locationslist = data.ListResult;
-        this.filteredlocationList = this.locationslist.slice();
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
+        (data.ListResult as any[]).forEach((location) => {
+          this.filteredlocationList.push({
+            'LocationId': location.LocationId,
+            'LocationName': location.LocationName
+          });
+        })
+
+      } else {
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
       }
     });
 

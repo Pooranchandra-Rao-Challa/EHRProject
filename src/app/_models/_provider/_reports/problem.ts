@@ -1,13 +1,14 @@
 export interface ProblemData{
+  PatientId: string;
   PatientName: string;
   Sex: string;
-  DOB: string;
+  DOB: Date;
   Address1: string;
   Address2: string;
   City: string;
   State: string;
   ZipCode: number;
-  LastEncounter: string;
+  LastEncounter: Date;
   Active: boolean;
   DxCode: string;
   DxDescription: string;

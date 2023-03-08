@@ -1,3 +1,4 @@
+import { Location } from './../../_models/_provider/_settings/settings';
 import { FormGroup } from "@angular/forms";
 import { DatePipe } from "@angular/common";
 import { Component, OnInit, QueryList, ViewChildren } from "@angular/core";
@@ -38,36 +39,35 @@ export class EncounterlistComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageEvent: PageEvent;
   tomorrow = new Date();
-  encounterdata: {
-    SstartDate: string;
-    SendDate: string;
+  filter: {
+    StartDate: string;
+    EndDate: string;
     Checked: any;
     ProviderId: any;
-    location_Id: any;
+    LocationId: any;
+    ClinicId:any;
   };
   showEncounterControls: boolean;
   showencounterTable: boolean;
   customizedspinner: boolean;
   EncountersColumns = [
-    "Encounter_Id",
-    "Patient_Name",
-    "Provider_Name",
-    "Birth_Date",
-    "Patient_Age",
-    "Encounter_Date",
-    "Proc_Code",
-    "Encounter_Description",
-    "Proc_Fees",
-    "Prime_Subscriber_No",
-    "Prime_Ins_Company_Name",
-    "Prim_Source_Payment_Typology",
+    "EncounterId",
+    "PatientName",
+    "ProviderName",
+    "DateOfBirth",
+    "Age",
+    "ServicedAt",
+    "ProcedureCode",
+    "EncounterDescription",
+    "ProcedureFee",
+    "PrimarySubscriberNo",
+    "PrimaryInsuranceCompany",
+    "PrimarySourcePaymentTypology",
   ];
   providerlist: any;
   filteredproviderList: any;
-  locationslist: any;
   filteredlocationList: any;
   provider_Id: string;
-  encounters: any;
   disabledowloadExportbtn: boolean = true;
   PracticeProviders: PracticeProviders[];
 
@@ -87,21 +87,6 @@ export class EncounterlistComponent implements OnInit {
   ngAfterViewInit(): void {
     this.encounterlist.paginator = this.paginator.toArray()[0];
     this.encounterlist.sort = this.sort.toArray()[0];
-    this.encounterlist.sortingDataAccessor = (data, header) => {
-      switch (header) {
-        case 'Birth_Date': {
-          let Birth_Date = new Date(data.Birth_Date);
-          return Birth_Date;
-        }
-        case 'Encounter_Date': {
-          let Encounter_Date = new Date(data.Encounter_Date);
-          return Encounter_Date;
-        }
-        default: {
-          return data[header];
-        }
-      }
-    };
   }
   disableApplyButtonEncounterlist() {
     var ProviderId =
@@ -146,7 +131,7 @@ export class EncounterlistComponent implements OnInit {
       SendDate: [""],
       Checked: false,
       ProviderId: [""],
-      locationId: [""],
+      LocationId: [""],
     });
   }
 
@@ -157,37 +142,42 @@ export class EncounterlistComponent implements OnInit {
     ) {
       return;
     }
-    var encounterlist = {
-      SstartDate: this.datepipe.transform(
+    this.filter = {
+      StartDate: this.datepipe.transform(
         this.encounterForm.value.SstartDate,
         "yyyy-MM-dd",
         "en-US"
       ),
-      SendDate: this.datepipe.transform(
+      EndDate: this.datepipe.transform(
         this.encounterForm.value.SendDate,
         "yyyy-MM-dd",
         "en-US"
       ),
       Checked: this.encounterForm.value.Checked,
       ProviderId:
-        this.encounterForm.value.ProviderId == ""
+        this.encounterForm.value.ProviderId == "" || this.encounterForm.value.ProviderId == "All"
           ? null
           : this.encounterForm.value.ProviderId,
-      location_Id:
-        this.encounterForm.value.locationId == ""
+      LocationId:
+        this.encounterForm.value.LocationId == "" || this.encounterForm.value.LocationId == "All"
           ? null
-          : this.encounterForm.value.locationId,
+          : this.encounterForm.value.LocationId,
+      ClinicId: null
     };
-    this.getEncountersList(encounterlist);
-    this.encounterdata = encounterlist;
+    if (this.filter.ProviderId == null && this.filter.LocationId == null)
+    this.filter.ClinicId = this.authenticationService.userValue.ClinicId;
+
+    this.getEncountersList();
+
   }
 
-  getEncountersList(data: any) {
-    this.encounters = data;
+  getEncountersList() {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
-    this.service.getEncountersList(data).subscribe((data) => {
+    this.service.EncounterListForReport(this.filter).subscribe((data) => {
       this.encounterlist.data = [];
       this.showencounterTable = true;
+      console.log(data);
+
       if (data.IsSuccess) {
         this.showEncounterControls = true;
         this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
@@ -201,27 +191,81 @@ export class EncounterlistComponent implements OnInit {
   getProviderList() {
     let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
     this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      this.PracticeProviders = [];
       if (resp.IsSuccess) {
-        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All Providers'
+        } as PracticeProviders);
+        (resp.ListResult as PracticeProviders[]).forEach((p) => {
+          this.PracticeProviders.push({
+            'ProviderId': p.ProviderId,
+            'FullName': p.FullName
+          } as PracticeProviders);
+        })
+      } else {
+        this.PracticeProviders.push({
+          'ProviderId': 'All',
+          'FullName': 'All'
+        } as PracticeProviders)
       }
     });
   }
   onProviderSelected(Provider: any) {
-    this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
+    let temp = {
+      "ProviderId": Provider.ProviderId == "All" ? null : Provider.ProviderId,
+      "ClinicId": Provider.ProviderId == "All" ? this.authenticationService.userValue.ClinicId : null
+    };
+    this.smartSchedulerService.ProviderPracticeLocations(temp).subscribe(data => {
+      this.filteredlocationList = [];
       if (data.IsSuccess) {
-        this.locationslist = data.ListResult;
-        this.filteredlocationList = this.locationslist.slice();
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
+        (data.ListResult as any[]).forEach((location) => {
+          this.filteredlocationList.push({
+            'LocationId': location.LocationId,
+            'LocationName': location.LocationName
+          });
+        })
+
+      } else {
+        this.filteredlocationList.push({
+          'LocationId': 'All',
+          'LocationName': 'All Locations'
+        });
       }
     });
 
   }
 
   downloadEncountersExcel() {
+    let exportdata = [];
+    this.encounterlist.data.forEach((d) => {
+      exportdata.push({
+        'Encounter_Id': d.EncounterId,
+        'Patient_Name': d.PatientName,
+        'Provider_Name': d.ProviderName,
+        'Date_of_Birth': d.DateOfBirth != null ? this.datepipe.transform(new Date(d.DateOfBirth), "MM/dd/yyyy") : null,
+        'Age': d.Age,
+        'Encounter_Date': d.ServicedAt != null ? this.datepipe.transform(new Date(d.ServicedAt), "MM/dd/yyyy") : null,
+        'Proc_Code': d.ProcedureCode,
+        'Encounter_Description': d.EncounterDescription,
+        'Proc_Fee': d.ProcedureFee,
+        'Primary_Subscriber_Id': d.PrimarySubscriberNo,
+        'Primary_Insurance_Company_Name': d.PrimaryInsuranceCompany,
+        'Primary_Source_of_Payment_Typology': d.PrimarySourcePaymentTypology,
+      })
+    })
     if (this.encounterlist.data.length != 0) {
       this.tableutil.exportAsExcelFileEncounter(
-        this.encounterlist.data,
+        exportdata,
         "Encounter"
       );
     }
   }
+
+  // [['Patient Id', 'Patient Name','Birth Date', 'Age', 'Gender',  'Encounter Id','Proc Code','Description', 'Provider Name', 'Encounter Date',
+  //   'Proc Fees', 'Prime Subscriber Id', 'Prime Ins Company Name', 'Prime Source of Payment Typology']];
 }

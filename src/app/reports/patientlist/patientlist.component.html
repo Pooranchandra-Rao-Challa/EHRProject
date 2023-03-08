@@ -13,6 +13,7 @@
           panelClass="report-select-option-panel">
             <mat-select-filter [placeholder]="'Search...'" [displayMember]="'FullName'" [array]="PracticeProviders"
               (filteredReturn)="PracticeProviders =$event" *ngIf="searchedItem.focused"></mat-select-filter>
+
             <mat-option *ngFor="let item of PracticeProviders" [value]="item.ProviderId"
               (click)="onProviderSelected(item)">
               {{item.FullName}}

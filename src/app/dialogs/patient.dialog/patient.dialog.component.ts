@@ -24,6 +24,8 @@ import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators'
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { Router } from '@angular/router';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { Moment } from 'moment-timezone';
+import * as moment from 'moment';
 
 @Component({
   selector: 'patient-dialog',
@@ -68,6 +70,11 @@ export class PatientDialogComponent {
       },
     };
     this.todayDate = new Date();
+  }
+
+  dateofbirthFilter = (m: Moment | null): boolean => {
+    const day = (m || moment()).day();
+    return day !== 0 && day !== 6;
   }
 
   ngAfterViewInit() {

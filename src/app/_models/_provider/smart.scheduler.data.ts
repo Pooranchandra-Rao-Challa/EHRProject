@@ -132,6 +132,7 @@ export class CalendarAppointment{
   PatientName?: string
   ProviderId?: string
   LocationId?: string
+  LocationName?:string
   ProviderName?: string
   AppStatusId?: string
   AppTypeId?: string

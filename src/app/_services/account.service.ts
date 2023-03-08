@@ -37,8 +37,8 @@ export class Accountservice extends APIEndPoint {
   getAllPatientList(reqdata: any) {
     return this._ProcessPostRequest<any>(this._patientListtUrl, reqdata);
   }
-  getEncountersList(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._encountersListUrl, reqdata);
+  EncounterListForReport(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._encounterListForReportUrl, reqdata);
   }
   GetStage2NumeDenomiCount(reqdata: any) {
     return this._ProcessPostRequest<any>(this._stage2NumeratorDenominatorCountUrl, reqdata);
@@ -46,8 +46,8 @@ export class Accountservice extends APIEndPoint {
   getStage2PatientList(reqdata: any) {
     return this._ProcessPostRequest<any>(this._stage2PatientListUrl, reqdata);
   }
-  getProblemListReportByProviderId(reqdata: any) {
-    return this._ProcessPostRequest<any>(this._problemListReportByProviderIdUrl, reqdata);
+  ProblemListForReport(reqdata: any) {
+    return this._ProcessPostRequest<any>(this._problemListForReportUrl, reqdata);
   }
 
   getProviderList(reqdata: any) {
