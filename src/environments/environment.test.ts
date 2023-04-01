@@ -10,6 +10,15 @@ export const environment = {
   RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
   EPRESCRIBE_SERVER:'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
   showemail:true,
+  SERVICE: 'rcopia',
+  ACTION: 'login',
+  RCOPIA_PORTAL_SYSTEM_NAME_PARAM: 'rcopia_portal_system_name',
+  RCOPIA_PRACTICE_USER_NAME_PARAM: 'rcopia_practice_user_name',
+  RCOPIA_USER_ID_PARAM: 'rcopia_user_id',
+  RCOPIA_PATIENT_ID_PARAM: 'rcopia_patient_id',
+  RCOPIA_USER_EXTERNAL_ID_PARAM: 'rcopia_user_external_id',
+  SERVICE_PARAM: 'service',
+  ACTION_PARAM: 'action',
 };
 
 export const RX_DRUG_URI = (term:string) => `REST/drugs.json?name=${term}`;
@@ -31,8 +40,8 @@ export const MEDLINE_PLUS_ICD ='mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'
 export const MEDLINE_PLUS_SNOMED = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.96'
 export const MEDLINE_PLUS_LOINC = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
 export const MEDLINE_PLUS_RXNORM = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
-export const DR_FIRST_SERVER = 'web3.drfist.com'
-export const DR_FIRST_ENDPOINT = 'web3.drfist.com'
+export const DR_FIRST_SERVER = 'web.staging.drfirst.com'
+export const DR_FIRST_ENDPOINT = 'https:'
 export const DR_FIRST_URI = 'sso/portalServices'
 
 export const MEDLINE_PLUS_URL = (code:string,codesystem:string) => `${MEDLINE_PLUS_SERVER}?${codesystem}=${code}`
@@ -52,11 +61,7 @@ export const DR_FIRST_PROVIDER_URL = (
   endpoint: string,
   drfirstServer: string,
   drfirstUri: string,
-  vendor_username: string,
-  rcopia_user_name: string,
-  rcopia_user_id: string,
-  rcopia_user_external_id: string,
-  start_up: string = 'report') => `${endpoint}://${drfirstServer}/${drfirstUri}?rcopia_portal_system_name=${vendor_username}&rcopia_practice_user_name=${rcopia_user_name}&rcopia_user_id=${rcopia_user_id}&rcopia_user_external_id=${rcopia_user_external_id}&service=rcopia&action=login&limp_mode=y&startup_screen=${start_up}&skip_auth=y&time=`
+  urlParams: string) => `${endpoint}://${drfirstServer}/${drfirstUri}?${urlParams}`
 
 
 export const DR_FIRST_URL = (url: string,key: string) => `${url}&MAC=${key}`;

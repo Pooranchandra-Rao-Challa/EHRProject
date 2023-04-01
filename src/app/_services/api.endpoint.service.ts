@@ -480,9 +480,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "UpdateEmergencyContact";
   }
 
-  get _emailedUrlsUrl() {
-    return this._baseUrl + "EmailedUrls";
-  }
+  // get _emailedUrlsUrl() {
+  //   return this._baseUrl + "EmailedUrls";
+  // }
 
   get _updateNextofkinUrl() {
     return this._baseUrl + "UpdateNextofkin";
@@ -1088,6 +1088,12 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "ClearNotification";
   }
+  get _drfirstProviderParamsURL()
+  {
+    return this._baseUrl + "DrfirstProviderParams";
+  }
+
+
 
 
   constructor(public http: HttpClient) {

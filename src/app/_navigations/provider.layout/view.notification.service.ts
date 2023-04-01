@@ -153,3 +153,19 @@ export class UpdateEmergencyAccess {
   }
 }
 
+@Injectable()
+export class DrfirstUrlChanged {
+  private subject = new Subject<string>();
+
+  sendData(url: string) {
+    this.subject.next(url);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<string> {
+    return this.subject.asObservable();
+  }
+}

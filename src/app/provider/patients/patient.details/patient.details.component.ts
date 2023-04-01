@@ -23,7 +23,7 @@ import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.c
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
-import { EPrescribeDialogComponent } from 'src/app/dialogs/e-prescribe.dialog/e-prescribe.dialog.component';
+import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
 
 @Component({
@@ -56,7 +56,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   cCdaDialogComponent = CCdaDialogComponent;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
   MessageDialogComponent = NewmessageDialogComponent;
-  e_PrescribeDialogComponent = EPrescribeDialogComponent;
+  drFirstDialogComponent = DrFirstDialogComponent;
   confirmPatientDeletion: boolean = false;
   communicationSetting: CommunicationSetting = {};
 

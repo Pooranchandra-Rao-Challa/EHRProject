@@ -1,7 +1,6 @@
 import { User } from 'src/app/_models';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
 import { MatMenuTrigger } from '@angular/material/menu';
@@ -14,7 +13,6 @@ export class BreadcrumComponent implements OnInit {
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   isSubscribe: boolean = false;
   currentView: string = "Smart Schedule"
-  showemail: boolean = environment.showemail;
   user: User
   constructor(private authenticationService: AuthenticationService,
     private router: Router,

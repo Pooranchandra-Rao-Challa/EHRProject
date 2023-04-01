@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { User } from 'src/app/_models';
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
-import { PatientBreadcurm, ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
+import { PatientBreadcurm, ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { Router } from '@angular/router';
 import { SmartSchedulerService } from '../../_services/smart.scheduler.service';
 import { PracticeProviders } from '../../_models/_provider/practiceProviders';

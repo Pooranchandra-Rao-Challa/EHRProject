@@ -5,6 +5,15 @@ export const environment = {
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
   EPRESCRIBE_SERVER:'https://engine301.drfirst.com/servlet/rcopia.servlet.EngineServlet',
+  SERVICE: 'rcopia',
+  ACTION: 'login',
+  RCOPIA_PORTAL_SYSTEM_NAME_PARAM: 'rcopia_portal_system_name',
+  RCOPIA_PRACTICE_USER_NAME_PARAM: 'rcopia_practice_user_name',
+  RCOPIA_USER_ID_PARAM: 'rcopia_user_id',
+  RCOPIA_PATIENT_ID_PARAM: 'rcopia_patient_id',
+  RCOPIA_USER_EXTERNAL_ID_PARAM: 'rcopia_user_external_id',
+  SERVICE_PARAM: 'service',
+  ACTION_PARAM: 'action',
 };
 
 export const RX_DRUG_URI = (term: string) => `REST/drugs.json?name=${term}`;
@@ -24,8 +33,8 @@ export const MEDLINE_PLUS_ICD = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.90'
 export const MEDLINE_PLUS_SNOMED = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.96'
 export const MEDLINE_PLUS_LOINC = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
 export const MEDLINE_PLUS_RXNORM = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
-export const DR_FIRST_SERVER = 'web3.drfist.com'
-export const DR_FIRST_ENDPOINT = 'web3.drfist.com'
+export const DR_FIRST_SERVER = 'web.staging.drfirst.com'
+export const DR_FIRST_ENDPOINT = 'https:'
 export const DR_FIRST_URI = 'sso/portalServices'
 
 export const MEDLINE_PLUS_URL = (code: string, codesystem: string) => `${MEDLINE_PLUS_SERVER}?${codesystem}=${code}`;

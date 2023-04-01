@@ -29,7 +29,8 @@
               "jspdf-autotable",
               "moment-timezone",
               "moment",
-              "qrcode"
+              "qrcode",
+              "xml2js"
             ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",

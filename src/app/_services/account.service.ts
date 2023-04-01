@@ -120,9 +120,9 @@ export class Accountservice extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._deleteAdminUrl, reqparams);
   }
 
-  EmailedUrls() {
-    return this._ProcessGetRequest<any>(this._emailedUrlsUrl);
-  }
+  // EmailedUrls() {
+  //   return this._ProcessGetRequest<any>(this._emailedUrlsUrl);
+  // }
 
   ProviderConfirmation(req: any) {
     let endpointurl: string = this._providerConfirmationUrl + "/?token=" + req.token;

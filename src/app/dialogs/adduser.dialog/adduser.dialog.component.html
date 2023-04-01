@@ -14,12 +14,17 @@
           <div class="row  mt-3">
             <div class="col-lg-3 col-md-12 col-12 mb-3">
               <label class="form-label required">Title</label>
-              <select id="LogoType" name="LogoType" class="form-select" [(ngModel)]="newUser.Title" #title="ngModel"
+              <mat-select class="form-select-user" [(ngModel)]="newUser.Title" #title="ngModel"
+              required placeholder="">
+                  <mat-option *ngFor="let title of titles" [value]="title.Name">{{title.Name}}
+                  </mat-option>
+              </mat-select>
+              <!-- <select id="LogoType" name="LogoType" class="form-select" [(ngModel)]="newUser.Title" #title="ngModel"
                 required>
                 <option *ngFor="let title of titles" [value]="title.Name">
                   {{title.Name}}
                 </option>
-              </select>
+              </select> -->
               <div *ngIf="title.errors && title.touched ">
                 <div class="error_message" *ngIf="title.errors?.required">
                   <p class="errormessage">Please select Title</p>
@@ -58,11 +63,16 @@
         <div class="row my-2 mx-0">
           <div class="col-lg-4 col-md-12 col-12 mb-3 px-0 px-lg-2">
             <label class="form-label required">Degree</label>
+            <mat-select [(ngModel)]="newUser.Degree" placeholder="Select Degree" class="form-select-user"
+            #degree="ngModel" required>
+                <mat-option *ngFor="let dg of degrees" [value]="dg.Name"> {{dg.Name}}</mat-option>
+            </mat-select>
+<!--
             <select class="form-select" [(ngModel)]="newUser.Degree" #degree="ngModel" required>
               <option *ngFor="let dg of degrees" [value]="dg.Name">
                 {{dg.Name}}
               </option>
-            </select>
+            </select> -->
             <div *ngIf="degree.errors && degree.touched ">
               <div class="error_message" *ngIf="degree.errors?.required">
                 <p class="errormessage">Please select Degree</p>
@@ -71,12 +81,19 @@
           </div>
           <div class="col-lg-4 col-md-12 col-12  mb-3 px-0 px-lg-2">
             <label class="form-label required">Speciality</label>
-            <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality"
+            <mat-select [(ngModel)]="newUser.Speciality" placeholder="Select Speciality" class="form-select-user"
+            #speciality="ngModel" required>
+                <!-- <mat-option [value]=""></mat-option> -->
+                <mat-option *ngFor="let speciality of specialities" [value]="speciality.Name">
+                  {{speciality.Name}}
+                </mat-option>
+            </mat-select>
+            <!-- <select id="speciality" name="speciality" class="form-select" [(ngModel)]="newUser.Speciality"
               #speciality="ngModel" required>
               <option *ngFor="let speciality of specialities" [value]="speciality.Name">
                 {{speciality.Name}}
               </option>
-            </select>
+            </select> -->
             <div *ngIf="speciality.errors && speciality.touched ">
               <div class="error_message" *ngIf="speciality.errors?.required">
                 <p class="errormessage">Please select Speciality</p>

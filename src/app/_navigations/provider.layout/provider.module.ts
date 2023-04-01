@@ -132,7 +132,7 @@ import { AddauthorizedrepresentativeDialogComponent } from 'src/app/dialogs/adda
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService } from 'src/app/_services/file.upload.service'
-import { NotifyMessageService } from "src/app/_navigations/provider.layout/view.notification.service";
+import { NotifyMessageService, DrfirstUrlChanged } from "src/app/_navigations/provider.layout/view.notification.service";
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
@@ -146,7 +146,8 @@ import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/a
 import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document'
 import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment'
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
-import { EPrescribeDialogComponent } from 'src/app/dialogs/e-prescribe.dialog/e-prescribe.dialog.component';
+import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
+import { DrfirstService } from 'src/app/_services/drfirst.service'
 
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
@@ -207,11 +208,11 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
-    EPrescribeDialogComponent
+    DrFirstDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
-     ProviderFooterComponent,
+    ProviderFooterComponent,
     ProviderComponent,
     CalendarComponent,
     SmartScheduleComponent,
@@ -294,14 +295,14 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     CcdaPreviewDialogComponent,
     LockedComponent,
     PatientRelationshipDialogComponent,
-   // AttachmentNopreviewComponent,
-   // AttachmentComponent
+    // AttachmentNopreviewComponent,
+    // AttachmentComponent
     AddendaAttachDocumentComponent,
     SignAddendaDocumentComponent,
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
-    EPrescribeDialogComponent
+    DrFirstDialogComponent
 
   ],
   imports: [
@@ -340,11 +341,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   ],
   providers: [LocationSelectService, ViewChangeService, RecordsChangeService, PatientUpdateService,
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService, AdminService,
-    AlertMessage, RxNormAPIService, MessagesService,
-    FileUploadService,ProviderLocationUpdateNotifier,
-    NotifyMessageService,
-    NotifyProviderHeaderService,
-    UpdateEmergencyAccess,
+    AlertMessage, RxNormAPIService, MessagesService, FileUploadService, ProviderLocationUpdateNotifier,
+    NotifyMessageService, NotifyProviderHeaderService, UpdateEmergencyAccess, DrfirstService,DrfirstUrlChanged,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
@@ -401,8 +399,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LockedComponent,
     PatientRelationshipDialogComponent,
     ResetPatientPasswordComponent,
-    EPrescribeDialogComponent
-    ]
+    DrFirstDialogComponent
+  ]
 })
 export class ProviderModule {
 

@@ -92,4 +92,8 @@ export class UtilityService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateResetPasswordURL,reqparams);
   }
 
+  DrfirstProviderParams(providerId: string){
+    return this._ProcessGetRequestWithId<any>(this._drfirstProviderParamsURL,providerId);
+  }
+
 }

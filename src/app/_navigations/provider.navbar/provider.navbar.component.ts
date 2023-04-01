@@ -1,3 +1,4 @@
+import { DrfirstService } from 'src/app/_services/drfirst.service';
 import { AdminService } from './../../_services/admin.service';
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
@@ -11,7 +12,7 @@ import { OverlayService } from 'src/app/overlay.service';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
-import { _RecycleViewRepeaterStrategy } from '@angular/cdk/collections';
+import { DrfirstUrlChanged} from 'src/app/_navigations/provider.layout/view.notification.service'
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -34,6 +35,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
   lockedComponent = LockedComponent;
   menuwidth: number;
   providersDataSource: NewUser[];
+  drfirstProviderUrl: string;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -44,6 +46,8 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
     private notifyEmergencyAccess: UpdateEmergencyAccess,
+    private drfirstService : DrfirstService,
+    private drfirstUrlChanged: DrfirstUrlChanged,
     private adminservice: AdminService,
     private chdetref :ChangeDetectorRef,
     private uplodateLocations: ProviderLocationUpdateNotifier) {
@@ -86,6 +90,12 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
         });
       }
     })
+    this.drfirstService.ProviderUrl();
+    this.drfirstUrlChanged.getData().subscribe((url:string)=>{this.drfirstProviderUrl=url
+      console.log(this.drfirstProviderUrl);});
+    // this.drfirstProviderUrl = this.drfirstService.ProviderUrl();
+    // console.log(this.drfirstProviderUrl);
+
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth+ (this.user.EmergencyAccess ? 30 : 8));

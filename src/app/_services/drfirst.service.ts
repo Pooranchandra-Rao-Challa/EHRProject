@@ -1,10 +1,15 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
+import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import * as xml2js from 'xml2js';
-import { BehaviorSubject, Observable, of, pipe, throwError } from "rxjs";
-import { catchError, map, take, tap } from "rxjs/operators";
-import {  environment } from "src/environments/environment"
-
+import { DR_FIRST_PROVIDER_URL, DR_FIRST_PROVIDER_URL_PARAMS, environment } from "src/environments/environment";
+import { DatePipe } from "@angular/common";
+import { DrFirstProviderParams } from '../_models/_provider/practiceProviders';
+import { Observable } from 'rxjs';
+//import { Md5 } from 'ts-md5';
+import {Md5} from "md5-typescript";
+import { DrfirstUrlChanged } from '../_navigations/provider.layout/view.notification.service';
 
 
 @Injectable()
@@ -12,17 +17,24 @@ export class DrfirstService {
   httpRequestHeaders: HttpHeaders;
   httpRequestParams: HttpParams;
   parser = new xml2js.Parser({ strict: false, trim: true });
-  constructor(public http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipe,
+    private authenticationService: AuthenticationService,
+    private utilityService: UtilityService,
+    private drfirstUrlChanged: DrfirstUrlChanged,
+  ) {
     this.initHeaders();
   }
 
   initHeaders() {
+    this.httpRequestHeaders = new HttpHeaders();
     this.httpRequestHeaders = this.httpRequestHeaders.set('Content-Type', 'application/xml; charset=UTF-8')
   }
 
   public SendPatient(provider, patient) {
-    let patientXml = SendPatientXML(provider, patient);
-    this.SubmitRequest(patientXml).subscribe(resp =>{
+    let patientXml = SendPatientXML(provider, patient, this.datePipe);
+    this.SubmitRequest('xml=' + encodeURI(patientXml)).subscribe(resp => {
       console.log(resp);
       // this.parser.parseString(resp, (err, result) => {
       //   let xmltoJsonData = result;
@@ -31,28 +43,28 @@ export class DrfirstService {
 
   }
 
-  public SendMedication(provider,patient,medication,deleted){
-    let sendMedicationXML = SendMedicationXML(provider, patient,medication, deleted);
+  public SendMedication(provider, patient, medication, deleted) {
+    let sendMedicationXML = SendMedicationXML(provider, patient, medication, deleted);
     this.SubmitRequest(sendMedicationXML).subscribe(resp => {
       console.log(resp);
     })
   }
 
-  public SentDiagnosisForSnomed(provider,patient,diagnoses){
-    let sendMedicationXML = SentDiagnosisXMLForSnomed(provider, patient,diagnoses);
+  public SentDiagnosisForSnomed(provider, patient, diagnoses) {
+    let sendMedicationXML = SentDiagnosisXMLForSnomed(provider, patient, diagnoses);
     this.SubmitRequest(sendMedicationXML).subscribe(resp => {
       console.log(resp);
     })
   }
 
-  public SendDianosisForNonSnomed(provider,patient,diagnoses){
-    let sendMedicationXML = SendDianosisXMLForNonSnomed(provider, patient,diagnoses);
+  public SendDianosisForNonSnomed(provider, patient, diagnoses) {
+    let sendMedicationXML = SendDianosisXMLForNonSnomed(provider, patient, diagnoses);
     this.SubmitRequest(sendMedicationXML).subscribe(resp => {
       console.log(resp);
     })
   }
 
-  public SyncPrescription(provider,patient){
+  public SyncPrescription(provider, patient) {
     let sendMedicationXML = SyncPrescriptionXML(provider, patient);
     this.SubmitRequest(sendMedicationXML).subscribe(resp => {
       console.log(resp);
@@ -60,21 +72,48 @@ export class DrfirstService {
   }
 
 
-
-  private SubmitRequest(xmlpayload): Observable<any>{
-    let eprescribeServer = environment.EPRESCRIBE_SERVER
+  private SubmitRequest(xmlpayload): Observable<any> {
+    let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE101
     return this.http.post(eprescribeServer, xmlpayload,
-      { headers: this.httpRequestHeaders, observe: 'body', responseType:'json' })
+      { headers: this.httpRequestHeaders, observe: 'body', responseType: 'json' })
 
   }
 
+  public ProviderUrl() {
+    if (this.authenticationService.isProvider) {
+      var urlparams: string = ""
+      var providerId = this.authenticationService.userValue.ProviderId;
+      //var md5 = new Md5();
+      this.utilityService.DrfirstProviderParams(providerId).subscribe(resp => {
+        if (resp.IsSuccess) {
+          var drfirstProviderParams = resp.Result as DrFirstProviderParams;
+          urlparams = DR_FIRST_PROVIDER_URL_PARAMS(
+            drfirstProviderParams.VendorUserName,
+            drfirstProviderParams.RcopiaUserName,
+            drfirstProviderParams.RcopiaUserId,
+            drfirstProviderParams.RcopiaUserExternalId)
+        }
+        var date = new Date();
+        urlparams += this.datePipe.transform(date,"MMddyyyyHHmmss")
+        var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword }`).toUpperCase()
+        urlparams = `${urlparams}&MAC=${hashvalue}`
+        this.drfirstUrlChanged.sendData(DR_FIRST_PROVIDER_URL(urlparams));
+        //action=login&service=rcopia&startup_screen=patient&rcopia_user_external_id=dfdoc&rcopia_practice_username=df18&rcopia_patient_system_name=vendordf18&rcopia_patient_external_id=Bruce_Paltrow&close_window=n&allow_popup_screens=y&logout_url=http://www.google.com&time=080307200000
+      })
+    }
+
+  }
+
+  private ProviderDrfirstInfo() {
+
+  }
 }
 
 
 
 
 
-export const SendPatientXML = (provider, patient) => `<?xml version="1.0" encoding="UTF-8"?>
+export const SendPatientXML = (provider, patient, datePipe) => `<?xml version="1.0" encoding="UTF-8"?>
   <RCExtRequest version = "2.32">
       <Caller>
           <VendorName>${provider.vendor_username}</VendorName>
@@ -82,7 +121,6 @@ export const SendPatientXML = (provider, patient) => `<?xml version="1.0" encodi
       </Caller>
       <SystemName>${provider.vendor_username}</SystemName>
       <RcopiaPracticeUsername>${provider.rcopia_user_name}</RcopiaPracticeUsername>
-
       <Request>
           <Command>send_patient</Command>
           <PatientList>
@@ -90,8 +128,8 @@ export const SendPatientXML = (provider, patient) => `<?xml version="1.0" encodi
                 <ExternalID>${patient.id}</ExternalID>
                 <FirstName>${patient.first_name.to_s}</FirstName>
                 <LastName>${patient.last_name.to_s}</LastName>
-                <DOB>${patient.birth}</DOB>
-                <Sex>patient{patient.gender == "female" ? 'f' : 'm' }</Sex>
+                <DOB>${datePipe.transform(patient.birth, "MM/dd/yyyy")}</DOB>
+                <Sex>patient{patient.gender == "female" ? 'F' : "male" ? 'M' :'U' }</Sex>
                 <HomePhone>${patient.primary_phone}</HomePhone>
                 <MobilePhone>${patient.mobile_phone}</MobilePhone>
                 <WorkPhone>${patient.work_phone}</WorkPhone>
@@ -188,7 +226,7 @@ export const SentDiagnosisXMLForSnomed = (provider, patient, diagnoses) => `<?xm
     </Request>
   </RCExtRequest>`;
 
-export const SendDianosisXMLForNonSnomed = (provider,patient,diagnoses) => `<?xml version="1.0" encoding="UTF-8"?>
+export const SendDianosisXMLForNonSnomed = (provider, patient, diagnoses) => `<?xml version="1.0" encoding="UTF-8"?>
 <RCExtRequest version = "2.32">
     <Caller>
         <VendorName>#{self.patient.provider.vendor_username}</VendorName>
@@ -219,7 +257,7 @@ export const SendDianosisXMLForNonSnomed = (provider,patient,diagnoses) => `<?xm
   </Request>
 </RCExtRequest>`
 
-export const DeleteDianosisXMLForSnomed = (provider,patient,diagnoses) => `<?xml version="1.0" encoding="UTF-8"?>
+export const DeleteDianosisXMLForSnomed = (provider, patient, diagnoses) => `<?xml version="1.0" encoding="UTF-8"?>
 <RCExtRequest version = "2.32">
     <Caller>
         <VendorName>S{provider.vendor_username}</VendorName>
@@ -433,7 +471,7 @@ export const GetNotificationsXML = () => `<?xml version="1.0" encoding="UTF-8"?>
     </Request>
 </RCExtRequest>`;
 
-export const SyncPrescriptionXML = (provider,patient) => `<?xml version="1.0" encoding="UTF-8"?>
+export const SyncPrescriptionXML = (provider, patient) => `<?xml version="1.0" encoding="UTF-8"?>
 <RCExtRequest version = "2.32">
   <Caller>
     <VendorName>${provider.vendor_username}</VendorName>
