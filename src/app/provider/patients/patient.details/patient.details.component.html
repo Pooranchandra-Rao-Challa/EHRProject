@@ -90,7 +90,11 @@
       </ul>
     </div>
     <button class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
-      (click)="openComponentDialog(drFirstDialogComponent,null,ActionTypes.new)">
+      (click)="openComponentDialog(drFirstDialogComponent,null,ActionTypes.new)" *ngIf="!IsPatientRegisteredWithDrFirst">
+      Open eRX
+    </button>
+    <button class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
+    *ngIf="IsPatientRegisteredWithDrFirst">
       Open eRX
     </button>
 

@@ -547,7 +547,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   removeAllBlockouts() {
-    this.fullcalendar.getApi().getEvents().forEach((value, i) => {
+    this.fullcalendar.getApi().getEvents()?.forEach((value, i) => {
       if (value.extendedProps.IsBlockout) value.remove();
     })
   }

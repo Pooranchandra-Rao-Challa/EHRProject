@@ -1139,12 +1139,21 @@ export class APIEndPoint extends EndpointBase {
     );
   }
 
+  _ProcessGetRequestWith2Params<T>(apiurl: string,id1: string,id2:string): Observable<T> {
+    return this.http.get<T>(`${apiurl}/${id1}/${id2}`).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this._handleError)
+    );
+  }
+
   //Handel Errorss
   private _handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error("An error occurred:", error.error.message);
     } else {
-      console.error("serverside error", error.error);
+      console.error("serverside error", JSON.stringify(error));
     }
     return throwError(error.error.Message);
   }

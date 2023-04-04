@@ -9,6 +9,7 @@ export class ProviderPatient{
   Gender?: string;
   LastAccessed?: string;
   LastName?: string;
+  DrFirstPatientId?:string;
   MiddleName?: string;
   MobilePhone?: string;
   PatientId?: string;

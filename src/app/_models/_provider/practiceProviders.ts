@@ -21,4 +21,7 @@ export class DrFirstProviderParams {
   RcopiaUserId?: string;
   RcopiaUserIdPassword?: string;
   RcopiaUserExternalId?: string;
+  EprescribeFrom?: string;
+  DrFirstPatientId?: number;
+  RcopiaUserExternalPatientId ?: string;
 }

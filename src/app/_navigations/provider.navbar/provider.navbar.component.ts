@@ -2,8 +2,8 @@ import { DrfirstService } from 'src/app/_services/drfirst.service';
 import { AdminService } from './../../_services/admin.service';
 import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from './../provider.layout/view.notification.service';
 import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.notification.service';
-import { ActivatedRoute,  Router } from '@angular/router';
-import { Component, OnInit, Output, EventEmitter, TemplateRef,AfterViewInit,ChangeDetectorRef  } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Output, EventEmitter, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { Actions, NewUser, User, UserLocations, ViewModel } from '../../_models';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
@@ -12,13 +12,13 @@ import { OverlayService } from 'src/app/overlay.service';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
-import { DrfirstUrlChanged} from 'src/app/_navigations/provider.layout/view.notification.service'
+import { DrfirstUrlChanged } from 'src/app/_navigations/provider.layout/view.notification.service'
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
   styleUrls: ['./provider.navbar.component.scss']
 })
-export class ProviderNavbarComponent implements OnInit,AfterViewInit {
+export class ProviderNavbarComponent implements OnInit, AfterViewInit {
 
   navbarOpen: boolean = false;
   user: User;
@@ -46,10 +46,10 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     private notifyMessage: NotifyMessageService,
     private notifyProviderHeader: NotifyProviderHeaderService,
     private notifyEmergencyAccess: UpdateEmergencyAccess,
-    private drfirstService : DrfirstService,
+    private drfirstService: DrfirstService,
     private drfirstUrlChanged: DrfirstUrlChanged,
     private adminservice: AdminService,
-    private chdetref :ChangeDetectorRef,
+    private chdetref: ChangeDetectorRef,
     private uplodateLocations: ProviderLocationUpdateNotifier) {
     // config.placement = 'bottom-right';
     this.user = authenticationService.userValue;
@@ -76,13 +76,13 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
       this.user.FirstName = value.FirstName;
       this.user.LastName = value.LastName;
     });
-    this.uplodateLocations.getData().subscribe(value =>{
-      if(value){
+    this.uplodateLocations.getData().subscribe(value => {
+      if (value) {
         var reqparams = {
           ProviderId: this.user.ProviderId,
         }
         this.settingsService.ProviderPracticeLocations(reqparams).subscribe(resp => {
-          if(resp.IsSuccess){
+          if (resp.IsSuccess) {
             this.locationsInfo = resp.ListResult as UserLocations[];
             this.user.LocationInfo = JSON.stringify(this.locationsInfo)
             this.authenticationService.UpdateUser(this.user);
@@ -91,20 +91,19 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
       }
     })
     this.drfirstService.ProviderUrl();
-    this.drfirstUrlChanged.getData().subscribe((url:string)=>{this.drfirstProviderUrl=url
-      console.log(this.drfirstProviderUrl);});
-    // this.drfirstProviderUrl = this.drfirstService.ProviderUrl();
-    // console.log(this.drfirstProviderUrl);
-
+    this.drfirstUrlChanged.getData().subscribe((url: string) => {
+      this.drfirstProviderUrl = url
+      console.log(this.drfirstProviderUrl);
+    });
   }
   ngAfterViewInit(): void {
-    this.menuwidth = (document.getElementById('UserDropdown').clientWidth+ (this.user.EmergencyAccess ? 30 : 8));
+    this.menuwidth = (document.getElementById('UserDropdown').clientWidth + (this.user.EmergencyAccess ? 30 : 8));
     var usernavbar = document.getElementsByClassName("user-nav-bar-normal");
-    if(usernavbar == null || usernavbar.length == 0)
+    if (usernavbar == null || usernavbar.length == 0)
       usernavbar = document.getElementsByClassName("user-nav-bar-access");
-    if(usernavbar != null && usernavbar.length == 1)
-      if(usernavbar[0].getAttribute("style")==null){
-        usernavbar[0].setAttribute("style","width:"+this.menuwidth+"px");
+    if (usernavbar != null && usernavbar.length == 1)
+      if (usernavbar[0].getAttribute("style") == null) {
+        usernavbar[0].setAttribute("style", "width:" + this.menuwidth + "px");
       }
 
     this.chdetref.detectChanges();
@@ -146,7 +145,7 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     this.settingsService.UserInfoWithPracticeLocations(reqparams).subscribe(resp => {
       let UserInfo = resp.Result as NewUser;
       UserInfo.LocationInfo = JSON.parse(resp.Result.LocationInfo);
-      this.openComponentDialog(this.userDialogComponent,UserInfo,Actions.view)
+      this.openComponentDialog(this.userDialogComponent, UserInfo, Actions.view)
     });
   }
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
@@ -192,15 +191,15 @@ export class ProviderNavbarComponent implements OnInit,AfterViewInit {
     });
   }
 
-    // get display User Details
-    getProviderDetails() {
-      var reqparams = {
-        ClinicId: this.user.ClinicId
-      }
-      this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
-        if (resp.IsSuccess) {
-          this.providersDataSource = resp.ListResult as NewUser[];
-        } else this.providersDataSource = [];
-      });
+  // get display User Details
+  getProviderDetails() {
+    var reqparams = {
+      ClinicId: this.user.ClinicId
     }
+    this.settingsService.ClinicProviders(reqparams).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.providersDataSource = resp.ListResult as NewUser[];
+      } else this.providersDataSource = [];
+    });
+  }
 }

@@ -156,6 +156,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     this.authService.SetViewParam("View", "Patients")
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
+    console.log(patientview);
+
     this.router.navigate(["/provider/patientdetails"]);
   }
 

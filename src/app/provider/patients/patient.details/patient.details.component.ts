@@ -1,3 +1,4 @@
+import { DrfirstService } from 'src/app/_services/drfirst.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
@@ -70,7 +71,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private adminService:AdminService,
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
-    private patientUpdateNotifier: PatientUpdateService) {
+    private patientUpdateNotifier: PatientUpdateService,
+    private drfirstService: DrfirstService) {
     this.viewModel = authService.viewModel;
 
     if (this.viewModel.PatientView == null
@@ -88,8 +90,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.adminService.CommunicationSetting().subscribe(resp=>{
       if(resp.IsSuccess){
         this.communicationSetting = resp.Result as CommunicationSetting;
-
-
       }
     })
     this.loadBreadcurmData();
@@ -131,7 +131,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
       });
-
+      //this.drfirstService.ProviderUrl();
   }
 
   loadDependents() {
@@ -158,6 +158,11 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.authService.SetViewParam("PatientView", patientView);
     this.viewModel = this.authService.viewModel;
     this.chartSubject.next(patientView);
+
+  }
+  get IsPatientRegisteredWithDrFirst():boolean{
+    return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
+
 
   }
   //#region Tab Components

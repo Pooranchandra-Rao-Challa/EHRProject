@@ -13,12 +13,6 @@ export const environment = {
   EPRESCRIBE_SERVER_STAGE101: 'https://engine101.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
   EPRESCRIBE_SERVER_STAGE102: 'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
 
-
-
-
-  //https://web.staging.drfirst.com/sso/portalServices
-  //DRFIRST_SERVER: 'web.staging.drfirst.com',
-
   showemail: false,
 };
 
@@ -59,7 +53,7 @@ export const RX_NDCS_STATUS_URI = (ndc: string) => `REST/ndcstatus.json?ndc=${nd
 
 export const RX_URI_NDC_PROPERTIES = (ndc: string) => `REST/rxcui/${ndc}/properties.json`;
 
-
+export const DR_FIRSR_VERESION = 2.45;
 
 export const UPLOAD_URL = (uri: string) => `${environment.baseUrl}${uri}`;
 
@@ -76,16 +70,13 @@ export const MEDLINE_PLUS_URL = (code: string, codesystem: string) => `${MEDLINE
 
 
 export const DR_FIRST_PATINET_URL = (
-  endpoint: string,
-  drfirstServer: string,
-  drfirstUri: string,
   vendor_username: string,
   rcopia_user_name: string,
   rcopia_user_id: string,
   rcopia_user_external_id: string,
-  drfirst_patient_id: string) => `${endpoint}://${drfirstServer}/${drfirstUri}?rcopia_portal_system_name=${vendor_username}&rcopia_practice_user_name=${rcopia_user_name}&rcopia_user_id=${rcopia_user_id}&rcopia_patient_id=${drfirst_patient_id}&rcopia_user_external_id=${rcopia_user_external_id}&service=rcopia&action=login&startup_screen=patient&skip_auth=y&time=`
+  drfirst_patient_id: string) => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&{DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaPatientId}=${drfirst_patient_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.StartupScreen}=${DrFirstSSOConstants.Patient}&${DrFristParamNames.Time}=`
 
-export const DR_FIRST_PROVIDER_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
+export const DR_FIRST_SSO_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
 
 export const DR_FIRST_PROVIDER_URL_PARAMS = (
   vendor_username: string,
@@ -95,7 +86,7 @@ export const DR_FIRST_PROVIDER_URL_PARAMS = (
   start_up: string = 'report') => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.LimpMode}=y&${DrFristParamNames.StartupScreen}=${start_up}&${DrFristParamNames.Time}=`
 
 
-export const DR_FIRST_URL = (url: string, key: string) => `${url}&MAC=${key}`;
+export const DR_FIRST_URL = (urlparams: string, mac: string) => `${urlparams}&MAC=${mac}`;
 
 //export const MEDLINE_PLUS_ICD = (code:string) => `{MEDLINE_PLUS_SERVER}?mainSearchCriteria.v.cs=2.16.840.1.113883.6.90=`
 

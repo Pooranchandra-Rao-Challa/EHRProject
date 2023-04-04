@@ -26,7 +26,6 @@ import {
 import { FormControl } from '@angular/forms';
 import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
 import { TOOTH_PROBLEM_PLACES } from 'src/app/_models';
-// import { outputs } from '@syncfusion/ej2-angular-calendars/src/calendar/calendar.component';
 
 
 @Component({
