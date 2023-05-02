@@ -53,7 +53,9 @@
       </li>
       <li [class]="viewModel.View !== 'Reports' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-reports"
-          (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
+        (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
+          <!--(click)="onChangeBreadCrum('provider/categoryreports','Reports')" -->
+          <!--href="http://13.56.245.114:90/login?s_id={{KeyParam}}" target="_blank" -->
         </a>
       </li>
       <li [class]="viewModel.View !== 'Billing' ? 'nav-item': 'active nav-item'">

@@ -1,5 +1,7 @@
 
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID, Injectable } from '@angular/core';
+import { HttpClientJsonpModule, JsonpInterceptor, HTTP_INTERCEPTORS,HttpClientModule,
+  HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -148,7 +150,19 @@ import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addend
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { DrfirstService } from 'src/app/_services/drfirst.service'
+import { Observable } from 'rxjs';
 
+
+
+// @Injectable()
+// export class CustomInterceptor {
+//   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+//     console.log(req);
+
+//     return next.handle(req);
+//   }
+// }
 
 //import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 //import { AttachmentComponent } from 'src/app/_components/attachments/attachment.component'
@@ -308,6 +322,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   imports: [
     FullCalendarModule,
     OverlayModule,
+    //JsonpInterceptor,
+    HttpClientModule,
+    HttpClientJsonpModule,
     ProviderRoutingModule,
     SharedModule,
     NgxPaginationModule,
@@ -346,7 +363,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
-    { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter }
+    { provide: NgbDateParserFormatter, useClass: NgbDateUSParserFormatter },
+    // { provide: HTTP_INTERCEPTORS, useClass: CustomInterceptor, multi: true}
 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

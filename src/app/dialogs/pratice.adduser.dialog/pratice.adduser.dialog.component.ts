@@ -55,7 +55,6 @@ export class PraticeAdduserDialogComponent implements OnInit {
     this.settingsService.AddUpdateUser(this.NewUserData).subscribe(resp => {
       this.hideSaveButton = false;
       if (resp.IsSuccess) {
-        // this.getProviderDetails();
         this.NewUserData = new NewUser;
         this.alertmsg.userCreateConfirm(resp.Result["Code"], resp.Result["ProviderName"]);
         this.cancel();

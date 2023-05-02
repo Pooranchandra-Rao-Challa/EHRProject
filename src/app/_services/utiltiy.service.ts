@@ -2,7 +2,7 @@ import { PatientData } from '../_models/_provider/_reports/patient';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
-import { Patient, PatientPortalUser} from 'src/app/_models';
+import { DrFirstPatient, Patient, PatientPortalUser} from 'src/app/_models';
 @Injectable()
 export class UtilityService extends APIEndPoint {
   constructor(http: HttpClient) { super(http); }
@@ -92,11 +92,23 @@ export class UtilityService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateResetPasswordURL,reqparams);
   }
 
-  DrfirstProviderParams(providerId: string,patientId: string=null){
+  DrfirstProviderParams(providerId: string,patientId: string){
     if(patientId == null && patientId == '')
       return this._ProcessGetRequestWithId<any>(this._drfirstProviderParamsURL,providerId);
     else
       return this._ProcessGetRequestWith2Params<any>(this._drfirstProviderParamsURL,providerId,patientId);
   }
+  DrfirstPatient(providerId: string,patientId: string){
+    return this._ProcessGetRequestWith2Params<any>(this._drfirstPatientURL,patientId,providerId);
+  }
 
+  UpdateDrFirstPatient(patientId:string,rcopiaId:number){
+    return this._ProcessGetRequestWith2Params<any>(this._updateDrFirstPatientURL,patientId,rcopiaId.toString());
+  }
+
+  SendDrfirstPatient(data:any){
+    console.log(data);
+
+    return this._ProcessPostRequest<any>(this._sendDrfirstPatientURL,data);
+  }
 }

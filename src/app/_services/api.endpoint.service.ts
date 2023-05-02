@@ -1090,10 +1090,21 @@ export class APIEndPoint extends EndpointBase {
   }
   get _drfirstProviderParamsURL()
   {
-    return this._baseUrl + "DrfirstProviderParams";
+    return this._baseUrl + "DrFirstAttributes";
+  }
+  get _drfirstPatientURL()
+  {
+    return this._baseUrl + "DrfirstPatient";
   }
 
-
+  get _updateDrFirstPatientURL()
+  {
+    return this._baseUrl + "UpdateDrFirstPatient";
+  }
+  get _sendDrfirstPatientURL()
+  {
+    return this._baseUrl + "SendDrfirstPatient";
+  }
 
 
   constructor(public http: HttpClient) {

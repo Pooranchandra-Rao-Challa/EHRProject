@@ -88,7 +88,7 @@ export class UserDialogComponent implements OnInit {
     this.PhotoValidatorEvent.subscribe((p: PhotoFileProperties) => {
       if (this.fileTypes.indexOf(p.FileExtension) > 0 && p.Size < 1024 * 1024
         && p.Width <= 300 && p.Height <= 300) {
-          this.uploadFile(p.File);
+        this.uploadFile(p.File);
       } else {
         this.alertmsg.displayMessageDailog(p.Message);
       }
@@ -141,7 +141,7 @@ export class UserDialogComponent implements OnInit {
   }
 
   updatePhoto() {
-    if(this.EditProvider.ProfileImage != null){
+    if (this.EditProvider.ProfileImage != null) {
       let a: Attachment = {
         FileName: "",
         AttachmentId: "",
@@ -283,9 +283,9 @@ export class UserDialogComponent implements OnInit {
 
           let uploadInfo = event.body as Attachment;
           this.EditProvider.ProfileImage = uploadInfo.FullFileName;
-          if(this.EditProvider.ProviderId != null && this.EditProvider.ProviderId != ""){
-            this.settingsService.UpdateUploadedPhoto(this.EditProvider).subscribe(resp =>{
-              if(resp.IsSuccess){
+          if (this.EditProvider.ProviderId != null && this.EditProvider.ProviderId != "") {
+            this.settingsService.UpdateUploadedPhoto(this.EditProvider).subscribe(resp => {
+              if (resp.IsSuccess) {
                 this.updatePhoto();
               }
             })
@@ -316,7 +316,7 @@ export class UserDialogComponent implements OnInit {
         let width = img.width;
         let height = img.height;
         message =
-          'File can\'t be uploaded. May be File Size, Width or Height in pixels is not matching with specified image properies.'+
+          'File can\'t be uploaded. May be File Size, Width or Height in pixels is not matching with specified image properies.' +
           '\nName: ' + file.name +
           '\nSize: ' + Math.round(file.size) + ' bytes' +
           '\nWidth: ' + width +

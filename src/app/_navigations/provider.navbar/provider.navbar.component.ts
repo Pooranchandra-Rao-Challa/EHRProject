@@ -58,6 +58,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.user.CurrentLocation = this.locationsInfo[0].LocationId;
     this.viewModel = authenticationService.viewModel;
+    //
   }
 
   ngOnInit() {
@@ -91,9 +92,10 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
       }
     })
     this.drfirstService.ProviderUrl();
-    this.drfirstUrlChanged.getData().subscribe((url: string) => {
-      this.drfirstProviderUrl = url
-      console.log(this.drfirstProviderUrl);
+    this.drfirstUrlChanged.getData().subscribe((data) => {
+      if(data.urlfor=="Provider")
+        this.drfirstProviderUrl = data.url
+     // console.log(this.drfirstProviderUrl);
     });
   }
   ngAfterViewInit(): void {
@@ -117,6 +119,9 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.authenticationService.logout();
   }
 
+  public get KeyParam():string{
+    return this.user.UserId+','+this.user.ProviderId
+  }
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
   }

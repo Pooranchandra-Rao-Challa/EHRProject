@@ -3,7 +3,7 @@ import {
   Component, ElementRef, ViewChild,
 } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { PatientPortalUser } from 'src/app/_models/_account/NewPatient';
+import { PatientPortalUser } from 'src/app/_models/_account/newPatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';

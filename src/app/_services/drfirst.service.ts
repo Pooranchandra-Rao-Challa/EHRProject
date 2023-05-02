@@ -1,149 +1,171 @@
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend, JsonpInterceptor, HttpUrlEncodingCodec } from "@angular/common/http";
+
 import { Injectable } from "@angular/core";
 import * as xml2js from 'xml2js';
 import { DR_FIRSR_VERESION, DR_FIRST_PATINET_URL, DR_FIRST_PROVIDER_URL_PARAMS, DR_FIRST_SSO_URL, DR_FIRST_URL, environment } from "src/environments/environment";
 import { DatePipe } from "@angular/common";
-import { DrFirstProviderParams } from '../_models/_provider/practiceProviders';
-import { Observable } from 'rxjs';
+import { DrFirstAttributes, DrFirstPatient } from '../_models/_provider/practiceProviders';
+import { Observable, of } from 'rxjs';
 import { Md5 } from "md5-typescript";
 import { DrfirstUrlChanged } from '../_navigations/provider.layout/view.notification.service';
-import { ProviderPatient } from '../_models/_provider/Providerpatient';
+import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
+import { catchError, map, tap } from 'rxjs/operators';
+import { switchMap } from 'rxjs-compat/operator/switchMap';
+declare function JSONPCalls(url, callback): any;
 
-
+export class DrFirstValidFields {
+  FirstName = { required: true, length: 35 };
+  MiddleName = { required: false, length: 35 };
+  LastName = { required: true, length: 35 };
+  DOB = { required: true, format: 'MM/dd/yyyy' }
+  Sex = { char: 1 }
+  MobilePhone = { length: 10, format: '(ddd) ddd-dddd', required: true }
+  Address1 = { length: 40, default: 'Unknown', max: 100 }
+  City = { required: true, length: 100 }
+  State = { required: true, length: 2 }
+  Zip = { required: true, size: [5, 10] }
+}
 
 @Injectable()
 export class DrfirstService {
   httpRequestHeaders: HttpHeaders;
   httpRequestParams: HttpParams;
   parser = new xml2js.Parser({ strict: false, trim: true });
+  codec = new HttpUrlEncodingCodec;
   constructor(
     private http: HttpClient,
+    // private jsonpClient: JsonpClientBackend,
     private datePipe: DatePipe,
     private authenticationService: AuthenticationService,
     private utilityService: UtilityService,
     private drfirstUrlChanged: DrfirstUrlChanged,
+    private alertmsg: AlertMessage
   ) {
-    this.initHeaders();
-    console.log(Response);
-    console.log(this.parser);
-    this.parser.parseString(Response, (err, result) => {
-      console.log(result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].RCOPIAID[0]);
-      console.log(result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].EXTERNALID[0]);
-      console.log(result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].STATUS[0]);
-      console.log(result.RCEXTRESPONSE.RESPONSE[0].STATUS[0]);
-      console.log(result);
-    })
-    console.log(USAPhoneFormat('4938493883'))
+    // this.initHeaders();
+
   }
 
   initHeaders() {
     this.httpRequestHeaders = new HttpHeaders();
-    this.httpRequestHeaders = this.httpRequestHeaders.append('Content-Type', 'text/xml').append('Accept', 'text/xml')
+    this.httpRequestHeaders = this.httpRequestHeaders
+      .append('Content-Type', 'application/xml; charset=UTF-8')
+      .append('Accept', 'text/xml')
+      .append('Access-Control-Allow-Origin', '*')
+      .append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
+      .append('Access-Control-Allow-Headers', 'Content-Type')
+      .append('Access-Control-Max-Age', '86400')
+    console.log(this.httpRequestHeaders);
+
   }
 
-  public SendPatient(patient: ProviderPatient) {
-     var urlparams: string = ""
-      var providerId = this.authenticationService.userValue.ProviderId;
-    this.utilityService.DrfirstProviderParams(providerId, null).subscribe(resp => {
+  public SendPatient(patient: DrFirstPatient) {
+    var urlparams: string = ""
+    var providerId = this.authenticationService.userValue.ProviderId;
+    this.utilityService.DrfirstProviderParams(providerId, patient.PatientId).subscribe(resp => {
       if (resp.IsSuccess) {
-        var drfirstProviderParams = resp.Result as DrFirstProviderParams;
+        var drfirstProviderParams = resp.Result as DrFirstAttributes;
         console.log(drfirstProviderParams);
         let patientXml = SendPatientXML(drfirstProviderParams, patient, this.datePipe);
         console.log(patientXml);
-        return;
-        this.SubmitRequest('xml=' + encodeURI(patientXml)).subscribe(resp => {
-          console.log(resp);
-          this.parser.parseString(resp, (err, result) => {
-            console.log(result);
-
-            let xmltoJsonData = result;
-          });
-        })
+        // this.SubmitRequest(encodeURI(patientXml)).subscribe(resp => {
+        //   console.log(resp);
+        //   this.parser.parseString(resp, (err, result) => {
+        //     console.log(result);
+        //     let xmltoJsonData = result;
+        //     var patientId = result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].EXTERNALID[0]
+        //     var rcopiaId = result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].EXTERNALID[0]
+        //     var status = result.RCEXTRESPONSE.RESPONSE[0].STATUS[0];
+        //     if (status == "ok") {
+        //       this.utilityService.UpdateDrFirstPatient(patientId, rcopiaId).subscribe((resp) => {
+        //         this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+        //       });
+        //     } else {
+        //       this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
+        //     }
+        //   });
+        // })
+        this.SubmitRequest(this.codec.encodeValue(patientXml),patientXml);
       }
     })
+  }
 
-
-
+  public logDrfirstdata() {
 
 
   }
 
   public SendMedication(provider, patient, medication, deleted) {
     let sendMedicationXML = SendMedicationXML(provider, patient, medication, deleted);
-    this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-      console.log(resp);
-    })
+    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
+    //   console.log(resp);
+    // })
   }
 
   public SentDiagnosisForSnomed(provider, patient, diagnoses) {
     let sendMedicationXML = SentDiagnosisXMLForSnomed(provider, patient, diagnoses);
-    this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-      console.log(resp);
-    })
+    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
+    //   console.log(resp);
+    // })
   }
 
   public SendDianosisForNonSnomed(provider, patient, diagnoses) {
     let sendMedicationXML = SendDianosisXMLForNonSnomed(provider, patient, diagnoses);
-    this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-      console.log(resp);
-    })
+    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
+    //   console.log(resp);
+    // })
   }
 
   public SyncPrescription(provider, patient) {
     let sendMedicationXML = SyncPrescriptionXML(provider, patient);
-    this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-      console.log(resp);
-    })
+    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
+    //   console.log(resp);
+    // })
+  }
+  public func_callbk(data) {
+    console.log(data);
+  }
+  private SubmitRequest(xmlpayload,patientXml) {
+    let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE102
+    console.log(xmlpayload);
+
+    // Using CORS Method
+    const drfirstUrl = `${eprescribeServer}/send_patient?xml=${xmlpayload}&output=text/xml`
+    let callbackparam: string = 'callbackparam'
+    this.http.jsonp(drfirstUrl, callbackparam)
+      .subscribe((jsonCallback) => {
+        console.log(jsonCallback);
+      },
+        (error) => {
+          console.log(error);
+          console.log(error.message);
+        },
+        () => { }
+      );
+
+    // Using Javascrip ajax call
+    JSONPCalls(drfirstUrl, callbackparam);
+
+    // UsingProxy
+    let proxyUri = `/send_patient?xml=${xmlpayload}&output=text/xml`
+    this.http.get('/send_patient',{headers:this.httpRequestHeaders, params:{"xml":patientXml}}).subscribe((resp) => { console.log(resp) },
+      (error) => { console.log(error); },
+      () => { }
+    )
+
   }
 
 
-  private SubmitRequest(xmlpayload): Observable<any> {
-    let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE101
-    return this.http.post(eprescribeServer, xmlpayload,
-      { headers: this.httpRequestHeaders, observe: 'body', responseType: 'json' })
-
-  }
-
-
-
-  // public ProviderUrl() {
-  //   if (this.authenticationService.isProvider) {
-  //     var urlparams: string = ""
-  //     var providerId = this.authenticationService.userValue.ProviderId;      //var md5 = new Md5();
-  //     this.utilityService.DrfirstProviderParams(providerId).subscribe(resp => {
-  //       if (resp.IsSuccess) {
-  //         var drfirstProviderParams = resp.Result as DrFirstProviderParams;
-  //         if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
-  //           urlparams = DR_FIRST_PROVIDER_URL_PARAMS(
-  //             drfirstProviderParams.VendorUserName,
-  //             drfirstProviderParams.RcopiaUserName,
-  //             drfirstProviderParams.RcopiaUserId,
-  //             drfirstProviderParams.RcopiaUserExternalId) + this.gmtTime()
-  //           var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
-  //           urlparams = DR_FIRST_URL(urlparams, hashvalue);
-  //           this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams));
-  //         }
-  //       }
-  //     })
-  //   }
-  // }
 
   public ProviderUrl() {
-
-
-
     if (this.authenticationService.isProvider) {
       var urlparams: string = ""
       var providerId = this.authenticationService.userValue.ProviderId;
-      var patientId = this.authenticationService.viewModel.Patient?.PatientId  //var md5 = new Md5();
-      console.log(patientId);
 
-      this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
+      this.utilityService.DrfirstProviderParams(providerId, null).subscribe(resp => {
         if (resp.IsSuccess) {
-          var drfirstProviderParams = resp.Result as DrFirstProviderParams;
-          console.log(drfirstProviderParams);
+          var drfirstProviderParams = resp.Result as DrFirstAttributes;
 
           if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
             urlparams = DR_FIRST_PROVIDER_URL_PARAMS(
@@ -151,6 +173,32 @@ export class DrfirstService {
               drfirstProviderParams.RcopiaUserName,
               drfirstProviderParams.RcopiaUserId,
               drfirstProviderParams.RcopiaUserExternalId) + this.gmtTime();
+
+            var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
+            urlparams = DR_FIRST_URL(urlparams, hashvalue);
+            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams),"Provider");
+
+          }
+        }
+      })
+    }
+  }
+
+  public PatientUrl() {
+    if (this.authenticationService.isProvider) {
+      var urlparams: string = ""
+      var providerId = this.authenticationService.userValue.ProviderId;
+      var patientId = this.authenticationService.viewModel.Patient?.PatientId
+      console.log(patientId);
+
+
+      this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
+        if (resp.IsSuccess) {
+          var drfirstProviderParams = resp.Result as DrFirstAttributes;
+          console.log(drfirstProviderParams);
+
+
+          if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
 
             if (drfirstProviderParams.DrFirstPatientId)
               urlparams = DR_FIRST_PATINET_URL(
@@ -162,7 +210,7 @@ export class DrfirstService {
 
             var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
             urlparams = DR_FIRST_URL(urlparams, hashvalue);
-            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams));
+            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams),"Patient");
 
           }
         }
@@ -175,6 +223,8 @@ export class DrfirstService {
     var GMTTime = new Date();
     return this.datePipe.transform(GMTTime, "MMddyyHHmmss", "UTC");
   }
+
+
   private ProviderDrfirstInfo() {
 
   }
@@ -184,50 +234,51 @@ export class DrfirstService {
 export const Response = `<RCExtResponse version="2.45">
 <TraceInformation>
 <RequestMessageID/>
-<ResponseMessageID>SB-04042023043204878-56859</ResponseMessageID>
-<DestinationURL>http://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet</DestinationURL>
-<RequestTimestamp>04/04/2023 04:32:03</RequestTimestamp>
-<ResponseStartTimestamp>04/04/2023 04:32:04</ResponseStartTimestamp>
-<RcopiaServerName>enginesb01u_51001</RcopiaServerName>
+  <ResponseMessageID>SB-04072023114901314-161149</ResponseMessageID>
+  <DestinationURL>http://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet</DestinationURL>
+  <RequestTimestamp>04/07/2023 11:49:01</RequestTimestamp>
+  <ResponseStartTimestamp>04/07/2023 11:49:01</ResponseStartTimestamp>
+  <RcopiaServerName>enginesb01u_51001</RcopiaServerName>
 </TraceInformation>
 <Request>
-<Caller>
-<VendorName>avendor18562</VendorName>
-<VendorPassword>xxxxxxxx</VendorPassword>
-</Caller>
-<SystemName>avendor18562</SystemName>
-<RcopiaPracticeUsername>eh4114</RcopiaPracticeUsername>
+  <Caller>
+    <VendorName>avendor18562</VendorName>
+    <VendorPassword>xxxxxxxx</VendorPassword>
+  </Caller>
+  <SystemName>avendor18562</SystemName>
+  <RcopiaPracticeUsername>eh4114</RcopiaPracticeUsername>
 <Request>
-<Command>send_patient</Command>
+  <Command>send_patient</Command>
 <PatientList>
-<Patient>
-<ExternalID>marcoasugger</ExternalID>
-<FirstName>Marcoa</FirstName>
-<LastName>Sugger</LastName>
-<DOB>05/01/1965</DOB>
-<Sex>m</Sex>
-<HomePhone>419-855-3155</HomePhone>
-<Address1>2645 Mulberry Lane</Address1>
-<Address2/>
-<City>Toledo</City>
-<State>OH</State>
-<Zip>43605</Zip>
-</Patient>
+  <Patient>
+    <ExternalID>622b91cb391cba10c7c1b3c7</ExternalID>
+    <FirstName>Grant</FirstName>
+    <LastName>Nikkel</LastName>
+    <DOB>02/04/1991</DOB>
+    <Sex>m</Sex>
+    <MobilePhone>5415894123</MobilePhone>
+    <Address1>50889 Happy Valley Rd</Address1>
+    <Address2/>
+    <City>Princeton</City>
+    <State>OR</State>
+    <Zip>97721-9518</Zip>
+  </Patient>
 </PatientList>
 </Request>
 </Request>
+
 <Response>
-<ServerIPAddress>engine201.staging.drfirst.com:80</ServerIPAddress>
-<Status>ok</Status>
-<PatientList>
-<Patient>
-<RcopiaID>26154332620</RcopiaID>
-<ExternalID>marcoasugger</ExternalID>
-<Status>created</Status>
-</Patient>
-</PatientList>
+  <ServerIPAddress>engine201.staging.drfirst.com:80</ServerIPAddress>
+  <Status>ok</Status>
+  <PatientList>
+    <Patient>
+    <RcopiaID>26154394823</RcopiaID>
+    <ExternalID>622b91cb391cba10c7c1b3c7</ExternalID>
+    <Status>created</Status>
+    </Patient>
+  </PatientList>
 </Response>
-<ResponseEndTimestamp>04/04/2023 04:32:04</ResponseEndTimestamp>
+<ResponseEndTimestamp>04/07/2023 11:49:01</ResponseEndTimestamp>
 </RCExtResponse>`
 /**<RCExtRequest version = "2.45">
     <Caller>
@@ -256,15 +307,16 @@ export const Response = `<RCExtResponse version="2.45">
     </PatientList>
     </Request>
 </RCExtRequest> */
-export const USAPhoneFormat = (phonenumber) => {
-  var phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+export const USAPhoneFormat = (phonenumber, format = false) => {
+  var phoneRegex = /^([+1]{2})*\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   if (phoneRegex.test(phonenumber)) {
-    return phonenumber.replace(phoneRegex, "($1) $2-$3");
+    if (!format) return phonenumber.replace(phoneRegex, "$2$3$4")
+    return phonenumber.replace(phoneRegex, "($2) $3-$4");
   } else {
     // Invalid phone number
   }
 }
-export const SendPatientXML = (provider: DrFirstProviderParams, patient: ProviderPatient, datePipe) => `<?xml version="1.0" encoding="UTF-8"?>
+export const SendPatientXML = (provider: DrFirstAttributes, patient: DrFirstPatient, datePipe) => `<?xml version="1.0" encoding="UTF-8"?>
   <RCExtRequest version = "${DR_FIRSR_VERESION}">
       <Caller>
           <VendorName>${provider.VendorUserName}</VendorName>
@@ -279,16 +331,14 @@ export const SendPatientXML = (provider: DrFirstProviderParams, patient: Provide
                 <ExternalID>${patient.PatientId}</ExternalID>
                 <FirstName>${patient.FirstName}</FirstName>
                 <LastName>${patient.LastName}</LastName>
-                <DOB>${datePipe.transform(patient.Dob, "MM/dd/yyyy")}</DOB>
-                <Sex>${patient.Gender == "female" ? 'f' : "male" ? 'm' :'u' }</Sex>
-                <HomePhone>${patient.PrimaryPhone}</HomePhone>
-                <MobilePhone>${patient.MobilePhone}</MobilePhone>
-
-                <Address1>{patient.}</Address1>
+                <DOB>${datePipe.transform(patient.DOB, "MM/dd/yyyy")}</DOB>
+                <Sex>${patient.Gender == "female" ? 'f' : "male" ? 'm' : 'u'}</Sex>
+                <MobilePhone>${USAPhoneFormat(patient.MobilePhone ? patient.MobilePhone : patient.HomePhone)}</MobilePhone>
+                <Address1>${patient.PatientAddress == 'null' ? 'Unknown' : patient.PatientAddress}</Address1>
                 <Address2></Address2>
-                <City>{patient.city}</City>
-                <State>{patient.state}</State>
-                <Zip>{patient.zip}</Zip>
+                <City>${patient.City}</City>
+                <State>${patient.State}</State>
+                <Zip>${patient.Zip == null ? patient.ClinicZip : patient.Zip}</Zip>
             </Patient>
           </PatientList>
       </Request>

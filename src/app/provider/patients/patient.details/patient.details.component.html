@@ -93,10 +93,10 @@
       (click)="openComponentDialog(drFirstDialogComponent,null,ActionTypes.new)" *ngIf="!IsPatientRegisteredWithDrFirst">
       Open eRX
     </button>
-    <button class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
-    *ngIf="IsPatientRegisteredWithDrFirst">
+    <a class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
+    *ngIf="IsPatientRegisteredWithDrFirst" [href]="drfirstPatientUrl" href="javascript:void(0)" target="_blank">
       Open eRX
-    </button>
+    </a>
 
 </div>
 </div>

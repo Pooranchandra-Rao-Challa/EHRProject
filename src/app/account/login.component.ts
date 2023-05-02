@@ -121,7 +121,6 @@ export class LoginComponent implements OnInit {
 
 
   async openResendVerification() {
-
     const { value: email } = await Swal.fire({
       title: 'Email Verification',
       input: 'email',

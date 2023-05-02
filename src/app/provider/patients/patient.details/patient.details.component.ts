@@ -19,7 +19,7 @@ import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encou
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
-import { PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { DrfirstUrlChanged, PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
@@ -60,6 +60,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   drFirstDialogComponent = DrFirstDialogComponent;
   confirmPatientDeletion: boolean = false;
   communicationSetting: CommunicationSetting = {};
+  drfirstPatientUrl: string;
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
@@ -72,7 +73,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService,
-    private drfirstService: DrfirstService) {
+    private drfirstService: DrfirstService,
+    private drfirstUrlChanged: DrfirstUrlChanged,) {
     this.viewModel = authService.viewModel;
 
     if (this.viewModel.PatientView == null
@@ -84,6 +86,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.chartSubject.next(this.viewModel.PatientView);
+
   }
 
   ngOnInit(): void {
@@ -131,7 +134,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
       });
-      //this.drfirstService.ProviderUrl();
+      this.drfirstService.PatientUrl();
+      this.drfirstUrlChanged.getData().subscribe((data) => {
+        if(data.urlfor=="Patient")
+          this.drfirstPatientUrl = data.url
+          console.log(this.drfirstPatientUrl);
+
+      });
   }
 
   loadDependents() {
@@ -161,6 +170,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   }
   get IsPatientRegisteredWithDrFirst():boolean{
+
     return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
 
 
@@ -298,6 +308,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
+
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {
             Name: "Patients",
@@ -367,7 +378,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   InvitePatient(content: TemplateRef<any> | ComponentType<any> | string, action?: Actions) {
     this.patientUser = new PatientPortalUser();
-    console.log( this.patient);
 
     this.patientUser.Email = this.patient.Email;
     this.patientUser.PatientName = this.patient.FirstName + ' ' + this.patient.LastName;

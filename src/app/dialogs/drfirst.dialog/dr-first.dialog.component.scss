@@ -8,3 +8,40 @@
     padding: 40px 20px !important;
   }
 }
+
+
+::ng-deep .drfirst-container {
+  z-index: 1000000;
+}
+
+::ng-deep .drfirst-container .swal2-title.drfirst-title {
+  padding: 20px !important;
+  background-color: #d64841;
+  color: #fff;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-top: unset !important;
+  margin-bottom: unset !important;
+}
+
+::ng-deep .drfirst-container .swal2-html-container.drfirst-message {
+  text-align: left;
+}
+::ng-deep .drfirst-container .swal2-html-container.drfirst-message ul li {
+  font-size: 14pt !important;
+  font-weight: 400;
+  line-height: 40px;
+}
+::ng-deep .drfirst-container .swal2-actions {
+  margin:unset !important;
+}
+::ng-deep .drfirst-container .swal2-cancel.drfirst-cancel-botton.swal2-styled{
+  border: 1px solid #d64841;
+  color:#d64841;
+  background-color: #fff;
+}
+::ng-deep .drfirst-container .swal2-cancel.drfirst-cancel-botton.swal2-styled:hover{
+  color:#fff;
+  background-color: #d64841;
+}

@@ -109,7 +109,7 @@
                 }
               ]
             },
-            "test": {
+            "testlocal": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -136,13 +136,22 @@
                   "maximumError": "2mb"
                 }
               ]
+            },
+            "devlopment":{
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "sourceMap": true,
+              "namedChunks": true,
+              "localize": ["es"]
             }
           }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "EHRProject:build"
+            "browserTarget": "EHRProject:build",
+            "proxyConfig": "proxy.conf.js"
           },
           "configurations": {
             "production": {
@@ -150,8 +159,15 @@
             },
             "staging": {
               "browserTarget": "EHRProject:build:staging"
+            },
+            "testlocal": {
+              "browserTarget": "EHRProject:build:testlocal"
+            },
+            "devlopment": {
+              "browserTarget": "EHRProject:build:devlopment"
             }
-          }
+          },
+          "defaultConfiguration":"devlopment"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

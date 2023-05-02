@@ -1,4 +1,6 @@
+const { ajax } = require("jquery");
 const DocumentContext = require("pdfmake/src/documentContext");
+
 
 let arrow = document.querySelectorAll(".arrow");
 for (var i = 0; i < arrow.length; i++) {
@@ -33,6 +35,23 @@ function RequiredFormCountrolMouseEnter(){
   $(this).toggleClass("active");
   alert($(this).attr('id'));
   //alert(src);
+}
+
+function JSONPCalls(url,callback){
+  alert(url)
+  $.ajax({
+    type: "GET",
+    url: url,
+    dataType: "jsonp",
+    success: function (xml) {
+        alert(xml);
+        //result = xml.code;
+        //document.myform.result1.value = result;
+    },
+    error: function(err){
+      alert(JSON.stringify(err))
+    }
+});
 }
 
 
