@@ -1041,7 +1041,10 @@
       </span>
     </div>
     <div class="modal-body">
-      <p class="Helvetica-sans-serif-medium text-center">Clinical Decision Support Alerts for ID Not Found</p>
+      <div  class="cds-alert-messages">
+        <p class="Helvetica-sans-serif-large" *ngFor="let alert of ActiveAlerts">{{alert.Description}}</p>
+      </div>
+      <p class="Helvetica-sans-serif-medium text-center" *ngIf="ActiveAlerts.length == 0">{{NoAlerts}}</p>
     </div>
   </div>
 </div>

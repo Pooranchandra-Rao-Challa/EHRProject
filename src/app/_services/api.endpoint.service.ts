@@ -286,7 +286,15 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _clinicalDecisionSupportUrl() {
-    return this._baseUrl + "ClinicalDecisionSupport";
+    return this._baseUrl + "CDSAlerts";
+  }
+  get _CDSAlertTriggersUrl() {
+    return this._baseUrl + "CDSAlertTriggers";//EvalPatientCDSAlerts
+  }
+
+
+  get _toggleAlertStatusUrl() {
+    return this._baseUrl + "ToggleAlertStatus";
   }
 
   get _erxUrl() {
@@ -515,6 +523,10 @@ export class APIEndPoint extends EndpointBase {
 
   get _createUpdateInsuranceCompanyPlanUrl() {
     return this._baseUrl + "CreateInsurancePlan";
+  }
+
+  get _evalPatientCDSAlertsUrl() {
+    return this._baseUrl + "EvalPatientCDSAlerts";
   }
 
 

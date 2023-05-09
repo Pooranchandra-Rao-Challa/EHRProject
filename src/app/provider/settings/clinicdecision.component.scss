@@ -178,10 +178,9 @@ mat-accordion .mat-expansion-panel:first-of-type {
 }
 
 .panel-heading {
-  padding: 22px 20px 22px 63px;
+  padding: 22px 20px 22px 40px;
   text-align: left;
   background-color: rgba(65, 182, 166, 0.2);
-  margin: 0px -24px;
   border-bottom: 1px solid #41b6a6;
 }
 
@@ -196,9 +195,6 @@ mat-accordion .mat-expansion-panel:first-of-type {
 
 .table {
   --bs-table-accent-bg: none;
-  width: 106%;
-  margin-left: -25px;
-  margin-top: 4px;
 }
 
 // .Trigger-content {
@@ -333,23 +329,26 @@ mat-accordion .mat-expansion-panel:first-of-type {
   font-weight: 900;
 }
 
-.searchtable {
-  width: 100%;
+.tbl-trigger-codes {
   border-left: none;
   border-right: none;
-
+  .mat-header-cell {
+    background-color: #41b6a6;
+  }
+  .mat-row{
+    padding: 10px 10px !important;
+  }
+  .mat-cell:last-child, .mat-cell:nth-child(1), .mat-cell:nth-child(2),
+  .mat-header-cell:last-child, .mat-header-cell:nth-child(1), .mat-header-cell:nth-child(2){
+    width:10%;
+  }
 }
 
 .headeralig {
   background-color: #fff;
 }
 
-mat-cell:last-of-type,
-mat-header-cell:last-of-type,
-mat-footer-cell:last-of-type {
-  padding-right: 1px;
-  margin: 10px 0px 10px 80px;
-}
+
 
 .cross-mark.error-close {
   background-color: rgb(253, 65, 65) !important;
@@ -401,4 +400,14 @@ mat-label{display: block;width: 100%;}
   .clinical-decision-table .table {
     width: 1300px;
   }
+}
+
+div.clinical-decision-table table tbody tr td{
+  margin: 10px;
+}
+::ng-deep .customheader div.mat-expansion-panel-body{
+  padding: unset !important;
+}
+.pd-r-30{
+  padding: 0 30px 00;
 }

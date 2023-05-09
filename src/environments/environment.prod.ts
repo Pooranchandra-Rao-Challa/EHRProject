@@ -59,7 +59,7 @@ export const MEDLINE_PLUS_SNOMED = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.
 export const MEDLINE_PLUS_LOINC = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
 export const MEDLINE_PLUS_RXNORM = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
 export const DR_FIRST_SERVER = 'web.staging.drfirst.com'
-export const DR_FIRST_ENDPOINT = 'https:'
+export const DR_FIRST_ENDPOINT = 'https'
 export const DR_FIRST_URI = 'sso/portalServices'
 
 export const MEDLINE_PLUS_URL = (code: string, codesystem: string) => `${MEDLINE_PLUS_SERVER}?${codesystem}=${code}`
@@ -70,7 +70,7 @@ export const DR_FIRST_PATINET_URL = (
   rcopia_user_name: string,
   rcopia_user_id: string,
   rcopia_user_external_id: string,
-  drfirst_patient_id: string) => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&{DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaPatientId}=${drfirst_patient_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.StartupScreen}=${DrFirstSSOConstants.Patient}&${DrFristParamNames.Time}=`
+  drfirst_patient_id: string) => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaPatientId}=${drfirst_patient_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.StartupScreen}=${DrFirstSSOConstants.Patient}&${DrFristParamNames.Time}=`
 
 export const DR_FIRST_SSO_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
 

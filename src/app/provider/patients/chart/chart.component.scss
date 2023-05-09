@@ -545,3 +545,17 @@ a.view-more:hover {
     background-color: #D9534E;
   }
 }
+
+.cds-alert-messages {
+
+  margin: 10px !important;
+  padding: 10px I !important;
+
+  p {
+    text-align: left;
+    background-color: var(--GrayExtraLight);
+    border-bottom: 1px solid #41b6a6;
+    border-bottom-style: dashed;
+    padding: 10px;
+  }
+}

@@ -146,29 +146,40 @@ export class EducationMaterial implements IDeleteFlag {
   Resolution?:string
   Rule?:String
   CanDelete?: boolean = false;
-  Triggers?:CDSTrigger[]
+  Triggers?:AlertTrigger[]
   triggersInfo?:string;
   strReleaseAt?:string;
   Active?: boolean;
  }
- export class CDSTrigger implements IDeleteFlag
+ export class CDSCode implements IDeleteFlag
  {
    TriggerId?:String
-   Category?:String
    Code?:String
    Description?:String
-   System?:String
-   AlertId?:String
+   CodeSystem?:String
    CanDelete?: boolean = false;
  }
- export class TriggerInformation {
-  Addtrigger?: CDSTrigger [] = [];
+ export class AlertTrigger {
+  TriggerId?:string;
+  AlertId?:string;
+  Description?: string;
+  Condition?: string;
+  Category?:string;
+  Codes?: CDSCode [] = [];
+  strCodes?:string;
 }
 
-// export class Trig implements IDeleteFlag{
-//   category?:String
-//   code?:String
-//   TriggerDes?:String;
-//   system?:string;
-//   CanDelete?: boolean = false;
-// }
+export class AlertResult{
+  AlertId?:string;
+  Desription?: string;
+  strTriggers?: string;
+  IsMet?: boolean;
+  Triggers?: TriggerResult[] =[]
+}
+
+export class TriggerResult{
+  TriggerId?:string;
+  Description?:string;
+  IsMet?:boolean;
+}
+

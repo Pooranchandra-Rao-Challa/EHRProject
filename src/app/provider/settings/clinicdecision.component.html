@@ -13,8 +13,8 @@
           for all your patients</p>
       </div>
       <div class="col-md-2 d-flex justify-content-end">
-        <button class="btn" type="button" [ngClass]="flag ? 'btn-open' : 'btn-of'" (click)="open(true)">On</button>
-        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="close(false)">Off</button>
+        <button class="btn" type="button" [ngClass]="flag ? 'btn-open' : 'btn-of'" (click)="toggelAlterStatus(true)">On</button>
+        <button class="btn" type="button" [ngClass]=" !flag ? 'btn-open' : 'btn-of'" (click)="toggelAlterStatus(false)">Off</button>
       </div>
     </div>
   </div>
@@ -23,7 +23,7 @@
     <mat-accordion class="prevent-click" style="border-top: 1px solid #41b6a6;">
       <mat-expansion-panel [disabled]="!item?.Active" [ngStyle]="!item?.Active?{'opacity': '0.75'} : {'opacity': '1'}"
         [expanded]="step === i" (opened)="step" class="customheader" hideToggle="true" #example
-        *ngFor="let item of clinicalDecisionSupportList; let i=index">
+        *ngFor="let item of clinicalDecisionSupportList; let i=index" (opened)="onAlertOpened(item)">
         <mat-expansion-panel-header class="panel-header">
           <mat-panel-title>
             <h1 class="number">{{i+1}}</h1>&nbsp;&nbsp;
@@ -33,9 +33,9 @@
           </mat-panel-title>
           <mat-panel-description class="d-flex justify-content-end mb-2 mb-lg-0">
             <button class="btn" [ngClass]="item?.Active ?  'btn-on' : 'btn-off' " type="button"
-              (click)="disablemedication(item,true,i)">On</button>
+              (click)="ToggleAlert(item,true,i)">On</button>
             <button class="btn" [ngClass]="!item?.Active ? 'btn-on' : 'btn-off' " type="button"
-              (click)="disablemedication(item,false,i)">Off</button>
+              (click)="ToggleAlert(item,false,i)">Off</button>
 
             <mat-icon class="play-up-arrow" *ngIf="!example.expanded">play_arrow</mat-icon>
             <mat-icon class="play-down-arrow" *ngIf="example.expanded">arrow_drop_down</mat-icon>
@@ -43,14 +43,14 @@
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div>
-          <div class="row field-align">
+          <div class="row field-align col-md-12 pd-r-30">
             <mat-label class="mt-1 Helvetica-sans-serif-small required">Description</mat-label>
-            <mat-form-field appearance="outline" class="col-md-12">
+            <mat-form-field appearance="outline">
               <input matInput placeholder="" [(ngModel)]="item.Description">
             </mat-form-field>
           </div>
 
-          <div class="row field-align">
+          <div class="row field-align  col-md-12 pd-r-30">
             <mat-label class="Helvetica-sans-serif-small required">Trigger Rule </mat-label>
             <mat-form-field appearance="outline">
               <mat-select required [(ngModel)]="item.Rule">
@@ -99,9 +99,11 @@
                   <td>
                     {{data.Category}}
                   </td>
-                  <td>{{data.Code}}</td>
-                  <td>{{data.CodeSystem}}</td>
-                  <td>{{data.Description}}</td>
+                  <td style="white-space: normal;">{{getCodes(data.Codes)}}</td>
+                  <td></td>
+                  <td (click)="EditTrigger(data)" data-bs-toggle="modal"
+                  data-bs-target="#TriggerModal" style="color:#41b6a6">
+                    {{data.Description}}</td>
                   <td (click)="DeleteTrigger(data.TriggerId)">
                     <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
                     </mat-icon>
@@ -112,7 +114,7 @@
             </table>
           </div>
           <br>
-          <div class="row field-align">
+          <div class="row field-align  col-md-12 pd-r-30">
             <mat-label class="Helvetica-sans-serif-small">Resolution: </mat-label>
 
             <div class="col-md-12 mt-1">
@@ -120,7 +122,7 @@
             </div>
 
           </div>
-          <div class="row field-align">
+          <div class="row field-align  col-md-12 pd-r-30">
             <mat-label class="Helvetica-sans-serif-small mt-2">Bibliography:</mat-label>
             <div class="col-md-12 mt-1">
               <!-- <textarea matInput
@@ -128,13 +130,13 @@
               <textarea class="text-border" matInput [(ngModel)]="item.Bibliography"></textarea>
             </div>
           </div>
-          <div class="row field-align">
+          <div class="row field-align  col-md-12 pd-r-30">
             <mat-label class="Helvetica-sans-serif-small">Developer: </mat-label>
             <mat-form-field appearance="outline">
               <input matInput placeholder="" [(ngModel)]="item.Developer">
             </mat-form-field>
           </div>
-          <div class="row field-align">
+          <div class="row field-align  col-md-12 pd-r-30">
             <div class="col-md-2 mt-3">
               <mat-label class="Helvetica-sans-serif-small ">Funding Source:</mat-label>
             </div>
@@ -157,13 +159,14 @@
               <mat-datepicker #dp disabled="false"></mat-datepicker>
             </mat-form-field>
           </div>
+          <div class="col-md-12 pd-r-30">
           <button class="btn btn-green btn-clinic pull-right" type="button"
-            (click)="InsertUpadateClincialDecisionSupport(item)">Save</button>
+            (click)="InsertUpadateClincialDecisionSupport(item)">Save</button></div>
         </div>
       </mat-expansion-panel>
     </mat-accordion>
     <div class="text-center py-2 col-12" *ngIf="clinicalDecisionSupportList.length == 0">
-      <h6 class="Helvetica-sans-serif-medium" style="color: red;"> No records found</h6>
+      <h6 class="Helvetica-sans-serif-medium" style="color: red;"> Clinical Decision Support Alerts Not Found</h6>
     </div>
   </div>
 </div>
@@ -175,7 +178,7 @@
     <div class="modal-content">
       <div class="modal-header Helvetica-sans-serif-medium" style="margin-top: -1px;margin-right: -1px;">
         <h4 class="modal-title Helvetica-sans-serif-medium">Add new alert</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="resetdialog()">
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" (click)="resetAlert()">
           X
         </span>
       </div>
@@ -186,8 +189,6 @@
             <input matInput mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.AlertName" placeholder="Alert Name"
               required>
-            <!-- <mat-icon matSuffix *ngIf="checkedName" class="FieldValid">check</mat-icon>
-            <mat-icon matSuffix *ngIf="uncheckedName" class="FieldInvalid">close</mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
@@ -195,9 +196,6 @@
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Description" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Description" required>
-            <!-- <mat-icon matSuffix *ngIf="checkedDescription" class="FieldValid">check</mat-icon>
-
-            <mat-icon matSuffix *ngIf="uncheckedDescription" class="FieldInvalid">close</mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
@@ -205,9 +203,6 @@
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Resolution" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Resolution" required>
-            <!-- <mat-icon matSuffix *ngIf="checkedResolution" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedResolution" class="FieldInvalid">close -->
-            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
@@ -215,9 +210,6 @@
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Bibliography" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Bibliography" required>
-            <!-- <mat-icon matSuffix *ngIf="checkedbiBliography" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedBibliography" class="FieldInvalid">close -->
-            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
         <div class="row">
@@ -225,9 +217,6 @@
           <mat-form-field appearance="outline" class="col-md-12">
             <input matInput placeholder="Developer" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.Developer" required>
-            <!-- <mat-icon matSuffix *ngIf="checkedDeveloper" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedDeveloper" class="FieldInvalid">close -->
-            <!-- </mat-icon> -->
           </mat-form-field>
         </div>
 
@@ -238,9 +227,6 @@
           <mat-form-field appearance="outline" class="col-md-4">
             <input matInput placeholder="Funding Source" mouse-over-hint tickImagePath="assets/images/tick-mark.svg"
               crossImagePath="assets/images/cross-mark.svg" [(ngModel)]="newAlert.FundingSource" required>
-            <!-- <mat-icon matSuffix *ngIf="checkedfundingSource" class="FieldValid">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedfundingSource" class="FieldInvalid">close -->
-            <!-- </mat-icon> -->
           </mat-form-field>
           <div class="col-md-2">
             <mat-label>Release Date(s)</mat-label>
@@ -251,10 +237,6 @@
             <mat-datepicker-toggle matSuffix [for]="dp1">
             </mat-datepicker-toggle>
             <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-            <!-- <mat-icon matSuffix *ngIf="checkedReleaseDate" class="FieldValiddatepicker">check</mat-icon>
-            <mat-icon class="close-icon" matSuffix *ngIf="unCheckedReleaseDate" class="FieldInvaliddatepicker">close -->
-            <!-- </mat-icon> -->
-
           </mat-form-field>
         </div>
         <div class="row">
@@ -262,7 +244,6 @@
           </mat-label>
           <mat-form-field appearance="outline" class="col-md-12 trplaceholder">
             <mat-select panelClass="triggeralignment" required placeholder="Trigger Rule" [(ngModel)]="newAlert.Rule">
-              <!-- mouse-over-hint tickImagePath="assets/images/tick-mark.svg" crossImagePath="assets/images/cross-mark.svg" -->
               <mat-option *ngFor="let trigger of TriggerRuleDD" [value]="trigger.value">
                 {{trigger.text}}
               </mat-option>
@@ -284,9 +265,9 @@
   <div class="modal-dialog">
     <div class="modal-content Trigger-content scrollable-modal ">
       <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Add new trigger</h4>
+        <h4 class="modal-title Helvetica-sans-serif-medium">{{triggerTitle}}</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close"
-          (click)="resettriggerdialog()">
+          (click)="resetTrigger()">
           X
         </span>
       </div>
@@ -301,79 +282,69 @@
           </medical-code-container>
         </div>
 
-        <mat-table mat-table [dataSource]="triggerSearchList" id="procedure-table" class="searchtable">
+        <mat-table mat-table [dataSource]="codesBehaviour" id="procedure-table" class="tbl-trigger-codes">
           <ng-container matColumnDef="CODE">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first"></p>
+              <p class="text-capitalize-first">Code</p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
               <span>{{ item.Code }}</span>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="CODE SYSTEM">
+          <ng-container matColumnDef="DESCRIPTION">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first"></p>
+              <p class="text-capitalize-first">Description</p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
-              <span>{{ item.System }}</span>
+              <span>{{ item.Description }}</span>
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="DESCRIPTION">
+          <ng-container matColumnDef="CODE SYSTEM">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first"></p>
+              <p class="text-capitalize-first">CodeSystem</p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
-              <span>{{ item.Description}}</span>
+              <span>{{ item.CodeSystem }}</span>
             </mat-cell>
           </ng-container>
+
           <ng-container matColumnDef="Delete">
             <mat-header-cell *matHeaderCellDef>
               <p class="text-capitalize-first"></p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item; let i = index; ">
-              <button type="button" class="btn cross-mark error-close" (click)="removetrigger(item,i)"
+              <button type="button" class="btn cross-mark error-close" (click)="removeTriggerCode(item,i)"
                 title="Delete recommended Procedure">x</button>
             </mat-cell>
           </ng-container>
-          <mat-header-row *matHeaderRowDef="clinicalDecisionSearchColumns" class="headeralig"></mat-header-row>
+          <mat-header-row *matHeaderRowDef="clinicalDecisionSearchColumns"></mat-header-row>
           <mat-row *matRowDef=" let row; let i = index; columns: clinicalDecisionSearchColumns" class="headerowalig">
           </mat-row>
         </mat-table>
 
         <div>
-
           <div class="row">
-            <mat-label class="required">Code</mat-label>
-
+            <mat-label class="required">Description</mat-label>
             <mat-form-field appearance="outline" class="col-md-12">
-              <input matInput placeholder="" [(ngModel)]="ehrTrigger.Code" class="not-allowed" disabled>
+              <input matInput placeholder="" [(ngModel)]="alertTrigger.Description">
             </mat-form-field>
-
           </div>
           <br>
-          <mat-label class="required">Code System</mat-label>
+          <mat-label class="required">Condition</mat-label>
 
           <mat-form-field appearance="outline" class="col-md-12 col-12">
-            <input matInput placeholder="" [(ngModel)]="ehrTrigger.System" disabled class="not-allowed">
+            <input matInput placeholder="" [(ngModel)]="alertTrigger.Condition">
           </mat-form-field>
         </div>
 
-        <div class="col-md-12">
-          <mat-label class="required">Description:</mat-label>
 
-          <textarea matInput class="text-border not-allowed" placeholder="" readonly disabled
-            [(ngModel)]="ehrTrigger.Description"></textarea>
-
-
-        </div>
       </div>
       <div class="modal-footer">
 
         <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
-          (click)="CreateTrigger(ehrTrigger)" [disabled]="triggerSave()">Add trigger</button>
-
+           [disabled]="enableTriggerSave()" (click)="CreateTrigger()">{{actionButtonTitle}}</button>
       </div>
     </div>
   </div>

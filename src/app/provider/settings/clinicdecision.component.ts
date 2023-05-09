@@ -1,7 +1,8 @@
+import { Condition } from './../../reports/cqmreports/viewhelpers/condition.renderer/condition.renderer.component';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { SettingsService } from '../../_services/settings.service';
-import { CDSAlert, CDSTrigger, TriggerInformation, User, ViewModel } from '../../_models';
+import { CDSAlert, CDSCode, AlertTrigger, User, ViewModel } from '../../_models';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { MedicalCode } from 'src/app/_models/codes';
@@ -17,34 +18,16 @@ import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search
 export class ClinicDecisionComponent implements OnInit {
   clinicalDecisionSupportList: CDSAlert[] = [];
   newAlert?: CDSAlert = {};
-  ehrTriggerList: TriggerInformation = new TriggerInformation;
-  triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
-  ehrTrigger: CDSTrigger = new CDSTrigger();
+  alertTrigger: AlertTrigger = {};
   codeSystemsForClinicalDecision: string[] = ['SNOMED/ICD10', 'Local'];
   selectedCodeSystemValue: FormFieldValue = {CodeSystem:'SNOMED/ICD10',SearchTerm:''}
   clinicalDecisionSearchColumns = ["CODE", "CODE SYSTEM", "DESCRIPTION", "Delete"];
+  codesBehaviour: BehaviorSubject<CDSCode[]> = new BehaviorSubject([]);
   user: User;
   multi: boolean = false;
   disabled: boolean = false;
-  // checkedName: boolean;
-  // uncheckedName: boolean;
-  // checkedDescription: boolean;
-  // uncheckedDescription: boolean;
-  // checkedResolution: boolean;
-  // unCheckedResolution: boolean
-  // checkedbiBliography: boolean;
-  // unCheckedBibliography: boolean;
-  // checkedDeveloper: boolean;
-  // unCheckedDeveloper: boolean;
-  // checkedfundingSource: boolean;
-  // unCheckedfundingSource: boolean;
-  // checkedReleaseDate: boolean;
-  // unCheckedReleaseDate: boolean;
-
   AddNewAlert: boolean = true;
   show: boolean = true;
-  // showon: boolean = true;
-  // showoff: boolean = false;
   decisionSuppotForm: FormGroup;
   buttonopen: boolean;
   viewModel: ViewModel;
@@ -55,6 +38,8 @@ export class ClinicDecisionComponent implements OnInit {
     { value: 'Two or More', text: 'Two or More' },
     { value: 'All', text: 'All' },
   ];
+  triggerTitle: string ="Add new Trigger"
+  actionButtonTitle:string = "Add Trigger"
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService,
     private settingservice: SettingsService, private alertmsg: AlertMessage,
@@ -66,21 +51,27 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getclinicaldesupportlist();
-    // this.viewModel.Cds="Off"
+    this.CDSupports();
+
   }
 
   flag: boolean = true;
 
-  open(value: boolean) {
-    this.show = true;
+  toggelAlterStatus(value: boolean) {
+    this.show = value;
     this.step = -1
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
+    this.settingservice.ToggleAlertStatus({ providerId: this.user.ProviderId, Status:value}).subscribe((resp) => {
+      if (resp.Result) {
+        this.CDSupports();
+      }
+    });
   }
 
   close(value: boolean) {
-    this.show = false;
+    this.show = value;
+    this.step = -1
     this.flag = value;
     this.authService.SetViewParam("Cds", value);
   }
@@ -89,7 +80,7 @@ export class ClinicDecisionComponent implements OnInit {
   // setStep(index: number) {
   //   this.step = index;
   // }
-  disablemedication(item, bool, i) {
+  ToggleAlert(item, bool, i) {
     this.step = -1;
     item.isdisabled = bool;
     if (bool) {
@@ -103,26 +94,53 @@ export class ClinicDecisionComponent implements OnInit {
     this.newAlert.Active = alert;
     this.settingservice.UpdateCDSAlertToggle(this.newAlert).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.getclinicaldesupportlist();
-        this.resetdialog();
+        this.CDSupports();
+        this.resetAlert();
       }
     });
   }
 
-  getclinicaldesupportlist() {
+  CDSupports() {
     var reqparams = {
-      // providerid: "5b686dd4c832dd0c444f271b",
-      providerid: this.user.ProviderId
+      providerId: this.user.ProviderId
     }
+
     this.settingservice.ClinicalDecisionSupport(reqparams).subscribe(response => {
       if (response.IsSuccess) {
+
         let alt = response.ListResult as CDSAlert[];
-        alt.forEach((value) => {
-          value.Triggers = JSON.parse(value.triggersInfo)
-        })
         this.clinicalDecisionSupportList = alt;
+        alt.forEach(a => this.flag = a.Active || this.flag)
+        console.log(alt);
+        if(!this.flag)
+        this.show = this.flag;
       }
     })
+  }
+
+  onAlertOpened(alert: CDSAlert){
+    console.log(alert);
+    if(!alert.Triggers){
+      this.settingservice.CDSAlertTrigger({alertId:alert.AlertId}).subscribe(response => {
+        if (response.IsSuccess) {
+          let triggers = response.ListResult as AlertTrigger[];
+          console.log(response.ListResult);
+
+          triggers.forEach((value) => {
+            value.Codes = JSON.parse(value.strCodes)
+          })
+          alert.Triggers = triggers;
+        }
+      })
+    }
+  }
+  getCodes(codes:any[]):string{
+    if(codes == null) return ""
+    let returnCodes =[]
+    codes.forEach(code =>{
+      returnCodes.push(code.Code)
+    });
+    return returnCodes.join(", ");
   }
 
 
@@ -132,9 +150,9 @@ export class ClinicDecisionComponent implements OnInit {
     alert.ProviderId = this.user.ProviderId
     this.settingservice.CreateUpdateClinicalDecisionSupport(alert).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.getclinicaldesupportlist();
+        this.CDSupports();
         this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JCDS001" : "M2JCDS002"]);
-        this.resetdialog();
+        this.resetAlert();
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS001"]);
@@ -153,52 +171,62 @@ export class ClinicDecisionComponent implements OnInit {
     )
   }
 
-  triggerSave() {
+  enableTriggerSave() {
     return !(
-      this.ehrTrigger.Code != null && this.ehrTrigger.Code != ""
-      && this.ehrTrigger.System != null && this.ehrTrigger.System != ""
-      && this.ehrTrigger.Description != null && this.ehrTrigger.Description != ""
+      this.alertTrigger.Condition != null && this.alertTrigger.Condition != ""
+      && this.alertTrigger.Description != null && this.alertTrigger.Description != ""
     )
   }
 
-  resetdialog() {
+  resetAlert() {
     this.newAlert = new CDSAlert
   }
 
-  resettriggerdialog() {
-    this.ehrTrigger = new CDSTrigger();
-    this.triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
-    this.ehrTriggerList = new TriggerInformation();
+  resetTrigger() {
+    this.alertTrigger = {};
   }
 
   optionChangedForTrigger(value: MedicalCode) {
-    this.ehrTrigger.Code = value.Code
-    this.ehrTrigger.System = value.CodeSystem
-    this.ehrTrigger.Description = value.Description
-    this.ehrTrigger.CanDelete = false;
-    this.ehrTriggerList.Addtrigger.push(this.ehrTrigger);
-    this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
+    let triggerCode:CDSCode = {};
+    triggerCode.Code = value.Code
+    triggerCode.CodeSystem = value.CodeSystem
+    triggerCode.Description = value.Description
+    triggerCode.CanDelete = false;
+    if(!this.alertTrigger.Codes) this.alertTrigger.Codes = [];
+    this.alertTrigger.Codes.push(triggerCode);
+    this.codesBehaviour.next(this.alertTrigger.Codes);
   }
 
-  removetrigger(value: CDSTrigger, index: number) {
-    value.CanDelete = true;
-    this.triggerSearchList.next(this.ehrTriggerList.Addtrigger.filter(fn => fn.CanDelete === false));
-    this.ehrTrigger = new CDSTrigger();
+  removeTriggerCode(value: CDSCode, index: number) {
+    var deleteIndex = this.alertTrigger.Codes.indexOf(value);
+    console.log(deleteIndex);
+    this.alertTrigger.Codes.splice(deleteIndex,1);
+    this.codesBehaviour.next(this.alertTrigger.Codes);
   }
 
-  newtrigger(item) {
-    this.ehrTrigger.AlertId = item;
-    let d: MedicalCode = new MedicalCode()
-    this.triggerSearchList = new BehaviorSubject<CDSTrigger[]>([]);
+  newtrigger(alertId) {
+    this.triggerTitle ="Add new Trigger"
+    this.actionButtonTitle = "Add Trigger"
+    this.alertTrigger = {}
+    this.alertTrigger.AlertId = alertId;
+    if(!this.alertTrigger.Codes) this.alertTrigger.Codes = [];
+    this.codesBehaviour.next(this.alertTrigger.Codes);
   }
 
-  CreateTrigger(ehrTrigger) {
-    this.settingservice.CreateTrigger(ehrTrigger).subscribe((resp) => {
+  EditTrigger(trigger){
+    this.triggerTitle ="Edit Trigger"
+    this.actionButtonTitle = "Save Trigger"
+    this.alertTrigger = Object.assign({}, trigger);
+    this.codesBehaviour.next(this.alertTrigger.Codes);
+  }
+
+  CreateTrigger() {
+    let isAdd = this.alertTrigger.TriggerId == null || this.alertTrigger.TriggerId == undefined
+    this.settingservice.CreateTrigger(this.alertTrigger).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.getclinicaldesupportlist();
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS003"]);
-        this.ehrTrigger = new CDSTrigger;
-        this.resettriggerdialog();
+        this.CDSupports();
+        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2JCDS003" : "M2JCDS005"]);
+        this.resetTrigger();
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS002"]);
@@ -212,7 +240,7 @@ export class ClinicDecisionComponent implements OnInit {
     }
     this.settingservice.DeleteTrigger(req).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.getclinicaldesupportlist();
+        this.CDSupports();
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2JCDS004"]);
       }
       else {
@@ -222,6 +250,3 @@ export class ClinicDecisionComponent implements OnInit {
   }
 }
 
-class CDSViewModel {
-  Name: boolean = false;
-}

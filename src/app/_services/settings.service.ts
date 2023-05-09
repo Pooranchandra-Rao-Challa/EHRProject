@@ -120,6 +120,12 @@ export class SettingsService extends APIEndPoint {
   ClinicalDecisionSupport(reqparams: any) {
     return this._ProcessPostRequest<any>(this._clinicalDecisionSupportUrl, reqparams);
   }
+  CDSAlertTrigger(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._CDSAlertTriggersUrl, reqparams);
+  }
+  ToggleAlertStatus(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._toggleAlertStatusUrl, reqparams);
+  }
 
   Erx(reqparams: any) {
     return this._ProcessPostRequest<any>(this._erxUrl, reqparams);
@@ -180,5 +186,9 @@ export class SettingsService extends APIEndPoint {
 
   DeleteAttachment(reqparams: any){
     return this._ProcessPostRequest<any>(this._deleteAttachmentURL, reqparams);
+  }
+
+  EvalPatientCDSAlerts(reqparams: any){
+    return this._ProcessPostRequest<any>(this._evalPatientCDSAlertsUrl, reqparams);
   }
 }

@@ -17,7 +17,7 @@ import {
   ChartInfo, PatientChart, Actions,
   Immunization, EncounterInfo, NewAppointment, TobaccoUseScreenings, TobaccoUseInterventions, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse, GlobalConstants,
-  PatientSearchResults, Labandimaging, PatientSearch
+  PatientSearchResults, Labandimaging, PatientSearch, AlertResult, TriggerResult
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -127,6 +127,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   viewModel: ViewModel;
   patientMessages: Messages[] = [];
   customizedspinner: boolean;
+  alertResult: AlertResult[] = []
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -227,6 +228,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.loadLocationsList();
     this.TobaccoUseByPatientId();
     this.GetProviderMessagesFromPatient();
+    this.initCDSAlert();
   }
 
   _filterVaccine(term) {
@@ -849,5 +851,39 @@ export class ChartComponent implements OnInit, AfterViewInit {
     const ref = this.overlayService.open(content, DialogResponse);
     ref.afterClosed$.subscribe(res => {
     });
+  }
+
+  initCDSAlert(){
+    console.log(this.currentPatient);
+
+    this.settingsService.EvalPatientCDSAlerts({patientId:this.currentPatient.PatientId,providerId:this.user.ProviderId})
+    .subscribe((resp)=>{
+      if(resp.IsSuccess){
+        this.alertResult = resp.ListResult as AlertResult[]
+        this.alertResult.forEach(alert =>{
+          alert.Triggers = JSON.parse(alert.strTriggers) as TriggerResult[]
+          let isMet = true;
+          alert.Triggers.forEach((trigger)=>{
+            isMet = trigger.IsMet && isMet ;
+          })
+          alert.IsMet = isMet;
+        })
+        console.log(this.alertResult);
+
+      }
+    })
+  }
+  get NoAlerts():string{
+    let rtnMessage = 'Clinical Decision Support Alerts for ID Not Found';
+    let flag = false;
+     this.alertResult.forEach(alert=>{
+      flag = alert.IsMet || flag;
+    })
+    if(!flag) return rtnMessage;
+    else return '';
+  }
+
+  get ActiveAlerts():AlertResult[]{
+    return this.alertResult.filter(f => f.IsMet == true);
   }
 }

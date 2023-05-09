@@ -555,6 +555,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2JCDS002': 'Alert updated successfully',
   //Trigger Added and Delete
   'M2JCDS003': 'Trigger added successfully',
+  'M2JCDS005': 'Trigger updated successfully',
   'M2JCDS004': 'Trigger deleted successfully ',
   //Error for CDS
   'E2JCDS001': 'Alert updation error',
