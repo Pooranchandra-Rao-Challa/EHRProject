@@ -4,15 +4,16 @@ import { OverlayService } from 'src/app/overlay.service';
 import { DiscontinueDialogComponent } from '../discontinue.dialog/discontinue.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Actions, Medication, PatientChart } from 'src/app/_models';
+import { Actions, Medication, PatientChart,GlobalConstants } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { fromEvent, Observable, of, Subject } from 'rxjs';
-import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { filter, map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
+
 
 @Component({
   selector: 'app-medication.dialog',
@@ -33,6 +34,30 @@ export class MedicationDialogComponent implements OnInit {
   ndcList: string[] = [];
   minDateToAllergy = new Subject<string>();
   minDateForEndDate;
+  disContinueReasonUpdated: boolean = false;
+  Action: string[]
+  DoseTiming: string[]
+  DoseOther: string[]
+  DoseUnit: string[]
+  DaysSupply: string[]
+  QuntityUnit: string[]
+  Route: string[]
+  filteredRoutes: Observable<string[]>;
+  filteredDoseUnits: Observable<string[]>;
+  filteredActions: Observable<string[]>;
+  filteredDoseTimings: Observable<string[]>;
+  filteredQuntityUnits: Observable<string[]>;
+  filteredDaysSupplys: Observable<string[]>;
+  filteredDoseOthers: Observable<string[]>;
+  filteredDrugForm: Observable<string[]>;
+  @ViewChild('routeInput', { static: true }) routeInput: ElementRef;
+  @ViewChild('doseunitInput', { static: true }) doseunitInput: ElementRef;
+  @ViewChild('actionInput', { static: true }) actionInput: ElementRef;
+  @ViewChild('doseTimingInput', { static: true }) doseTimingInput: ElementRef;
+  @ViewChild('quntityUnitInput', { static: true }) quntityUnitInput: ElementRef;
+  @ViewChild('daysSupplyInput', { static: true }) daysSupplyInput: ElementRef;
+  @ViewChild('doseotherInput', { static: true }) doseotherInput: ElementRef;
+  @ViewChild('drugFormInput', { static: true }) drugFormInput: ElementRef;
 
   constructor(public overlayService: OverlayService,
     private ref: EHROverlayRef,
@@ -41,6 +66,10 @@ export class MedicationDialogComponent implements OnInit {
     private rxnormService: RxNormAPIService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
+     // console.log(ref.RequestData);
+
+
+
     this.updateLocalModel(ref.RequestData);
     if (this.patientMedication.StartAt) {
       this.minDateForEndDate = new Date(this.patientMedication.StartAt);
@@ -55,6 +84,56 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.Action = GlobalConstants.Action;
+    this.DoseTiming = GlobalConstants.DoseTiming;
+    this.DoseOther = GlobalConstants.DoseOther;
+    this.DoseUnit = GlobalConstants.DoseUnit;
+    this.DaysSupply = GlobalConstants.DaysSupply;
+    this.QuntityUnit = GlobalConstants.QuntityUnit;
+    this.Route = GlobalConstants.Route;
+
+    fromEvent(this.routeInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.routeInput.nativeElement.value })
+    ).subscribe(value => this._filterRoutes(value));
+
+    fromEvent(this.doseunitInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.doseunitInput.nativeElement.value })
+    ).subscribe(value => this._filterDoseUnits(value));
+
+    fromEvent(this.actionInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.actionInput.nativeElement.value })
+    ).subscribe(value => this._filterActions(value));
+
+    fromEvent(this.doseTimingInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.doseTimingInput.nativeElement.value })
+    ).subscribe(value => this._filterDoseTimings(value));
+
+    fromEvent(this.quntityUnitInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.quntityUnitInput.nativeElement.value })
+    ).subscribe(value => this._filterQuntityUnits(value));
+
+    fromEvent(this.daysSupplyInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.daysSupplyInput.nativeElement.value })
+    ).subscribe(value => this._filterDaysSupplies(value));
+
+
+    fromEvent(this.doseotherInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.doseotherInput.nativeElement.value })
+    ).subscribe(value => this._filterDoseOthers(value));
+
+    fromEvent(this.drugFormInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.drugFormInput.nativeElement.value })
+    ).subscribe(value => this._filterDrugForm(value));
+
+
     this.currentPatient = this.authService.viewModel.Patient;
     fromEvent(this.searchMedicationName.nativeElement, 'keyup').pipe(
       // get value
@@ -76,6 +155,40 @@ export class MedicationDialogComponent implements OnInit {
     ).subscribe(value => this._filterMedicationNames(value));
     this.NDCList();
   }
+
+  _filterRoutes(route){
+    this.filteredRoutes = of(this.Route.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+
+  _filterDoseUnits(route){
+    this.filteredDoseUnits = of(this.DoseUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterActions(route){
+    this.filteredActions = of(this.Action.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterDoseTimings(route){
+    this.filteredDoseTimings = of(this.DoseTiming.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterQuntityUnits(route){
+    this.filteredQuntityUnits = of(this.QuntityUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterDaysSupplies(route){
+    this.filteredDaysSupplys = of(this.DaysSupply.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterDoseOthers(route){
+    this.filteredDoseOthers = of(this.DoseOther.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
+  _filterDrugForm(route){
+    this.filteredDrugForm = of(this.DoseUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  }
+
 
   _filterMedicationNames(term) {
     this.isLoading = true;
@@ -117,15 +230,19 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: Medication) {
-    this.patientMedication = new Medication;
+    this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
   }
 
-  cancel() {
-    this.ref.close({
-      "UpdatedModal": PatientChart.Medications
-    });
+  cancel(doCanel:boolean=false) {
+    if(this.disContinueReasonUpdated && !doCanel){
+      this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM004"]);
+    }else{
+      this.ref.close({
+        "UpdatedModal": PatientChart.Medications
+      });
+    }
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,
@@ -137,7 +254,7 @@ export class MedicationDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       this.patientMedication.ReasonDescription = res.data.ReasonDescription;
-
+      this.disContinueReasonUpdated = true;
     });
   }
 
@@ -156,6 +273,8 @@ export class MedicationDialogComponent implements OnInit {
     if (this.patientMedication.StopAt) {
       this.patientMedication.strStopAt = this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss a");
     }
+    this.patientMedication.PrescriptionStatus = "recorded";
+    this.patientMedication.IsElectronicPrescription = false;
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -179,5 +298,9 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication.Rxcui = '';
     this.patientMedication.NDC = '';
     this.ndcList = [];
+  }
+
+  disableDiscontinue(): boolean{
+    return this.patientMedication.MedicationId == undefined;
   }
 }

@@ -59,7 +59,7 @@ export class AddendaReviewDocumentComponent implements OnInit {
     this.refreshingEncounters = true;
     this.patientService.EncountersForAddendaDoc({ "AddendaDocId": this.addendaDoc.AddendaDocId })
       .subscribe((resp) => {
-        console.log(resp);
+      //  console.log(resp);
 
         if (resp.IsSuccess) {
           this.encounters = resp.ListResult as EncounterInfo[]
@@ -96,7 +96,7 @@ export class AddendaReviewDocumentComponent implements OnInit {
       // get value
       map((event: any) => {
         this.addendaDocTypeFilter = []
-        console.log(event);
+      //  console.log(event);
 
         if (event.target.value == '') {
           this.displayMessage = true;

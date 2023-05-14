@@ -93,7 +93,7 @@ export class UtilityService extends APIEndPoint {
   }
 
   DrfirstProviderParams(providerId: string,patientId: string){
-    if(patientId == null && patientId == '')
+    if(patientId == null || patientId == '' || patientId == undefined)
       return this._ProcessGetRequestWithId<any>(this._drfirstProviderParamsURL,providerId);
     else
       return this._ProcessGetRequestWith2Params<any>(this._drfirstProviderParamsURL,providerId,patientId);

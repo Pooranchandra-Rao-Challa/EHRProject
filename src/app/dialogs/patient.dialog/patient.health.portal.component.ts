@@ -31,7 +31,7 @@ export class PatientHealthPortalComponent {
     this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
     this.patientUser = dialogRef.data
     this.patientUser.URL = this.url;
-    console.log(this.patientUser);
+   // console.log(this.patientUser);
 
   }
   cancel() {

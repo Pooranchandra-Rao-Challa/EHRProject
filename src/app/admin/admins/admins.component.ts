@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { ViewModel } from '../../_models/_account/registration';
-import { AdminRegistration, Admins, AreaCode } from 'src/app/_models/_admin/Admins';
+import { AdminRegistration, Admins, AreaCode } from 'src/app/_models/_admin/admins';
 import { Accountservice } from 'src/app/_services/account.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';

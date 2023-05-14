@@ -4,8 +4,9 @@ import { DrFirstValidFields, DrfirstService, USAPhoneFormat } from '../../_servi
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { DrFirstPatient } from 'src/app/_models';
-import { AlertMessage } from 'src/app/_alerts/alertMessage';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import Swal from 'sweetalert2';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 
 
 @Component({
@@ -15,6 +16,8 @@ import Swal from 'sweetalert2';
 })
 export class DrFirstDialogComponent implements OnInit {
   validDrFirstField: DrFirstValidFields = new DrFirstValidFields();
+  patientName: string = ""
+  patient: ProviderPatient;
   constructor(
     private ref: EHROverlayRef
     , private authenticationService: AuthenticationService
@@ -23,8 +26,10 @@ export class DrFirstDialogComponent implements OnInit {
     , private alertmsg: AlertMessage) { }
 
   ngOnInit(): void {
-    console.log(this.validDrFirstField);
+    //console.log(this.validDrFirstField);
+    this.patient = this.authenticationService.viewModel.Patient;
 
+    this.patientName = this.patient.FirstName+" "+this.patient.LastName
   }
 
   cancel() {
@@ -32,14 +37,22 @@ export class DrFirstDialogComponent implements OnInit {
   }
 
   sendPatientDrfirstRegistration() {
-    let patientId = this.authenticationService.viewModel.Patient.PatientId;
+
+    let patientId = this.patient.PatientId;
     let providerId = this.authenticationService.userValue.ProviderId;
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
       if (resp.IsSuccess) {
         console.log(resp.Result as DrFirstPatient);
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
-          .subscribe(resp=>{console.log(resp);
+          .subscribe(resp=>{
+            if(resp.IsSuccess){
+              this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+            }
+            else{
+              this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
+            }
+            console.log(resp);
           });
       }
     })

@@ -1,19 +1,15 @@
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { HttpClient, HttpHeaders, HttpParams, JsonpClientBackend, JsonpInterceptor, HttpUrlEncodingCodec } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams, HttpUrlEncodingCodec } from "@angular/common/http";
 
 import { Injectable } from "@angular/core";
 import * as xml2js from 'xml2js';
-import { DR_FIRSR_VERESION, DR_FIRST_PATINET_URL, DR_FIRST_PROVIDER_URL_PARAMS, DR_FIRST_SSO_URL, DR_FIRST_URL, environment } from "src/environments/environment";
+import { DR_FIRSR_VERESION, DR_FIRST_PATINET_URL, DR_FIRST_PROVIDER_URL, DR_FIRST_SSO_URL, DR_FIRST_URL, environment } from "src/environments/environment";
 import { DatePipe } from "@angular/common";
 import { DrFirstAttributes, DrFirstPatient } from '../_models/_provider/practiceProviders';
-import { Observable, of } from 'rxjs';
 import { Md5 } from "md5-typescript";
 import { DrfirstUrlChanged } from '../_navigations/provider.layout/view.notification.service';
 import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
-import { catchError, map, tap } from 'rxjs/operators';
-import { switchMap } from 'rxjs-compat/operator/switchMap';
-declare function JSONPCalls(url, callback): any;
 
 export class DrFirstValidFields {
   FirstName = { required: true, length: 35 };
@@ -36,29 +32,16 @@ export class DrfirstService {
   codec = new HttpUrlEncodingCodec;
   constructor(
     private http: HttpClient,
-    // private jsonpClient: JsonpClientBackend,
     private datePipe: DatePipe,
     private authenticationService: AuthenticationService,
     private utilityService: UtilityService,
     private drfirstUrlChanged: DrfirstUrlChanged,
     private alertmsg: AlertMessage
   ) {
-    // this.initHeaders();
+
 
   }
 
-  initHeaders() {
-    this.httpRequestHeaders = new HttpHeaders();
-    this.httpRequestHeaders = this.httpRequestHeaders
-      .append('Content-Type', 'application/xml; charset=UTF-8')
-      .append('Accept', 'text/xml')
-      .append('Access-Control-Allow-Origin', '*')
-      .append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, PUT, DELETE')
-      .append('Access-Control-Allow-Headers', 'Content-Type')
-      .append('Access-Control-Max-Age', '86400')
-    console.log(this.httpRequestHeaders);
-
-  }
 
   public SendPatient(patient: DrFirstPatient) {
     var urlparams: string = ""
@@ -66,9 +49,9 @@ export class DrfirstService {
     this.utilityService.DrfirstProviderParams(providerId, patient.PatientId).subscribe(resp => {
       if (resp.IsSuccess) {
         var drfirstProviderParams = resp.Result as DrFirstAttributes;
-        console.log(drfirstProviderParams);
+        //console.log(drfirstProviderParams);
         let patientXml = SendPatientXML(drfirstProviderParams, patient, this.datePipe);
-        console.log(patientXml);
+        //console.log(patientXml);
         // this.SubmitRequest(encodeURI(patientXml)).subscribe(resp => {
         //   console.log(resp);
         //   this.parser.parseString(resp, (err, result) => {
@@ -86,7 +69,7 @@ export class DrfirstService {
         //     }
         //   });
         // })
-        this.SubmitRequest(this.codec.encodeValue(patientXml),patientXml);
+        this.SubmitRequest(this.codec.encodeValue(patientXml), patientXml);
       }
     })
   }
@@ -124,18 +107,19 @@ export class DrfirstService {
     // })
   }
   public func_callbk(data) {
-    console.log(data);
+    //console.log(data);
   }
-  private SubmitRequest(xmlpayload,patientXml) {
+
+  private SubmitRequest(xmlpayload, patientXml) {
     let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE102
-    console.log(xmlpayload);
+    //console.log(xmlpayload);
 
     // Using CORS Method
     const drfirstUrl = `${eprescribeServer}/send_patient?xml=${xmlpayload}&output=text/xml`
     let callbackparam: string = 'callbackparam'
     this.http.jsonp(drfirstUrl, callbackparam)
       .subscribe((jsonCallback) => {
-        console.log(jsonCallback);
+        //console.log(jsonCallback);
       },
         (error) => {
           console.log(error);
@@ -144,12 +128,11 @@ export class DrfirstService {
         () => { }
       );
 
-    // Using Javascrip ajax call
-    JSONPCalls(drfirstUrl, callbackparam);
+
 
     // UsingProxy
     let proxyUri = `/send_patient?xml=${xmlpayload}&output=text/xml`
-    this.http.get('/send_patient',{headers:this.httpRequestHeaders, params:{"xml":patientXml}}).subscribe((resp) => { console.log(resp) },
+    this.http.get('/send_patient', { headers: this.httpRequestHeaders, params: { "xml": patientXml } }).subscribe((resp) => { console.log(resp) },
       (error) => { console.log(error); },
       () => { }
     )
@@ -158,25 +141,26 @@ export class DrfirstService {
 
 
 
-  public ProviderUrl() {
+  public ProviderUrl(startup:string ='report') {
     if (this.authenticationService.isProvider) {
       var urlparams: string = ""
       var providerId = this.authenticationService.userValue.ProviderId;
 
-      this.utilityService.DrfirstProviderParams(providerId, null).subscribe(resp => {
+      this.utilityService.DrfirstProviderParams(providerId, undefined).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
 
           if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
-            urlparams = DR_FIRST_PROVIDER_URL_PARAMS(
+            urlparams = DR_FIRST_PROVIDER_URL(
               drfirstProviderParams.VendorUserName,
-              drfirstProviderParams.RcopiaUserName,
-              drfirstProviderParams.RcopiaUserId,
-              drfirstProviderParams.RcopiaUserExternalId) + this.gmtTime();
+              drfirstProviderParams.RcopiaPracticeUserName,
+              drfirstProviderParams.ProviderUserName,
+              drfirstProviderParams.RcopiaUserExternalId == null || drfirstProviderParams.RcopiaUserExternalId == undefined
+                ? "" : drfirstProviderParams.RcopiaUserExternalId,startup) + this.gmtTime();
 
             var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
             urlparams = DR_FIRST_URL(urlparams, hashvalue);
-            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams),"Provider");
+            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams), "Provider", startup);
 
           }
         }
@@ -189,28 +173,33 @@ export class DrfirstService {
       var urlparams: string = ""
       var providerId = this.authenticationService.userValue.ProviderId;
       var patientId = this.authenticationService.viewModel.Patient?.PatientId
-      console.log(patientId);
-
-
       this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
           console.log(drfirstProviderParams);
 
-
           if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
 
-            if (drfirstProviderParams.DrFirstPatientId)
+            if (drfirstProviderParams.DrFirstPatientId) {
               urlparams = DR_FIRST_PATINET_URL(
                 drfirstProviderParams.VendorUserName,
-                drfirstProviderParams.RcopiaUserName,
-                drfirstProviderParams.RcopiaUserId,
-                drfirstProviderParams.RcopiaUserExternalId,
+                drfirstProviderParams.RcopiaPracticeUserName,
+                drfirstProviderParams.ProviderUserName,
+                drfirstProviderParams.RcopiaUserExternalId == null || drfirstProviderParams.RcopiaUserExternalId == undefined
+                  ? "" : drfirstProviderParams.RcopiaUserExternalId,
                 drfirstProviderParams.DrFirstPatientId + '') + this.gmtTime();
+              console.log(urlparams);
 
-            var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
-            urlparams = DR_FIRST_URL(urlparams, hashvalue);
-            this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams),"Patient");
+              var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
+              console.log(hashvalue);
+
+              urlparams = DR_FIRST_URL(urlparams, hashvalue);
+              console.log(urlparams);
+
+              this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams), "Patient","");
+
+            }
+
 
           }
         }
@@ -231,82 +220,6 @@ export class DrfirstService {
 }
 
 
-export const Response = `<RCExtResponse version="2.45">
-<TraceInformation>
-<RequestMessageID/>
-  <ResponseMessageID>SB-04072023114901314-161149</ResponseMessageID>
-  <DestinationURL>http://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet</DestinationURL>
-  <RequestTimestamp>04/07/2023 11:49:01</RequestTimestamp>
-  <ResponseStartTimestamp>04/07/2023 11:49:01</ResponseStartTimestamp>
-  <RcopiaServerName>enginesb01u_51001</RcopiaServerName>
-</TraceInformation>
-<Request>
-  <Caller>
-    <VendorName>avendor18562</VendorName>
-    <VendorPassword>xxxxxxxx</VendorPassword>
-  </Caller>
-  <SystemName>avendor18562</SystemName>
-  <RcopiaPracticeUsername>eh4114</RcopiaPracticeUsername>
-<Request>
-  <Command>send_patient</Command>
-<PatientList>
-  <Patient>
-    <ExternalID>622b91cb391cba10c7c1b3c7</ExternalID>
-    <FirstName>Grant</FirstName>
-    <LastName>Nikkel</LastName>
-    <DOB>02/04/1991</DOB>
-    <Sex>m</Sex>
-    <MobilePhone>5415894123</MobilePhone>
-    <Address1>50889 Happy Valley Rd</Address1>
-    <Address2/>
-    <City>Princeton</City>
-    <State>OR</State>
-    <Zip>97721-9518</Zip>
-  </Patient>
-</PatientList>
-</Request>
-</Request>
-
-<Response>
-  <ServerIPAddress>engine201.staging.drfirst.com:80</ServerIPAddress>
-  <Status>ok</Status>
-  <PatientList>
-    <Patient>
-    <RcopiaID>26154394823</RcopiaID>
-    <ExternalID>622b91cb391cba10c7c1b3c7</ExternalID>
-    <Status>created</Status>
-    </Patient>
-  </PatientList>
-</Response>
-<ResponseEndTimestamp>04/07/2023 11:49:01</ResponseEndTimestamp>
-</RCExtResponse>`
-/**<RCExtRequest version = "2.45">
-    <Caller>
-        <VendorName>avendor18562</VendorName>
-        <VendorPassword>463s1hbf</VendorPassword>
-    </Caller>
-    <SystemName>avendor18562</SystemName>
-    <RcopiaPracticeUsername>eh4114</RcopiaPracticeUsername>
-
-    <Request>
-        <Command>send_patient</Command>
-        <PatientList>
-      <Patient>
-          <ExternalID>marcoasugger</ExternalID>
-          <FirstName>Marcoa</FirstName>
-          <LastName>Sugger</LastName>
-          <DOB>05/01/1965</DOB>
-          <Sex>m</Sex>
-          <HomePhone>419-855-3155</HomePhone>
-          <Address1>2645 Mulberry Lane</Address1>
-          <Address2></Address2>
-          <City>Toledo</City>
-          <State>OH</State>
-          <Zip>43605</Zip>
-      </Patient>
-    </PatientList>
-    </Request>
-</RCExtRequest> */
 export const USAPhoneFormat = (phonenumber, format = false) => {
   var phoneRegex = /^([+1]{2})*\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   if (phoneRegex.test(phonenumber)) {
@@ -323,7 +236,7 @@ export const SendPatientXML = (provider: DrFirstAttributes, patient: DrFirstPati
           <VendorPassword>${provider.VendorPassword}</VendorPassword>
       </Caller>
       <SystemName>${provider.VendorUserName}</SystemName>
-      <RcopiaPracticeUsername>${provider.RcopiaUserName}</RcopiaPracticeUsername>
+      <RcopiaPracticeUsername>${provider.RcopiaPracticeUserName}</RcopiaPracticeUsername>
       <Request>
           <Command>send_patient</Command>
           <PatientList>

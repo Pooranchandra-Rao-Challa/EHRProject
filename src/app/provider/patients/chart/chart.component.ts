@@ -854,8 +854,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   initCDSAlert(){
-    console.log(this.currentPatient);
-
+   // console.log(this.currentPatient);
+    if(!this.currentPatient) return;
     this.settingsService.EvalPatientCDSAlerts({patientId:this.currentPatient.PatientId,providerId:this.user.ProviderId})
     .subscribe((resp)=>{
       if(resp.IsSuccess){
@@ -868,7 +868,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
           })
           alert.IsMet = isMet;
         })
-        console.log(this.alertResult);
+   //     console.log(this.alertResult);
 
       }
     })

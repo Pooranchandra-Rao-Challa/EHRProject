@@ -86,7 +86,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.chartSubject.next(this.viewModel.PatientView);
-
   }
 
   ngOnInit(): void {
@@ -134,7 +133,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadCQMsNotPerformedComponent();
         this.loadingSubject.next(false)
       });
-      this.drfirstService.PatientUrl();
+
       this.drfirstUrlChanged.getData().subscribe((data) => {
         if(data.urlfor=="Patient")
           this.drfirstPatientUrl = data.url
@@ -170,6 +169,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   }
   get IsPatientRegisteredWithDrFirst():boolean{
+    //console.log(this.viewModel.Patient);
 
     return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
 
@@ -317,7 +317,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
             ProviderId: this.authService.userValue.ProviderId
           }
           this.breadcrumbs.push(pb);
-          let flag = false;
+          //let flag = false;
           patients.forEach((p) => {
             let pb: PatientBreadcurm = {
               Name: p.FirstName + ' ' + p.LastName,
@@ -333,11 +333,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
               this.authService.SetViewParam('Patient', p);
               this.viewModel = this.authService.viewModel;
               this.patient = this.viewModel.Patient;
+              // When navigated from links or from patient list the call to url should be here.
+              this.drfirstService.PatientUrl();
               if (this.viewModel.PatientView == null ||
                 this.viewModel.PatientView == '')
                 this.viewModel.PatientView = 'Chart'
               this.chartSubject.next(this.viewModel.PatientView);
-              flag = true;
+              //flag = true;
             }
             this.breadcrumbs.push(pb);
           });

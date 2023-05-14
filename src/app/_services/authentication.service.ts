@@ -61,7 +61,6 @@ export class AuthenticationService {
       tap(resp => {
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
-
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
@@ -247,7 +246,7 @@ export class AuthenticationService {
           this.logout(ERROR_CODES["EL001"]);
         }
       } else {
-        this.logout(ERROR_CODES["EL001"]); // EL002
+        this.logout(ERROR_CODES["EL001"]);
       }
     }),
       (error) => {

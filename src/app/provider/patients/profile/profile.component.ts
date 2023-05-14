@@ -377,7 +377,7 @@ export class ProfileComponent implements OnInit {
     this.ageCalculator();
     this.patientMyProfile.strDateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
     this.patientMyProfile.strDateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "MM/dd/yyyy hh:mm:ss a");
-    console.log(this.patientMyProfile);
+    //console.log(this.patientMyProfile);
 
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {

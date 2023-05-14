@@ -76,7 +76,7 @@ export const DR_FIRST_PATINET_URL = (
 
 export const DR_FIRST_SSO_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
 
-export const DR_FIRST_PROVIDER_URL_PARAMS = (
+export const DR_FIRST_PROVIDER_URL = (
   vendor_username: string,
   rcopia_user_name: string,
   rcopia_user_id: string,

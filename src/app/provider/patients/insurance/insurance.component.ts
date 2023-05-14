@@ -11,7 +11,7 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { areaCodes } from 'src/app/_models/_patient/patientprofile';
 import { ParticularInsuranceCompanyDetails, InsuranceDto, SecondaryInsurance } from 'src/app/_models/_provider/insurance';
 import { DatePipe } from '@angular/common';
-import { AreaCode } from 'src/app/_models/_admin/Admins';
+import { AreaCode } from  'src/app/_models/_admin/admins'
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { DataExtractorService } from 'mat-table-exporter';
@@ -420,7 +420,7 @@ export class InsuranceComponent implements OnInit {
         this.primaryInsurance = {};
         this.secondaryInsurance = {};
       }
-      console.log(this.primaryInsurance);
+    ///  console.log(this.primaryInsurance);
 
     });
   }
@@ -531,7 +531,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuranceDetails(item) {
-    console.log(item);
+   // console.log(item);
 
     return;
     if (item == "primary") {
@@ -690,7 +690,7 @@ export class InsuranceComponent implements OnInit {
   }
   secondaryenableSave() {
 
-    console.log(this.secondaryInsurance);
+    //console.log(this.secondaryInsurance);
 
     return !(this.secondaryInsurance.SubscriberName != null && this.secondaryInsurance.SubscriberName != ""
       && this.secondaryInsurance.DateOfBirth != null && this.secondaryInsurance.DateOfBirth != ""

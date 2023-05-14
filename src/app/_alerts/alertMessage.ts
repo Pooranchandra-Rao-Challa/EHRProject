@@ -419,6 +419,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2CM001': 'Medication added successfully',
   'M2CM002': 'Medication updated successfully',
   'M2CM003': 'Medication deleted successfully',
+  'M2CM004': 'Can not close this window, medication discontinued is active. Do Save or Cancel',
 
   // Error for medication
   'E2CM001': 'Medication Updation error',
@@ -516,7 +517,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   //Login Errors
   'EL001': 'Wrong email or password',
-  'EL002': 'Session is timeout',
+  'EL002': 'Check the API deployment',
   'EL003': 'You need to sign in or sign up before continuing.',
   'EL005': 'The login to provider account is failed.',
   'EL006': 'Email is not verified, if you haven\'t received Email, please click on the \'Resend Email Verification\' in login form.',
@@ -651,9 +652,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CN004':'Resend verification code is failed.',
   'E2CN005':'Notification setting is not Cleared ',
 
-  'M2PE001':'Registered patient in Dr first.',
+  'M2PE001':'Registation patient in Dr first takes 10 min',
   'E2PE001':'Not Registered patient in Dr first.',
-
 };
 
 

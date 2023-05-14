@@ -12,7 +12,7 @@ import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
 import { SECURE_QUESTIONS } from 'src/app/_models/_patient/patientprofile';
 import { UtilityService } from '../_services/utiltiy.service';
 import { Accountservice } from '../_services/account.service';
-import { AreaCode } from '../_models/_admin/Admins';
+import { AreaCode } from    '../_models/_admin/admins';
 import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { Attachment } from '../_models/_provider/LabandImage';
 import { FileUploadService } from '../_services/file.upload.service';

@@ -155,17 +155,17 @@ export class UpdateEmergencyAccess {
 
 @Injectable()
 export class DrfirstUrlChanged {
-  private subject = new Subject<{ urlfor: string, url: string }>();
+  private subject = new Subject<{ urlfor: string,purpose:string, url: string }>();
 
-  sendData(url: string, urlfor: string) {
-    this.subject.next({ url: url, urlfor: urlfor });
+  sendData(url: string, urlfor: string,purpose:string='report') {
+    this.subject.next({ url: url,purpose, urlfor: urlfor });
   }
 
   clearData() {
     this.subject.next();
   }
 
-  getData(): Observable<{ urlfor: string, url: string }> {
+  getData(): Observable<{ urlfor: string,purpose:string, url: string }> {
     return this.subject.asObservable();
   }
 }

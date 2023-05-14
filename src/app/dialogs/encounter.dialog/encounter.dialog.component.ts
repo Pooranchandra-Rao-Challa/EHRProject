@@ -165,7 +165,7 @@ export class EncounterDialogComponent implements OnInit {
 
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
-    console.log(this.encounterInfo.Diagnoses);
+   // console.log(this.encounterInfo.Diagnoses);
 
     this.encounterInfo.Diagnoses.forEach(fn => {
       fn.PatientEdn = "Medline Plus"
@@ -447,7 +447,7 @@ export class EncounterDialogComponent implements OnInit {
 
     let isAdd = this.encounterInfo.EncounterId == null;
 
-    console.log(this.encounterInfo);
+    //console.log(this.encounterInfo);
 
 
     if (this.encounterInfo.Vital.CollectedAt != null)

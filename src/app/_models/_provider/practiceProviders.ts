@@ -16,10 +16,11 @@ export interface Company {
 export class DrFirstAttributes {
   VendorUserName?: string;
   VendorPassword?: string;
-  RcopiaUserName?: string;
-  RcopiaUserNamePassword?: string;
-  RcopiaUserId?: string;
-  RcopiaUserIdPassword?: string;
+  SystemName?: string;
+  RcopiaPracticeUserName?: string;
+  RcopiaPracticeUserNamePassword?: string;
+  ProviderUserName?: string;
+  ProviderUserNamePassword?: string;
   RcopiaUserExternalId?: string;
   EprescribeFrom?: string;
   DrFirstPatientId?: number;

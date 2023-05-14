@@ -67,6 +67,7 @@ export class RxNormAPIService {
   }
 
   private allNDCStatuses(rxcui: string): BehaviorSubject<ndcStatusObj> {
+    if(!rxcui) return new BehaviorSubject<ndcStatusObj>(null)
     let valueSubject: BehaviorSubject<ndcStatusObj> = new BehaviorSubject<ndcStatusObj>(null)
     this.ndclist(rxcui).pipe(
       map((ndcs) => {
@@ -88,6 +89,7 @@ export class RxNormAPIService {
   }
 
   ndclist(rxcui: string): Observable<string[]> {
+    if(!rxcui) return  of([])
     return this.http.get<string[]>(this._ndcsUrl(rxcui)).pipe(
       map((result) => {
         let returnNDCS: string[] = [];

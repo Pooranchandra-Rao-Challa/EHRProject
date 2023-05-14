@@ -2,7 +2,7 @@ export const environment = {
   production: true,
   showemail: false,
   //baseUrl: 'http://13.56.245.114:3550/',
-  baseUrl: 'http://10.1.1.4:3550/',
+  baseUrl: 'https://ehr1.pro:3550/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
   EPRESCRIBE_SERVER:'https://engine301.drfirst.com/servlet/rcopia.servlet.EngineServlet',
@@ -67,19 +67,19 @@ export const MEDLINE_PLUS_URL = (code: string, codesystem: string) => `${MEDLINE
 
 export const DR_FIRST_PATINET_URL = (
   vendor_username: string,
-  rcopia_user_name: string,
-  rcopia_user_id: string,
+  rcopia_practice_name: string,
+  rcopia_provider_name: string,
   rcopia_user_external_id: string,
-  drfirst_patient_id: string) => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaPatientId}=${drfirst_patient_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.StartupScreen}=${DrFirstSSOConstants.Patient}&${DrFristParamNames.Time}=`
+  drfirst_patient_id: string) => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_practice_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_provider_name}&${DrFristParamNames.RcopiaPatientId}=${drfirst_patient_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.StartupScreen}=${DrFirstSSOConstants.Patient}&${DrFristParamNames.Time}=`
 
 export const DR_FIRST_SSO_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
 
-export const DR_FIRST_PROVIDER_URL_PARAMS = (
+export const DR_FIRST_PROVIDER_URL= (
   vendor_username: string,
-  rcopia_user_name: string,
-  rcopia_user_id: string,
+  rcopia_practice_name: string,
+  rcopia_provider_name: string,
   rcopia_user_external_id: string,
-  start_up: string = 'report') => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_user_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_user_id}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.LimpMode}=y&${DrFristParamNames.StartupScreen}=${start_up}&${DrFristParamNames.Time}=`
+  start_up: string = 'report') => `${DrFristParamNames.RcopiaPortalSystemName}=${vendor_username}&${DrFristParamNames.RcopiaPracticeUserName}=${rcopia_practice_name}&${DrFristParamNames.RcopiaUserId}=${rcopia_provider_name}&${DrFristParamNames.RcopiaUserExternalId}=${rcopia_user_external_id}&${DrFristParamNames.Service}=${DrFirstSSOConstants.Service}&${DrFristParamNames.Action}=${DrFirstSSOConstants.Action}&${DrFristParamNames.LimpMode}=y&${DrFristParamNames.StartupScreen}=${start_up}&${DrFristParamNames.Time}=`
 
 
 export const DR_FIRST_URL = (urlparams: string, mac: string) => `${urlparams}&MAC=${mac}`;

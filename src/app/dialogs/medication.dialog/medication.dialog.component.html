@@ -52,34 +52,132 @@
         </div>
       </div>
       <div class="row mt-2">
-        <div class="form-group col-md-6">
-          <label class="title-field">Dose and Form:</label>
+        <div class="form-group col-md-3">
+          <label class="title-field">Drug Strength:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput placeholder="Dose and Form" name="doseandform:"
-              [(ngModel)]="patientMedication.DoseandForm" />
+              [(ngModel)]="patientMedication.DrugStrength" />
           </mat-form-field>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="title-field">Drug Form:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #drugFormInput placeholder="Drug and Form" name="DrugForm:"
+              [(ngModel)]="patientMedication.DrugForm" [matAutocomplete]="drugForm" />
+          </mat-form-field>
+          <mat-autocomplete #drugForm="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDrugForm | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <div class="form-group col-md-3">
+          <label class="title-field">Dose:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #dosInput placeholder="DoseUnit" name="dose:" [(ngModel)]="patientMedication.Dose" />
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-3">
+          <label class="title-field">Dose Unit:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #doseunitInput [matAutocomplete]="doseunit" placeholder="DoseUnit" name="doseunit:"
+            [(ngModel)]="patientMedication.DoseUnit" />
+          </mat-form-field>
+          <mat-autocomplete #doseunit="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDoseUnits | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="form-group col-md-6 ">
+          <label class="title-field">Dose Timing:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #doseTimingInput [matAutocomplete]="doseTiming" placeholder="DoseTiming" name="doseTiming:"
+            [(ngModel)]="patientMedication.DoseTiming" />
+          </mat-form-field>
+          <mat-autocomplete #doseTiming="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDoseTimings | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
         </div>
         <div class="form-group col-md-6 ">
-          <label class="title-field">Dispense</label>
+          <label class="title-field">Action:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.Dispense" />
+            <input matInput  #actionInput  [matAutocomplete]="action" placeholder="Action" name="action:"
+            [(ngModel)]="patientMedication.Action" />
           </mat-form-field>
+          <mat-autocomplete #action="matAutocomplete">
+            <mat-option *ngFor="let option of filteredActions | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
         </div>
       </div>
+
+
       <div class="row mt-2">
-        <div class="form-group col-md-6">
-          <label class="title-field">Units:</label>
-          <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="Units" name="units:" [(ngModel)]="patientMedication.Units" />
-          </mat-form-field>
-        </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-3">
           <label class="title-field">Quantity:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput placeholder="Quantity" name="quantity" [(ngModel)]="patientMedication.Quantity" />
           </mat-form-field>
         </div>
+        <div class="form-group col-md-3">
+          <label class="title-field">Quantity Unit:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #quntityUnitInput [matAutocomplete]="quntityunit" placeholder="Quntity Unit" name="quntityunit:"
+            [(ngModel)]="patientMedication.QuantityUnit" />
+          </mat-form-field>
+          <mat-autocomplete #quntityunit="matAutocomplete">
+            <mat-option *ngFor="let option of filteredQuntityUnits | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label class="title-field">Dose Other:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #doseotherInput [matAutocomplete]="doseother" placeholder="Dose Other" name="doseother:"
+            [(ngModel)]="patientMedication.DoseOther" />
+          </mat-form-field>
+          <mat-autocomplete #doseother="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDoseOthers | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+        </div>
+
       </div>
+
+      <div class="row mt-2">
+        <div class="form-group col-md-6 ">
+          <label class="title-field">Route:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput #routeInput [matAutocomplete]="route" placeholder="Route" name="route:"
+            [(ngModel)]="patientMedication.Route" />
+          <mat-autocomplete #route="matAutocomplete">
+            <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="form-group col-md-6 ">
+          <label class="title-field">Dispense:</label>
+          <mat-form-field class="grey-matform" appearance="outline">
+            <input matInput placeholder="Dispense" name="dispense:" [(ngModel)]="patientMedication.Dispense" />
+          </mat-form-field>
+        </div>
+      </div>
+
       <div class="row mt-2">
         <div class=" form-group col-md-6">
           <label class="title-field">Refills:</label>
@@ -90,8 +188,13 @@
         <div class="form-group  col-md-6">
           <label class="title-field">Days Supply:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="Days Supply" name="dayssupply:" [(ngModel)]="patientMedication.DaysSupply" />
+            <input matInput #daysSupplyInput [matAutocomplete]="dayssupply" placeholder="Days Supply" name="dayssupply:" [(ngModel)]="patientMedication.DaysSupply" />
           </mat-form-field>
+          <mat-autocomplete #dayssupply="matAutocomplete">
+            <mat-option *ngFor="let option of filteredDaysSupplys | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
         </div>
       </div>
       <div class="row mt-2">
@@ -126,7 +229,7 @@
           </mat-form-field>
         </div>
         <div class="form-group mt-4 col-md-6">
-          <button type="button" class="btn btn-orange mt-1"
+          <button type="button" class="btn btn-orange mt-1" [disabled]="disableDiscontinue()"
             (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
             Discontinue
           </button>
@@ -162,7 +265,7 @@
       <button type="button" class="btn btn-green" [disabled]="disableMedication()" (click)="CreateMedication()">
         Save
       </button>
-      <button type="button" class="btn btn-green" (click)="cancel()">
+      <button type="button" class="btn btn-green" (click)="cancel(true)">
         Cancel
       </button>
     </div>

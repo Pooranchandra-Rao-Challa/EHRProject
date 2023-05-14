@@ -4,8 +4,8 @@
     Pending Prescriptions.
     <a (mouseover)="openMyMenu()" [matMenuTriggerFor]="openeRX">Open eRX</a>
     <mat-menu #openeRX="matMenu">
-      <li mat-menu-item class="mat-menu-item"><a>eRX Messages</a></li>
-      <li mat-menu-item class="mat-menu-item"><a>eRX Reports</a></li>
+      <li mat-menu-item class="mat-menu-item"><a [href]="drfirstProviderMessageUrl" href="javascript:void(0)" target="_blank">eRX Messages</a></li>
+      <li mat-menu-item class="mat-menu-item"><a [href]="drfirstProviderReportUrl" href="javascript:void(0)" target="_blank">eRX Reports</a></li>
     </mat-menu>
     to resolve.
   </p>

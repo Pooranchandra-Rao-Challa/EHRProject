@@ -11,7 +11,7 @@ import { Accountservice } from 'src/app/_services/account.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { User } from 'src/app/_models';
-import { AreaCode, Clinic } from 'src/app/_models/_admin/Admins';
+import { AreaCode, Clinic } from 'src/app/_models/_admin/admins';
 
 @Component({
   selector: 'app-adduser.dialog',
