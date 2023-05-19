@@ -3,17 +3,18 @@
     <div class="modal-header model-cust-heading">
       <p class="modal-title modal-cust-title">Create C-CDA</p>
       <div class="dropdown actiondropdown">
-        <button class="btn btn-orange font-family dropdown-toggle" type="button" id="dropdownMenuButton2"
-          data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
+        <button class="btn btn-orange font-family dropdown-toggle" type="button" id="ccda-dropdwon"
+          data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="true">
           Actions
         </button>
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-          <li class="dropdown-item drop-menu"><a>Download</a></li>
-          <li class="dropdown-item drop-menu"><a>Send to Patient Portal</a></li>
+        <ul class="dropdown-menu" aria-labelledby="ccda-dropdwon">
+          <li class="drop-menu" (click)="DownloadCCCDA()"><a class="dropdown-item ccda-seletion">Download</a></li>
+          <li class="drop-menu" (click)="SendToPateint()"><a class="dropdown-item ccda-seletion">Send to Patient Portal</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
-          <li class="dropdown-item drop-menu"><a>Send to Direct</a></li>
+          <li class="drop-menu"><a class="dropdown-item ccda-seletion" *ngIf="!patient.NoEmail">Send to Direct</a>
+          <div class="dropdown-item ccda-no-email" *ngIf="patient.NoEmail">Send to Direct</div></li>
 
         </ul>
       </div>

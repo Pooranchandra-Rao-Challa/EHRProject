@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
 import {  TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
 declare var $: any;
 @Component({
   selector: 'app-labs.imaging',
@@ -11,7 +11,7 @@ declare var $: any;
 })
 export class DirectMsgComponent  {
   displayReq = "none";
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   DialogResponse = null;
 
   constructor(private overlayService :OverlayService) { }

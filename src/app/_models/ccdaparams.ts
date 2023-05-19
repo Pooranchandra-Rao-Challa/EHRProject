@@ -1,5 +1,10 @@
 export class CCDAParams {
   PatientId?: string;
+  ProviderId?:string;
+  SendToPatient?: boolean;
+  Download?:boolean;
+  Preview?:boolean;
+  Direct?:boolean;
   ClinicalSummary?: string = 'Clinical Summary';
   PatientInformation?: CCDAInformation[] = [
     { Name: 'Patient Information', Value: true },

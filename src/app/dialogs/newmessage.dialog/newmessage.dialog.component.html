@@ -34,7 +34,7 @@
             <div class="input-group mb-3">
               <span class="input-group-addon labelclass form-control">From:</span>
               <input matInput placeholder="" disabled class="form-control inputclass"
-                [(ngModel)]="user.FirstName + user.LastName">
+                [(ngModel)]="user.FirstName +' '+ user.LastName">
             </div>
           </div>
         </div>
@@ -68,9 +68,12 @@
         <div class="col-lg-8 col-md-8 col-sm-8" style="padding-top:10px">
           <div *ngFor="let item of Attachments;let i = index" style="display: flex;align-items: center;">
             {{item.FileName}}
-            <div for="forremove" class="remove" (click)="DeleteAttachment(item.AttachmentId)">
+            <div for="forremove" class="remove" (click)="DeleteAttachment(item.AttachmentId)" *ngIf="!message.Isccda">
               <mat-icon>delete</mat-icon>
             </div>
+            <!-- <div for="forremove" class="remove" (click)="DownloadAttachment(item.AttachmentId)">
+              <mat-icon>download</mat-icon>
+            </div> -->
           </div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8" style="padding-top:10px">

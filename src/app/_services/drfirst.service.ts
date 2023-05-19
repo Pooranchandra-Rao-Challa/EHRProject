@@ -176,7 +176,7 @@ export class DrfirstService {
       this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
-          console.log(drfirstProviderParams);
+         // console.log(drfirstProviderParams);
 
           if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
 
@@ -188,13 +188,13 @@ export class DrfirstService {
                 drfirstProviderParams.RcopiaUserExternalId == null || drfirstProviderParams.RcopiaUserExternalId == undefined
                   ? "" : drfirstProviderParams.RcopiaUserExternalId,
                 drfirstProviderParams.DrFirstPatientId + '') + this.gmtTime();
-              console.log(urlparams);
+             // console.log(urlparams);
 
               var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
-              console.log(hashvalue);
+             // console.log(hashvalue);
 
               urlparams = DR_FIRST_URL(urlparams, hashvalue);
-              console.log(urlparams);
+             // console.log(urlparams);
 
               this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams), "Patient","");
 

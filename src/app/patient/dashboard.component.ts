@@ -1,5 +1,5 @@
 import { ERROR_CODES } from './../_alerts/alertMessage';
-import { NewmessageDialogComponent } from './../dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from './../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { PatientappointmentDialogComponent } from 'src/app/dialogs/patientappointment.dialog/patientappointment.dialog.component';
 import { Component, TemplateRef, ViewChild } from '@angular/core';
 import { OverlayService } from '../overlay.service';
@@ -31,7 +31,7 @@ export class DashboardComponent {
   user: User;
   locationsInfo: UserLocations[];
   PatientDialogComponent = PatientappointmentDialogComponent;
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   DialogResponse = null;
   PatientUpcomingAppointmentsList: Appointments[];
   PatientUpcomingAppointmentsCount: number = 0;

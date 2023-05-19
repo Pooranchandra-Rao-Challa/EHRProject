@@ -5,6 +5,7 @@ export class ProviderPatient{
   Created?: string;
   Dob?: string;
   Email?: string;
+  NoEmail?: boolean;
   FirstName?: string;
   Gender?: string;
   LastAccessed?: string;

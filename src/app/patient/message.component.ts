@@ -3,7 +3,7 @@ import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination
 import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayService } from '../overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
-import { NewmessageDialogComponent } from '../dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from '../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { Actions, User } from 'src/app/_models';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -15,6 +15,8 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { MessageCounts, RecordsChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { DownloadService } from '../_services/download.service';
+import { Attachment } from '../_models/_provider/LabandImage';
 @Component({
   selector: 'app-message',
   templateUrl: './message.component.html',
@@ -23,7 +25,7 @@ import { MessageCounts, RecordsChangeService } from 'src/app/_navigations/provid
 export class MessageComponent {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   public messageDataSource: MessageDatasource;
   user?: User;
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
@@ -49,7 +51,8 @@ export class MessageComponent {
     private authService: AuthenticationService,
     private changeDedectionRef: ChangeDetectorRef,
     private notifyMessage: NotifyMessageService,
-    private alertmsg: AlertMessage) {
+    private alertmsg: AlertMessage,
+    private downloadService: DownloadService,) {
     this.user = authService.userValue;
   }
 
@@ -178,7 +181,7 @@ export class MessageComponent {
   }
 
   get DisplayedColumns(): string[] {
-    return ['From', 'Date']
+    return ['From', 'Date','Attach']
   }
 
   openComponentDialogmessage(content: any | ComponentType<any> | string, data,
@@ -230,6 +233,16 @@ export class MessageComponent {
     })
   }
 
+
+  EntityName: string = "EmailMessage"
+  DownloadAttachment(attachment: Attachment[]){
+    attachment.forEach(attach=>{
+      attach.EntityName = this.EntityName;
+      this.downloadService.DownloadCCDAAttachment(attach);
+    })
+
+  }
+
 }
 export class MessageDatasource implements DataSource<Messages>{
   private MessageSentSubject = new BehaviorSubject<Messages[]>([]);
@@ -271,7 +284,17 @@ export class MessageDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
+          console.log(resp.ListResult);
+
+          this.MessageSentSubject.next((resp.ListResult as Messages[])
+          .map((message)=>{
+            if(message.strAttachments != null && message.strAttachments != "")
+              message.Attachments = JSON.parse(message.strAttachments);
+            else  message.Attachments = [];
+            return message})
+          .sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
+
+          //this.MessageSentSubject.next((resp.ListResult as Messages[]).sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
         else {

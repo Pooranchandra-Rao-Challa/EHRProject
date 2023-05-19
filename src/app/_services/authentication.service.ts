@@ -227,6 +227,10 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
+        console.log(this.userValue);
+        console.log(resp.Result as User);
+
+
         if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
         }

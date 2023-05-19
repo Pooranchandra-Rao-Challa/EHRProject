@@ -33,13 +33,13 @@ export class BreadcrumComponent implements OnInit {
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if(data.urlfor=="Provider" && data.purpose=="message")
         this.drfirstProviderMessageUrl = data.url
-        console.log(this.drfirstProviderMessageUrl);
+       // console.log(this.drfirstProviderMessageUrl);
     });
     this.drfirstService.ProviderUrl('report');
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if(data.urlfor=="Provider" && data.purpose=="report")
         this.drfirstProviderReportUrl = data.url
-        console.log(this.drfirstProviderReportUrl);
+      //  console.log(this.drfirstProviderReportUrl);
     });
   }
 

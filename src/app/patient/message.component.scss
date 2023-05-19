@@ -17,7 +17,14 @@
     height: calc(100vh - 130px);
     max-width: 1133px;
   }
-
+  .attach-btn{
+    color:#41b6a6;
+    cursor: pointer;
+  }
+  .attach-btn:hover{
+    color:#fff;
+    background-color: #41b6a6;
+  }
   .nav-tabs {
     border-bottom: 1px solid #ddd;
   }

@@ -163,17 +163,37 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
       .subscribe(
         (resp) => {
-          console.log(resp.headers.get("content-type"));
           const blob = new Blob([resp.body], {
             type: resp.headers.get("content-type"),
           });
           const document = window.URL.createObjectURL(blob);
-          FileSaver.saveAs(document, reqObj.AttachmentId);
+          FileSaver.saveAs(document, reqObj.FileName);
         },
         (error) => {
         }
       );
   }
+
+
+  DownloadCCDAAttachment<T>(reqObj: any){
+    const endpointUrl = this.baseUrl + 'DownloadCCDA';
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
+      .subscribe(
+        (resp) => {
+          //console.log(resp.headers.get("content-type"));
+          const blob = new Blob([resp.body], {
+            type: resp.headers.get("content-type"),
+          });
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, reqObj.FileName);
+        },
+        (error) => {
+        }
+      );
+  }
+
+
 
   ViewAttachment(reqObj: any){
     const endpointUrl = this.baseUrl + 'DownloadAttachment';
@@ -181,7 +201,7 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
       .subscribe(
         (resp) => {
-          console.log(resp.headers.get("content-type"));
+          //console.log(resp.headers.get("content-type"));
           const blob = new Blob([resp.body], {
             type: resp.headers.get("content-type"),
           });

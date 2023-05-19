@@ -52,7 +52,7 @@ export class DrFirstDialogComponent implements OnInit {
             else{
               this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
             }
-            console.log(resp);
+          //  console.log(resp);
           });
       }
     })

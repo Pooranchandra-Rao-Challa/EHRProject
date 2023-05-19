@@ -223,7 +223,7 @@ export class AddUserDialogComponent implements OnInit {
       this.newUser.MobilePhone = '+1' + this.newUser.MobilePhonePreffix + this.newUser.MobilePhoneSuffix;
     }
     this.newUser.URL = this.url;
-    console.log(this.newUser);
+    //console.log(this.newUser);
 
     this.accountservice.CreateProvider(this.newUser).subscribe(resp => {
       if (resp.IsSuccess) {

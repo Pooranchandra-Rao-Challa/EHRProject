@@ -44,7 +44,7 @@ import { PastMedicalHistoryDialogComponent } from 'src/app/dialogs/past.medical.
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
-import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { MatSort } from '@angular/material/sort';
@@ -90,7 +90,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
   tobaccoUseTableDialogComponent = TobaccoUseTableDialogComponent;
   pastMedicalHistoryDialogComponent = PastMedicalHistoryDialogComponent;
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   messagesTableDialogComponent = MessagesTableDialogComponent;
   viewMessageDialogComponent = ViewMessageDialogComponent;
   patientImmunization: Immunization = new Immunization();

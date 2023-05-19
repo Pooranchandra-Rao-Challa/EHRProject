@@ -116,6 +116,19 @@
                     *matCellDef="let message" (click)="showMessage(message)"> {{message.Updated | date:'M/d/yyyy'}}
                   </mat-cell>
                 </ng-container>
+
+                <ng-container matColumnDef="Attach">
+                  <mat-header-cell *matHeaderCellDef> Attachment </mat-header-cell>
+                  <mat-cell class="pointer" *matCellDef="let message">
+                    <label for="singleFile" *ngIf="message.Attachments.length > 0"
+                      style=" margin-left: 20px;
+                      vertical-align: middle;" (click)="DownloadAttachment(message.Attachments)">
+                      <mat-icon class="attach-btn">attach_file</mat-icon>
+                    </label>
+                  </mat-cell>
+                </ng-container>
+
+
                 <mat-header-row *matHeaderRowDef="DisplayedColumns  sticky: true" class="matheaderrow"></mat-header-row>
                 <mat-row *matRowDef="let row; columns: DisplayedColumns;"></mat-row>
               </mat-table>
@@ -149,10 +162,17 @@
                   </div>
                 </div>
                 <div class="row email-address">
-                  <div class="col-md-12" style="display: inline-flex;">
+                  <div class="col-md-8" style="display: inline-flex;">
                     Subject:<p (mouseenter)="isExpandToggle()" (mouseleave)="isExpandToggle()"
                       style="margin-left: 10px;margin-bottom:0px" [class.overflow]="isExpand"
                       [class.show-overflow]="!isExpand">{{currentMessage.Subject}}</p>
+                  </div>
+
+                  <div class="col-md-4">
+                    <label for="singleFile"  *ngIf="currentMessage.Attachments.length > 0"
+                      style=" margin-left: 20px;vertical-align: middle;" (click)="DownloadAttachment(currentMessage.Attachments)">
+                      <mat-icon class="attach-btn">attach_file</mat-icon>
+                    </label>
                   </div>
                 </div>
                 <div style="border-bottom: 1px solid #41b6a6 ;"></div>

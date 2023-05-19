@@ -54,4 +54,10 @@ function JSONPCalls(url,callback){
 });
 }
 
+function toggleCCDAdropdown(){
+  $("a.ccda-seletion").on('click',function() {
+    $("#ccda-dropdwon").dropdown("toggle");
+ });
+
+}
 

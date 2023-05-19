@@ -1,10 +1,18 @@
+import { DownloadService } from './../../_services/download.service';
+import { Attachment } from './../../_models/_provider/LabandImage';
 import { OverlayService } from './../../overlay.service';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Actions, CCDAParams } from 'src/app/_models';
+import { Actions, CCDAParams, User } from 'src/app/_models';
 import { CcdaPreviewDialogComponent } from '../ccda.preview.dialog/ccda.preview.dialog.component';
+import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+import { PatientService } from 'src/app/_services/patient.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+declare function toggleCCDAdropdown(): any;
 
 @Component({
   selector: 'app-c-cda.dialog',
@@ -25,12 +33,25 @@ export class CCdaDialogComponent implements OnInit {
   ccdaPreviewDialogComponent = CcdaPreviewDialogComponent;
   ActionTypes = Actions;
   c_CDAParams: CCDAParams = new CCDAParams();
+  MessageDialogComponent = NewMessageDialogComponent;
+  user: User
+  patient: ProviderPatient
 
-  constructor(private ref: EHROverlayRef,
-    private overlayService: OverlayService) {
+  constructor(
+    private ref: EHROverlayRef,
+    private authService: AuthenticationService,
+    private overlayService: OverlayService,
+    private patientService: PatientService,
+    private downloadService: DownloadService) {
   }
 
   ngOnInit(): void {
+    this.user = this.authService.userValue;
+    this.patient = this.authService.viewModel.Patient;
+    this.c_CDAParams.PatientId = this.patient.PatientId;
+    this.c_CDAParams.ProviderId = this.user.ProviderId;
+    console.log(this.patient);
+
   }
 
   cancel() {
@@ -147,6 +168,52 @@ export class CCdaDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
     });
+  }
+
+  SendToPateint(){
+    console.log(this.c_CDAParams);
+    this.c_CDAParams.SendToPatient = true;
+    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(resp =>{
+      if(resp.IsSuccess){
+        let messageInfo: MessageDialogInfo = {};
+        messageInfo.MessageFor = "Practice"
+        messageInfo.Messages = this.prepareMessage(resp.Result)
+        messageInfo.ForwardReplyMessage = null;
+        const ref = this.overlayService.open(this.MessageDialogComponent, messageInfo);
+        ref.afterClosed$.subscribe(res => {
+          this.cancel();
+        });
+      }
+    })
+  }
+
+  DownloadCCCDA(){
+    this.c_CDAParams.Download = true;
+    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(resp =>{
+      if(resp.IsSuccess){
+        this.downloadService.DownloadAttachment(resp.Result.attachment as Attachment);
+      }
+    })
+  }
+
+  prepareMessage(resp): Messages{
+    let message: Messages = {}
+    message.ToId = resp.UserId;
+    if(!message.toAddress) message.toAddress = {};
+    message.toAddress.UserId = resp.UserId;
+    message.toAddress.Name = this.patient.FirstName+' '+this.patient.LastName;
+    message.FromId = this.authService.userValue.UserId;
+    message.Body = "CCDA Report"
+    message.Subject = "Clinical Summary"
+    message.PatientName = this.patient.FirstName+' '+this.patient.LastName;
+    if(!message.Attachments) message.Attachments = [];
+    message.Attachments.push(resp.attachment as Attachment);
+    message.Isccda = true;
+    return message;
+  }
+
+  openMessage(){
+
   }
 }
 

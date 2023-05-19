@@ -298,7 +298,7 @@ export class CommunicationSettingsComponent implements OnInit {
       this.EmailNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.EmailNotificatonType.URL = this.url;
-      console.log(this.EmailNotificatonType);
+      //console.log(this.EmailNotificatonType);
       this.UpdateNofication(this.EmailNotificatonType, "M2CN002", "E2CN002", this.ResetEmailButtonText, oldtext);
 
     }
@@ -306,10 +306,10 @@ export class CommunicationSettingsComponent implements OnInit {
 
   SaveSms() {
     let oldtext = this.smsButtonText;
-    console.log(this.smsForm.invalid);
+  //  console.log(this.smsForm.invalid);
     this.smsForm.markAllAsTouched()
-    console.log(this.smsForm.errors);
-    console.log(this.smsForm.value);
+  //  console.log(this.smsForm.errors);
+   // console.log(this.smsForm.value);
 
 
     if (!this.smsForm.invalid) {
@@ -325,7 +325,7 @@ export class CommunicationSettingsComponent implements OnInit {
       this.SMSNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.SMSNotificatonType.URL = this.url;
-      console.log(this.SMSNotificatonType);
+     // console.log(this.SMSNotificatonType);
       this.UpdateNofication(this.SMSNotificatonType, "M2CN001", "E2CN001", this.ResetSMSButtonText, oldtext);
     }
   }
@@ -345,14 +345,14 @@ export class CommunicationSettingsComponent implements OnInit {
       this.VoiceNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.VoiceNotificatonType.URL = this.url;
-      console.log(this.VoiceNotificatonType);
+     // console.log(this.VoiceNotificatonType);
       this.UpdateNofication(this.VoiceNotificatonType, "M2CN003", "E2CN003", this.ResetVoiceButtonText, oldtext);
     }
   }
 
   UpdateNofication(data: PatientNotificationSettingType, successMessage: string, errorMessage: string,
     callback, oldtext: string) {
-      console.log(data);
+    //  console.log(data);
 
     return this.patientService.AddNotification(data).subscribe(
       (resp) => {
@@ -415,7 +415,7 @@ export class CommunicationSettingsComponent implements OnInit {
 
 
     this.patientService.ClearNotification(data).subscribe(resp => {
-      console.log(resp);
+    //  console.log(resp);
 
       switch (notificationType) {
         case 'text_sms':

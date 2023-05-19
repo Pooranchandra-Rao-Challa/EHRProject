@@ -12,7 +12,13 @@ input::-webkit-input-placeholder {
     margin-top: 80px;
   }
 
-
+  .ccda-no-email{
+    cursor:not-allowed;
+    color:#989898 !important;
+  }
+  .ccda-seletion{
+    cursor: pointer;
+  }
   .modal-body {
     max-height: calc(90vh - 180px);
     overflow-y: auto;

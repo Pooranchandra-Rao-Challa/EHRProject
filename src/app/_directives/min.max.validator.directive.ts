@@ -12,7 +12,7 @@ export class MinValueDirective implements Validator {
   validate(c: FormControl): {[key: string]: any} {
 
       let v = c.value;
-      console.log(v);
+     // console.log(v);
 
       return ( v < this.minvalue)? {"minvalue": true} : null;
   }

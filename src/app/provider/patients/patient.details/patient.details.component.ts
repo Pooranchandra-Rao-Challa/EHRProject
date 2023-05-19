@@ -22,7 +22,7 @@ import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/o
 import { DrfirstUrlChanged, PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
-import { NewmessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
@@ -56,7 +56,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   orderResultDialogComponent = OrderResultDialogComponent;
   cCdaDialogComponent = CCdaDialogComponent;
   authorizedRepresentativeDialogComponent = AuthorizedrepresentativeDialogComponent
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   drFirstDialogComponent = DrFirstDialogComponent;
   confirmPatientDeletion: boolean = false;
   communicationSetting: CommunicationSetting = {};
@@ -137,7 +137,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.drfirstUrlChanged.getData().subscribe((data) => {
         if(data.urlfor=="Patient")
           this.drfirstPatientUrl = data.url
-          console.log(this.drfirstPatientUrl);
+          //console.log(this.drfirstPatientUrl);
 
       });
   }
@@ -308,6 +308,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
+          console.log(patients);
+          console.log(resp);
+
 
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {

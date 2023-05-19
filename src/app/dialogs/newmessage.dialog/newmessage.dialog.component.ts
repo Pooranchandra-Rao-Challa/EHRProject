@@ -22,7 +22,7 @@ class ToAddress {
   templateUrl: './newmessage.dialog.component.html',
   styleUrls: ['./newmessage.dialog.component.scss']
 })
-export class NewmessageDialogComponent implements OnInit {
+export class NewMessageDialogComponent implements OnInit {
 
   PatientProfile: PatientProfile;
   EntityName: string = "EmailMessage"
@@ -36,7 +36,7 @@ export class NewmessageDialogComponent implements OnInit {
   diabledPatientSearch: boolean = false
   displayMessage: boolean = true;
   noRecords: boolean = false;
-  fileTypes = ".jpg,.gif,.png"
+  fileTypes = ".jpg,.gif,.png,.xml,.pdf"
   fileSize: number = 20;
   EntityId: string;
   httpRequestParams = new HttpParams();
@@ -54,6 +54,8 @@ export class NewmessageDialogComponent implements OnInit {
     this.messageDialogData = ref.RequestData;
     this.message = this.messageDialogData.Messages;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
+    console.log(this.message);
+
 
     this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);
 
@@ -167,17 +169,17 @@ export class NewmessageDialogComponent implements OnInit {
     return value.Name;
   }
 
-  InsertMessage(item: boolean, sent: boolean) {
-    if (this.message.EmailMessageId != null) {
+  InsertMessage(saveasdraft: boolean, sent: boolean) {
+    if (this.message.EmailMessageId != null && !this.message.Isccda) {
       this.message.FromId = this.user.UserId;
       this.message.ProviderName = this.user.FirstName;
-      this.message.Draft = item;
+      this.message.Draft = saveasdraft;
       this.message.Sent = sent
     }
-    else {
+    else if(!this.message.Isccda){
       this.message.FromId = this.user.UserId;
       this.message.ProviderName = this.user.FirstName;
-      this.message.Draft = item;
+      this.message.Draft = saveasdraft;
       this.message.Sent = sent;
       this.message.ToId = this.messageDialogData.Messages ?
       this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
@@ -190,8 +192,6 @@ export class NewmessageDialogComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2D001"]);
       }
     });
-
-
     this.cancel();
   }
 
@@ -240,5 +240,9 @@ export class NewmessageDialogComponent implements OnInit {
   get Attachments(): Attachment[]{
     if(!this.message.Attachments) this.message.Attachments =[]
     return this.message.Attachments.filter(fn => !fn.IsDeleted);
+  }
+
+  DownloadAttachment(){
+
   }
 }

@@ -3,7 +3,7 @@ import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination
 import { AfterContentChecked, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
-import { NewmessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { Actions, User } from 'src/app/_models';
 import { MessagesService } from 'src/app/_services/messages.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -27,7 +27,7 @@ import { DownloadService } from 'src/app/_services/download.service';
 export class MessagesComponent implements OnDestroy, AfterContentChecked {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
-  MessageDialogComponent = NewmessageDialogComponent;
+  MessageDialogComponent = NewMessageDialogComponent;
   public messageDataSource: MessagesDatasource;
   message?: Messages;
   user?: User;
@@ -131,7 +131,7 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
   showMessage(message: Messages) {
     this.currentMessage = message;
-    console.log(this.currentMessage);
+    //console.log(this.currentMessage);
 
     if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
       this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp => {
@@ -283,7 +283,7 @@ export class MessagesDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          console.log(resp.ListResult);
+          //console.log(resp.ListResult);
 
           this.MessageSentSubject.next((resp.ListResult as Messages[])
           .map((message)=>{
@@ -292,7 +292,7 @@ export class MessagesDatasource implements DataSource<Messages>{
             else  message.Attachments = [];
             return message})
           .sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
-          console.log(this.MessageSentSubject.getValue());
+          //console.log(this.MessageSentSubject.getValue());
 
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }

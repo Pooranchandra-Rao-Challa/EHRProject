@@ -448,4 +448,8 @@ export class PatientService extends APIEndPoint {
   CommunicationSetting(){
     return this._ProcessGetRequest<any>(this._communicationSettingURL);
   }
+
+  SendCCDAToPatient(reqparams){
+    return this._ProcessPostRequest<any>(this._sendCCDAToPatientURL,reqparams)
+  }
 }

@@ -27,6 +27,7 @@ export class Messages {
   Attachments?: Attachment[] = [];
   strAttachments?: string;
   Read?: boolean;
+  Isccda?: boolean;
 }
 
 export class MessageDialogInfo {

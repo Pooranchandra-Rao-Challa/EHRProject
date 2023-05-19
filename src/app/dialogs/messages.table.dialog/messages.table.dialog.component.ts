@@ -5,7 +5,7 @@ import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { Actions, PatientChart, ViewModel } from 'src/app/_models';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
-import { NewmessageDialogComponent } from '../newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from '../newmessage.dialog/newmessage.dialog.component';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { ViewMessageDialogComponent } from '../view.message.dialog/view.message.dialog.component';
 import { MatSort } from '@angular/material/sort';
@@ -20,7 +20,7 @@ export class MessagesTableDialogComponent implements OnInit {
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   messagesColumns: string[] = ['Subject', 'Created'];
   ActionTypes = Actions;
-  newmessageDialogComponent = NewmessageDialogComponent;
+  newmessageDialogComponent = NewMessageDialogComponent;
   viewMessageDialogComponent = ViewMessageDialogComponent;
   viewModel: ViewModel;
 

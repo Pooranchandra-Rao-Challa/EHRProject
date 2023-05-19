@@ -107,7 +107,7 @@ export class UtilityService extends APIEndPoint {
   }
 
   SendDrfirstPatient(data:any){
-    console.log(data);
+    //console.log(data);
 
     return this._ProcessPostRequest<any>(this._sendDrfirstPatientURL,data);
   }

@@ -226,7 +226,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   bindLocation(){
     //fc-header-toolbar
-    console.log(this.fullcalendar.getApi().el.getElementsByClassName("fc-header-toolbar"));
+    //console.log(this.fullcalendar.getApi().el.getElementsByClassName("fc-header-toolbar"));
     let dcontainer = document.createElement('div');
     dcontainer.classList.add("col-12")
     let left = document.createElement('div');

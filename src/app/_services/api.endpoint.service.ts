@@ -1113,9 +1113,15 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "UpdateDrFirstPatient";
   }
+
   get _sendDrfirstPatientURL()
   {
     return this._baseUrl + "SendDrfirstPatient";
+  }
+
+  get _sendCCDAToPatientURL()
+  {
+    return this._baseUrl + "SendToPatient";
   }
 
 

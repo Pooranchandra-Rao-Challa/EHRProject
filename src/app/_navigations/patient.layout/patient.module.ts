@@ -1,7 +1,7 @@
 import { ActivityLogComponent } from './../../patient/activitylog.component';
 import { PatientService } from 'src/app/_services/patient.service';
 import { FooterComponent } from './../footer.component';
-import { NewmessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
+import { NewMessageDialogComponent } from './../../dialogs/newmessage.dialog/newmessage.dialog.component';
 
 import { MessageComponent } from './../../patient/message.component';
 import { DocumentComponent } from './../../patient/document.component';
@@ -44,7 +44,7 @@ import { CommunicationSettingsComponent } from 'src/app/patient/communication.se
     MyhealthComponent,
     MyprofileComponent,
     PatientappointmentDialogComponent,
-    NewmessageDialogComponent,
+    NewMessageDialogComponent,
     FooterComponent,
     ActivityLogComponent,
     PatientSecurityQuestionDialogComponent,
