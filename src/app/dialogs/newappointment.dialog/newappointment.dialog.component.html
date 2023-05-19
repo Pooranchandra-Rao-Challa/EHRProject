@@ -124,22 +124,21 @@
     </div>
     <div class="modal-footer justify-content-md-between">
       <div style="width:100%">
-      <div style="float:left">
-        <button class="btn btn-default  btn-appointment-cancel-right"
-        *ngIf="PatientAppointment.AppointmentId && PatientAppointment.IsCancelBtn == false"
-           (click)="cancelAppointment()">Cancel</button>
+        <p class="text-danger"><b>Note: </b><span>To save the appointment you need to select / enter all mandatory fields.</span></p>
+        <div style="float:left">
+          <button class="btn btn-default  btn-appointment-cancel-right"
+            *ngIf="PatientAppointment.AppointmentId && PatientAppointment.IsCancelBtn == false"
+            (click)="cancelAppointment()">Cancel</button>
+        </div>
+        <div style="float:right;">
+          <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
+            (click)="onAppointmentSave()">Save
+            Appointment</button>
+          <button id="appointmentClose" class="btn btn-green px-lg-3 px-2 mx-3" (click)="close()">
+            Close
+          </button>
+        </div>
       </div>
-      <div style="float:right;">
-        <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
-          (click)="onAppointmentSave()">Save
-          Appointment</button>
-        <button id="appointmentClose" class="btn btn-green px-lg-3 px-2 mx-3" (click)="close()">
-          Close
-        </button>
-      </div>
-    </div>
     </div>
   </div>
 </div>
-
-
