@@ -36,14 +36,21 @@
         <span class="messages-count" style="margin-left: 10px !important;
         margin-right: 2px !important;">{{unreadMails}}</span>
       </li>
+      <li class="nav-item" [class.active]="viewModel.View == 'directmsg'">
+        <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/directmsg','directmsg')"
+          routerLinkActive="router-link-active" class="nav-link active item-messages">Direct Msg
+        </a>
+        <span class="messages-count" style="margin-left: 10px !important;
+        margin-right: 2px !important;">{{unreadMails}}</span>
+      </li>
       <li class="eRx-nav-item" *ngIf="drfirstProviderUrl==null">
         <a href="javascript:void(0)" class="nav-link item-erx disabled"
           (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
       </li>
-      <li *ngIf="drfirstProviderUrl!=null" class="eRx-nav-item" [class]="viewModel.View !== 'eRx' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" class="nav-link item-erx" target="_blank"
-          [href]="drfirstProviderUrl">eRx
+      <li *ngIf="drfirstProviderUrl!=null" class="eRx-nav-item"
+        [class]="viewModel.View !== 'eRx' ? 'nav-item': 'active nav-item'">
+        <a href="javascript:void(0)" class="nav-link item-erx" target="_blank" [href]="drfirstProviderUrl">eRx
         </a>
       </li>
       <li [class]="viewModel.View !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">
@@ -53,7 +60,7 @@
       </li>
       <li [class]="viewModel.View !== 'Reports' ? 'nav-item': 'active nav-item'">
         <a href="javascript:void(0)" class="nav-link item-reports"
-        (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
+          (click)="onChangeBreadCrum('provider/categoryreports','Reports')">Reports
           <!--(click)="onChangeBreadCrum('provider/categoryreports','Reports')" -->
           <!--href="http://13.56.245.114:90/login?s_id={{KeyParam}}" target="_blank" -->
         </a>
@@ -99,7 +106,8 @@
         data-bs-target="#modal-about-ehr1"><a class="nav-li text-nowrap">About
           EHR1</a></li>
       <li class="border-bottom" [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="updateUserLock()">
-        <a class="nav-li">Lock</a></li>
+        <a class="nav-li">Lock</a>
+      </li>
       <li [class]="user.EmergencyAccess ? 'access li-menu': 'li-menu'" (click)="logout()"><a class="nav-li">Log out</a>
       </li>
       </mat-menu>
