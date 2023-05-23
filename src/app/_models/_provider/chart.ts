@@ -44,8 +44,9 @@ export class FamilyMedicalHistory {
 }
 
 export class Allergy {
-  AlergieId?: string;
+  AllergyId?: string;
   PatientId?: string;
+  ProviderId?:string;
   AllergenType?: string;
   AlergieName?: string;
   SeverityLevel?: string;
@@ -55,7 +56,6 @@ export class Allergy {
   Note?: string;
   Reaction?: string = null;
   AllergenName?: string = null;
-  EncounterId?: string;
   AllergenId?: string;
 }
 
@@ -212,7 +212,8 @@ export class TobaccoUse {
 
 export class Diagnosis {
   DiagnosisId?: string;
-  PatinetId?: string;
+  PatientId?: string;
+  ProviderId?: string;
   DFamilyHealthHistoryId?: string;
   CodeSystem?: string;
   Code?: string;

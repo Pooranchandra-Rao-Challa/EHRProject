@@ -280,7 +280,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       && this.PatientAppointment.RoomId != null
       && this.PatientAppointment.PatientId != null
       && this.PatientAppointment.ProviderId != null
-      && this.PatientAppointment.Notes != null && this.PatientAppointment.Notes != ""
       && this.PatientAppointment.Startat != null) || this.SaveInputDisable;
   }
 

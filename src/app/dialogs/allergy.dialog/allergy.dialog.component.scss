@@ -14,6 +14,26 @@
 .modal-allergie.modal-dialog .modal-footer {
   padding: 10px 23px !important;
 }
+.selected-allergen{
+  width: 100% !important;
+  margin: auto;
+  p, a{
+    margin: 0 10px;
+
+  }
+  p{
+    float: left;
+    width: 100%;
+  }
+  a{
+    float: right;
+  }
+  div{
+    display: inline-flex;
+    width: 100%;
+    margin: 10px 0;
+  }
+}
 .title-bold {
   margin: 12px 0;
   color: #4A4A4A;

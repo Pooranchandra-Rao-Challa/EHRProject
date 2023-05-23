@@ -5,9 +5,9 @@ export const environment = {
   baseUrl: 'https://ehr1.pro:3550/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
   RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
-  EPRESCRIBE_SERVER:'https://engine301.drfirst.com/servlet/rcopia.servlet.EngineServlet',
-  EPRESCRIBE_SERVER_STAGE101: 'https://engine101.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
-  EPRESCRIBE_SERVER_STAGE102: 'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
+  //EPRESCRIBE_SERVER:'https://engine301.drfirst.com/servlet/rcopia.servlet.EngineServlet',
+  //EPRESCRIBE_SERVER_STAGE101: 'https://engine101.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
+  //EPRESCRIBE_SERVER_STAGE102: 'https://engine201.staging.drfirst.com/servlet/rcopia.servlet.EngineServlet',
 
 };
 

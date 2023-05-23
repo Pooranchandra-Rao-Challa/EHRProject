@@ -185,6 +185,7 @@ export class AlertMessage {
  * Encounters : E
  * Messages : M
  * Appointments : AP
+ * CCDA:cda
  *
  * Schedule
  * Rooms : R
@@ -405,15 +406,16 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for allergies
   'E2CA001': 'Allergy Updation error',
+  'E2CA002': 'Allergy deletion error',
 
   //Message for diagnoses in chart screen
-  'M2CD001': 'Diagnoses added successfully',
-  'M2CD002': 'Diagnoses updated successfully',
-  'M2CD003': 'Diagnoses deleted successfully',
+  'M2CD001': 'Diagnosis added successfully',
+  'M2CD002': 'Diagnosis updated successfully',
+  'M2CD003': 'Diagnosis deleted successfully',
 
   // Error for diagnoses
-  'E2CD001': 'Diagnoses Updation error',
-  'E2CD002': 'Diagnoses deleted error',
+  'E2CD001': 'Diagnosis Updation error',
+  'E2CD002': 'Diagnosis deletion error',
 
   //Message for medication in chart screen
   'M2CM001': 'Medication added successfully',
@@ -654,6 +656,8 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   'M2PE001':'Registation patient in Dr first takes 10 min',
   'E2PE001':'Not Registered patient in Dr first.',
+
+  'ECPACDA001':'Could not generate CCDA report',
 };
 
 

@@ -111,31 +111,31 @@ export class DrfirstService {
   }
 
   private SubmitRequest(xmlpayload, patientXml) {
-    let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE102
+    //let eprescribeServer = environment.EPRESCRIBE_SERVER_STAGE102
     //console.log(xmlpayload);
 
     // Using CORS Method
-    const drfirstUrl = `${eprescribeServer}/send_patient?xml=${xmlpayload}&output=text/xml`
+    //const drfirstUrl = `${eprescribeServer}/send_patient?xml=${xmlpayload}&output=text/xml`
     let callbackparam: string = 'callbackparam'
-    this.http.jsonp(drfirstUrl, callbackparam)
-      .subscribe((jsonCallback) => {
-        //console.log(jsonCallback);
-      },
-        (error) => {
-          console.log(error);
-          console.log(error.message);
-        },
-        () => { }
-      );
+    // this.http.jsonp(drfirstUrl, callbackparam)
+    //   .subscribe((jsonCallback) => {
+    //     //console.log(jsonCallback);
+    //   },
+    //     (error) => {
+    //       console.log(error);
+    //       console.log(error.message);
+    //     },
+    //     () => { }
+    //   );
 
 
 
-    // UsingProxy
-    let proxyUri = `/send_patient?xml=${xmlpayload}&output=text/xml`
-    this.http.get('/send_patient', { headers: this.httpRequestHeaders, params: { "xml": patientXml } }).subscribe((resp) => { console.log(resp) },
-      (error) => { console.log(error); },
-      () => { }
-    )
+    // // UsingProxy
+    // let proxyUri = `/send_patient?xml=${xmlpayload}&output=text/xml`
+    // this.http.get('/send_patient', { headers: this.httpRequestHeaders, params: { "xml": patientXml } }).subscribe((resp) => { console.log(resp) },
+    //   (error) => { console.log(error); },
+    //   () => { }
+    // )
 
   }
 

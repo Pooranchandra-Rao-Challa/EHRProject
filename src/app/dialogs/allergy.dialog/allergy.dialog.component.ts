@@ -115,13 +115,10 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergyReaction(selected) {
-    if (this.selectedReaction.length > 0) {
+    if(!this.selectedReaction) this.selectedReaction = [];
+    if (selected) {
       this.selectedReaction.push(selected);
-      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
-    }
-    else {
-      this.selectedReaction = new Array(selected);
-      this.patientAllergy.Reaction = this.selectedReaction.map(function (val) { return val; }).join(',');
+      this.patientAllergy.Reaction = this.selectedReaction.toString();
     }
   }
 
@@ -144,11 +141,11 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   CreateAllergies() {
-    let isAdd = this.patientAllergy.AlergieId == undefined;
+    let isAdd = this.patientAllergy.AllergyId == undefined;
     this.patientAllergy.PatientId = this.currentPatient.PatientId;
     this.patientAllergy.StartAt = this.datepipe.transform(this.patientAllergy.StartAt, "MM/dd/yyyy hh:mm:ss a");
     this.patientAllergy.EndAt = this.datepipe.transform(this.patientAllergy.EndAt, "MM/dd/yyyy hh:mm:ss a");
-    this.patientAllergy.EncounterId = '60d72688391cba0e236c28c8';
+    this.patientAllergy.ProviderId =  this.authService.userValue.ProviderId;
 
     this.patientService.CreateAllergies(this.patientAllergy).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -164,7 +161,6 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   deleteAllergyReaction(i) {
-    // this.selectedReaction.splice(this.selectedReaction.indexOf(selected), 1);
     this.selectedReaction.splice(i, 1);
     this.patientAllergy.Reaction = this.selectedReaction.toString();
   }
@@ -172,5 +168,34 @@ export class AllergyDialogComponent implements OnInit {
   disableAllergies() {
     return !(this.patientAllergy.AllergenType && this.patientAllergy.AllergenName && this.patientAllergy.SeverityLevel && this.patientAllergy.OnSetAt
       && this.patientAllergy.StartAt && this.patientAllergy.Reaction)
+  }
+
+  deleteAllergy(){
+    this.patientService.DeleteAllergy({AllergyId: this.patientAllergy.AllergyId,
+    ProviderId: this.authService.userValue.ProviderId,
+    PatientId: this.patientAllergy.PatientId}).subscribe(
+      {
+        next: (resp)=>{
+          if(resp.IsSuccess){
+            this.alertmsg.displayMessageDailog(ERROR_CODES["M2CA003"]);
+            this.cancel();
+          }else{
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E2CA002"]);
+            this.cancel();
+          }
+        },
+        error: (error)=>{
+          this.alertmsg.displayErrorDailog(ERROR_CODES["E2CA002"]);
+          this.cancel();
+        },
+        complete: () =>{
+
+        }
+
+      });
+  }
+
+  get canDeleteAllergy(): boolean{
+    return this.patientAllergy.AllergyId != null || this.patientAllergy.AllergyId != ''
   }
 }
