@@ -1,3 +1,4 @@
+@import"../messages/messages.component.scss";
 @import"../../../app/patient/message.component.scss";
 
 
@@ -9,20 +10,19 @@
   color: #41b6a6 !important;
 }
 
-.mailmessage:hover {
-  background-color: #41b6a6;
-  color: #fff !important;
-}
-
 .action {
   padding: 0px 70px 0px 0px !important;
 }
 
-//
-
 .btn-light {
   padding: 0px 27px 2px 8px !important;
   font-size: 16px !important;
+}
+
+.btn-light:hover {
+  color: #fff !important;
+  border-color: #41b6a6 !important;
+  background: #41b6a6 !important;
 }
 
 @media (max-width: 1024px) {
@@ -31,9 +31,10 @@
     padding: 0px 0px 0px 0px !important;
   }
 }
+
 .btn-green {
   width: 78px;
-  height: 43px;
+  height: 45px;
   padding: 0;
   line-height: 2.7;
   margin-right: 12px;
@@ -50,7 +51,6 @@
   color: #d64841;
   font-family: inherit;
   font-size: 16px;
-
 }
 
 .btn-danger:hover {
@@ -58,6 +58,7 @@
   color: #fff;
   border-style: none;
 }
+
 .modal-content {
   width: 1000px;
   margin: 0px 0px -2px -283px !important;
@@ -92,7 +93,6 @@ textarea.form-control {
   border: 1px solid #41b6a6;
   border-radius: 3px;
   font-size: 15px;
-
 }
 
 .fa-paperclip {
@@ -104,8 +104,21 @@ textarea.form-control {
 
 .fa-book {
   font-size: 20px;
-  color: inherit;
   margin-top: 10px;
+}
+
+.fa.fa-search {
+  color: #fff !important;
+}
+
+.fa {
+  color: #41b6a6 !important;
+}
+
+.btn-green:hover {
+  .fa {
+    color: #fff !important;
+  }
 }
 
 .btn-book {
@@ -121,7 +134,6 @@ textarea.form-control {
   border-color: #41b6a6;
   height: 45px;
   font-family: inherit;
-  //padding: 2px 0px 0px 4px;
   font-size: 16px;
 }
 
