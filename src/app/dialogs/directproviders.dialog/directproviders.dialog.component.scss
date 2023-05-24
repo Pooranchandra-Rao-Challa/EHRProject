@@ -1,0 +1,25 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.modal-directproviders.modal-dialog {
+  max-width: 900px;
+  overflow-y: initial !important;
+
+  .modal-body {
+    max-height: calc(90vh - 180px);
+    overflow-y: auto;
+  }
+
+  .btn-green {
+    width: 165px;
+  }
+
+  .search-result {
+    font-family: inherit;
+  }
+
+  .to-provider {
+    width: 159px;
+    margin: 0px 0px -1px 57px;
+  }
+}
