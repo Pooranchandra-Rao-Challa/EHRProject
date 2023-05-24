@@ -2,7 +2,6 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { OverlayService } from '../../overlay.service';
 import { TemplateRef } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
-import { NewMessageDialogComponent } from '../../dialogs/newmessage.dialog/newmessage.dialog.component';
 import { MessagesDatasource } from '../messages/messages.component';
 import { Messages } from 'src/app/_models/_provider/messages';
 import { fromEvent, merge } from 'rxjs';
@@ -11,8 +10,9 @@ import { MatSort } from '@angular/material/sort';
 import { SimplePaginationDirective } from 'src/app/_directives/simple.pagination.directive';
 import { MessageCounts, NotifyMessageService, RecordsChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesService } from 'src/app/_services/messages.service';
-import { User } from 'src/app/_models';
+import { Actions, User } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
+import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/directmail.dialog.component';
 declare var $: any;
 @Component({
   selector: 'app-labs.imaging',
@@ -24,7 +24,7 @@ export class DirectMsgComponent {
   @ViewChild("pagination", { static: true }) pagination: SimplePaginationDirective
   @ViewChild('searchMessage', { static: true }) searchMessage: ElementRef;
   displayReq = "none";
-  MessageDialogComponent = NewMessageDialogComponent;
+  directmailDialogComponent = DirectmailDialogComponent;
   DialogResponse = null;
   public messageDataSource: MessagesDatasource;
   currentMessageView: string = 'Inbox';
@@ -148,16 +148,17 @@ export class DirectMsgComponent {
     this.isExpand = !this.isExpand;
   }
 
-  openComponentDialogmessage(content: TemplateRef<any> | ComponentType<any> | string) {
+  openComponentDialogMessage(content: TemplateRef<any> | ComponentType<any> | string) {
     const ref = this.overlayService.open(content, null);
     ref.afterClosed$.subscribe(res => {
       if (typeof content === 'string') {
         //} else if (content === this.yesNoComponent) {
         //this.yesNoComponentResponse = res.data;
       }
-      else if (content === this.MessageDialogComponent) {
+      else if (content === this.directmailDialogComponent) {
         this.DialogResponse = res.data;
       }
     });
   }
+
 }
