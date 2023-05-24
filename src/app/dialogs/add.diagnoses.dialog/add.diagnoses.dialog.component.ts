@@ -73,9 +73,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.minDateToFinish.next(e.value.toString());
   }
 
-  CreateDiagnoses() {
+  CreateDiagnosis() {
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
-    this.patientDiagnoses.PatinetId = this.currentPatient.PatientId;
+    this.patientDiagnoses.PatientId = this.currentPatient.PatientId;
 
     this.patientDiagnoses.StartAt = new Date(this.datepipe.transform(this.patientDiagnoses.StartAt, "yyyy-MM-dd", "en-US"));
     this.patientDiagnoses.strStartAt = this.datepipe.transform(this.patientDiagnoses.StartAt, "MM/dd/yyyy hh:mm:ss a", "en-US")
@@ -83,15 +83,16 @@ export class AddDiagnosesDialogComponent implements OnInit {
 
     let reqparams = {
       DiagnosisId: this.patientDiagnoses.DiagnosisId,
-      PatinetId: this.patientDiagnoses.PatinetId,
+      PatinetId: this.patientDiagnoses.PatientId,
       CodeSystem: this.patientDiagnoses.CodeSystem,
       Code: this.patientDiagnoses.Code,
       Description: this.patientDiagnoses.Description,
       StartAt: this.patientDiagnoses.StartAt,
       StopAt: this.patientDiagnoses.StopAt,
-      Note: this.patientDiagnoses.Note
+      Note: this.patientDiagnoses.Note,
+      ProviderId: this.authService.userValue.ProviderId
     }
-    this.patientService.CreateDiagnoses(reqparams).subscribe((resp) => {
+    this.patientService.CreateDiagnosis(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
           "UpdatedModal": PatientChart.Diagnoses,

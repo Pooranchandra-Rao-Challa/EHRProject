@@ -1124,7 +1124,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "SendToPatient";
   }
 
-
+  get _deleteAllergyURL()
+  {
+    return this._baseUrl + "DeleteAllergy";
+  }
   constructor(public http: HttpClient) {
     super();
   }

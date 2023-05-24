@@ -12,7 +12,9 @@ import { PatientService } from 'src/app/_services/patient.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
-declare function toggleCCDAdropdown(): any;
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { error } from 'console';
+
 
 @Component({
   selector: 'app-c-cda.dialog',
@@ -36,13 +38,15 @@ export class CCdaDialogComponent implements OnInit {
   MessageDialogComponent = NewMessageDialogComponent;
   user: User
   patient: ProviderPatient
+  dialogIsLoading: boolean = false;
 
   constructor(
     private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private overlayService: OverlayService,
     private patientService: PatientService,
-    private downloadService: DownloadService) {
+    private downloadService: DownloadService,
+    private alertMessage: AlertMessage,) {
   }
 
   ngOnInit(): void {
@@ -173,25 +177,50 @@ export class CCdaDialogComponent implements OnInit {
   SendToPateint(){
     console.log(this.c_CDAParams);
     this.c_CDAParams.SendToPatient = true;
-    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(resp =>{
-      if(resp.IsSuccess){
-        let messageInfo: MessageDialogInfo = {};
-        messageInfo.MessageFor = "Practice"
-        messageInfo.Messages = this.prepareMessage(resp.Result)
-        messageInfo.ForwardReplyMessage = null;
-        const ref = this.overlayService.open(this.MessageDialogComponent, messageInfo);
-        ref.afterClosed$.subscribe(res => {
-          this.cancel();
-        });
+    this.dialogIsLoading = true;
+    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(
+      {
+      next: (resp) =>{
+        console.log(resp);
+        if(resp.IsSuccess){
+          let messageInfo: MessageDialogInfo = {};
+          messageInfo.MessageFor = "Practice"
+          messageInfo.Messages = this.prepareMessage(resp.Result)
+          messageInfo.ForwardReplyMessage = null;
+          const ref = this.overlayService.open(this.MessageDialogComponent, messageInfo);
+          ref.afterClosed$.subscribe(res => {
+            this.cancel();
+          });
+        }else{
+          this.alertMessage.displayErrorDailog(ERROR_CODES["ECPACDA001"])
+        }
+      },
+      error: (error) =>{
+        this.dialogIsLoading = false;
+        this.alertMessage.displayErrorDailog(ERROR_CODES["ECPACDA001"])
+      },
+      complete: () => {
+        this.dialogIsLoading = false;
       }
-    })
+    }
+    )
   }
 
   DownloadCCCDA(){
     this.c_CDAParams.Download = true;
-    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(resp =>{
-      if(resp.IsSuccess){
-        this.downloadService.DownloadAttachment(resp.Result.attachment as Attachment);
+    this.dialogIsLoading = true;
+    this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe({
+      next: (resp) => {
+        this.dialogIsLoading = false;
+        if(resp.IsSuccess){
+          this.downloadService.DownloadAttachment(resp.Result.attachment as Attachment);
+        }
+      },
+      error: (error)=>{
+        this.dialogIsLoading = false;
+      },
+      complete: () => {
+        this.dialogIsLoading = false;
       }
     })
   }

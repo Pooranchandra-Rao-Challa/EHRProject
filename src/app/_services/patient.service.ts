@@ -209,7 +209,7 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createAllergiesUrl, reqparams);
   }
 
-  CreateDiagnoses(reqparams: any) {
+  CreateDiagnosis(reqparams: any) {
     return this._ProcessPostRequest<any>(this._createDiagnosesUrl, reqparams);
   }
 
@@ -451,5 +451,9 @@ export class PatientService extends APIEndPoint {
 
   SendCCDAToPatient(reqparams){
     return this._ProcessPostRequest<any>(this._sendCCDAToPatientURL,reqparams)
+  }
+
+  DeleteAllergy(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteAllergyURL, reqparams);
   }
 }
