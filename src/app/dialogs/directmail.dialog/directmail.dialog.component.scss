@@ -1,0 +1,21 @@
+@import"../../../assets/common.scss";
+@import"../newmessage.dialog/newmessage.dialog.component.scss";
+
+.fa-book {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.btn-book {
+  margin-right: 0px !important;
+}
+
+.fa {
+  color: #41b6a6 !important;
+}
+
+.btn-green:hover {
+  .fa {
+    color: #fff !important;
+  }
+}

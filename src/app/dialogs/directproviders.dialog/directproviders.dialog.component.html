@@ -1,0 +1,189 @@
+<div class="modal-dialog modal-directproviders">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">{{title}}</h4>
+      <span type="button" class="cross-mark" aria-label="Close" (click)="cancel()">
+        x
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-6">
+              <mat-label>Last Name Start With:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput placeholder="Last Name Start With" />
+                <!-- <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
+                (optionSelected)="onPatientSelected($event)">
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngFor="let option of filteredPatients | async" [value]="option" class="medical-code-option">
+                  {{option.Name}}
+                </mat-option>
+              </mat-autocomplete> -->
+              </mat-form-field>
+            </div>
+            <div class="col-lg-6">
+              <mat-label>First Name Start with:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput placeholder="First Name Start With" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class=" col-md-6">
+              <div class="form-group">
+                <mat-label>Organization Name Contains:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <input matInput placeholder="Organization Name Contains" />
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <mat-label>State:</mat-label>
+                <mat-form-field appearance="outline" class="col-12">
+                  <mat-select id="selSmartAppointmentTypes" placeholder="Select State">
+                    <mat-option>
+                      <!-- {{appointment.AppointmentType}} -->
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group align-items-end mt-2">
+                <button id="search-list-book" class="btn btn-green" (click)="onDirectProviders()">Search</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="providers-list-book" *ngIf="showDirectProviders">
+        <div class="row">
+          <div class="col-lg-12 mt-3">
+            <div class="form-group">
+              <div class="input-group">
+                <h4 class="search-result">Search Returned 100 results:</h4>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Alberto, Petersen</span></div>
+              <div class="input-group"><span class="input-group">Johnson Pulmonary Care</span></div>
+              <div class="input-group"><span class="input-group">17440 N Spruce Pkwy, Kaktovik AK 99747</span>
+              </div>
+              <div class="input-group"><span class="input-group">(259) 267-554</span></div>
+              <div class="input-group"><span class="input-group">ehr@johnsonpulmonarycare.direct.example.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="ehr@johnsonpulmonarycare.direct.example.com"
+                  class="to-provider btn btn-green"
+                  (click)="onUse('ehr@johnsonpulmonarycare.direct.example.com')">Use</a>
+                  <!--  (click)="openComponentDialog(directmailDialogComponent,'ehr@johnsonpulmonarycare.direct.example.com',ActionTypes.view)" -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Oscar, Mejia</span></div>
+              <div class="input-group"><span class="input-group">Wasilla Medical Clinic</span></div>
+              <div class="input-group"><span class="input-group">148 S Cypress St, Wasilla AK 99654</span></div>
+              <div class="input-group"><span class="input-group"></span></div>
+              <div class="input-group"><span class="input-group">ehr@wasillamedicalclinic.direct.example.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="ehr@wasillamedicalclinic.direct.example.com"
+                  class="to-provider btn btn-green " href="#">Use</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Sandy, Dominguez</span></div>
+              <div class="input-group"><span class="input-group">Best Internal Medicine</span></div>
+              <div class="input-group"><span class="input-group">20327 Roosevelt Rd, Nulato AK 99765</span></div>
+              <div class="input-group"><span class="input-group">246-259-4060</span></div>
+              <div class="input-group"><span
+                  class="input-group">referrals@bestinternalmedicine.direct.example.com</span></div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="referrals@bestinternalmedicine.direct.example.com"
+                  class="to-provider btn btn-green " href="#">Use</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Fay, Spence</span></div>
+              <div class="input-group"><span class="input-group">Get Well Chiropractic Clinic</span></div>
+              <div class="input-group"><span class="input-group">, Wrangell AK 99929</span></div>
+              <div class="input-group"><span class="input-group">(257) 209-7695</span></div>
+              <div class="input-group"><span class="input-group">toc@getwellchiropracticclinic.direct.example.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="toc@getwellchiropracticclinic.direct.example.com"
+                  class="to-provider btn btn-green " href="#">Use</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Cristobal, Lindsey</span></div>
+              <div class="input-group"><span class="input-group">Smith Pediatrics</span></div>
+              <div class="input-group"><span class="input-group">4877 Cherry Pkwy, Jber AK 99506</span></div>
+              <div class="input-group"><span class="input-group"></span></div>
+              <div class="input-group"><span class="input-group">inbox@smithpediatrics.direct.example.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="inbox@smithpediatrics.direct.example.com"
+                  class="to-provider btn btn-green " href="#">Use</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-lg-9 single-provider-info">
+            <div class="form-group">
+              <div class="input-group"><span class="input-group">Sayuri, Joseph</span></div>
+              <div class="input-group"><span class="input-group">Anybody Urology</span></div>
+              <div class="input-group"><span class="input-group">6000 Cypress Pkwy, Hoonah AK 99829</span></div>
+              <div class="input-group"><span class="input-group">290-282-2980</span></div>
+              <div class="input-group"><span class="input-group">records@anybodyurology.direct.example.com</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <div class="input-group"><a data-email="records@anybodyurology.direct.example.com"
+                  class="to-provider btn btn-green " href="#">Use</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

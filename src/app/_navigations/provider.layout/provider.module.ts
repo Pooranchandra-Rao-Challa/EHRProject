@@ -155,7 +155,9 @@ import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addend
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { DrfirstService } from 'src/app/_services/drfirst.service'
-
+import { Observable } from 'rxjs';
+import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/directmail.dialog.component';
+import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.dialog/directproviders.dialog.component';
 
 
 
@@ -227,7 +229,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
-    DrFirstDialogComponent
+    DrFirstDialogComponent,
+    DirectmailDialogComponent,
+    DirectprovidersDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -321,8 +325,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     AddendaReviewDocumentComponent,
     AddendaCommentComponent,
     ResetPatientPasswordComponent,
-    DrFirstDialogComponent
-
+    DrFirstDialogComponent,
+    DirectmailDialogComponent,
+    DirectprovidersDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -423,7 +428,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     LockedComponent,
     PatientRelationshipDialogComponent,
     ResetPatientPasswordComponent,
-    DrFirstDialogComponent
+    DrFirstDialogComponent,
+    DirectmailDialogComponent,
+    DirectprovidersDialogComponent
   ]
 })
 export class ProviderModule {

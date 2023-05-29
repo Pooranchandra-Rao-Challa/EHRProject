@@ -1,18 +1,5 @@
 @import"../messages/messages.component.scss";
-@import"../../../app/patient/message.component.scss";
-
-
-.drop-item {
-  color: black !important;
-}
-
-.drop-item:hover {
-  color: #41b6a6 !important;
-}
-
-.action {
-  padding: 0px 70px 0px 0px !important;
-}
+// @import"../../../app/patient/message.component.scss";
 
 .btn-light {
   padding: 0px 27px 2px 8px !important;
@@ -69,10 +56,6 @@
     width: auto;
     margin: 0px 0px 0px 0px !important;
   }
-
-  .btn-book {
-    width: 54px !important;
-  }
 }
 
 input.form-control {
@@ -95,13 +78,6 @@ textarea.form-control {
   font-size: 15px;
 }
 
-.fa-paperclip {
-  font-size: x-large;
-  margin-right: 3%;
-  color: inherit;
-  margin-top: 10%;
-}
-
 .fa-book {
   font-size: 20px;
   margin-top: 10px;
@@ -121,51 +97,7 @@ textarea.form-control {
   }
 }
 
-.btn-book {
-  width: 138px;
-}
-
-.modal-footer {
-  border-top: 1px solid #41b6a6;
-}
-
-.btn.btn-default {
-  color: #41b6a6;
-  border-color: #41b6a6;
-  height: 45px;
-  font-family: inherit;
-  font-size: 16px;
-}
-
 .dropdown-menu {
   border: 1px solid #fe8f00 !important;
   border-top: #fff !important;
-}
-
-.drop-item {
-  color: black !important;
-}
-
-.drop-item:hover {
-  color: #41b6a6 !important;
-  text-decoration: underline;
-}
-
-.modal-footer {
-  padding: 11px 10px !important;
-
-}
-
-.search-result {
-  font-family: inherit;
-}
-
-.to-provider {
-  width: 159px;
-  margin: 0px 0px -1px 57px;
-}
-
-.directmodal {
-  overflow: scroll;
-  height: 700px;
 }
