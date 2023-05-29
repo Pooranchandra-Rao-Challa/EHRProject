@@ -135,7 +135,7 @@
             <input matInput #quntityUnitInput [matAutocomplete]="quntityunit" placeholder="Quntity Unit" name="quntityunit:"
             [(ngModel)]="patientMedication.QuantityUnit" />
           </mat-form-field>
-          <mat-autocomplete #quntityunit="matAutocomplete">
+          <mat-autocomplete #quntityunit="matAutocomplete" >
             <mat-option *ngFor="let option of filteredQuntityUnits | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -262,12 +262,16 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green" [disabled]="disableMedication()" (click)="CreateMedication()">
+      <div class="w-100">
+      <button class="btn btn-danger mx-3 pull-left" *ngIf="patientMedication.MedicationId != undefined"
+      (click)="DeleteMedication()">Delete</button>
+      <button type="button" class="btn btn-green  mx-3 pull-right" [disabled]="disableMedication()" (click)="CreateMedication()">
         Save
       </button>
-      <button type="button" class="btn btn-green" (click)="cancel(true)">
+      <button type="button" class="btn btn-green pull-right" (click)="cancel(true)">
         Cancel
       </button>
+      </div>
     </div>
   </div>
 </div>

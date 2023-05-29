@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
@@ -12,7 +12,8 @@ import { PatientService } from 'src/app/_services/patient.service';
 @Component({
   selector: 'app-allergy.dialog',
   templateUrl: './allergy.dialog.component.html',
-  styleUrls: ['./allergy.dialog.component.scss']
+  styleUrls: ['./allergy.dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AllergyDialogComponent implements OnInit {
   patientAllergy: Allergy = new Allergy();
@@ -54,8 +55,10 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: Allergy) {
-    this.patientAllergy = new Allergy;
+    this.patientAllergy = {};
     if (data == null) return;
+    console.log(data);
+
     this.patientAllergy = data;
     if (data.Reaction != undefined) {
       this.selectedReaction = data.Reaction.split(",");
@@ -171,6 +174,8 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   deleteAllergy(){
+    console.log(this.patientAllergy.AllergyId);
+
     this.patientService.DeleteAllergy({AllergyId: this.patientAllergy.AllergyId,
     ProviderId: this.authService.userValue.ProviderId,
     PatientId: this.patientAllergy.PatientId}).subscribe(
@@ -196,6 +201,8 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   get canDeleteAllergy(): boolean{
-    return this.patientAllergy.AllergyId != null || this.patientAllergy.AllergyId != ''
+    return !(this.patientAllergy.AllergyId == null || this.patientAllergy.AllergyId == '' || this.patientAllergy.AllergyId == undefined)
   }
+
+
 }

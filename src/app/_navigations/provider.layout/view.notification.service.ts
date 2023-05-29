@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
-import { User, UserLocations } from 'src/app/_models';
+import { FamilyMedicalHistory, User, UserLocations } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
 
 @Injectable()
@@ -166,6 +166,24 @@ export class DrfirstUrlChanged {
   }
 
   getData(): Observable<{ urlfor: string,purpose:string, url: string }> {
+    return this.subject.asObservable();
+  }
+}
+
+
+@Injectable()
+export class FamilyRecordNotifier {
+  private subject = new Subject<{ record: FamilyMedicalHistory,isdeleted: boolean }>();
+
+  sendData(data: FamilyMedicalHistory,action: boolean ) {
+    this.subject.next({ record: data, isdeleted: action });
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<{ record: FamilyMedicalHistory,isdeleted: boolean }> {
     return this.subject.asObservable();
   }
 }

@@ -234,7 +234,7 @@
                 <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
                     <a
-                      (click)="openComponentDialog(pastMedicalHistoryDialogComponent, chartInfo?.PastMedicalHistories, ActionTypes.view)">
+                      (click)="openComponentDialog(pastMedicalHistoryDialogComponent, pastmedical, ActionTypes.view)">
                       <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
                         - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -319,7 +319,8 @@
                         , {{allergie?.Reaction}}
                       </span>
                       <span *ngIf="allergie?.StartAt != null && allergie?.StartAt !=''">
-                        , Start: {{allergie?.StartAt | date: 'MM/dd/yyyy'}}
+                        <!-- , Start: {{allergie?.StartAt | date: 'MM/dd/yyyy'}} -->
+                        {{getFormatedDate(allergie.StartAt)}}
                       </span>
                     </a>
                   </li>

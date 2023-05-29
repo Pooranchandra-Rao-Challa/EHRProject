@@ -1,7 +1,7 @@
 <div class="modal-dialog intervention-dialog">
   <div class="modal-content">
     <div class="modal-header">
-      <p class="modal-title Roboto-medium">Add/Edit Intervention</p>
+      <p class="modal-title Roboto-medium">{{patientIntervention.InterventionId ? "Edit" : "Add"}} Intervention</p>
       <span type="button" class="cross-mark" (click)="cancel()">
         X
       </span>

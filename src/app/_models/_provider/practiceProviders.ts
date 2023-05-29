@@ -39,10 +39,10 @@ export class DrFirstPatient {
   State?: string;
   Zip?: string;
   SocialNumber?: string;
-  HomePhone ?: string;
-  MobilePhone ?: string;
-  ClinicPhone ?: string;
-  ClinicZip ?: string;
+  HomePhone?: string;
+  MobilePhone?: string;
+  ClinicPhone?: string;
+  ClinicZip?: string;
   ClinicName?: string;
   ClinicAddress?: string;
   ClinicCity?: string;

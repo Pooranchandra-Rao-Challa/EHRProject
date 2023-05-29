@@ -14,11 +14,11 @@ import { PatientEducationMaterialDialogComponent } from '../patient.education.ma
 
 @Component({
   selector: 'app-add.diagnoses.dialog',
-  templateUrl: './add.diagnoses.dialog.component.html',
-  styleUrls: ['./add.diagnoses.dialog.component.scss']
+  templateUrl: './diagnoses.dialog.component.html',
+  styleUrls: ['./diagnoses.dialog.component.scss']
 })
 export class AddDiagnosesDialogComponent implements OnInit {
-  patientDiagnoses: Diagnosis = new Diagnosis();
+  patientDiagnoses: Diagnosis = {};
   DxCodes: DiagnosisDpCodes[];
   currentPatient: ProviderPatient;
   patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
@@ -49,7 +49,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: Diagnosis) {
-    this.patientDiagnoses = new Diagnosis;
+    this.patientDiagnoses = {};
     if (data == null) return;
     this.patientDiagnoses = data;
   }
@@ -76,22 +76,18 @@ export class AddDiagnosesDialogComponent implements OnInit {
   CreateDiagnosis() {
     let isAdd = this.patientDiagnoses.DiagnosisId == undefined;
     this.patientDiagnoses.PatientId = this.currentPatient.PatientId;
-
+    this.patientDiagnoses.Acute = true;
+    this.patientDiagnoses.Terminal = false;
+    this.patientDiagnoses.Referral = false;
+    this.patientDiagnoses.Primary = false;
+    this.patientDiagnoses.ProviderId = this.currentPatient.ProviderId;
     this.patientDiagnoses.StartAt = new Date(this.datepipe.transform(this.patientDiagnoses.StartAt, "yyyy-MM-dd", "en-US"));
     this.patientDiagnoses.strStartAt = this.datepipe.transform(this.patientDiagnoses.StartAt, "MM/dd/yyyy hh:mm:ss a", "en-US")
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss a", "en-US");
+    let reqparams = {}
+    Object.assign(reqparams,this.patientDiagnoses);
+    console.log(reqparams);
 
-    let reqparams = {
-      DiagnosisId: this.patientDiagnoses.DiagnosisId,
-      PatinetId: this.patientDiagnoses.PatientId,
-      CodeSystem: this.patientDiagnoses.CodeSystem,
-      Code: this.patientDiagnoses.Code,
-      Description: this.patientDiagnoses.Description,
-      StartAt: this.patientDiagnoses.StartAt,
-      StopAt: this.patientDiagnoses.StopAt,
-      Note: this.patientDiagnoses.Note,
-      ProviderId: this.authService.userValue.ProviderId
-    }
     this.patientService.CreateDiagnosis(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -121,6 +117,32 @@ export class AddDiagnosesDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
     });
+  }
+
+  DeleteDiagnosis(){
+    this.patientService.DeleteDiagnosis(
+      {DiagnosisId: this.patientDiagnoses.DiagnosisId,
+      PatinetId: this.patientDiagnoses.PatientId,
+      ProviderId: this.authService.userValue.ProviderId}).subscribe(
+        {
+          next: (resp)=>{
+            if(resp.IsSuccess){
+              this.alertmsg.displayMessageDailog(ERROR_CODES["M2CD003"]);
+              this.cancel();
+            }else{
+              this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD002"]);
+              this.cancel();
+            }
+          },
+          error: (error)=>{
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD002"]);
+            this.cancel();
+          },
+          complete: () =>{
+
+          }
+
+        });
   }
 
 }

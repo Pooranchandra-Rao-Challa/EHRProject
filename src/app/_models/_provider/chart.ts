@@ -23,9 +23,7 @@ export class PastMedicalHistory {
   MajorEvents?: string;
   PerventiveCare?: string;
   FamilyMedicalHistories?: FamilyMedicalHistory[] = [];
-  FamilyMedicalHistoryInfo?: FamilyMedicalHistory = new FamilyMedicalHistory();
-  // Diagnoses?: Diagnosis [] = [];
-  // DiagnosesInfo?: Diagnosis = new Diagnosis();
+  strFamilyMedicalHistories?: string;
 }
 
 export class FamilyMedicalHistory {
@@ -39,14 +37,15 @@ export class FamilyMedicalHistory {
   Notes?: string;
   Age?: number = 0;
   CodeSystem?: string;
-  Diagnoses: Diagnosis[] = [];
-  DiagnosesInfo?: Diagnosis = new Diagnosis();
+  Diagnoses?: Diagnosis[] = [];
+  strDiagnoses? : string;
+  Index?:number;
 }
 
 export class Allergy {
   AllergyId?: string;
   PatientId?: string;
-  ProviderId?:string;
+  ProviderId?: string;
   AllergenType?: string;
   AlergieName?: string;
   SeverityLevel?: string;
@@ -136,6 +135,7 @@ export class Immunization {
 export class Medication {
   MedicationId?: string;
   PatientId?: string;
+  ProviderId?: string;
   DrugName?: string;
   DisplayName?: string;
   Rxcui?: string;
@@ -147,13 +147,13 @@ export class Medication {
   DoseOther?: string;
   DoseUnit?: string;
   Quantity?: number;
-  QuantityUnit?:string;
-  DrugForm?:string;
+  QuantityUnit?: string;
+  DrugForm?: string;
   Route?: string;
-  Action?:string;
-  DoseTiming?:string;
+  Action?: string;
+  DoseTiming?: string;
   Refills?: string;
-  DaysSupply?: number;
+  DaysSupply?: string;
   StartAt?: Date;
   StopAt?: Date = null;
   strStartAt?: string;
@@ -214,20 +214,19 @@ export class Diagnosis {
   DiagnosisId?: string;
   PatientId?: string;
   ProviderId?: string;
-  DFamilyHealthHistoryId?: string;
+  //DFamilyHealthHistoryId?: string;
   CodeSystem?: string;
   Code?: string;
   Description?: string;
   StartAt?: Date;
   strStartAt?: string;
   StopAt?: string;
-  CreatedAt?: Date;
-  UpdatedAt?: Date;
   Note?: string;
-  Acute?: boolean;
-  Terminal?: boolean;
-  Referral?: boolean;
-  IsEditable?: boolean = true;
+  Acute?: boolean = true;
+  Terminal?: boolean = false;
+  Referral?: boolean = false;
+  Primary?: boolean = false;
+  //IsEditable?: boolean = true;
 }
 
 export class Intervention {
@@ -526,7 +525,7 @@ export class GlobalConstants {
     "DoseTiming": ["single dose", "once a day", "twice a day", "three times a day", "four times a day", "five times a day", "six times a day", "every morning", "every evening", "every night", "at bedtime", "every other day", "every three days", "every hour", "every two hours", "every two hours while awake", "every three hours", "every three hours while awake", "every four hours", "every four hours while awake", "every six hours", "every six to eight hours", "every eight hours", "every twelve hours", "every 24 hours", "every 48 hours", "every 72 hours", "every three to four hours", "every three to four hours while awake", "every four to six hours", "every four to six hours while awake", "every eight to twelve hours", "once a week", "twice a week", "three times a week", "once every two weeks", "every two weeks", "every four weeks", "once a month", "every three months", "as directed"],
     "DoseOther": ["as needed", "with meals", "one hour before meals", "as needed for pain", "between meals", "with a glass of water", "as directed", "after meals", "before exercise"],
     "DoseUnit": ["a small amount", "drop", "mcg", "scoop", "ampul", "dropperful", "meq", "sheet", "applicator", "each", "mg", "spacer", "applicatorful", "enema", "ml", "spansule", "as directed", "film", "needle", "sponge", "bag", "foam", "ounce", "spray", "bandage", "gelcap", "pack", "stick", "bead", "gram", "packet", "strip", "bottle", "gum", "pad", "suppository", "box", "implant", "pastille", "swab", "caplet", "inch", "patch", "syringe", "capsule", "infusion set", "pen", "tablespoon", "cartridge", "insert", "pen injector", "tablet", "catheter", "kit", "pen needle", "teaspoon", "clicks", "lancet", "perle", "troche", "condoms", "liberally", "piece", "tube", "device", "lollipop", "pledgette", "unit", "diaphragm", "lozenge", "puff", "vial", "douche", "mask", "pump"],
-    "DaysSupply": ["one day", "nine days", "22 days", "45 days", "100 days", "two days", "10 days", "25 days", "56 days", "102 days", "three days", "12 days", "28 days", "60 days", "112 days", "four days", "14 days", "30 days", "75 days", "120 days", "five days", "15 days", "31 days", "84 days", "180 days", "six days", "20 days", "34 days", "90 days", "seven days", "21 days", "35 days", "91 days"],
+    "DaysSupply": ["1 day", "2 days", "3 days", "4 days", "5 days", "6 days", "7 days", "9 days", "10 days", "12 days", "14 days", "15 days", "20 days", "21 days", "22 days", "25 days", "28 days", "30 days", "31 days", "34 days", "35 days", "45 days", "56 days", "60 days", "75 days", "84 days", "90 days", "91 days", "100 days", "102 days", "112 days", "120 days", "180 days"],
     "QuntityUnit": ["adhesive patch, medicated", "gum", "pad", "sponge", "applicator", "implant", "pads", "sponges", "blister", "insert", "pastille", "stick", "blisters", "inserts", "patch", "strip", "cap", "kit", "patch 24 hr", "strips", "caplet", "kits", "patch 72 hr", "suppositories", "capsule", "lancet", "patch daily, sequential", "suppository", "capsules", "lollipop", "patch semiweekly", "swab", "condom", "lozenge", "patch weekly", "syringe", "condoms", "mask", "patches", "syringes", "diaphragm", "milliliter", "pen needle", "tab", "each", "milliliters", "pen needles", "tablet", "film", "ml", "perle", "tablets", "film strips", "needle", "pill", "transdermal patch", "films", "not specified", "pills", "troche", "g", "package", "pledgette", "troches", "gelcap", "packages", "ring", "unspecified", "gram", "packet", "rings", "wafer", "grams", "packets", "spansule", "wafers"],
     "Route": ["a small amount", "into both eyes", "intradermally", "to skin", "as directed", "into both nostrils", "intramuscularly", "to teeth", "as enema", "into catheter", "intranasally", "topical", "by irrigation", "into each nostril", "intraperitoneally", "under skin", "by mouth", "into left ear", "intrathecally", "under tongue", "by perfusion", "into left eye", "intravenously", "using inhaler", "dissolved in water", "into mouth", "IVPB", "using nebulizer", "epidurally", "into one nostril", "liberally", "vaginally", "in both eyes", "into rectum", "on tongue", "via applicator", "in ear", "into right ear", "patch", "via device", "in eye", "into right eye", "rectally", "via g-j tube", "in left eye", "into urethra", "subcutaneously", "via g-tube", "in mouth", "into uterus", "sublingually", "via intrathecal pump", "in right eye", "into uterus as directed", "to affected area", "via j-tube", "into affected ear", "into vagina", "to face", "via meter", "into affected eye", "intraarterially", "to inside of mouth (buccal)", "via nebulizer", "into bladder", "intraarticularly", "to mouth", "into both ears", "intracavernosally", "to scalp"]
   }

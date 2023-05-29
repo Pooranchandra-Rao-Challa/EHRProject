@@ -6,7 +6,7 @@ import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
 import { Actions, Diagnosis } from 'src/app/_models';
-import { AddDiagnosesDialogComponent } from '../add.diagnoses.dialog/add.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from '../diagnoses.dialog/diagnoses.dialog.component';
 
 @Component({
   selector: 'app-diagnoses.table.dialog',

@@ -176,7 +176,7 @@ export class DrfirstService {
       this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
-         // console.log(drfirstProviderParams);
+          console.log(drfirstProviderParams);
 
           if (drfirstProviderParams.EprescribeFrom == 'drfirst') {
 
@@ -188,7 +188,7 @@ export class DrfirstService {
                 drfirstProviderParams.RcopiaUserExternalId == null || drfirstProviderParams.RcopiaUserExternalId == undefined
                   ? "" : drfirstProviderParams.RcopiaUserExternalId,
                 drfirstProviderParams.DrFirstPatientId + '') + this.gmtTime();
-             // console.log(urlparams);
+              console.log(urlparams);
 
               var hashvalue = Md5.init(`${urlparams}${drfirstProviderParams.VendorPassword}`).toUpperCase()
              // console.log(hashvalue);
@@ -221,7 +221,7 @@ export class DrfirstService {
 
 
 export const USAPhoneFormat = (phonenumber, format = false) => {
-  var phoneRegex = /^([+1]{2})*\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  var phoneRegex = /^([+1]{2}|[1]{1})*\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
   if (phoneRegex.test(phonenumber)) {
     if (!format) return phonenumber.replace(phoneRegex, "$2$3$4")
     return phonenumber.replace(phoneRegex, "($2) $3-$4");

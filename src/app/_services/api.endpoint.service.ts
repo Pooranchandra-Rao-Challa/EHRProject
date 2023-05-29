@@ -551,7 +551,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _createDiagnosesUrl() {
-    return this._baseUrl + "CreateDiagnoses";
+    return this._baseUrl + "CreateDiagnosis";
   }
 
   get _createMedicationUrl() {
@@ -1128,6 +1128,17 @@ export class APIEndPoint extends EndpointBase {
   {
     return this._baseUrl + "DeleteAllergy";
   }
+
+  get _deleteDiagnosisURL()
+  {
+    return this._baseUrl + "DeleteDiagnosis";
+  }
+
+  get _deleteMedicationURL()
+  {
+    return this._baseUrl + "DeleteMedication";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

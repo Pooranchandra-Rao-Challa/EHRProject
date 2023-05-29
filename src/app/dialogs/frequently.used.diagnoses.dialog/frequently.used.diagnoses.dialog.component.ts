@@ -5,7 +5,7 @@ import { MedicalCode } from 'src/app/_models/codes';
 import { BehaviorSubject } from 'rxjs'
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
-import { AddDiagnosesDialogComponent } from '../add.diagnoses.dialog/add.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from '../diagnoses.dialog/diagnoses.dialog.component';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -63,7 +63,7 @@ export class FrequentlyUsedDiagnosesDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.addDiagnosesDialogComponent) {
       reqdata = dialogData;
-      this.frequentlyUsedDiagnoses.IsEditable = false;
+      //this.frequentlyUsedDiagnoses.IsEditable = false;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {

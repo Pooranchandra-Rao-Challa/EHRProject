@@ -2,7 +2,7 @@ import { DrfirstService } from 'src/app/_services/drfirst.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { BehaviorSubject, of } from 'rxjs';
-import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Actions, EncounterInfo, PatientPortalUser, ProceduresInfo, ViewModel } from "src/app/_models"
 import { catchError, finalize } from 'rxjs/operators';
@@ -30,7 +30,8 @@ import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
 @Component({
   selector: 'app-patient.details',
   templateUrl: './patient.details.component.html',
-  styleUrls: ['./patient.details.component.scss']
+  styleUrls: ['./patient.details.component.scss'],
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PatientDetailsComponent implements OnInit, AfterViewInit {
   patient: ProviderPatient;
@@ -64,6 +65,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
+    private changeDetectorRef: ChangeDetectorRef,
     private patientService: PatientService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -86,6 +88,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.chartSubject.next(this.viewModel.PatientView);
+    const changeDetectorRef = this.chartviewcontainerref.injector.get(ChangeDetectorRef);
+    changeDetectorRef.detectChanges();
   }
 
   ngOnInit(): void {
@@ -137,8 +141,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.drfirstUrlChanged.getData().subscribe((data) => {
         if(data.urlfor=="Patient")
           this.drfirstPatientUrl = data.url
-          //console.log(this.drfirstPatientUrl);
-
       });
   }
 
@@ -169,11 +171,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   }
   get IsPatientRegisteredWithDrFirst():boolean{
-    //console.log(this.viewModel.Patient);
-
     return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
-
-
   }
   //#region Tab Components
   async loadChartComponent() {
@@ -185,7 +183,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(ChartComponent)
       );
-      viewcomp.changeDetectorRef.detectChanges();
+
     }
   }
 
@@ -297,6 +295,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     if (paramkey == null) {
       this.patient = this.authService.viewModel.Patient;
       this.loadDependents();
+      // When navigated from links or from patient list the call to url should be here.
+      this.drfirstService.PatientUrl();
     }
 
     this.patientService.LatestUpdatedPatientsUrl({
@@ -308,10 +308,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       .subscribe(resp => {
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
-          console.log(patients);
-          console.log(resp);
-
-
           this.breadcrumbs = [];
           let pb: PatientBreadcurm = {
             Name: "Patients",
@@ -342,7 +338,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
                 this.viewModel.PatientView == '')
                 this.viewModel.PatientView = 'Chart'
               this.chartSubject.next(this.viewModel.PatientView);
-              //flag = true;
             }
             this.breadcrumbs.push(pb);
           });

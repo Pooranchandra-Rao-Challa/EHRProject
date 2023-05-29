@@ -42,22 +42,22 @@ export class DrFirstDialogComponent implements OnInit {
     let providerId = this.authenticationService.userValue.ProviderId;
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
       if (resp.IsSuccess) {
-        console.log(resp.Result as DrFirstPatient);
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
           .subscribe(resp=>{
             if(resp.IsSuccess){
               this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+              this.cancel();
             }
             else{
               this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
             }
-          //  console.log(resp);
           });
       }
     })
   }
   validateDrfirstPatientSyncInfo(data: DrFirstPatient): string[] {
+    console.log(data);
     data.MobilePhone = USAPhoneFormat(data.MobilePhone);
     let messages: string[]=[];
     let address = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']

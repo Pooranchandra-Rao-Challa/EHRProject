@@ -66,7 +66,6 @@ export class MedicationDialogComponent implements OnInit {
     private rxnormService: RxNormAPIService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
-     // console.log(ref.RequestData);
 
 
 
@@ -233,6 +232,8 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
+    console.log(data);
+
   }
 
   cancel(doCanel:boolean=false) {
@@ -269,6 +270,7 @@ export class MedicationDialogComponent implements OnInit {
   CreateMedication() {
     let isAdd = this.patientMedication.MedicationId == undefined;
     this.patientMedication.PatientId = this.currentPatient.PatientId;
+    this.patientMedication.ProviderId = this.authService.userValue.ProviderId;
     this.patientMedication.strStartAt = this.datepipe.transform(this.patientMedication.StartAt, "MM/dd/yyyy hh:mm:ss a");
     if (this.patientMedication.StopAt) {
       this.patientMedication.strStopAt = this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss a");
@@ -302,5 +304,37 @@ export class MedicationDialogComponent implements OnInit {
 
   disableDiscontinue(): boolean{
     return this.patientMedication.MedicationId == undefined;
+  }
+
+  DeleteMedication(){
+    this.patientService.DeleteMedication(
+      {MedicationId: this.patientMedication.MedicationId,
+      PatientId: this.patientMedication.PatientId,
+      ProviderId: this.authService.userValue.ProviderId}).subscribe(
+        {
+          next: (resp)=>{
+            if(resp.IsSuccess){
+              if(resp.SpecificMessage){
+                this.alertmsg.displayMessageDailog(resp.SpecificMessage);
+              }else{
+                this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM003"]);
+              }
+              this.ref.close({
+                "UpdatedModal": PatientChart.Medications
+              });
+            }else{
+              this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM002"]);
+              this.cancel();
+            }
+          },
+          error: (error)=>{
+            this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM002"]);
+            this.cancel();
+          },
+          complete: () =>{
+
+          }
+
+        });
   }
 }

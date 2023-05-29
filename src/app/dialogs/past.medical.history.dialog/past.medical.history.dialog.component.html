@@ -28,7 +28,7 @@
         </div>
       </div>
       <div>
-        <ul class="familyhealth-navigation" *ngFor="let familyhealthdetails of patientPastMedicalHistory?.FamilyMedicalHistories">
+        <ul class="familyhealth-navigation" *ngFor="let familyhealthdetails of patientPastMedicalHistory?.FamilyMedicalHistories;">
           <li>
             <a (click)="openComponentDialog(familyHealthHistoryDialogComponent, familyhealthdetails, ActionTypes.view)">
               <b>{{familyhealthdetails.FirstName}} {{familyhealthdetails.LastName}}

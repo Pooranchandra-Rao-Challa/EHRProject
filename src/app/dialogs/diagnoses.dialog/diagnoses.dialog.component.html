@@ -20,9 +20,9 @@
         <div class="col-sm-8 side-boder">
           <label class="required mt-3">Code System</label>
           <mat-form-field appearance="outline" class="w-100"
-            [ngClass]="!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto'">
+            [ngClass]="!patientDiagnoses.CodeSystem ? 'not-allowed' : 'auto'">
             <mat-select placeholder="Please select one" [(ngModel)]="patientDiagnoses.CodeSystem"
-              [disabled]="!patientDiagnoses.IsEditable">
+              [disabled]="!patientDiagnoses.CodeSystem">
               <mat-option *ngFor="let code of DxCodes" [value]="code">
                 {{code}}
               </mat-option>
@@ -31,14 +31,14 @@
           <label class="required">Code</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code"
-              [disabled]="!patientDiagnoses.IsEditable"
-              [ngStyle]="{'cursor':!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto' }" />
+              [disabled]="!patientDiagnoses.Code"
+              [ngStyle]="{'cursor':!patientDiagnoses.Code ? 'not-allowed' : 'auto' }" />
           </mat-form-field>
           <label class="required">Description</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Description" [(ngModel)]="patientDiagnoses.Description"
-              [disabled]="!patientDiagnoses.IsEditable"
-              [ngStyle]="{'cursor':!patientDiagnoses.IsEditable ? 'not-allowed' : 'auto' }" />
+              [disabled]="!patientDiagnoses.Description"
+              [ngStyle]="{'cursor':!patientDiagnoses.Description ? 'not-allowed' : 'auto' }" />
           </mat-form-field>
           <div class="row">
             <label class="required">Start Date</label>
@@ -69,21 +69,23 @@
                 [disabled]="patientDiagnoses.StartAt == null">Today</button>
             </div>
           </div>
+          <div class="row">
           <label class="required">Diagnosis Notes:</label>
-          <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0"
-            [(ngModel)]="patientDiagnoses.Note" matInput></textarea>
-          <div class="row links-item mt-2">
+          <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0 diagnosis-note"
+            [(ngModel)]="patientDiagnoses.Note" matInput style="margin: 10px 14px 10px;"></textarea>
+          </div>
+          <div class="row links-item mt-2" *ngIf="patientDiagnoses.DiagnosisId != undefined">
             <div class="col-lg-3 col-md-3 col-sm-3">
               <p>Resources:</p>
             </div>
-            <div class="col-md-4 col-sm-4" *ngIf="patientDiagnoses.DiagnosisId != undefined">
+            <div class="col-md-4 col-sm-4">
               <a class="underlined"
                 href="https://connect.medlineplus.gov/application?mainSearchCriteria.v.cs=2.16.840.1.113883.6.88&mainSearchCriteria.v.c="
                 target="_blank">
                 Medline Plus
               </a>
             </div>
-            <div class="col-md-5 col-sm-5" *ngIf="patientDiagnoses.DiagnosisId != undefined">
+            <div class="col-md-5 col-sm-5">
               <a class="underlined" id="education_materials_show"
                 (click)="openComponentDialog(patientEducationMaterialDialogComponent,null,ActionTypes.add)">Patient
                 Education Materials</a>
@@ -93,10 +95,14 @@
       </div>
     </div>
     <div class="modal-footer">
+      <div class="w-100">
+      <button class="btn btn-danger mx-3 pull-left" *ngIf="patientDiagnoses.DiagnosisId != undefined"
+      (click)="DeleteDiagnosis()">Delete</button>
       <button class="btn btn-green mx-3 pull-right" [disabled]="disableDiagnosis()"
         (click)="CreateDiagnosis()">Save</button>
       <button class="btn btn-green pull-right" (click)="cancel()">
         Cancel</button>
+      </div>
     </div>
   </div>
 </div>

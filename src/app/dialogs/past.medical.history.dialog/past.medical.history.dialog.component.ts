@@ -9,6 +9,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { FamilyHealthHistoryDialogComponent } from '../family.health.history.dialog/family.health.history.dialog.component';
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
+import { FamilyRecordNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 @Component({
   selector: 'app-past.medical.history.dialog',
@@ -21,34 +22,46 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   chartInfo: ChartInfo = new ChartInfo;
   familyHealthHistoryDialogComponent = FamilyHealthHistoryDialogComponent;
   ActionTypes = Actions;
-  strFamilyMedicalHistories: unknown;
+
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
     private alertmsg: AlertMessage,
-    private overlayService: OverlayService) {
+    private overlayService: OverlayService,
+    private familyRecordNotifier: FamilyRecordNotifier) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
   }
 
   ngOnInit(): void {
+    this.familyRecordNotifier.getData().subscribe(resp => {
+      if (resp.isdeleted) {
+        this.patientPastMedicalHistory.FamilyMedicalHistories.splice(resp.record.Index, 1)
+      } else {
+        if (!this.patientPastMedicalHistory.FamilyMedicalHistories)
+          this.patientPastMedicalHistory.FamilyMedicalHistories = []
+        if (resp.record.Index > -1) {
+          this.patientPastMedicalHistory.FamilyMedicalHistories.splice(resp.record.Index, 1)
+        }
+        this.patientPastMedicalHistory.FamilyMedicalHistories.push(resp.record);
+      }
+      this.CreatePastMedicalHistories();
+    });
   }
 
   updateLocalModel(data: any) {
-    this.patientPastMedicalHistory = new PastMedicalHistory;
+    this.patientPastMedicalHistory = {};
     if (data == null) return;
-    if (data.length != 0) {
-      this.patientPastMedicalHistory = data[0];
-      this.patientPastMedicalHistory.FamilyMedicalHistories = this.patientPastMedicalHistory.FamilyMedicalHistories == null ? [] : this.patientPastMedicalHistory.FamilyMedicalHistories;
-    }
-    if (this.patientPastMedicalHistory.FamilyMedicalHistories.length > 0) {
-      this.patientPastMedicalHistory.FamilyMedicalHistories = JSON.parse(this.patientPastMedicalHistory.FamilyMedicalHistories.toString());
-    }
+    console.log(data);
+
+    this.patientPastMedicalHistory = data;
+    this.patientPastMedicalHistory.FamilyMedicalHistories =
+      this.patientPastMedicalHistory.strFamilyMedicalHistories != null &&
+        this.patientPastMedicalHistory.strFamilyMedicalHistories != '' ?
+        JSON.parse(this.patientPastMedicalHistory.strFamilyMedicalHistories) : [];
   }
   cancel() {
-    this.strFamilyMedicalHistories = JSON.stringify(this.patientPastMedicalHistory.FamilyMedicalHistories);
-    this.patientPastMedicalHistory.FamilyMedicalHistories = this.strFamilyMedicalHistories as FamilyMedicalHistory[];
     this.ref.close({
       "UpdatedModal": PatientChart.PastMedicalHistory
     });
@@ -86,17 +99,17 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.familyHealthHistoryDialogComponent) {
+      dialogData.Index = this.patientPastMedicalHistory.FamilyMedicalHistories.indexOf(dialogData);
+      console.log(dialogData);
+
       reqdata = dialogData;
     }
     else if (action == Actions.add && content === this.familyHealthHistoryDialogComponent) {
-      reqdata = new FamilyMedicalHistory;
-      reqdata.PastMedicalHistoryId  = this.patientPastMedicalHistory.PastMedicalHistoryId;
+      reqdata = {};
+
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      if (res.data != null) {
-        this.ref.close(res.data);
-      }
     });
   }
 

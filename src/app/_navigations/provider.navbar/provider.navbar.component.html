@@ -36,7 +36,7 @@
         <span class="messages-count" style="margin-left: 10px !important;
         margin-right: 2px !important;">{{unreadMails}}</span>
       </li>
-      <li class="nav-item" [class.active]="viewModel.View == 'directmsg'">
+      <li class="nav-item" [class.active]="viewModel.View == 'directmsg'" *ngIf="false">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/directmsg','directmsg')"
           routerLinkActive="router-link-active" class="nav-link active item-messages">Direct Msg
         </a>

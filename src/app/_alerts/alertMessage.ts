@@ -425,6 +425,7 @@ export const ERROR_CODES: { [key: string]: string } = {
 
   // Error for medication
   'E2CM001': 'Medication Updation error',
+  'E2CM002': 'Can not delete medication',
 
   //Message for immunization in chart screen
   'M2CCI001': 'Immunization added successfully',

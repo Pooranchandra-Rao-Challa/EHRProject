@@ -110,7 +110,7 @@ registerLocaleData(localeIt);
 import { InterventionTableDialogComponent } from '../../dialogs/intervention.table.dialog/intervention.table.dialog.component';
 import { AllergyTableDialogComponent } from '../../dialogs/allergy.table.dialog/allergy.table.dialog.component';
 import { FrequentlyUsedDiagnosesDialogComponent } from '../../dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
-import { AddDiagnosesDialogComponent } from '../../dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from '../../dialogs/diagnoses.dialog/diagnoses.dialog.component';
 import { PatientEducationMaterialDialogComponent } from '../../dialogs/patient.education.material.dialog/patient.education.material.dialog.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
@@ -134,8 +134,13 @@ import { AddauthorizedrepresentativeDialogComponent } from 'src/app/dialogs/adda
 import { EncounterTableDialogComponent } from 'src/app/dialogs/encounter.table.dialog/encounter.table.dialog.component';
 import { AppointmentsTableDialogComponent } from 'src/app/dialogs/appointments.table.dialog/appointments.table.dialog.component';
 import { FileUploadService } from 'src/app/_services/file.upload.service'
-import { NotifyMessageService, DrfirstUrlChanged } from "src/app/_navigations/provider.layout/view.notification.service";
-import { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { NotifyMessageService,
+  DrfirstUrlChanged,
+  NotifyProviderHeaderService,
+  ProviderLocationUpdateNotifier,
+  UpdateEmergencyAccess,
+  FamilyRecordNotifier } from "src/app/_navigations/provider.layout/view.notification.service";
+//mport { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { PraticeAdduserDialogComponent } from 'src/app/dialogs/pratice.adduser.dialog/pratice.adduser.dialog.component';
@@ -150,7 +155,7 @@ import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addend
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { DrfirstService } from 'src/app/_services/drfirst.service'
-import { Observable } from 'rxjs';
+
 
 
 
@@ -360,6 +365,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService, AdminService,
     AlertMessage, RxNormAPIService, MessagesService, FileUploadService, ProviderLocationUpdateNotifier,
     NotifyMessageService, NotifyProviderHeaderService, UpdateEmergencyAccess, DrfirstService,DrfirstUrlChanged,
+    FamilyRecordNotifier,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,

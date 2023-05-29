@@ -456,4 +456,12 @@ export class PatientService extends APIEndPoint {
   DeleteAllergy(reqparams: any) {
     return this._ProcessPostRequest<any>(this._deleteAllergyURL, reqparams);
   }
+
+  DeleteDiagnosis(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteDiagnosisURL, reqparams);
+  }
+
+  DeleteMedication(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._deleteMedicationURL, reqparams);
+  }
 }

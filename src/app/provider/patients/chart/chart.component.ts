@@ -6,7 +6,7 @@ import { filter, map, } from 'rxjs/operators';
 import { Observable, of, fromEvent } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ProviderPatient } from './../../../_models/_provider/Providerpatient';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, ViewChildren, QueryList, ChangeDetectionStrategy } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from '../../../overlay.service';
 import { AdvancedDirectivesDialogComponent } from '../../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -33,7 +33,7 @@ import { TobaccoUseDialogComponent } from 'src/app/dialogs/tobacco.use.dialog/to
 import { InterventionTableDialogComponent } from 'src/app/dialogs/intervention.table.dialog/intervention.table.dialog.component';
 import { AllergyTableDialogComponent } from 'src/app/dialogs/allergy.table.dialog/allergy.table.dialog.component';
 import { FrequentlyUsedDiagnosesDialogComponent } from 'src/app/dialogs/frequently.used.diagnoses.dialog/frequently.used.diagnoses.dialog.component';
-import { AddDiagnosesDialogComponent } from 'src/app/dialogs/add.diagnoses.dialog/add.diagnoses.dialog.component';
+import { AddDiagnosesDialogComponent } from 'src/app/dialogs/diagnoses.dialog/diagnoses.dialog.component';
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { DiagnosesTableDialogComponent } from 'src/app/dialogs/diagnoses.table.dialog/diagnoses.table.dialog.component';
 import { MedicationTableDialogComponent } from 'src/app/dialogs/medication.table.dialog/medication.table.dialog.component';
@@ -54,7 +54,8 @@ declare var $: any;
 @Component({
   selector: 'app-chart',
   templateUrl: './chart.component.html',
-  styleUrls: ['./chart.component.scss']
+  styleUrls: ['./chart.component.scss'],
+  //changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
@@ -394,6 +395,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   UpdateView(data) {
+    console.log(data);
+
     if (data == null) return;
     if (data.UpdatedModal == PatientChart.Diagnoses) {
       this.DiagnosesByPatientId();
@@ -429,6 +432,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
+      console.log(data.UpdatedModel);
+
       this.MedicationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
@@ -587,6 +592,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   DiagnosesByPatientId() {
     this.patientService.DiagnosesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Diagnoses = resp.ListResult;
+      else this.chartInfo.Diagnoses = [];
     });
   }
 
@@ -594,6 +600,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   AllergiesByPatientId() {
     this.patientService.AllergiesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Alergies = resp.ListResult;
+      else this.chartInfo.Alergies = [];
     });
   }
 
@@ -602,6 +609,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
+      else this.chartInfo.PastMedicalHistories = [];
     });
   }
 
@@ -612,7 +620,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       if (resp.IsSuccess) {
         this.chartInfo.Immunizations = resp.ListResult;
         this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
-      }
+      }else this.chartInfo.Immunizations = [];
     });
   }
 
@@ -621,6 +629,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Medications = resp.ListResult;
+      else this.chartInfo.Medications = [];
     });
   }
 
@@ -629,6 +638,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.EncountersByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Encounters = resp.ListResult;
+      else this.chartInfo.Encounters = [];
     });
   }
 
@@ -637,6 +647,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.AppointmentsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Appointments = resp.ListResult;
+      else this.chartInfo.Appointments = [];
     });
   }
 
@@ -644,6 +655,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   SmokingStatusByPatientId() {
     this.patientService.SmokingStatusByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.SmokingStatuses = resp.ListResult;
+      else this.chartInfo.SmokingStatuses = [];
     });
   }
 
@@ -651,6 +663,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   TobaccoUseScreenings() {
     this.patientService.TobaccoUseScreenings({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.TobaccoUseScreenings = resp.ListResult;
+      else this.chartInfo.TobaccoUseScreenings = [];
     });
   }
 
@@ -658,6 +671,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   TobaccoUseInterventions() {
     this.patientService.TobaccoUseInterventions({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.TobaccoUseInterventions = resp.ListResult;
+      else this.chartInfo.TobaccoUseInterventions = [];
     });
   }
 
@@ -666,6 +680,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
+      else this.tobaccoUseList = [];
     });
   }
 
@@ -674,6 +689,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(this.currentPatient== null)return;
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
+      else this.chartInfo.Interventions = [];
     });
   }
 
@@ -885,5 +901,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   get ActiveAlerts():AlertResult[]{
     return this.alertResult.filter(f => f.IsMet == true);
+  }
+
+  getFormatedDate(date):string{
+    return this.datepipe.transform(date,"MM/dd/yyyy");
   }
 }
