@@ -183,3 +183,16 @@ export class TriggerResult{
   IsMet?:boolean;
 }
 
+export class  RoleAccess {
+  AccessId?:string;
+  RoleName?:string;
+  Allowed?:boolean;
+}
+
+export class PolicyPermission {
+  Presentation? :string;
+  PolicyName? :string;
+  PolicyMethod? :string;
+  PermissoinId? :string;
+  RoleAccesses? : RoleAccess[] = []
+}

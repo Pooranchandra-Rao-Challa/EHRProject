@@ -57,8 +57,6 @@ export class AllergyDialogComponent implements OnInit {
   updateLocalModel(data: Allergy) {
     this.patientAllergy = {};
     if (data == null) return;
-    console.log(data);
-
     this.patientAllergy = data;
     if (data.Reaction != undefined) {
       this.selectedReaction = data.Reaction.split(",");
@@ -174,8 +172,6 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   deleteAllergy(){
-    console.log(this.patientAllergy.AllergyId);
-
     this.patientService.DeleteAllergy({AllergyId: this.patientAllergy.AllergyId,
     ProviderId: this.authService.userValue.ProviderId,
     PatientId: this.patientAllergy.PatientId}).subscribe(

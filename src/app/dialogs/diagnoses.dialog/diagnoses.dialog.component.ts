@@ -86,7 +86,6 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss a", "en-US");
     let reqparams = {}
     Object.assign(reqparams,this.patientDiagnoses);
-    console.log(reqparams);
 
     this.patientService.CreateDiagnosis(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {

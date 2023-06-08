@@ -191,4 +191,12 @@ export class SettingsService extends APIEndPoint {
   EvalPatientCDSAlerts(reqparams: any){
     return this._ProcessPostRequest<any>(this._evalPatientCDSAlertsUrl, reqparams);
   }
+
+  RoleWisePermissions(clinicId){
+    return this._ProcessGetRequestWithId<any>(this._roleWisePermissionsURL,clinicId);
+  }
+
+  UpdateRolePermissions(rolePermissions){
+    return this._ProcessPostRequest<any>(this._updateRolePermissionsURL,rolePermissions);
+  }
 }

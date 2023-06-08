@@ -1,3 +1,4 @@
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
@@ -5,7 +6,7 @@ import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class AdminService extends APIEndPoint {
-  constructor(http: HttpClient) { super(http); }
+  constructor(public http: HttpClient) { super(http); }
 
   AdminList(){
     return this._ProcessGetRequest<any>(this._adminListUrl);
@@ -74,7 +75,7 @@ export class AdminService extends APIEndPoint {
 
   GetAdminSettingVersion()
   {
-    return this._ProcessGetRequest<any>(this._getAdminVersionUrl);
+    return this._ProcessGetRequesWithoutHeader<any>(this._getAdminVersionUrl);
   }
 
   UpdateAdminSettingVersion(reqparams:any)

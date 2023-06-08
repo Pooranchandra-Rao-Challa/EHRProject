@@ -232,7 +232,6 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
-    console.log(data);
 
   }
 

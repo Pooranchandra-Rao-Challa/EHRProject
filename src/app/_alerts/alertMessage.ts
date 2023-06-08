@@ -398,6 +398,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'M2AP003': 'Invitation successfully sent to patient email',
   'M2AP004': 'Patient deleted successfully',
   'E2AP003': 'Patient deletion error',
+  'M2AP005': 'Patient chart sync initiation will update in 10 min',
 
   //Message for allergies in chart screen
   'M2CA001': 'Allergy added successfully',

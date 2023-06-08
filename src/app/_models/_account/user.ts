@@ -13,6 +13,7 @@ export interface User {
   RepresentativeName: string;
   Username: string;
   Role: string;
+  PracticeRole:string;
   FirstName: string;
   LastName: string;
   JwtToken: string;
@@ -39,6 +40,7 @@ export interface User {
   PatientActive?: boolean;
   RepresentativeActive?: boolean;
   EmergencyAccess?: boolean;
+  Permissions?: string;
 }
 export class UserLocations {
   LocationId: string;

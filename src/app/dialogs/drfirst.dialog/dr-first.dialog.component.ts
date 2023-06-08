@@ -57,7 +57,6 @@ export class DrFirstDialogComponent implements OnInit {
     })
   }
   validateDrfirstPatientSyncInfo(data: DrFirstPatient): string[] {
-    console.log(data);
     data.MobilePhone = USAPhoneFormat(data.MobilePhone);
     let messages: string[]=[];
     let address = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']

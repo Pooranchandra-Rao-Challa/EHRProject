@@ -4,6 +4,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { EndpointBase } from "./endpoint.base.service";
+import { AuthenticationService } from "./authentication.service";
 
 @Injectable()
 export class APIEndPoint extends EndpointBase {
@@ -229,9 +230,6 @@ export class APIEndPoint extends EndpointBase {
   get _providerListUrl() {
     return this._baseUrl + "ProviderList";
   }
-
-
-
 
   get _billingDetailsUrl() {
     return this._baseUrl + "BillingList";
@@ -854,24 +852,20 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "BlockoutInfo";
   }
 
-  get _createAuthorizedRepresentativeUrl()
-  {
+  get _createAuthorizedRepresentativeUrl() {
     return this._baseUrl + "CreateAuthorizedRepresentative";
   }
 
-  get _updateDefaultMessageUrl()
-  {
+  get _updateDefaultMessageUrl() {
     return this._baseUrl + "UpdateDefaultMessage";
   }
 
-  get _authorizedRepresentativesUrl()
-  {
+  get _authorizedRepresentativesUrl() {
     return this._baseUrl + "AuthorizedRepresentatives";
   }
 
 
-  get _securePasswordChangeUrl()
-  {
+  get _securePasswordChangeUrl() {
     return this._baseUrl + "SecurePasswordChange";
   }
 
@@ -915,229 +909,195 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "ImportData";
   }
 
-  get _getAdminVersionUrl()
-  {
+  get _getAdminVersionUrl() {
     return this._baseUrl + "GetAdminSettingVersion";
   }
-  get _updateAdminVersionUrl()
-  {
+  get _updateAdminVersionUrl() {
     return this._baseUrl + "UpdateAdminSettingsAppVersion";
   }
 
-  get _readInboxMessageUrl()
-  {
+  get _readInboxMessageUrl() {
     return this._baseUrl + "ReadInboxMessages";
   }
-  get _cqmReportingYears()
-  {
+  get _cqmReportingYears() {
     return this._baseUrl + "CQMReports/CQMReportingYears";
   }
 
-  get _cCDAReportUrl()
-  {
+  get _cCDAReportUrl() {
     return this._baseUrl + "CCDAReport";
   }
 
-  get _updateProviderPhotoURL()
-  {
+  get _updateProviderPhotoURL() {
     return this._baseUrl + "UpdateProviderPhoto";
   }
 
 
-  get _updatePatientPhotoURL()
-  {
+  get _updatePatientPhotoURL() {
     return this._baseUrl + "UpdatePatientPhoto";
   }
 
-  get _updateSecurityQuestionURL()
-  {
+  get _updateSecurityQuestionURL() {
     return this._baseUrl + "UpdateSecurityQuestion";
   }
-  get _providerPracticeLocationsURL()
-  {
+  get _providerPracticeLocationsURL() {
     return this._baseUrl + "ProviderPracticeLocations";
   }
 
-  get _firstTimeResetPasswordURL()
-  {
+  get _firstTimeResetPasswordURL() {
     return this._baseUrl + "FirstTimeResetPassword";
   }
 
-  get _removePatientRelationShipAccessURL()
-  {
+  get _removePatientRelationShipAccessURL() {
     return this._baseUrl + "RemovePatientRelationShipAccess";
   }
-  get _patientAddendaDocsURL()
-  {
+  get _patientAddendaDocsURL() {
     return this._baseUrl + "PatientAddendaDocs";
   }
 
-  get _updateAddendaDocURL()
-  {
+  get _updateAddendaDocURL() {
     return this._baseUrl + "UpdateAddendaDoc";
   }
 
-  get _updateAddendaDocsURL()
-  {
+  get _updateAddendaDocsURL() {
     return this._baseUrl + "UpdateAddendaDocs";
   }
 
-  get _encounterAddendaDocsURL()
-  {
+  get _encounterAddendaDocsURL() {
     return this._baseUrl + "EncounterAddendaDocs";
   }
 
-  get _patientProfileURL()
-  {
+  get _patientProfileURL() {
     return this._baseUrl + "PatientProfile";
   }
-  get _encountersForAddendaDocURL()
-  {
+  get _encountersForAddendaDocURL() {
     return this._baseUrl + "EncountersForAddendaDoc";
   }
 
-  get _addendaDocumentTypesURL()
-  {
+  get _addendaDocumentTypesURL() {
     return this._baseUrl + "AddendaDocumentTypes";
   }
 
-  get _getPatientURL()
-  {
+  get _getPatientURL() {
     return this._baseUrl + "GetPatient";
   }
 
-  get _createAddendaDocTypeURL()
-  {
+  get _createAddendaDocTypeURL() {
     return this._baseUrl + "CreateAddendaDocType";
   }
 
-  get _createAddendumURL()
-  {
+  get _createAddendumURL() {
     return this._baseUrl + "CreateAddendum";
   }
-  get _addendumsURL()
-  {
+  get _addendumsURL() {
     return this._baseUrl + "Addendums";
   }
-  get _deleteEncounterAddendaDocURL()
-  {
+  get _deleteEncounterAddendaDocURL() {
     return this._baseUrl + "DeleteEncounterAddendaDoc";
   }
 
-  get _patientRelationInfoURL()
-  {
+  get _patientRelationInfoURL() {
     return this._baseUrl + "PatientRelationInfo";
   }
 
-  get _resetPatientPasswordURL()
-  {
+  get _resetPatientPasswordURL() {
     return this._baseUrl + "ResetPatientPassword";
   }
 
-  get _updateResetPasswordURL()
-  {
+  get _updateResetPasswordURL() {
     return this._baseUrl + "UpdateResetPassword";
   }
 
-  get _singAddendaDocsURL()
-  {
+  get _singAddendaDocsURL() {
     return this._baseUrl + "SingAddendaDocs";
   }
 
-  get _deleteAttachmentURL()
-  {
+  get _deleteAttachmentURL() {
     return this._baseUrl + "DeleteAttachment";
   }
 
-  get _matchingPatientsURL()
-  {
+  get _matchingPatientsURL() {
     return this._baseUrl + "MatchingPatients";
   }
-  get _communicationSettingURL()
-  {
+  get _communicationSettingURL() {
     return this._baseUrl + "CommunicationSetting";
   }
-  get _updateCommunicationSettingURL()
-  {
+  get _updateCommunicationSettingURL() {
     return this._baseUrl + "UpdateCommunicationSetting";
   }
-  get _hasNotificationsURL()
-  {
+  get _hasNotificationsURL() {
     return this._baseUrl + "HasNotifications";
   }
 
-  get _enableDistableNotificationURL()
-  {
+  get _enableDistableNotificationURL() {
     return this._baseUrl + "EnableDistableNotification";
   }
 
-  get _setNotificationTypesAsDefaultURL()
-  {
+  get _setNotificationTypesAsDefaultURL() {
     return this._baseUrl + "SetNotificationTypesAsDefault";
   }
-  get _patientNotificationSettingTypesURL()
-  {
+  get _patientNotificationSettingTypesURL() {
     return this._baseUrl + "PatientNotificationSettingTypes";
   }
 
-  get _addNotificationURL()
-  {
+  get _addNotificationURL() {
     return this._baseUrl + "AddNotification";
   }
 
 
-  get _validateNotificationTypeURL()
-  {
+  get _validateNotificationTypeURL() {
     return this._baseUrl + "ValidateNotificationType";
   }
 
-  get _resendVerficationCodeURL()
-  {
+  get _resendVerficationCodeURL() {
     return this._baseUrl + "ResendVerficationCode";
   }
 
-  get _clearNotificationURL()
-  {
+  get _clearNotificationURL() {
     return this._baseUrl + "ClearNotification";
   }
-  get _drfirstProviderParamsURL()
-  {
+  get _drfirstProviderParamsURL() {
     return this._baseUrl + "DrFirstAttributes";
   }
-  get _drfirstPatientURL()
-  {
+  get _drfirstPatientURL() {
     return this._baseUrl + "DrfirstPatient";
   }
 
-  get _updateDrFirstPatientURL()
-  {
+  get _updateDrFirstPatientURL() {
     return this._baseUrl + "UpdateDrFirstPatient";
   }
 
-  get _sendDrfirstPatientURL()
-  {
+  get _sendDrfirstPatientURL() {
     return this._baseUrl + "SendDrfirstPatient";
   }
 
-  get _sendCCDAToPatientURL()
-  {
+  get _sendCCDAToPatientURL() {
     return this._baseUrl + "SendToPatient";
   }
 
-  get _deleteAllergyURL()
-  {
+  get _deleteAllergyURL() {
     return this._baseUrl + "DeleteAllergy";
   }
 
-  get _deleteDiagnosisURL()
-  {
+  get _deleteDiagnosisURL() {
     return this._baseUrl + "DeleteDiagnosis";
   }
 
-  get _deleteMedicationURL()
-  {
+  get _deleteMedicationURL() {
     return this._baseUrl + "DeleteMedication";
   }
+
+  get _syncChartURL() {
+    return this._baseUrl + "SyncChart";
+  }
+
+  get _roleWisePermissionsURL() {
+    return this._baseUrl + "RoleWisePermissions";
+  }
+
+  get _updateRolePermissionsURL() {
+    return this._baseUrl + "UpdateRolePermissions";
+  }
+
 
   constructor(public http: HttpClient) {
     super();
@@ -1155,7 +1115,7 @@ export class APIEndPoint extends EndpointBase {
 
 
   _ProcessPostRequest<T>(apiurl: string, reqdata: any): Observable<T> {
-    return this.http.post<T>(apiurl, reqdata).pipe(
+    return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1165,6 +1125,15 @@ export class APIEndPoint extends EndpointBase {
 
 
   _ProcessGetRequest<T>(apiurl: string): Observable<T> {
+    return this.http.get<T>(apiurl,this.requestHeaders).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this._handleError)
+    );
+  }
+
+  _ProcessGetRequesWithoutHeader<T>(apiurl: string): Observable<T> {
     return this.http.get<T>(apiurl).pipe(
       tap((data) => {
         return data;
@@ -1172,9 +1141,8 @@ export class APIEndPoint extends EndpointBase {
       catchError(this._handleError)
     );
   }
-
-  _ProcessGetRequestWithId<T>(apiurl: string,id: string): Observable<T> {
-    return this.http.get<T>(`${apiurl}/${id}`).pipe(
+  _ProcessGetRequestWithId<T>(apiurl: string, id: string): Observable<T> {
+    return this.http.get<T>(`${apiurl}/${id}`,this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1182,8 +1150,8 @@ export class APIEndPoint extends EndpointBase {
     );
   }
 
-  _ProcessGetRequestWith2Params<T>(apiurl: string,id1: string,id2:string): Observable<T> {
-    return this.http.get<T>(`${apiurl}/${id1}/${id2}`).pipe(
+  _ProcessGetRequestWith2Params<T>(apiurl: string, id1: string, id2: string): Observable<T> {
+    return this.http.get<T>(`${apiurl}/${id1}/${id2}`,this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1193,11 +1161,32 @@ export class APIEndPoint extends EndpointBase {
 
   //Handel Errorss
   private _handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error("An error occurred:", error.error.message);
-    } else {
-      console.error("serverside error", JSON.stringify(error));
+    if(error){
+      if(error.error){
+        console.error("An error occurred:", error.error.message);
+      }else{
+        console.error("Error in accessing application")
+      }
     }
+
+    // if ([401].includes(error.status) && this.jwtService.IsLoggedIn) {
+    //   // auto logout if 401 or 403 response returned from api
+    //   return this.handle401Error(authReq, next)
+    // } else if ([403].includes(err.status) && this.jwtService.IsLoggedIn) {
+    //   // auto logout if 401 or 403 response returned from api
+    //   this.jwtService.Logout();
+    // }
+    // else if ([400].includes(err.status) && this.jwtService.IsLoggedIn) {
+    //   this.messageService.add({ severity: 'error', key: 'myToast', summary: 'Error' + ' ' + err.status, detail: err.error });
+    // }
+    // else if ([404].includes(err.status) && this.jwtService.IsLoggedIn) {
+    //   this.messageService.add({ severity: 'error', key: 'myToast', summary: 'Error' + ' ' + err.status, detail: err.error });
+    // }
+    // if (error.error instanceof ErrorEvent) {
+    //   console.error("An error occurred:", error.error.message);
+    // } else {
+    //   console.error("serverside error", JSON.stringify(error));
+    // }
     return throwError(error.error.Message);
   }
 

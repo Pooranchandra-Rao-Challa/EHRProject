@@ -53,8 +53,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   updateLocalModel(data: any) {
     this.patientPastMedicalHistory = {};
     if (data == null) return;
-    console.log(data);
-
     this.patientPastMedicalHistory = data;
     this.patientPastMedicalHistory.FamilyMedicalHistories =
       this.patientPastMedicalHistory.strFamilyMedicalHistories != null &&
@@ -100,8 +98,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.familyHealthHistoryDialogComponent) {
       dialogData.Index = this.patientPastMedicalHistory.FamilyMedicalHistories.indexOf(dialogData);
-      console.log(dialogData);
-
       reqdata = dialogData;
     }
     else if (action == Actions.add && content === this.familyHealthHistoryDialogComponent) {

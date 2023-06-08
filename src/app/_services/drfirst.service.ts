@@ -49,26 +49,7 @@ export class DrfirstService {
     this.utilityService.DrfirstProviderParams(providerId, patient.PatientId).subscribe(resp => {
       if (resp.IsSuccess) {
         var drfirstProviderParams = resp.Result as DrFirstAttributes;
-        //console.log(drfirstProviderParams);
         let patientXml = SendPatientXML(drfirstProviderParams, patient, this.datePipe);
-        //console.log(patientXml);
-        // this.SubmitRequest(encodeURI(patientXml)).subscribe(resp => {
-        //   console.log(resp);
-        //   this.parser.parseString(resp, (err, result) => {
-        //     console.log(result);
-        //     let xmltoJsonData = result;
-        //     var patientId = result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].EXTERNALID[0]
-        //     var rcopiaId = result.RCEXTRESPONSE.RESPONSE[0].PATIENTLIST[0].PATIENT[0].EXTERNALID[0]
-        //     var status = result.RCEXTRESPONSE.RESPONSE[0].STATUS[0];
-        //     if (status == "ok") {
-        //       this.utilityService.UpdateDrFirstPatient(patientId, rcopiaId).subscribe((resp) => {
-        //         this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
-        //       });
-        //     } else {
-        //       this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
-        //     }
-        //   });
-        // })
         this.SubmitRequest(this.codec.encodeValue(patientXml), patientXml);
       }
     })
@@ -81,30 +62,18 @@ export class DrfirstService {
 
   public SendMedication(provider, patient, medication, deleted) {
     let sendMedicationXML = SendMedicationXML(provider, patient, medication, deleted);
-    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-    //   console.log(resp);
-    // })
   }
 
   public SentDiagnosisForSnomed(provider, patient, diagnoses) {
     let sendMedicationXML = SentDiagnosisXMLForSnomed(provider, patient, diagnoses);
-    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-    //   console.log(resp);
-    // })
   }
 
   public SendDianosisForNonSnomed(provider, patient, diagnoses) {
     let sendMedicationXML = SendDianosisXMLForNonSnomed(provider, patient, diagnoses);
-    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-    //   console.log(resp);
-    // })
   }
 
   public SyncPrescription(provider, patient) {
     let sendMedicationXML = SyncPrescriptionXML(provider, patient);
-    // this.SubmitRequest(sendMedicationXML).subscribe(resp => {
-    //   console.log(resp);
-    // })
   }
   public func_callbk(data) {
     //console.log(data);

@@ -45,6 +45,7 @@
     "jquery": "^3.6.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.28",
+    "jwt-decode": "^3.1.2",
     "mat-select-filter": "^2.4.1",
     "mat-table-exporter": "^10.2.4",
     "md5-typescript": "^1.0.5",

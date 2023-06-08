@@ -70,7 +70,7 @@
           (click)="onChangeBreadCrum('provider/billing','Billing')">Billing
         </a>
       </li>
-      <li [class]="viewModel.View !== 'Settings' ? 'nav-item': 'active nav-item'">
+      <li [class]="viewModel.View !== 'Settings' ? 'nav-item': 'active nav-item'" *ngIf="CanViewSettings">
         <a href="javascript:void(0)" (click)="onChangeBreadCrum('provider/settings','Settings','practice')"
           class="nav-link item-settings">Settings
         </a>

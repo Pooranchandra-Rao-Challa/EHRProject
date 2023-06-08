@@ -161,18 +161,6 @@ import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.
 
 
 
-// @Injectable()
-// export class CustomInterceptor {
-//   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-//     console.log(req);
-
-//     return next.handle(req);
-//   }
-// }
-
-//import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
-//import { AttachmentComponent } from 'src/app/_components/attachments/attachment.component'
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,

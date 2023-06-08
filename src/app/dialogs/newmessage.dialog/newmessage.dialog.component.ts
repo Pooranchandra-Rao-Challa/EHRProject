@@ -54,7 +54,6 @@ export class NewMessageDialogComponent implements OnInit {
     this.messageDialogData = ref.RequestData;
     this.message = this.messageDialogData.Messages;
     this.fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')
-    console.log(this.message);
 
 
     this.httpRequestParams = this.httpRequestParams.append("EntityName", this.EntityName);

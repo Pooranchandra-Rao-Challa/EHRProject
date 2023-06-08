@@ -11,13 +11,11 @@ import { User, ResponseData, ViewModel, AdminViewModal } from '../_models';
 import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
-import { TransitionCheckState } from '@angular/material/checkbox';
+import { Buffer } from 'buffer';
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-
-
   baseUrl: string = environment.baseUrl;
   private userIP:string;
   private userSubject: BehaviorSubject<User>;
@@ -227,9 +225,6 @@ export class AuthenticationService {
         localStorage.setItem('user', JSON.stringify(resp.Result as User));
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
-        console.log(this.userValue);
-        console.log(resp.Result as User);
-
 
         if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
           this.router.navigate(['/account/security-question']);
@@ -283,14 +278,7 @@ export class AuthenticationService {
     this.stopRefreshTokenTimer();
     if(error != '' && error != null)
       localStorage.setItem('message',error);
-    //if (error == '')
       this.router.navigate(['/account/home']);
-    // else {
-    //   this.router.navigate(
-    //     ['/account/home'],
-    //     { queryParams: { message: error } }
-    //   );
-    // }
   }
 
   isLoggedIn() {
@@ -301,6 +289,12 @@ export class AuthenticationService {
     const timediff = expires.getTime() - Date.now();
     this.startRefreshTokenTimer();
     return timediff > 0;
+  }
+
+  permissions(){
+    if (!this.userValue) return false;
+    if(!this.userValue.Permissions) return false;
+    return JSON.parse(this.userValue.Permissions);
   }
 
 

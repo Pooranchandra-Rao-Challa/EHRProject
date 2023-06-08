@@ -2,45 +2,49 @@
   <div class="general-content border">
     <p class="panel-title bg-color m-0 plabel">Access Permissions</p>
     <div class="example-container scrollable-mat-table">
-      <mat-table class="access-permission-practice-table" [dataSource]="accessPermissiondataSource">
-        <ng-container matColumnDef="empty">
-          <mat-header-cell *matHeaderCellDef></mat-header-cell>
-          <mat-cell *matCellDef="let loc">{{loc.Name}}</mat-cell>
+      <mat-table class="access-permission-practice-table" [dataSource]="rolePermissions">
+        <ng-container matColumnDef="policyname">
+          <mat-header-cell *matHeaderCellDef>Policy Name</mat-header-cell>
+          <mat-cell *matCellDef="let rolePermission">{{rolePermission.PolicyName}}</mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="policymethod">
+          <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
+          <mat-cell *matCellDef="let rolePermission">{{rolePermission.PolicyMethod}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="admin">
           <mat-header-cell *matHeaderCellDef>admin</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'admin')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'admin')"></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="back_office">
           <mat-header-cell *matHeaderCellDef>back_office</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'back_office')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'back_office')"></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="dentist">
           <mat-header-cell *matHeaderCellDef>dentist</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'dentist')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'dentist')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="ehr1_administrator">
           <mat-header-cell *matHeaderCellDef>ehr1_administrator</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'ehr1_administrator')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'ehr1_administrator')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="front_desk">
           <mat-header-cell *matHeaderCellDef>front_desk</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'front_desk')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'front_desk')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="hygienist">
+        <ng-container matColumnDef="hygientist">
           <mat-header-cell *matHeaderCellDef>hygienist</mat-header-cell>
-          <mat-cell *matCellDef="let loc">
-            <mat-checkbox [checked]="true"></mat-checkbox>
+          <mat-cell *matCellDef="let rolePermission">
+            <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'hygientist')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'hygientist')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
 
@@ -52,7 +56,7 @@
       </div>
       <div class="row my-3">
         <div class="col-12">
-          <button class="btn btn-green pull-right mx-2" (click)="SaveAccessPermission()">Save</button>
+          <button class="btn btn-green pull-right mx-2" (click)="SaveAccessPermission()" *ngIf="!savingEnabled">Save</button>
         </div>
       </div>
     </div>

@@ -284,8 +284,6 @@ export class MessageDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          console.log(resp.ListResult);
-
           this.MessageSentSubject.next((resp.ListResult as Messages[])
           .map((message)=>{
             if(message.strAttachments != null && message.strAttachments != "")

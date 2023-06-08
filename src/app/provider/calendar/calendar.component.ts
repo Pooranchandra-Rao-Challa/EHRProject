@@ -251,10 +251,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     select.classList.add(...["col-4","fc-toolbar-select"])
 
 
-   // select.onselect = (value) => { console.log(value) };
-   // select.onselectionchange = (value) => { console.log(value) };
-   // select.addEventListener = (value) => { console.log(value) };
-
     select.addEventListener("change", (event) => {
       event.stopPropagation();
       this.SelectedLocationId = select.value;
@@ -330,7 +326,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   }
 
   updateLocation(event, location: UserLocations, locationIndex: number) {
-    console.log(event);
+    //console.log(event);
     this.SelectedLocationId = event.source.value.LocationId;
     this.locationCheckboxes.toArray().forEach(source => {
       source.checked = false;

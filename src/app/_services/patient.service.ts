@@ -329,7 +329,7 @@ export class PatientService extends APIEndPoint {
   }
   ChangeFooterVersion()
   {
-    return this._ProcessGetRequest<any>(this._getAdminVersionUrl);
+    return this._ProcessGetRequesWithoutHeader<any>(this._getAdminVersionUrl);
   }
 
   CCDAReport(reqparams: any) {
@@ -463,5 +463,9 @@ export class PatientService extends APIEndPoint {
 
   DeleteMedication(reqparams: any) {
     return this._ProcessPostRequest<any>(this._deleteMedicationURL, reqparams);
+  }
+
+  SyncChart(reqparams: any){
+    return this._ProcessPostRequest<any>(this._syncChartURL, reqparams);
   }
 }

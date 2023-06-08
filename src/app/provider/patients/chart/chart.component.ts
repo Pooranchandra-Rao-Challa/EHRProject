@@ -395,7 +395,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   UpdateView(data) {
-    console.log(data);
+    //console.log(data);
 
     if (data == null) return;
     if (data.UpdatedModal == PatientChart.Diagnoses) {
@@ -432,7 +432,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
-      console.log(data.UpdatedModel);
+      //console.log(data.UpdatedModel);
 
       this.MedicationsByPatientId();
     }
@@ -905,5 +905,20 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   getFormatedDate(date):string{
     return this.datepipe.transform(date,"MM/dd/yyyy");
+  }
+
+  SyncPatientChart(){
+    this.patientService.SyncChart({ProviderId:this.user.ProviderId}).subscribe(
+      {
+        next: (resp) =>{
+          if(resp.IsSuccess){
+            this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP005"]);
+          }
+        },
+        error: (error)=>{
+
+        }
+      }
+    )
   }
 }

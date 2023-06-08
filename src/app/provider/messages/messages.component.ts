@@ -267,14 +267,19 @@ export class MessagesDatasource implements DataSource<Messages>{
     this.queryParams["MessageFilter"] = filter;
   }
 
-  loadMessages(filter = '', sortField = 'Created',
-    sortDirection = 'desc', pageIndex = 0, pageSize = 10) {
+  loadMessages(filter:string = '',
+    sortField:string = 'Created',
+    sortDirection:string = 'desc',
+    pageIndex: number = 0,
+    pageSize: number = 10,
+    isDirectMessages: boolean = false) {
 
     this.queryParams["SortField"] = sortField;
     this.queryParams["SortDirection"] = sortDirection;
     this.queryParams["PageIndex"] = pageIndex;
     this.queryParams["PageSize"] = pageSize;
     this.queryParams["Filter"] = filter;
+    this.queryParams["IsDirectMessages"] = isDirectMessages;
     this.loadingSubject.next(true);
 
     this.messageService.Messages(this.queryParams).pipe(
@@ -283,8 +288,6 @@ export class MessagesDatasource implements DataSource<Messages>{
     )
       .subscribe(resp => {
         if (resp.IsSuccess) {
-          //console.log(resp.ListResult);
-
           this.MessageSentSubject.next((resp.ListResult as Messages[])
           .map((message)=>{
             if(message.strAttachments != null && message.strAttachments != "")
@@ -292,8 +295,6 @@ export class MessagesDatasource implements DataSource<Messages>{
             else  message.Attachments = [];
             return message})
           .sort((a1, b1) => !a1.Read && b1.Read ? 1 : 0));
-          //console.log(this.MessageSentSubject.getValue());
-
           this.recordsChangeService.sendData(this.MessageSentSubject.getValue()[0].MessagesCount + "");
         }
         else {

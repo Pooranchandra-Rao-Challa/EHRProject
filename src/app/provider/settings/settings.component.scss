@@ -1089,13 +1089,6 @@ img.avatar:hover {
     justify-content: center;
   }
 
-  mat-header-cell:nth-child(1) {
-    background-color: #F7F7F7;
-  }
-
-  mat-header-cell:nth-child(2) {
-    background-color: #D9534E;
-  }
 
   mat-header-cell {
     background-color: #FD8F25;
@@ -1105,15 +1098,18 @@ img.avatar:hover {
 
     mat-cell:nth-child(1),
     mat-header-cell:nth-child(1) {
-      flex: 0 0 35%;
+      flex: 0 0 20%;
       justify-content: flex-start;
       padding-left: 10px;
     }
 
     mat-cell:nth-child(2),
     mat-header-cell:nth-child(2) {
-      flex: 0 0 10%;
+      flex: 0 0 15%;
+      justify-content: flex-start;
+      padding-left: 10px;
     }
+
 
     mat-cell:nth-child(3),
     mat-header-cell:nth-child(3) {
@@ -1127,16 +1123,21 @@ img.avatar:hover {
 
     mat-cell:nth-child(5),
     mat-header-cell:nth-child(5) {
-      flex: 0 0 15%;
+      flex: 0 0 10%;
     }
 
     mat-cell:nth-child(6),
     mat-header-cell:nth-child(6) {
-      flex: 0 0 10%;
+      flex: 0 0 15%;
     }
 
     mat-cell:nth-child(7),
     mat-header-cell:nth-child(7) {
+      flex: 0 0 10%;
+    }
+
+    mat-cell:nth-child(8),
+    mat-header-cell:nth-child(8) {
       flex: 0 0 10%;
     }
   }
@@ -1160,44 +1161,3 @@ img.avatar:hover {
   overflow-x: hidden;
 }
 
-
-// ::ng-deep .color-picker {
-//   position: absolute;
-//   z-index: 100000;
-//   width: 230px;
-//   height: auto;
-//   border: #777 solid 1px;
-//   cursor: default;
-//   -webkit-user-select: none;
-//   -khtml-user-select: none;
-//   -moz-user-select: none;
-//   -ms-user-select: none;
-//   user-select: none;
-//   background-color: #fff;
-// }
-
-// ::ng-deep .color-picker .arrow.arrow-right,
-// ::ng-deep .color-picker .arrow.arrow-right-bottom,
-// ::ng-deep .color-picker .arrow.arrow-bottom-right {
-//   top: 8px;
-//   left: -20px;
-//   border-width: 5px 10px;
-//   border-color: rgba(0, 0, 0, 0) #777 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0);
-// }
-
-
-// ::ng-deep  .color-picker .arrow {
-//   position: absolute;
-//   z-index: 999999;
-//   width: 0;
-//   height: 0;
-//   border-style: solid;
-// }
-
-// ::ng-deep .color-picker * {
-//   -webkit-box-sizing: border-box;
-//   -moz-box-sizing: border-box;
-//   box-sizing: border-box;
-//   margin: 0;
-//   font-size: 11px;
-// }
