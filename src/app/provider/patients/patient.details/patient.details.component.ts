@@ -527,4 +527,27 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       }
     });
   }
+
+  // Access Permissions
+
+  get CanViewChart(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "ChartPolicy" && fn.MethodName == "main_show")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanViewProfile(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "ProfilePolicy" && fn.MethodName == "show")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
 }

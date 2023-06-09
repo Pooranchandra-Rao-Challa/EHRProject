@@ -65,7 +65,7 @@
           <a class="btn btn-green mb-2 mb-md-0" (click)="SyncPatientChart()">Sync Chart</a>
           <a class="btn btn-green mb-2 mb-md-0" data-bs-toggle="modal" data-bs-target="#ccda-alerts-modal">Check CDS Alerts</a>
           <!-- <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a> -->
-          <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">New
+          <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"  *ngIf="canView('EncounterPolicy', 'show')">New
             Encounter Note
           </a>
         </div>
@@ -77,7 +77,7 @@
       <div class="content">
         <div class="row">
           <div class="col-lg-4 col-4">
-            <div class="card" id="toDiagnoses">
+            <div class="card" id="toDiagnoses"  *ngIf="canView('DiagnosisPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -124,7 +124,7 @@
                   *ngIf="chartInfo?.Diagnoses?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toSmokingStatus">
+            <div class="card" id="toSmokingStatus" *ngIf="canView('SmokingStatusPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-12">
@@ -212,7 +212,7 @@
                   class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toPastMedicalHistory">
+            <div class="card" id="toPastMedicalHistory" *ngIf="canView('PastMedicalHistoryPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -252,7 +252,7 @@
                 </ul>
               </div>
             </div>
-            <div class="card" id="toAdvancedDirectives">
+            <div class="card" id="toAdvancedDirectives" *ngIf="canView('AdvancedDirectivePolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -291,7 +291,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-4">
-            <div class="card" id="toAllergies">
+            <div class="card" id="toAllergies" *ngIf="canView('AllergyPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -335,7 +335,7 @@
                   *ngIf="chartInfo?.Alergies?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toMedications">
+            <div class="card" id="toMedications" *ngIf="canView('MedicationPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -381,7 +381,7 @@
                   *ngIf="chartInfo?.Medications?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toImmunizations">
+            <div class="card" id="toImmunizations" *ngIf="canView('ImmunizationPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -426,7 +426,7 @@
                   *ngIf="chartInfo?.Immunizations?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toInterventions">
+            <div class="card" id="toInterventions" *ngIf="canView('InterventionPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-8">
@@ -470,7 +470,7 @@
             </div>
           </div>
           <div class="col-lg-4 col-4">
-            <div class="card" id="toEncounters">
+            <div class="card" id="toEncounters" *ngIf="canView('EncounterPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -519,7 +519,7 @@
                   *ngIf="chartInfo?.Encounters?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
-            <div class="card" id="toMessages">
+            <div class="card" id="toMessages" *ngIf="canView('EmailMessagePolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -557,7 +557,7 @@
                   *ngIf="chartInfo?.Appointments?.length > 5" class="view-more pull-right">view more</a> -->
               </div>
             </div>
-            <div class="card" id="toAppointments">
+            <div class="card" id="toAppointments" *ngIf="canView('AppointmentPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">

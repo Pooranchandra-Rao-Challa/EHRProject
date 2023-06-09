@@ -183,6 +183,19 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
       }
     })
   }
+
+  // Access Permissions
+
+  get CanViewProcedure(): boolean {
+    var permissions = this.authService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "ProcedurePolicy" && fn.MethodName == "show")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
 }
 
 
@@ -237,4 +250,5 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
       return this.proceduresSubject.getValue()[0].TotalRecords;
     return 0;
   }
+
 }

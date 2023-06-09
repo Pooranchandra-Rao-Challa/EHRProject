@@ -115,7 +115,7 @@
                 <div class="col-md-8">
                   <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2">Preview XML</button>
                   <button type="button" class="btn btn-green btn-msgsave col-md-4"
-                    (click)="openComponentDialog(ccdaPreviewDialogComponent, c_CDAParams, ActionTypes.view)">Preview Html
+                    (click)="openComponentDialog(ccdaPreviewDialogComponent, c_CDAParams, ActionTypes.view)" *ngIf="CanViewCds">Preview Html
                   </button>
                 </div>
               </div>

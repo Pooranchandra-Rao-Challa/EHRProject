@@ -49,6 +49,7 @@ import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dia
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { debug } from 'console';
 declare var $: any;
 
 @Component({
@@ -920,5 +921,17 @@ export class ChartComponent implements OnInit, AfterViewInit {
         }
       }
     )
+  }
+
+  // Access Permissions
+
+  canView(policyName: string, methodName: string): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == policyName && fn.MethodName == methodName)
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
   }
 }
