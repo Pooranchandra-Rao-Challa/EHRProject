@@ -3,7 +3,7 @@
     <div class="left-block mx-2">
       <div class="colA" id="sidebar">
         <ul class="list-unstyled menuclass border pt-1" id="myDIV">
-          <li [class]="viewModel.SubView !== 'practice' ? 'panel-heading2': 'active panel-heading2'">
+          <li [class]="viewModel.SubView !== 'practice' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanViewPractice">
             <a class="ptitle2" (click)="onChangeViewState('practice')" href="javascript:void(0)">Practice</a>
           </li>
           <li [class]="viewModel.SubView !== 'accesspermission' ? 'panel-heading2': 'active panel-heading2'">
@@ -20,7 +20,7 @@
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('clinicdecision')"
               href="javascript:void(0)">Clinical Decision Support</a>
           </li>
-          <li [class]="viewModel.SubView !== 'patientednmaterial' ? 'panel-heading2': 'active panel-heading2'">
+          <li [class]="viewModel.SubView !== 'patientednmaterial' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanViewEducationMaterial">
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('patientednmaterial')"
               href="javascript:void(0)">Patient Education
               Materials</a>

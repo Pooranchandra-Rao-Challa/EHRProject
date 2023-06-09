@@ -106,7 +106,7 @@ display: list-item;">
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-chart-tab" data-bs-toggle="pill" data-bs-target="#pills-chart" type="button"
         role="tab" aria-controls="pills-chart" [class.active]="viewModel.PatientView == 'Chart' ? true :false"
-        (click)="UpdatePatientView('Chart')">Chart</button>
+        (click)="UpdatePatientView('Chart')" *ngIf="CanViewChart">Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-dentalchart-tab" data-bs-toggle="pill" data-bs-target="#pills-dentalchart"
@@ -118,7 +118,7 @@ display: list-item;">
       <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
         type="button" role="tab" aria-controls="pills-profile"
         [class.active]="viewModel.PatientView == 'Profile' ? true :false"
-        (click)="UpdatePatientView('Profile')">Profile</button>
+        (click)="UpdatePatientView('Profile')" *ngIf="!CanViewProfile">Profile</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance"

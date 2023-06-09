@@ -13,6 +13,7 @@ import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 import { DrfirstUrlChanged } from 'src/app/_navigations/provider.layout/view.notification.service'
+import { I } from '@angular/cdk/keycodes';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -93,9 +94,9 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     })
     this.drfirstService.ProviderUrl();
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if(data.urlfor=="Provider")
+      if (data.urlfor == "Provider")
         this.drfirstProviderUrl = data.url
-        console.log(this.drfirstProviderUrl);
+      console.log(this.drfirstProviderUrl);
     });
   }
   ngAfterViewInit(): void {
@@ -119,8 +120,8 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.authenticationService.logout();
   }
 
-  public get KeyParam():string{
-    return this.user.UserId+','+this.user.ProviderId
+  public get KeyParam(): string {
+    return this.user.UserId + ',' + this.user.ProviderId
   }
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
@@ -129,7 +130,8 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
   onChangeBreadCrum(url: string, name: string, view?: string,) {
     this.authenticationService.SetViewParam("View", name)
     if (view != null) {
-      this.authenticationService.SetViewParam("SubView", view)
+      if(!this.CanViewPractice) this.authenticationService.SetViewParam("SubView", 'accesspermission')
+      else this.authenticationService.SetViewParam("SubView", view)
     }
     this.viewModel = this.authenticationService.viewModel;
 
@@ -208,13 +210,36 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  get CanViewSettings(): boolean{
+  // Access Permissions
+
+  get CanViewEmailMessage(): boolean {
+    var permissions = this.authenticationService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "EmailMessagePolicy" && fn.MethodName == "show")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanViewSettings(): boolean {
+    var permissions = this.authenticationService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "SettingPolicy" && fn.MethodName == "show")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanViewPractice(): boolean{
     var permissions = this.authenticationService.permissions();
     if(!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
     if(providerpermissions && providerpermissions.length == 1) return true;
-    var temp = permissions.filter(fn => fn.PolicyName == "SettingPolicy" && fn.MethodName == "show")
+    var temp = permissions.filter(fn => fn.PolicyName == "PracticePolicy" && fn.MethodName == "show")
     if(temp.length == 0) return false;
     return temp[0].Allowed;
   }
+
 }

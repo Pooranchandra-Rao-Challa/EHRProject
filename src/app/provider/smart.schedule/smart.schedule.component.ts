@@ -338,6 +338,19 @@ export class SmartScheduleComponent implements OnInit {
 
     });
   }
+
+    // Access Permissions
+
+    get CanViewEncounter(): boolean{
+      var permissions = this.authService.permissions();
+      if(!permissions) return false;
+      var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+      if(providerpermissions && providerpermissions.length == 1) return true;
+      var temp = permissions.filter(fn => fn.PolicyName == "EncounterPolicy" && fn.MethodName == "show")
+      if(temp.length == 0) return false;
+      return temp[0].Allowed;
+    }
+
 }
 
 
