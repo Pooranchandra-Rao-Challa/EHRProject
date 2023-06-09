@@ -297,8 +297,11 @@ export class MedicationDialogComponent implements OnInit {
     if (this.patientMedication.StopAt) {
       this.patientMedication.strStopAt = this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss a");
     }
-    this.patientMedication.PrescriptionStatus = "recorded";
-    this.patientMedication.IsElectronicPrescription = false;
+
+    if(isAdd) {
+      this.patientMedication.IsElectronicPrescription = false;
+      this.patientMedication.PrescriptionStatus = "recorded";
+    }
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({

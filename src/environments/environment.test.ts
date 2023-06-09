@@ -40,6 +40,8 @@ export enum DrFirstSSOConstants {
   Message = 'message'
 }
 
+
+
 export const RX_DRUG_URI = (term:string) => `REST/drugs.json?name=${term}`;
 
 export const RX_ALL_NDCS_URI = (rxcui:string) => `REST/rxcui/${rxcui}/allndcs.json`;
