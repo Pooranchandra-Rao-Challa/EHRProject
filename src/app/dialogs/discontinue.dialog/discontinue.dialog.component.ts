@@ -32,7 +32,7 @@ export class DiscontinueDialogComponent implements OnInit {
   }
 
   saveReason(reason) {
-    this.ref.close(reason);
+    this.ref.close({ reason: reason });
   }
 
 }

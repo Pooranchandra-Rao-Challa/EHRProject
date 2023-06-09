@@ -1,3 +1,4 @@
+import { MEDLINE_PLUS_URL,MEDLINE_PLUS_RXNORM } from 'src/environments/environment';
 import { Drug, RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
@@ -42,6 +43,7 @@ export class MedicationDialogComponent implements OnInit {
   DaysSupply: string[]
   QuntityUnit: string[]
   Route: string[]
+  Dose: string[]
   filteredRoutes: Observable<string[]>;
   filteredDoseUnits: Observable<string[]>;
   filteredActions: Observable<string[]>;
@@ -50,6 +52,7 @@ export class MedicationDialogComponent implements OnInit {
   filteredDaysSupplys: Observable<string[]>;
   filteredDoseOthers: Observable<string[]>;
   filteredDrugForm: Observable<string[]>;
+  filteredDose: Observable<string[]>;
   @ViewChild('routeInput', { static: true }) routeInput: ElementRef;
   @ViewChild('doseunitInput', { static: true }) doseunitInput: ElementRef;
   @ViewChild('actionInput', { static: true }) actionInput: ElementRef;
@@ -58,6 +61,8 @@ export class MedicationDialogComponent implements OnInit {
   @ViewChild('daysSupplyInput', { static: true }) daysSupplyInput: ElementRef;
   @ViewChild('doseotherInput', { static: true }) doseotherInput: ElementRef;
   @ViewChild('drugFormInput', { static: true }) drugFormInput: ElementRef;
+  @ViewChild('doseInput', { static: true }) doseInput: ElementRef;
+  patientDirection: string;
 
   constructor(public overlayService: OverlayService,
     private ref: EHROverlayRef,
@@ -90,7 +95,7 @@ export class MedicationDialogComponent implements OnInit {
     this.DaysSupply = GlobalConstants.DaysSupply;
     this.QuntityUnit = GlobalConstants.QuntityUnit;
     this.Route = GlobalConstants.Route;
-
+    this.Dose =  GlobalConstants.Dose;
     fromEvent(this.routeInput.nativeElement, 'keyup').pipe(
       startWith(''),
       map((val:KeyboardEvent) => {return this.routeInput.nativeElement.value })
@@ -132,6 +137,11 @@ export class MedicationDialogComponent implements OnInit {
       map((val:KeyboardEvent) => {return this.drugFormInput.nativeElement.value })
     ).subscribe(value => this._filterDrugForm(value));
 
+    fromEvent(this.doseInput.nativeElement, 'keyup').pipe(
+      startWith(''),
+      map((val:KeyboardEvent) => {return this.doseInput.nativeElement.value })
+    ).subscribe(value => this._filterDose(value));
+
 
     this.currentPatient = this.authService.viewModel.Patient;
     fromEvent(this.searchMedicationName.nativeElement, 'keyup').pipe(
@@ -155,39 +165,42 @@ export class MedicationDialogComponent implements OnInit {
     this.NDCList();
   }
 
-  _filterRoutes(route){
-    this.filteredRoutes = of(this.Route.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterRoutes(value){
+    this.filteredRoutes = of(this.Route.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
 
-  _filterDoseUnits(route){
-    this.filteredDoseUnits = of(this.DoseUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterDoseUnits(value){
+    this.filteredDoseUnits = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterActions(route){
-    this.filteredActions = of(this.Action.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterActions(value){
+    this.filteredActions = of(this.Action.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterDoseTimings(route){
-    this.filteredDoseTimings = of(this.DoseTiming.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterDoseTimings(value){
+    this.filteredDoseTimings = of(this.DoseTiming.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterQuntityUnits(route){
-    this.filteredQuntityUnits = of(this.QuntityUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterQuntityUnits(value){
+    this.filteredQuntityUnits = of(this.QuntityUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterDaysSupplies(route){
-    this.filteredDaysSupplys = of(this.DaysSupply.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterDaysSupplies(value){
+    this.filteredDaysSupplys = of(this.DaysSupply.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterDoseOthers(route){
-    this.filteredDoseOthers = of(this.DoseOther.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterDoseOthers(value){
+    this.filteredDoseOthers = of(this.DoseOther.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterDrugForm(route){
-    this.filteredDrugForm = of(this.DoseUnit.filter(option => option.toLowerCase().match(route.toLowerCase()) !== null));
+  _filterDrugForm(value){
+    this.filteredDrugForm = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
+  _filterDose(value){
+    this.filteredDose = of(this.Dose.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  }
 
   _filterMedicationNames(term) {
     this.isLoading = true;
@@ -205,6 +218,7 @@ export class MedicationDialogComponent implements OnInit {
       });
   }
 
+  updatePatientDirection(){}
   displayWithMedication(value: Drug): string {
     if (!value) return "";
     return "";
@@ -250,11 +264,20 @@ export class MedicationDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.discontinueDialogComponent) {
       reqdata = dialogData;
+    }else if(action == Actions.view && content === this.patientEducationMaterialDialogComponent){
+      reqdata = {
+        Code: this.patientMedication.Rxcui,
+        CodeSystem: "RxNorm" ,
+        PatientId: this.patientMedication.PatientId
+      };
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      this.patientMedication.ReasonDescription = res.data.ReasonDescription;
-      this.disContinueReasonUpdated = true;
+      if( res.data.reason){
+        this.patientMedication.ReasonDescription = res.data.ReasonDescription;
+        this.disContinueReasonUpdated = true;
+      }
+
     });
   }
 
@@ -335,5 +358,9 @@ export class MedicationDialogComponent implements OnInit {
           }
 
         });
+  }
+
+  get medLinePlusUrl():string{
+    return MEDLINE_PLUS_URL(this.patientMedication.Rxcui,MEDLINE_PLUS_RXNORM);
   }
 }

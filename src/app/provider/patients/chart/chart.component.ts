@@ -1,3 +1,5 @@
+import { DrfirstUrlChanged } from './../../../_navigations/provider.layout/view.notification.service';
+import { DrfirstService } from 'src/app/_services/drfirst.service';
 import { MessagesService } from './../../../_services/messages.service';
 import { Messages } from './../../../_models/_patient/messages';
 import { ViewModel } from './../../../_models/_account/user';
@@ -17,7 +19,7 @@ import {
   ChartInfo, PatientChart, Actions,
   Immunization, EncounterInfo, NewAppointment, TobaccoUseScreenings, TobaccoUseInterventions, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse, GlobalConstants,
-  PatientSearchResults, Labandimaging, PatientSearch, AlertResult, TriggerResult
+  PatientSearchResults, Labandimaging, PatientSearch, AlertResult, TriggerResult, Medication
 } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
@@ -49,7 +51,7 @@ import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dia
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { debug } from 'console';
+import { DrFirstStartUpScreens } from 'src/environments/environment';
 declare var $: any;
 
 @Component({
@@ -130,6 +132,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   patientMessages: Messages[] = [];
   customizedspinner: boolean;
   alertResult: AlertResult[] = []
+  drFirstMedicationUrl:string;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -139,7 +142,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     public datepipe: DatePipe,
     private smartSchedulerService: SmartSchedulerService,
     private settingsService: SettingsService,
-    private viewChangeService: ViewChangeService) {
+    private viewChangeService: ViewChangeService,
+    private drfirstService:DrfirstService,
+    private drfirstUrlChanged:DrfirstUrlChanged) {
     this.user = authService.userValue;
     this.viewModel = authService.viewModel;
   }
@@ -223,6 +228,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
@@ -231,6 +237,14 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.TobaccoUseByPatientId();
     this.GetProviderMessagesFromPatient();
     this.initCDSAlert();
+    this.drfirstUrlChanged.getData().subscribe((data) => {
+      console.log(data);
+
+      if(data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageMedication){
+        this.drFirstMedicationUrl=data.url
+      }
+    });
+    this.MedicationURL();
   }
 
   _filterVaccine(term) {
@@ -934,4 +948,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     if(temp.length == 0) return false;
     return temp[0].Allowed;
   }
+
+  MedicationURL(){
+    this.drfirstService.PatientUrl(DrFirstStartUpScreens.ManageMedication)
+  }
+
 }
