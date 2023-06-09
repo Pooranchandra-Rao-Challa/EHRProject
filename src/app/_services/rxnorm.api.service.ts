@@ -38,6 +38,8 @@ export class RxNormAPIService {
   }
 
   Drugs(term: string): Observable<Drug[]> {
+    console.log(this._drugUrl(term));
+
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
         let returnDrugs: Drug[] = [];

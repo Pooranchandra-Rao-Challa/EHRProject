@@ -647,7 +647,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       else this.chartInfo.Medications = [];
     });
   }
-
+  GetString(medication){return JSON.stringify(medication)}
   // Get encounters info
   EncountersByPatientId() {
     if(this.currentPatient== null)return;
@@ -950,4 +950,5 @@ export class ChartComponent implements OnInit, AfterViewInit {
   MedicationURL(){
     this.drfirstService.PatientUrl(DrFirstStartUpScreens.ManageMedication)
   }
+
 }

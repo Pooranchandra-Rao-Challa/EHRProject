@@ -40,8 +40,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   viewModel: ViewModel;
   chartSubject: BehaviorSubject<string> = new BehaviorSubject<string>('')
   loadingSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
+  loadingURLSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false)
   changedChartView$ = this.chartSubject.asObservable();
   loading$ = this.loadingSubject.asObservable();
+  loadingURLSubject$ = this.loadingSubject.asObservable();
   @ViewChild('chartview', { read: ViewContainerRef, static: true })
   private chartviewcontainerref: ViewContainerRef;
   @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
@@ -72,7 +74,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private overlayService: OverlayService,
     private utilityService: UtilityService,
-    private adminService:AdminService,
+    private adminService: AdminService,
     private alertmsg: AlertMessage,
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService,
@@ -94,8 +96,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.adminService.CommunicationSetting().subscribe(resp=>{
-      if(resp.IsSuccess){
+    this.loadingURLSubject.next(true);
+    this.adminService.CommunicationSetting().subscribe(resp => {
+      if (resp.IsSuccess) {
         this.communicationSetting = resp.Result as CommunicationSetting;
       }
     })
@@ -128,7 +131,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadProfileComponent();
         else if (viewname == 'Insurance')
           this.loadInsuranceComponent();
-          else if (viewname == 'NotificationSettings')
+        else if (viewname == 'NotificationSettings')
           this.loadNotificationSettingsComponent();
         else if (viewname == 'Amendments')
           this.loadAmendmentsComponent();
@@ -136,13 +139,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadPatientsComponent();
         else if (viewname == 'CQMs Not Performed')
           this.loadCQMsNotPerformedComponent();
-        this.loadingSubject.next(false)
       });
 
-      this.drfirstUrlChanged.getData().subscribe((data) => {
-        if(data.urlfor=="Patient" && data.purpose==DrFirstStartUpScreens.Patient)
-          this.drfirstPatientUrl = data.url
-      });
+    this.drfirstUrlChanged.getData().subscribe((data) => {
+      if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient)
+        this.drfirstPatientUrl = data.url
+        this.loadingURLSubject.next(false);
+    });
   }
 
   loadDependents() {
@@ -171,7 +174,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.chartSubject.next(patientView);
   }
 
-  get IsPatientRegisteredWithDrFirst():boolean{
+  get IsPatientRegisteredWithDrFirst(): boolean {
     return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
   }
   //#region Tab Components
@@ -184,7 +187,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(ChartComponent)
       );
-
+      this.loadingSubject.next(false);
     }
   }
 
@@ -197,6 +200,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(DentalChartComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -209,6 +213,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(ProfileComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -221,6 +226,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(InsuranceComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -233,6 +239,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(NotificationSettingsComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -245,6 +252,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(AmendmentsComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -257,6 +265,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(ResetPasswordComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
   async loadCQMsNotPerformedComponent() {
@@ -267,6 +276,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       let viewcomp = this.chartviewcontainerref.createComponent(
         this.cfr.resolveComponentFactory(CqmsNotPerformedComponent)
       );
+      this.loadingSubject.next(false);
     }
   }
 
@@ -289,9 +299,9 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadingBreadcrumb: boolean= false;
+  loadingBreadcrumb: boolean = false;
   loadBreadcurmData() {
-    this.loadingBreadcrumb= true;
+    this.loadingBreadcrumb = true;
     let paramkey = this.activatedRoute.snapshot.queryParams.paramkey;
     if (paramkey == null) {
       this.patient = this.authService.viewModel.Patient;
@@ -346,7 +356,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.patient = this.authService.viewModel.Patient;
           this.loadPatientBreadcrumbView();
           this.loadDependents();
-          this.loadingBreadcrumb= false;
+          this.loadingBreadcrumb = false;
         }
       })
   }
@@ -404,7 +414,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     // });
   }
 
-  openDrfirstUrlOrCreatePatientDrfirstAccount(){
+  openDrfirstUrlOrCreatePatientDrfirstAccount() {
 
 
   }

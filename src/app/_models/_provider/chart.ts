@@ -165,6 +165,8 @@ export class Medication {
   Status?: string;
   IsElectronicPrescription?: boolean;
   PrescriptionStatus?: string;
+  IsPrescription?: boolean;
+  MedicationRcopiaId?: string;
 
 }
 

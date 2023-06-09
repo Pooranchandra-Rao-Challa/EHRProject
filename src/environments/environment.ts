@@ -44,7 +44,7 @@ export enum DrFirstStartUpScreens{
   Message = 'message'
 }
 
-export const RX_DRUG_URI = (term: string) => `${environment.RX_END_POINT}REST/Prescribe/drugs.json?name=${term}`;
+export const RX_DRUG_URI = (term: string) => `${environment.RX_END_POINT}REST/drugs.json?name=${term}`;
 
 export const RX_ALL_NDCS_URI = (rxcui: string) => `REST/rxcui/${rxcui}/allndcs.json`;
 
