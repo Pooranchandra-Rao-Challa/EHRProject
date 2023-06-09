@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
-import { User, ResponseData, ViewModel, AdminViewModal } from '../_models';
+import { User, ResponseData, ViewModel, AdminViewModal, DrFirstAttributes } from '../_models';
 import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
@@ -314,6 +314,11 @@ export class AuthenticationService {
     this.userValue.UnReadMails = patientRelation.UnreadMessages;
     localStorage.setItem('user', JSON.stringify(this.userValue));
     return true;
+  }
+
+  UpdateDrFirstAttribues(drFirstAttributes: DrFirstAttributes){
+    this.userValue.DrFirstAttributes = drFirstAttributes;
+    localStorage.setItem('user', JSON.stringify(this.userValue));
   }
 
   UpdateTimeZone(user:User){

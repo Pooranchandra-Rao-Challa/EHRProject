@@ -7,8 +7,11 @@ import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
   styleUrls: ['./patient.education.material.dialog.component.scss']
 })
 export class PatientEducationMaterialDialogComponent implements OnInit {
+  codeData: any;
+  constructor(private ref: EHROverlayRef) {
+    this.codeData = ref.RequestData;
 
-  constructor(private ref: EHROverlayRef) { }
+  }
 
   ngOnInit(): void {
   }

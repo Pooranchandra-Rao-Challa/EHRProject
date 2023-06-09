@@ -1,6 +1,7 @@
 <div class="modal-dialog edu-material-modal" role="document">
     <div class="modal-content">
-      <div class="modal-header header-change justify-content-end">
+      <div class="modal-header">
+        <h4 class="modal-title Helvetica-sans-serif-medium">{{codeData.Code}} {{codeData.CodeSystem}}</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="cancel()">
           X
         </span>
@@ -8,14 +9,19 @@
       <div class="modal-body">
         <div class="scrollable-container" style="height: auto;">
           <div class="content">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="icon icon-ic-material-not-found"></div>
-              </div>
+            <div>
+
             </div>
-            <div class="row">
-              <div class="col-lg-12 modal-text">
-                <p class="Helvetica-sans-serif-medium">No Patient Education Material Available for this Code</p>
+            <div>
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="icon icon-ic-material-not-found"></div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 modal-text">
+                  <p class="Helvetica-sans-serif-medium">No Patient Education Material Available for this Code</p>
+                </div>
               </div>
             </div>
           </div>

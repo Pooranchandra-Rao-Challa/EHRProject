@@ -25,6 +25,7 @@ export class DrFirstAttributes {
   EprescribeFrom?: string;
   DrFirstPatientId?: number;
   RcopiaUserExternalPatientId?: string;
+  PatientId?:string;
 }
 
 export class DrFirstPatient {

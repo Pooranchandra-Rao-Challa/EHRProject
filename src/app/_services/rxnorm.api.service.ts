@@ -21,14 +21,14 @@ export class RxNormAPIService {
   }
 
   private _drugUrl(term: string): string {
-    const baseUri = environment.RX_END_POINT;
-    const drugUri = RX_DRUG_URI(term);
-    return baseUri + drugUri;
+    //const baseUri = environment.RX_END_POINT;
+    //const drugUri = RX_DRUG_URI(term);
+    return RX_DRUG_URI(term);
   }
   private _ndcsUrl(rxcui: string): string {
-    const baseUri = environment.RX_END_POINT;
-    const rxcuiUri = RX_NDCS_URI(rxcui);
-    return baseUri + rxcuiUri;
+    //const baseUri = environment.RX_END_POINT;
+    //const rxcuiUri = RX_NDCS_URI(rxcui);
+    return RX_NDCS_URI(rxcui);
   }
 
   private _ndcStatusUrl(ndc: string): string {
@@ -41,6 +41,8 @@ export class RxNormAPIService {
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
         let returnDrugs: Drug[] = [];
+        console.log(result);
+
         var drugs = result as Drugs;
         if (drugs != null &&
           drugs.drugGroup != null &&

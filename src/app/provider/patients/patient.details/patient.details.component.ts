@@ -26,6 +26,7 @@ import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/new
 import { MessageDialogInfo } from 'src/app/_models/_provider/messages';
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { CommunicationSetting } from 'src/app/_models/_admin/adminsettings';
+import { DrFirstStartUpScreens } from 'src/environments/environment';
 
 @Component({
   selector: 'app-patient.details',
@@ -139,7 +140,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       });
 
       this.drfirstUrlChanged.getData().subscribe((data) => {
-        if(data.urlfor=="Patient")
+        if(data.urlfor=="Patient" && data.purpose==DrFirstStartUpScreens.Patient)
           this.drfirstPatientUrl = data.url
       });
   }
@@ -168,8 +169,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     this.authService.SetViewParam("PatientView", patientView);
     this.viewModel = this.authService.viewModel;
     this.chartSubject.next(patientView);
-
   }
+
   get IsPatientRegisteredWithDrFirst():boolean{
     return this.viewModel.Patient == null ? false : this.viewModel.Patient.DrFirstPatientId == null ? false : true;
   }

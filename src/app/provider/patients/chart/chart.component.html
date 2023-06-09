@@ -252,7 +252,7 @@
                 </ul>
               </div>
             </div>
-            <div class="card" id="toAdvancedDirectives">
+            <div class="card" id="toAdvancedDirectives" *ngIf="CanViewAdvancedDirective">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -354,11 +354,18 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let medication of chartInfo?.Medications | slice:0:5">
                   <li>
-                    <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)">
+                    <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)"
+                    *ngIf="!medication.IsElectronicPrescription">
                       <span>
                         - {{medication?.DrugName}}
                       </span>
                     </a>
+                    <a [href]="drFirstMedicationUrl" *ngIf="!medication.IsElectronicPrescription" target="_blank">
+                      <span>
+                        - {{medication?.DrugName}}
+                      </span>
+                    </a>
+
                   </li>
                   <li style="margin-left: 20px;">
                     <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">

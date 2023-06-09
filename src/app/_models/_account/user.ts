@@ -2,6 +2,7 @@ import { DefaultMessage } from './../_admin/defaultmessage';
 import { CQMNotPerformed } from './../_provider/cqmnotperformed';
 import { WeeklyUpdated } from '../_admin/weeklyupdated';
 import { ProviderPatient } from './../_provider/Providerpatient';
+import { DrFirstAttributes } from '../_provider/practiceProviders';
 export interface User {
   CurrentLocation: string;
   UserId: string;
@@ -41,6 +42,7 @@ export interface User {
   RepresentativeActive?: boolean;
   EmergencyAccess?: boolean;
   Permissions?: string;
+  DrFirstAttributes?: DrFirstAttributes;
 }
 export class UserLocations {
   LocationId: string;
