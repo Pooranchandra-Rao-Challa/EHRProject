@@ -1,9 +1,8 @@
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { BehaviorSubject } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-import { environment, UPLOAD_URL } from './../../environments/environment';
+import {  UPLOAD_URL } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient,  HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, Subscription } from 'rxjs';
 import { Attachment } from '../_models/_provider/LabandImage';
 
@@ -12,7 +11,13 @@ import { Attachment } from '../_models/_provider/LabandImage';
 })
 export class FileUploadService {
 
-  constructor(private httpClient: HttpClient,private authService: AuthenticationService) {}
+
+  constructor(private httpClient: HttpClient,private authService: AuthenticationService) {
+    this.jwtToken = this.authService.userValue.JwtToken;
+    this.httpRequestHeaders = new HttpHeaders();
+    this.httpRequestHeaders = this.httpRequestHeaders.append("Authorization",this.jwtToken);
+
+  }
 
   fileName = '';
   uploadNotifier: BehaviorSubject<number> = new BehaviorSubject(0);
@@ -21,6 +26,7 @@ export class FileUploadService {
   uploadSub: Subscription;
   httpRequestHeaders: HttpHeaders;
   httpRequestParams: HttpParams;
+  jwtToken: string;
 
   public UploadFile(file: FormData, entityName: string, EntityId: string) {
     let fileUploadUrl = UPLOAD_URL('api/upload/UploadSingleFile')

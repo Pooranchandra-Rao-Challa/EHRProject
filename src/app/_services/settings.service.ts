@@ -199,4 +199,8 @@ export class SettingsService extends APIEndPoint {
   UpdateRolePermissions(rolePermissions){
     return this._ProcessPostRequest<any>(this._updateRolePermissionsURL,rolePermissions);
   }
+
+  DrFirstNotifications(providerId){
+    return this._ProcessGetRequestWithId<any>(this._drFirstNotificationsURL,providerId);
+  }
 }

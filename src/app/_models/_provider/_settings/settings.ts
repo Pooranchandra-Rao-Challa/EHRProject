@@ -33,7 +33,7 @@ export class NewUser {
 
   Admin?: boolean;
   EmergencyAccess?: boolean;
-  LocationInfo?: Location[] = new Location()[0] ;
+  LocationInfo?: Location[] = new Location()[0];
 }
 
 export class Location {
@@ -50,7 +50,7 @@ export class Location {
   FormatedTimeSlot?: string = "";
 }
 
-export class LocationDialog{
+export class LocationDialog {
 
   ProviderId?: string;
   LocationInfo?: Location;
@@ -60,7 +60,7 @@ export class TimeSlot {
   From: string = "";
   SpecificHour: string = "";
   To: string = "";
-  WeekDay: string ="";
+  WeekDay: string = "";
 }
 
 export interface RoomsSlot {
@@ -98,21 +98,21 @@ export interface GeneralSchedule {
 }
 
 
-export class ChangePassword{
+export class ChangePassword {
   Email?: string;
   Password?: string;
   ConfirmPassword?: string;
-  Userid?:string;
+  Userid?: string;
   Username?: string;
-  SecureQuestion?:string;
-  Answer?:string;
-  QAnswer?:string;
+  SecureQuestion?: string;
+  Answer?: string;
+  QAnswer?: string;
   SecurityCode?: string;
 }
 
-export class ChangePasswordResult{
-  Valid?:boolean;
-  HasQuestion?:boolean;
+export class ChangePasswordResult {
+  Valid?: boolean;
+  HasQuestion?: boolean;
 
 }
 
@@ -122,77 +122,91 @@ export class PatientEducationInfomation {
 
 }
 export class EducationMaterial implements IDeleteFlag {
-  EducationalId?:string
-  ClinicId?:string;
-  PatientId?:string;
+  EducationalId?: string
+  ClinicId?: string;
+  PatientId?: string;
   Code?: string;
   CodeSystem?: string;
   Name?: string;
-  ResourceNotes?:string;
+  ResourceNotes?: string;
   CanDelete?: boolean = false;
-  Attachments?: Attachment[] =[]
+  Attachments?: Attachment[] = []
   strAttachments?: string;
 }
- export class CDSAlert
- {
-  AlertId?:String
-  AlertName?:String
-  Bibliography?:String
-  Description?:String
-  Developer?:String
+export class CDSAlert {
+  AlertId?: String
+  AlertName?: String
+  Bibliography?: String
+  Description?: String
+  Developer?: String
   FundingSource?: string
   ProviderId?: String
-  ReleaseAt?:Date
-  Resolution?:string
-  Rule?:String
+  ReleaseAt?: Date
+  Resolution?: string
+  Rule?: String
   CanDelete?: boolean = false;
-  Triggers?:AlertTrigger[]
-  triggersInfo?:string;
-  strReleaseAt?:string;
+  Triggers?: AlertTrigger[]
+  triggersInfo?: string;
+  strReleaseAt?: string;
   Active?: boolean;
- }
- export class CDSCode implements IDeleteFlag
- {
-   TriggerId?:String
-   Code?:String
-   Description?:String
-   CodeSystem?:String
-   CanDelete?: boolean = false;
- }
- export class AlertTrigger {
-  TriggerId?:string;
-  AlertId?:string;
+}
+export class CDSCode implements IDeleteFlag {
+  TriggerId?: String
+  Code?: String
+  Description?: String
+  CodeSystem?: String
+  CanDelete?: boolean = false;
+}
+export class AlertTrigger {
+  TriggerId?: string;
+  AlertId?: string;
   Description?: string;
   Condition?: string;
-  Category?:string;
-  Codes?: CDSCode [] = [];
-  strCodes?:string;
+  Category?: string;
+  Codes?: CDSCode[] = [];
+  strCodes?: string;
 }
 
-export class AlertResult{
-  AlertId?:string;
+export class AlertResult {
+  AlertId?: string;
   Desription?: string;
   strTriggers?: string;
   IsMet?: boolean;
-  Triggers?: TriggerResult[] =[]
+  Triggers?: TriggerResult[] = []
 }
 
-export class TriggerResult{
-  TriggerId?:string;
-  Description?:string;
-  IsMet?:boolean;
+export class TriggerResult {
+  TriggerId?: string;
+  Description?: string;
+  IsMet?: boolean;
 }
 
-export class  RoleAccess {
-  AccessId?:string;
-  RoleName?:string;
-  Allowed?:boolean;
+export class RoleAccess {
+  AccessId?: string;
+  RoleName?: string;
+  Allowed?: boolean;
 }
 
 export class PolicyPermission {
-  Presentation? :string;
-  PolicyName? :string;
-  PolicyMethod? :string;
-  PermissoinId? :string;
-  RoleAccesses? : RoleAccess[] = []
+  Presentation?: string;
+  PolicyName?: string;
+  PolicyMethod?: string;
+  PermissoinId?: string;
+  RoleAccesses?: RoleAccess[] = []
+}
+
+
+export class DrFirstNotificationsData {
+  ProviderId?: string;
+  Error?: string;
+  Note?: string;
+  Refill?: string;
+  RequestShare?: string;
+  RxNeedDualSign?: string;
+  RxNeedDualVerify?: string;
+  RxNeedSigning?: string;
+  RxOrdersPending?: string;
+  RxPending?: string;
+  Rxchange?: string;
+  Share?: string;
 }

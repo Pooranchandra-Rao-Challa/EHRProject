@@ -35,20 +35,15 @@ export class DrfirstService {
     this.drFirstAttributes = this.user.DrFirstAttributes;
   }
 
-  initDrFirstAttribute(providerId, patientId, startup) {
-    console.log(this.drFirstAttributes);
-
-    if (!this.drFirstAttributes
-      || (patientId && this.drFirstAttributes.PatientId != patientId)) {
-      this.utilityService.DrfirstProviderParams(providerId, patientId).subscribe(resp => {
+  initDrFirstAttribute(providerId, DrFirstPatientId, startup) {
+    if (this.drFirstAttributes === undefined) {
+      this.utilityService.DrfirstProviderParams(providerId, undefined).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
-          if (this.drFirstAttributes && this.drFirstAttributes.PatientId != patientId)
-            drfirstProviderParams.PatientId = patientId;
           this.authService.UpdateDrFirstAttribues(drfirstProviderParams)
           this.user = this.authService.userValue;
           this.drFirstAttributes = this.user.DrFirstAttributes;
-          if (!patientId) {
+          if (!DrFirstPatientId) {
             this.prepareURL(startup, 'provider')
           } else {
             this.prepareURL(startup, 'patient')
@@ -56,50 +51,25 @@ export class DrfirstService {
         }
       })
     } else {
-      if (!patientId) {
+      if (!DrFirstPatientId) {
         this.prepareURL(startup, 'provider')
       } else {
+        this.drFirstAttributes.DrFirstPatientId = DrFirstPatientId;
+        this.authService.UpdateDrFirstAttribues(this.drFirstAttributes)
         this.prepareURL(startup, 'patient')
       }
     }
   }
 
   public ProviderUrl(startup: string = DrFirstStartUpScreens.Report) {
-    var urlparams: string = ""
     var providerId = this.user.ProviderId;
     this.initDrFirstAttribute(providerId, undefined, startup);
-    // if (this.drFirstAttributes.EprescribeFrom == 'drfirst') {
-    //   urlparams = DR_FIRST_PROVIDER_URL(
-    //     this.drFirstAttributes.VendorUserName,
-    //     this.drFirstAttributes.RcopiaPracticeUserName,
-    //     this.drFirstAttributes.ProviderUserName,
-    //     this.drFirstAttributes.RcopiaUserExternalId == null || this.drFirstAttributes.RcopiaUserExternalId == undefined
-    //       ? "" : this.drFirstAttributes.RcopiaUserExternalId, startup) + this.gmtTime();
-    //   var hashvalue = Md5.init(`${urlparams}${this.drFirstAttributes.VendorPassword}`).toUpperCase()
-    //   urlparams = DR_FIRST_URL(urlparams, hashvalue);
-    //   this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams), "Provider", startup);
-    // }
   }
 
   public PatientUrl(startup: string = DrFirstStartUpScreens.Patient) {
-    var urlparams: string = ""
     var providerId = this.user.ProviderId;
-    var patientId = this.authService.viewModel.Patient?.PatientId
-    this.initDrFirstAttribute(providerId, patientId, startup);
-    // if (this.drFirstAttributes.EprescribeFrom == 'drfirst') {
-    // if (this.drFirstAttributes.DrFirstPatientId) {
-    //   urlparams = DR_FIRST_PATINET_URL(
-    //     this.drFirstAttributes.VendorUserName,
-    //     this.drFirstAttributes.RcopiaPracticeUserName,
-    //     this.drFirstAttributes.ProviderUserName,
-    //     this.drFirstAttributes.RcopiaUserExternalId == null || this.drFirstAttributes.RcopiaUserExternalId == undefined
-    //       ? "" : this.drFirstAttributes.RcopiaUserExternalId,
-    //     this.drFirstAttributes.DrFirstPatientId + '',startup) + this.gmtTime();
-    //   var hashvalue = Md5.init(`${urlparams}${this.drFirstAttributes.VendorPassword}`).toUpperCase()
-    //   urlparams = DR_FIRST_URL(urlparams, hashvalue);
-    //   this.drfirstUrlChanged.sendData(DR_FIRST_SSO_URL(urlparams), "Patient", "");
-    // }
-    // }
+    var DrFirstPatientId = this.authService.viewModel.Patient?.DrFirstPatientId
+    this.initDrFirstAttribute(providerId, DrFirstPatientId, startup);
   }
 
   prepareURL(startup: string, urlFor: string) {

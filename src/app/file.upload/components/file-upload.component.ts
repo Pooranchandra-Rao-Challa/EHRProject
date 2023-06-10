@@ -16,6 +16,7 @@ import {
 } from "@angular/common/http";
 import { FileUploadQueueService } from "../service/file-upload-queue.service";
 import { IUploadProgress } from "../file-upload.type";
+import { User } from "src/app/_models/_account/user";
 
 @Component({
   selector: "file-upload",
@@ -85,6 +86,7 @@ export class FileUploadComponent implements OnInit, OnDestroy {
   @Output() onItemRemove = new EventEmitter<string>();
 
 
+  jwtToken: string;
 
   constructor(
     private HttpClient: HttpClient,
@@ -98,6 +100,10 @@ export class FileUploadComponent implements OnInit, OnDestroy {
       this.httpRequestParams =
         this.httpRequestParams || queueInput.httpRequestParams;
       this.fileAlias = this.fileAlias || queueInput.fileAlias;
+
+      this.jwtToken = (JSON.parse(localStorage.getItem('user')) as User).JwtToken;
+      this.httpRequestHeaders = new HttpHeaders();
+      this.httpRequestHeaders = this.httpRequestHeaders.append("Authorization",this.jwtToken);
     }
   }
 

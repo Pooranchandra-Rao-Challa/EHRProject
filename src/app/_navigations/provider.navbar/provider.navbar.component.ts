@@ -96,7 +96,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Provider")
         this.drfirstProviderUrl = data.url
-      console.log(this.drfirstProviderUrl);
+      //console.log(this.drfirstProviderUrl);
     });
   }
   ngAfterViewInit(): void {

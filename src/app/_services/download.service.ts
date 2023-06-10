@@ -1,8 +1,9 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
 import * as FileSaver from "file-saver";
+import { User } from "../_models/_account/user";
 
 @Injectable()
 export class DownloadService {
@@ -17,16 +18,20 @@ export class DownloadService {
     this.baseUrl + "CQMReports/DownloadQRDA3MIPSReport";
   private readonly DownloadQRDA3 =
     this.baseUrl + "CQMReports/DownloadQRDA3Report";
+  private jwtToken:string;
+  private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
-
+    this.jwtToken = (JSON.parse(localStorage.getItem('user')) as User).JwtToken;
+    this.headers = new HttpHeaders();
+    this.headers = this.headers.append("Authorization",this.jwtToken);
   }
   getdownloadQRDA3Report<T>(reqObj: any) {
     const endpointUrl = this.DownloadQRDA3Report + reqObj;
 
 
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers })
       .subscribe(
         (res) => {
 
@@ -47,7 +52,7 @@ export class DownloadService {
     const endpointUrl = this.DownloadQRDA3MIPSReport;
 
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
       .subscribe(
         (res) => {
 
@@ -65,7 +70,7 @@ export class DownloadService {
   getdownloadQRDA3<T>(reqObj: any) {
     const endpointUrl = this.DownloadQRDA3;
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
       .subscribe(
         (res) => {
 
@@ -82,10 +87,8 @@ export class DownloadService {
   }
   getdownloadQRDA1Report<T>(reqObj: any) {
     const endpointUrl = this.DownloadQRDA1Report;
-
-
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "blob" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "blob", headers : this.headers  })
       .subscribe(
         (data) => {
 
@@ -104,7 +107,7 @@ export class DownloadService {
     const endpointUrl = this.DownloadPatientReport;
 
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
       .subscribe(
         (data) => {
           const response = data.body;
@@ -123,7 +126,7 @@ export class DownloadService {
   getDownloadData<T>(url, reqObj: any) {
     const endpointUrl = this.baseUrl + url;
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
       .subscribe(
         (resp) => {
           const data = resp.body;
@@ -138,10 +141,10 @@ export class DownloadService {
       );
   }
 
-  DownloadFile<T>(reqObj: any){
+  DownloadFile<T>(reqObj: any) {
     const endpointUrl = this.baseUrl + 'DownloadImportErrors';
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "text" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
       .subscribe(
         (resp) => {
           const data = resp.body;
@@ -157,10 +160,10 @@ export class DownloadService {
   }
 
 
-  DownloadAttachment<T>(reqObj: any){
+  DownloadAttachment<T>(reqObj: any) {
     const endpointUrl = this.baseUrl + 'DownloadAttachment';
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer", headers : this.headers  })
       .subscribe(
         (resp) => {
           const blob = new Blob([resp.body], {
@@ -175,10 +178,10 @@ export class DownloadService {
   }
 
 
-  DownloadCCDAAttachment<T>(reqObj: any){
+  DownloadCCDAAttachment<T>(reqObj: any) {
     const endpointUrl = this.baseUrl + 'DownloadCCDA';
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer", headers : this.headers  })
       .subscribe(
         (resp) => {
           //console.log(resp.headers.get("content-type"));
@@ -195,10 +198,10 @@ export class DownloadService {
 
 
 
-  ViewAttachment(reqObj: any){
+  ViewAttachment(reqObj: any) {
     const endpointUrl = this.baseUrl + 'DownloadAttachment';
     this.http
-      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer" })
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer", headers : this.headers  })
       .subscribe(
         (resp) => {
           //console.log(resp.headers.get("content-type"));

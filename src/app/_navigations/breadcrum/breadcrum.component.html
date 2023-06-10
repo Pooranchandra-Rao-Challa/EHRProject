@@ -1,6 +1,6 @@
 <div class="eRX-notice-wrapper">
-  <p class="text-center mb-0">eRX Notice: You currently have <span>0</span> Transmission Errors, <span>0</span> Refill
-    Notices and <span>0</span>
+  <p class="text-center mb-0">eRX Notice: You currently have <span>{{notifications.Error}}</span> Transmission Errors, <span>{{notifications.Refill}}</span> Refill
+    Notices and <span>{{notifications.RxPending}}</span>
     Pending Prescriptions.
     <a (mouseover)="openMyMenu()" [matMenuTriggerFor]="openeRX">Open eRX</a>
     <mat-menu #openeRX="matMenu">

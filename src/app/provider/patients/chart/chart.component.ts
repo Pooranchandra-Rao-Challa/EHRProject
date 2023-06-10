@@ -238,8 +238,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.GetProviderMessagesFromPatient();
     this.initCDSAlert();
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      console.log(data);
-
       if(data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageMedication){
         this.drFirstMedicationUrl=data.url
       }

@@ -1,10 +1,12 @@
-import { User } from 'src/app/_models';
+import { SettingsService } from './../../_services/settings.service';
+import { DrFirstNotificationsData, User } from 'src/app/_models';
 import { Router } from '@angular/router';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
 import { DrfirstUrlChanged, ViewChangeService } from '../provider.layout/view.notification.service';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { DrfirstService } from 'src/app/_services/drfirst.service';
+import { DrFirstStartUpScreens } from 'src/environments/environment';
 @Component({
   selector: 'app-breadcrum',
   templateUrl: './breadcrum.component.html',
@@ -15,13 +17,15 @@ export class BreadcrumComponent implements OnInit {
   isSubscribe: boolean = false;
   currentView: string = "Smart Schedule"
   user: User;
-  drfirstProviderMessageUrl:string;
-  drfirstProviderReportUrl:string;
+  drfirstProviderMessageUrl: string;
+  drfirstProviderReportUrl: string;
+  notifications: DrFirstNotificationsData = {};
   constructor(private authenticationService: AuthenticationService,
     private router: Router,
     private drfirstService: DrfirstService,
     private viewChangeService: ViewChangeService,
-    private drfirstUrlChanged: DrfirstUrlChanged,) {
+    private drfirstUrlChanged: DrfirstUrlChanged,
+    private settingsService: SettingsService) {
     this.user = authenticationService.userValue;
     if (authenticationService.viewModel.View)
       this.currentView = authenticationService.viewModel.View;
@@ -29,16 +33,20 @@ export class BreadcrumComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.drfirstService.ProviderUrl('message');
+
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if(data.urlfor=="Provider" && data.purpose=="message")
+      if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Message)
         this.drfirstProviderMessageUrl = data.url
-    });
-    this.drfirstService.ProviderUrl('report');
-    this.drfirstUrlChanged.getData().subscribe((data) => {
-      if(data.urlfor=="Provider" && data.purpose=="report")
+      else if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Report)
         this.drfirstProviderReportUrl = data.url
     });
+    this.settingsService.DrFirstNotifications(this.user.ProviderId).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.notifications = resp.Result as DrFirstNotificationsData;
+      }
+    })
+    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Message);
+    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
   }
 
   onEmailURLs() {

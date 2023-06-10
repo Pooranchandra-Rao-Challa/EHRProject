@@ -1097,7 +1097,9 @@ export class APIEndPoint extends EndpointBase {
   get _updateRolePermissionsURL() {
     return this._baseUrl + "UpdateRolePermissions";
   }
-
+  get _drFirstNotificationsURL() {
+    return this._baseUrl + "DrFirstNotifications";
+  }
 
   constructor(public http: HttpClient) {
     super();
@@ -1113,6 +1115,14 @@ export class APIEndPoint extends EndpointBase {
     );
   }
 
+  _ProcessPostRequestWithoutHeader<T>(apiurl: string, reqdata: any): Observable<T> {
+    return this.http.post<T>(apiurl, reqdata).pipe(
+      tap((data) => {
+        return data;
+      }),
+      catchError(this._handleError)
+    );
+  }
 
   _ProcessPostRequest<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(
@@ -1165,7 +1175,9 @@ export class APIEndPoint extends EndpointBase {
       if(error.error){
         console.error("An error occurred:", error.error.message);
       }else{
-        console.error("Error in accessing application")
+        console.error("Error in accessing application");
+        if(error)
+        console.error(error);
       }
     }
 
@@ -1187,7 +1199,10 @@ export class APIEndPoint extends EndpointBase {
     // } else {
     //   console.error("serverside error", JSON.stringify(error));
     // }
-    return throwError(error.error.Message);
+    if(error.error)
+      return throwError(error.error.Message);
+    else return throwError(error);
+
   }
 
 

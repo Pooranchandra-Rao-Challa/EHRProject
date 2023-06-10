@@ -38,9 +38,8 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   ActionTypes = Actions;
   usedProcedures: MedicalCode;
   procedureColumns: string[] = ['SELECT', 'ServicedAt', 'END DATE', 'ToothNo', 'SURFACE', 'CODE', 'Description', 'PROVIDER', 'Status', 'CQM STATUS', 'Encounter'];
-  @ViewChild("procedureSearch", { static: true }) procedureSearch: ElementRef;
-  @ViewChild("procedureTree", { static: true }) procedureTree: TreeProcedureComponent;
-  //patientProceduresView = new BehaviorSubject<ProceduresInfo[]> ([]);
+  @ViewChild("treeProcedureSearch", { static: false }) treeProcedureSearch: ElementRef;
+  @ViewChild("procedureTree", { static: false }) procedureTree: TreeProcedureComponent;
   public procedureDataSource: ProcedureDatasource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -56,7 +55,9 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
 
   }
   ngAfterViewInit(): void {
-    fromEvent(this.procedureSearch.nativeElement, 'keyup').pipe(
+
+    if(this.treeProcedureSearch)
+    fromEvent(this.treeProcedureSearch.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
         return event.target.value;

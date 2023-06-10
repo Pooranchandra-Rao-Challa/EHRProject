@@ -40,7 +40,11 @@ export class DrFirstDialogComponent implements OnInit {
 
     let patientId = this.patient.PatientId;
     let providerId = this.authenticationService.userValue.ProviderId;
+    //console.log(providerId);
+    //console.log(patientId);
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
+      //console.log(resp);
+
       if (resp.IsSuccess) {
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
@@ -110,7 +114,7 @@ export class DrFirstDialogComponent implements OnInit {
     }else if(!data.MobilePhone && data.HomePhone && USAPhoneFormat(data.HomePhone).length > this.validDrFirstField.MobilePhone.length){
       messages.push("Primary phone is not valid us number")
     }
-    console.log(messages);
+    //console.log(messages);
 
     return messages;
   }
