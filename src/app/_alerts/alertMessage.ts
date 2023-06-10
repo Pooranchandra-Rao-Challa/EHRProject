@@ -656,7 +656,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2CN004':'Resend verification code is failed.',
   'E2CN005':'Notification setting is not Cleared ',
 
-  'M2PE001':'Registation patient in Dr first takes 10 min',
+  'M2PE001':'Registration patient in Dr first takes 10 min',
   'E2PE001':'Not Registered patient in Dr first.',
 
   'ECPACDA001':'Could not generate CCDA report',
