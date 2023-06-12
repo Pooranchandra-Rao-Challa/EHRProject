@@ -921,7 +921,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   SyncPatientChart(){
-    this.patientService.SyncChart({ProviderId:this.user.ProviderId}).subscribe(
+    this.patientService.SyncChart({ProviderId:this.user.ProviderId,PatientId:this.currentPatient.PatientId}).subscribe(
       {
         next: (resp) =>{
           if(resp.IsSuccess){

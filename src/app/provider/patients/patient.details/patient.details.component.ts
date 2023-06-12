@@ -44,7 +44,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   changedChartView$ = this.chartSubject.asObservable();
   loading$ = this.loadingSubject.asObservable();
   loadingURLSubject$ = this.loadingSubject.asObservable();
-  @ViewChild('chartview', { read: ViewContainerRef, static: true })
+  @ViewChild('chartview', { read: ViewContainerRef, static: false })
   private chartviewcontainerref: ViewContainerRef;
   @ViewChild('patientbreadcrumb', { read: ViewContainerRef, static: true })
   private patientbreadcrumb: ViewContainerRef;
@@ -123,28 +123,45 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((viewname) => {
         this.loadingSubject.next(true);
-        if (viewname == 'Chart')
+        if (viewname == 'Chart') {
+          this.chartviewcontainerref.clear();
           this.loadChartComponent();
-        else if (viewname == 'Dental Chart')
+        }
+        else if (viewname == 'Dental Chart') {
+          this.chartviewcontainerref.clear();
           this.loadDentalChartComponent();
-        else if (viewname == 'Profile')
+        }
+        else if (viewname == 'Profile') {
+          this.chartviewcontainerref.clear();
           this.loadProfileComponent();
-        else if (viewname == 'Insurance')
+        }
+        else if (viewname == 'Insurance') {
+          this.chartviewcontainerref.clear();
           this.loadInsuranceComponent();
-        else if (viewname == 'NotificationSettings')
+        }
+        else if (viewname == 'NotificationSettings') {
+          this.chartviewcontainerref.clear();
           this.loadNotificationSettingsComponent();
-        else if (viewname == 'Amendments')
+        }
+        else if (viewname == 'Amendments') {
+          this.chartviewcontainerref.clear();
           this.loadAmendmentsComponent();
-        else if (viewname == 'Patients')
+        }
+        else if (viewname == 'Patients') {
+          this.chartviewcontainerref.clear();
           this.loadPatientsComponent();
-        else if (viewname == 'CQMs Not Performed')
+        }
+        else if (viewname == 'CQMs Not Performed'){
+          this.chartviewcontainerref.clear();
           this.loadCQMsNotPerformedComponent();
+        }
+
       });
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient)
         this.drfirstPatientUrl = data.url
-        this.loadingURLSubject.next(false);
+      this.loadingURLSubject.next(false);
     });
   }
 
@@ -541,23 +558,23 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
   // Access Permissions
 
-  get CanViewChart(): boolean{
+  get CanViewChart(): boolean {
     var permissions = this.authService.permissions();
-    if(!permissions) return false;
+    if (!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
-    if(providerpermissions && providerpermissions.length == 1) return true;
+    if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == "ChartPolicy" && fn.MethodName == "main_show")
-    if(temp.length == 0) return false;
+    if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
 
-  get CanViewProfile(): boolean{
+  get CanViewProfile(): boolean {
     var permissions = this.authService.permissions();
-    if(!permissions) return false;
+    if (!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
-    if(providerpermissions && providerpermissions.length == 1) return true;
+    if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == "ProfilePolicy" && fn.MethodName == "show")
-    if(temp.length == 0) return false;
+    if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
 
