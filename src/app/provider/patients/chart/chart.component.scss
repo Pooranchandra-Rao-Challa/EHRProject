@@ -559,3 +559,17 @@ a.view-more:hover {
     padding: 10px;
   }
 }
+
+.prescription-icon::before{
+  content: "\211E";
+  color:#41b6a6;
+  width: 25px;
+  height: 25px;
+  font-family: "Font Awesome 6 free";
+	font-weight: 900;
+  padding-left: 30px;
+}
+
+.prescription-icon:hover{
+  color:#dd7239;
+}

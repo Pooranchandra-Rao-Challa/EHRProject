@@ -41,17 +41,28 @@ export class BreadcrumComponent implements OnInit {
         this.drfirstProviderReportUrl = data.url
     });
     this.settingsService.DrFirstNotifications(this.user.ProviderId).subscribe(resp => {
+      console.log(resp);
+
       if (resp.IsSuccess) {
-        this.notifications = resp.Result as DrFirstNotificationsData;
-      }
+        if (resp.Result != null)
+          this.notifications = resp.Result as DrFirstNotificationsData;
+        else {
+          this.notifications = {};
+          this.notifications.Error = '0';
+          this.notifications.Refill = '0';
+          this.notifications.RxPending = '0';
+        }
+      } else {
+        this.notifications = {};
+        this.notifications.Error = '0';
+        this.notifications.Refill = '0';
+        this.notifications.RxPending = '0';
+      };
     })
     this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Message);
     this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
   }
 
-  onEmailURLs() {
-    this.router.navigate(["account/emailedurls"]);
-  }
 
   onHome() {
     this.viewChangeService.sendData('Smart Schedule');

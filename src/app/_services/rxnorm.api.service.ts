@@ -5,7 +5,6 @@ import { catchError, map, take, tap } from "rxjs/operators";
 import {
   environment,
   RX_DRUG_URI,
-  RX_ALL_NDCS_URI,
   RX_NDCS_STATUS_URI,
   RX_NDCS_URI
 } from "src/environments/environment";
@@ -38,12 +37,12 @@ export class RxNormAPIService {
   }
 
   Drugs(term: string): Observable<Drug[]> {
-    //console.log(this._drugUrl(term));
+    console.log(this._drugUrl(term));
 
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
         let returnDrugs: Drug[] = [];
-        //console.log(result);
+        console.log(result);
 
         var drugs = result as Drugs;
         if (drugs != null &&
