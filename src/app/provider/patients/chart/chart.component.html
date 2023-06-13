@@ -341,6 +341,7 @@
                   <div class="col-md-8 col-6">
                     <p class="card-title">
                       Medications and Prescription
+                      <b class="pointer prescription-icon" (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, chartInfo?.Medications , ActionTypes.view)"></b>
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -366,9 +367,9 @@
                           - {{GetDisplayName(medication)}}
                         </span>
                       </a>
-                      <div class="prescription-icon">
+                      <!-- <div class="prescription-icon">
 
-                      </div>
+                      </div> -->
                     </div>
 
                   </li>

@@ -1,0 +1,91 @@
+@import"../../../assets/common.scss";
+@import"../../../assets/cstm.material.scss";
+
+.prescription-table-modal {
+  --bs-table-accent-bg: none !important;
+}
+
+.prescription-table-modal.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 900px;
+}
+
+.prescription-table-modal.modal-dialog .modal-header {
+  padding: 0px 10px !important;
+}
+
+.prescription-table-modal .modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+.prescription-table-modal .mat-row {
+  padding: 10px;
+}
+
+.prescription-table-modal .mat-row:hover {
+  background-color: #fff !important;
+
+  a {
+    color: #41b6a6 !important;
+  }
+}
+
+.prescription-table-modal .mat-header-cell {
+  padding: 0px 20px !important;
+}
+
+.prescription-table-modal .mat-table {
+  border-radius: 3px;
+  max-height: 700px !important;
+  overflow-y: auto;
+}
+
+@media (max-width: 1350px) {
+  .prescription-table-modal {
+    .scrollable-mat-table {
+      max-width: 1200px;
+      overflow-x: scroll;
+    }
+
+    .mat-table {
+      width: 1300px;
+    }
+  }
+}
+
+// .prescription-table-modal a.erx-icon {
+//   display: inline-block;
+//   background-image: url(../../../assets/images/chart-prescription-erx.svg);
+//   width: 70px;
+//   height: 20px;
+//   text-align: center;
+//   background-repeat: no-repeat;
+//   background-position: center;
+//   background-size: 17px;
+//   color: #fff;
+// }
+
+// .manual-RX {
+//   display: grid;
+//   cursor: pointer;
+// }
+
+.prescription-table-modal {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 50%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 15%;
+  }
+}

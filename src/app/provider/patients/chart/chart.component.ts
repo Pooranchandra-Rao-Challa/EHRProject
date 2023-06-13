@@ -52,6 +52,7 @@ import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DrFirstStartUpScreens } from 'src/environments/environment';
+import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
 declare var $: any;
 
 @Component({
@@ -89,6 +90,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
   medicationTableDialogComponent = MedicationTableDialogComponent;
+  eRXPrescriptionTableDialogComponent = RxPrescriptionTableDialogComponent;
   allergyDialogComponent = AllergyDialogComponent;
   allergyTableDialogComponent = AllergyTableDialogComponent;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
@@ -355,6 +357,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.medicationTableDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.eRXPrescriptionTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.interventionDialogComponent) {

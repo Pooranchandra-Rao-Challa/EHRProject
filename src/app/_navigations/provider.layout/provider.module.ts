@@ -158,8 +158,8 @@ import { DrfirstService } from 'src/app/_services/drfirst.service'
 import { Observable } from 'rxjs';
 import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/directmail.dialog.component';
 import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.dialog/directproviders.dialog.component';
-
-
+import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
+import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescription.info.dialog/rx.prescription.info.dialog.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -219,7 +219,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ResetPatientPasswordComponent,
     DrFirstDialogComponent,
     DirectmailDialogComponent,
-    DirectprovidersDialogComponent
+    DirectprovidersDialogComponent,
+    RxPrescriptionTableDialogComponent,
+    RxPrescriptionInfoDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -315,7 +317,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ResetPatientPasswordComponent,
     DrFirstDialogComponent,
     DirectmailDialogComponent,
-    DirectprovidersDialogComponent
+    DirectprovidersDialogComponent,
+    RxPrescriptionTableDialogComponent,
+    RxPrescriptionInfoDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -418,7 +422,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ResetPatientPasswordComponent,
     DrFirstDialogComponent,
     DirectmailDialogComponent,
-    DirectprovidersDialogComponent
+    DirectprovidersDialogComponent,
+    RxPrescriptionTableDialogComponent,
+    RxPrescriptionInfoDialogComponent
   ]
 })
 export class ProviderModule {
