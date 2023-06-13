@@ -20,9 +20,9 @@
         <div class="col-sm-8 side-boder">
           <label class="required mt-3">Code System</label>
           <mat-form-field appearance="outline" class="w-100"
-            [ngClass]="!patientDiagnoses.CodeSystem ? 'not-allowed' : 'auto'">
+            [ngClass]="isDisabled ? 'not-allowed' : 'auto'">
             <mat-select placeholder="Please select one" [(ngModel)]="patientDiagnoses.CodeSystem"
-              [disabled]="!patientDiagnoses.CodeSystem">
+              [disabled]="isDisabled">
               <mat-option *ngFor="let code of DxCodes" [value]="code">
                 {{code}}
               </mat-option>
@@ -31,14 +31,14 @@
           <label class="required">Code</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Code" name="Code" [(ngModel)]="patientDiagnoses.Code"
-              [disabled]="!patientDiagnoses.Code"
-              [ngStyle]="{'cursor':!patientDiagnoses.Code ? 'not-allowed' : 'auto' }" />
+              [disabled]="isDisabled"
+              [ngStyle]="{'cursor':isDisabled ? 'not-allowed' : 'auto' }" />
           </mat-form-field>
           <label class="required">Description</label>
           <mat-form-field class="w-100" appearance="outline">
             <input matInput placeholder="Description" [(ngModel)]="patientDiagnoses.Description"
-              [disabled]="!patientDiagnoses.Description"
-              [ngStyle]="{'cursor':!patientDiagnoses.Description ? 'not-allowed' : 'auto' }" />
+              [disabled]="isDisabled"
+              [ngStyle]="{'cursor':isDisabled ? 'not-allowed' : 'auto' }" />
           </mat-form-field>
           <div class="row">
             <label class="required">Start Date</label>

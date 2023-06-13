@@ -25,6 +25,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
   ActionTypes = Actions;
   minDateToFinish = new Subject<string>()
   endDateForDiagnosis: Date;
+  isDisabled: boolean = true;
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
@@ -50,7 +51,10 @@ export class AddDiagnosesDialogComponent implements OnInit {
 
   updateLocalModel(data: Diagnosis) {
     this.patientDiagnoses = {};
-    if (data == null) return;
+    if (data == null){
+      this.isDisabled = false;
+      return;
+    }
     this.patientDiagnoses = data;
   }
 
