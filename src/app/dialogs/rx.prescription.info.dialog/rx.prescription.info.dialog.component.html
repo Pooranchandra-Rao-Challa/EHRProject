@@ -1,0 +1,83 @@
+<div class="modal-dialog prescription-info-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Review Prescription</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="title-bio col-12">
+        <p class="mx-2">Leann Hancock 09/22/1982 Female 640 N Fairview Ave Burns, OR 97720-1110 Mobile (775)
+          375-7082</p>
+      </div>
+      <div class="prescription-body">
+        <p>Patient Allergies: <b class="text-danger">{{patientAllergies}}</b></p>
+        <div class="alert alert-warning" role="alert">
+          Prescription tramadol hydrochloride (bulk) 100% powder for Leann Hancock cannot be sent. Only a valid EPCS
+          prescriber can e-sign a controlled substance otherwise it must be printed signed and handed to patient (or
+          manually faxed when permitted by state regulations).
+        </div>
+        <div class="card main-info">
+          <div class="card-body">
+            <div class="row">
+            <div class="col-lg-9 col-md-7 col-12">
+              <b>tramadol hydrochloride (bulk) 100% powder <span class="text-danger">C - lV</span></b>
+              <div class="row">
+                <p class="col-md-3 col-12">Directions</p>
+                <p class="col-md-9 col-12">Place 2 (two) gram dissolved in water twice a day as directed</p>
+                <p class="col-md-3 col-12">Quantity</p>
+                <p class="col-md-9 col-12">**12** (twelve) gram</p>
+                <p class="col-md-3 col-12">Refills</p>
+                <p class="col-md-9 col-12">**none** Substitution Permitted</p>
+                <p class="col-md-3 col-12">Days Supply</p>
+                <p class="col-md-9 col-12">Three days</p>
+                <p class="col-md-3 col-12">Order #</p>
+                <p class="col-md-9 col-12">SB-26357211282</p>
+              </div>
+            </div>
+            <div class="title-bio col-lg-3 col-md-5 col-12">
+              <p>Provider</p>
+              <b>Michael Campbell, MD</b>
+              <p>9420 Key West Ave, Rockville, KS 20850</p>
+              <p>Phone: (301) 231-9510</p>
+              <p>Fax: (301) 231-9510</p>
+              <p>NPI: 1902436223</p>
+              <p>DEA: AP6157831</p>
+              <p>Pharmacy</p>
+              <b>ANS Corp Pharmacy of Modern Med |</b>
+              <p>650 Louise Drive</p>
+              <p>Warminster, PA 18974</p>
+              <p>Phone: (215) 268-7394</p>
+              <p>Fax: (215) 555-1313</p>
+              <p>NCPDPID: 5478236</p>
+            </div>
+          </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <b>Transmission History</b>
+            <ul>
+              <li><b>created</b><span>on 06/13/2023 11.46.34 AM IST by Michael Campbell.</span></li>
+            </ul>
+            <div class="form-group">
+              <label class="text-bold title-field">Comments For Office Use Only</label>
+              <textarea class="form-control col-12 mt-3 mt-md-0" placeholder="Comments"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <div class="w-100">
+        <button type="button" class="btn btn-green pull-left">
+          Save Comments
+        </button>
+        <button type="button" class="btn btn-green pull-right" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
