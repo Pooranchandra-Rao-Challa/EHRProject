@@ -46,6 +46,7 @@ export class DrFirstDialogComponent implements OnInit {
       //console.log(resp);
 
       if (resp.IsSuccess) {
+
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
           .subscribe(resp=>{

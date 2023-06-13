@@ -360,8 +360,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
               this.authService.SetViewParam('Patient', p);
               this.viewModel = this.authService.viewModel;
               this.patient = this.viewModel.Patient;
-              // When navigated from links or from patient list the call to url should be here.
-              this.drfirstService.PatientUrl();
+
+
               if (this.viewModel.PatientView == null ||
                 this.viewModel.PatientView == '')
                 this.viewModel.PatientView = 'Chart'
@@ -374,6 +374,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadPatientBreadcrumbView();
           this.loadDependents();
           this.loadingBreadcrumb = false;
+           // When navigated from links or from patient list the call to url should be here.
+          this.drfirstService.PatientUrl();
         }
       })
   }

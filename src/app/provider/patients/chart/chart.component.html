@@ -354,17 +354,23 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let medication of chartInfo?.Medications | slice:0:5">
                   <li>
-                    <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)"
-                    *ngIf="!medication.IsElectronicPrescription">
-                      <span>
-                        - {{medication?.DrugName}}
-                      </span>
-                    </a>
-                    <a [href]="drFirstMedicationUrl" *ngIf="medication.IsElectronicPrescription" target="_blank">
-                      <span>
-                        - {{medication?.DrugName}}
-                      </span>
-                    </a>
+                    <div style="display:inline-flex">
+                      <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)"
+                      *ngIf="!medication.IsElectronicPrescription">
+                        <span>
+                          - {{GetDisplayName(medication)}}
+                        </span>
+                      </a>
+                      <a [href]="drFirstMedicationUrl" *ngIf="medication.IsElectronicPrescription" target="_blank">
+                        <span>
+                          - {{GetDisplayName(medication)}}
+                        </span>
+                      </a>
+                      <div class="prescription-icon">
+
+                      </div>
+                    </div>
+
                   </li>
                   <li style="margin-left: 20px;">
                     <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">

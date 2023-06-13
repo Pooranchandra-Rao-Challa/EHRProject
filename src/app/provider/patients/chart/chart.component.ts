@@ -639,6 +639,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get medications info
   MedicationsByPatientId() {
+
     if(this.currentPatient== null)return;
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Medications = resp.ListResult;
@@ -646,6 +647,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
   GetString(medication){return JSON.stringify(medication)}
+  GetDisplayName(medication: Medication){
+     return medication.DrugName == null || medication.DrugName == "" ? medication.DisplayName : medication.DrugName;
+  }
   // Get encounters info
   EncountersByPatientId() {
     if(this.currentPatient== null)return;
