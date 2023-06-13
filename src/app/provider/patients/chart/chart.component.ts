@@ -303,6 +303,15 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.immReasonRefusedsCode = GlobalConstants.DrugReasonRefusedsCode;
   }
 
+  openPastMedicalHistory(){
+    if(this.chartInfo.PastMedicalHistories && this.chartInfo.PastMedicalHistories.length == 1){
+      this.openComponentDialog(this.pastMedicalHistoryDialogComponent, this.chartInfo.PastMedicalHistories[0], this.ActionTypes.view)
+    }
+    else{
+      this.openComponentDialog(this.pastMedicalHistoryDialogComponent, null, this.ActionTypes.add)
+    }
+  }
+
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
@@ -334,6 +343,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.pastMedicalHistoryDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.add && content === this.pastMedicalHistoryDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.cqmNotPerformedDialogComponent) {
