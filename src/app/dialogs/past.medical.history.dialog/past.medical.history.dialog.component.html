@@ -8,12 +8,12 @@
     </div>
     <div class="modal-body">
       <div class="col-md-12 mt-1">
-        <label class="required">Major Events:</label>
+        <label [ngClass]="isMajorEventValid == true ? 'required' : ''">Major Events:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
       </div>
       <div class="col-md-12 mt-1">
-        <label class="required">Ongoing Medical Problems:</label>
+        <label [ngClass]="isOngoingProblemsValid == true ? 'required' : ''">Ongoing Medical Problems:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
       </div>
@@ -22,13 +22,15 @@
           <p class="card-title title">Family Health History:</p>
         </div>
         <div class="col-md-4 col-6">
-          <div class="col-12 plusicon plus-icons pull-right mt-2" (click)="openComponentDialog(familyHealthHistoryDialogComponent, null ,ActionTypes.add)">
+          <div class="col-12 plusicon plus-icons pull-right mt-2"
+            (click)="openComponentDialog(familyHealthHistoryDialogComponent, null ,ActionTypes.add)">
             <span><i class="fa fa-plus"></i></span>
           </div>
         </div>
       </div>
       <div>
-        <ul class="familyhealth-navigation" *ngFor="let familyhealthdetails of patientPastMedicalHistory?.FamilyMedicalHistories;">
+        <ul class="familyhealth-navigation"
+          *ngFor="let familyhealthdetails of patientPastMedicalHistory?.FamilyMedicalHistories;">
           <li>
             <a (click)="openComponentDialog(familyHealthHistoryDialogComponent, familyhealthdetails, ActionTypes.view)">
               <b>{{familyhealthdetails.FirstName}} {{familyhealthdetails.LastName}}
@@ -46,14 +48,17 @@
         </ul>
       </div>
       <div class="col-md-12 mt-1">
-        <label class="required">Preventative Care:</label>
+        <label [ngClass]="isPerventiveCareValid == true ? 'required' : ''">Preventative Care:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
       </div>
       <div class="col-md-12 mt-1">
-        <label class="required">Nutrition History:</label>
+        <label [ngClass]="isNutritionHistoryValid == true ? 'required' : ''">Nutrition History:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
+      </div>
+      <div class="col-12 mt-3">
+        <b class="text-danger">Note: Atleast one field is mandatory.</b>
       </div>
     </div>
     <div class="modal-footer">

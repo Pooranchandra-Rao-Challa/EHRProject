@@ -1,6 +1,6 @@
 import { FamilyMedicalHistory, PatientChart } from './../../_models/_provider/chart';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Actions, ChartInfo, PastMedicalHistory } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -22,16 +22,24 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   chartInfo: ChartInfo = new ChartInfo;
   familyHealthHistoryDialogComponent = FamilyHealthHistoryDialogComponent;
   ActionTypes = Actions;
-
+  isMajorEventValid: boolean = true;
+  isOngoingProblemsValid: boolean = true;
+  isPerventiveCareValid: boolean = true;
+  isNutritionHistoryValid: boolean = true;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
     private patientService: PatientService,
     private alertmsg: AlertMessage,
     private overlayService: OverlayService,
-    private familyRecordNotifier: FamilyRecordNotifier) {
+    private familyRecordNotifier: FamilyRecordNotifier,
+    private cdref: ChangeDetectorRef) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
+  }
+
+  ngAfterContentChecked() {
+    this.cdref.detectChanges();
   }
 
   ngOnInit(): void {
@@ -82,8 +90,32 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   }
 
   disablePastMedicalHistory() {
-    return !(this.patientPastMedicalHistory.MajorEvents && this.patientPastMedicalHistory.OngoingProblems
-      && this.patientPastMedicalHistory.PerventiveCare && this.patientPastMedicalHistory.NutritionHistory)
+    if (this.patientPastMedicalHistory.MajorEvents) {
+      this.isMajorEventValid = true;
+      this.isOngoingProblemsValid = false;
+      this.isPerventiveCareValid = false;
+      this.isNutritionHistoryValid = false;
+    }
+    else if (this.patientPastMedicalHistory.OngoingProblems) {
+      this.isMajorEventValid = false;
+      this.isOngoingProblemsValid = true;
+      this.isPerventiveCareValid = false;
+      this.isNutritionHistoryValid = false;
+    }
+    else if (this.patientPastMedicalHistory.PerventiveCare) {
+      this.isMajorEventValid = false;
+      this.isOngoingProblemsValid = false;
+      this.isPerventiveCareValid = true;
+      this.isNutritionHistoryValid = false;
+    }
+    else if (this.patientPastMedicalHistory.NutritionHistory) {
+      this.isMajorEventValid = false;
+      this.isOngoingProblemsValid = false;
+      this.isPerventiveCareValid = false;
+      this.isNutritionHistoryValid = true;
+    }
+    return !(this.patientPastMedicalHistory.MajorEvents || this.patientPastMedicalHistory.OngoingProblems
+      || this.patientPastMedicalHistory.PerventiveCare || this.patientPastMedicalHistory.NutritionHistory)
   }
 
   // Get Past Medical Histories info
