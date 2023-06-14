@@ -8,12 +8,35 @@
     </div>
     <div class="modal-body">
       <div class="title-bio col-12">
-        <p class="mx-2">Leann Hancock 09/22/1982 Female 640 N Fairview Ave Burns, OR 97720-1110 Mobile (775)
-          375-7082</p>
+        <p class="mx-2">
+          <span style="margin-right: 10px;">{{patient?.FirstName}} {{patient?.LastName}}</span>
+          <span style="margin-right: 10px;" *ngIf="patient?.Dob">{{patient?.Dob | date: 'MM/dd/yyyy'}}</span>
+          <span style="margin-right: 10px;" *ngIf="patient?.Gender">{{patient?.Gender}}</span>
+          <span style="margin-right: 10px;" *ngIf="patient?.MobilePhone">Mobile {{patient?.MobilePhone}}</span>
+        </p>
+        <!-- Leann Hancock 09/22/1982 Female 640 N Fairview Ave Burns, OR 97720-1110 Mobile (775) 375-7082 -->
       </div>
       <div class="prescription-body">
-        <p>Patient Allergies: <b class="text-danger">{{patientAllergies}}</b></p>
-        <div class="alert alert-warning" role="alert">
+        <p>Patient Allergies: <b class="text-danger" *ngIf="patientAllergies.length == 0">
+            <span>Allergies Not Entered</span></b>
+        </p>
+        <ul class="main-list" *ngFor="let allergie of patientAllergies">
+          <li>
+            <span *ngIf="allergie?.AllergenName != null && allergie?.AllergenName !=''">
+              {{allergie?.AllergenName}}
+            </span>
+            <span *ngIf="allergie?.SeverityLevel != null && allergie?.SeverityLevel !=''">
+              , {{allergie?.SeverityLevel}}
+            </span>
+            <span *ngIf="allergie?.Reaction != null && allergie?.Reaction !=''">
+              , {{allergie?.Reaction}}
+            </span>
+            <span *ngIf="allergie?.StartAt != null && allergie?.StartAt !=''">
+              , Start: {{allergie?.StartAt | date: 'MM/dd/yyyy'}}
+            </span>
+          </li>
+        </ul>
+        <div class="alert alert-warning" role="alert" hidden>
           Prescription tramadol hydrochloride (bulk) 100% powder for Leann Hancock cannot be sent. Only a valid EPCS
           prescriber can e-sign a controlled substance otherwise it must be printed signed and handed to patient (or
           manually faxed when permitted by state regulations).
@@ -21,38 +44,45 @@
         <div class="card main-info">
           <div class="card-body">
             <div class="row">
-            <div class="col-lg-9 col-md-7 col-12">
-              <b>tramadol hydrochloride (bulk) 100% powder <span class="text-danger">C - lV</span></b>
-              <div class="row">
-                <p class="col-md-3 col-12">Directions</p>
-                <p class="col-md-9 col-12">Place 2 (two) gram dissolved in water twice a day as directed</p>
-                <p class="col-md-3 col-12">Quantity</p>
-                <p class="col-md-9 col-12">**12** (twelve) gram</p>
-                <p class="col-md-3 col-12">Refills</p>
-                <p class="col-md-9 col-12">**none** Substitution Permitted</p>
-                <p class="col-md-3 col-12">Days Supply</p>
-                <p class="col-md-9 col-12">Three days</p>
-                <p class="col-md-3 col-12">Order #</p>
-                <p class="col-md-9 col-12">SB-26357211282</p>
+              <div class="col-lg-9 col-md-7 col-12">
+                <b>tramadol hydrochloride (bulk) 100% powder <span class="text-danger">C - lV</span></b>
+                <div class="row">
+                  <p class="col-md-3 col-12">Directions</p>
+                  <p class="col-md-9 col-12">Place 2 (two) gram dissolved in water twice a day as directed</p>
+                  <p class="col-md-3 col-12">Quantity</p>
+                  <p class="col-md-9 col-12">**12** (twelve) gram</p>
+                  <p class="col-md-3 col-12">Refills</p>
+                  <p class="col-md-9 col-12">**none** Substitution Permitted</p>
+                  <p class="col-md-3 col-12">Days Supply</p>
+                  <p class="col-md-9 col-12">Three days</p>
+                  <p class="col-md-3 col-12">Order #</p>
+                  <p class="col-md-9 col-12">SB-26357211282</p>
+                </div>
+              </div>
+              <div class="left-container title-bio col-lg-3 col-md-5 col-12">
+                <div class="label">
+                  <p>Provider</p>
+                  <p><b>{{this.user.FirstName}} {{this.user.LastName}}</b></p>
+                </div>
+                <div class="info">
+                  <p>{{user.BusinessName}}</p>
+                  <p>Phone: </p>
+                  <p>Fax: </p>
+                  <p>NPI: </p>
+                  <p>DEA: </p>
+                </div>
+                <div class="label mt-2">
+                  <p>Pharmacy</p>
+                  <b>ANS Corp Pharmacy of Modern Med |</b>
+                </div>
+                <div class="info">
+                  <p>650 Louise Drive Warminster, PA 18974</p>
+                  <p>Phone: (215) 268-7394</p>
+                  <p>Fax: (215) 555-1313</p>
+                  <p>NCPDPID: 5478236</p>
+                </div>
               </div>
             </div>
-            <div class="title-bio col-lg-3 col-md-5 col-12">
-              <p>Provider</p>
-              <b>Michael Campbell, MD</b>
-              <p>9420 Key West Ave, Rockville, KS 20850</p>
-              <p>Phone: (301) 231-9510</p>
-              <p>Fax: (301) 231-9510</p>
-              <p>NPI: 1902436223</p>
-              <p>DEA: AP6157831</p>
-              <p>Pharmacy</p>
-              <b>ANS Corp Pharmacy of Modern Med |</b>
-              <p>650 Louise Drive</p>
-              <p>Warminster, PA 18974</p>
-              <p>Phone: (215) 268-7394</p>
-              <p>Fax: (215) 555-1313</p>
-              <p>NCPDPID: 5478236</p>
-            </div>
-          </div>
           </div>
         </div>
         <div class="card">

@@ -8,12 +8,12 @@
     </div>
     <div class="modal-body">
       <div class="col-md-12 mt-1">
-        <label [ngClass]="isMajorEventValid == true ? 'required' : ''">Major Events:</label>
+        <label [ngClass]="isMajorEventValid ? 'required' : ''">Major Events:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
       </div>
       <div class="col-md-12 mt-1">
-        <label [ngClass]="isOngoingProblemsValid == true ? 'required' : ''">Ongoing Medical Problems:</label>
+        <label [ngClass]="isOngoingProblemsValid ? 'required' : ''">Ongoing Medical Problems:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
       </div>
@@ -48,12 +48,12 @@
         </ul>
       </div>
       <div class="col-md-12 mt-1">
-        <label [ngClass]="isPerventiveCareValid == true ? 'required' : ''">Preventative Care:</label>
+        <label [ngClass]="isPerventiveCareValid ? 'required' : ''">Preventative Care:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
       </div>
       <div class="col-md-12 mt-1">
-        <label [ngClass]="isNutritionHistoryValid == true ? 'required' : ''">Nutrition History:</label>
+        <label [ngClass]="isNutritionHistoryValid ? 'required' : ''">Nutrition History:</label>
         <textarea class="form-control col-12 mt-3 mt-md-0"
           [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
       </div>
