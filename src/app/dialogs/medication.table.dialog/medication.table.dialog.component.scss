@@ -71,7 +71,30 @@
   cursor: pointer;
 }
 
-.medication-table-modal {
+.medications {
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 50%;
+  }
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 15%;
+  }
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 10%;
+  }
+  mat-cell:nth-child(5),
+  mat-header-cell:nth-child(5) {
+    flex: 0 0 10%;
+  }
+}
+
+.presciptions {
   mat-cell:nth-child(1),
   mat-header-cell:nth-child(1) {
     flex: 0 0 15%;
@@ -88,4 +111,17 @@
   mat-header-cell:nth-child(4) {
     flex: 0 0 15%;
   }
+}
+
+.all-medications-prescriptions{
+  color:#fff;
+}
+
+
+.all-medications-prescriptions:hover{
+  color:#fe8f00;
+}
+
+.active-tab{
+  color:#fe8f00;
 }
