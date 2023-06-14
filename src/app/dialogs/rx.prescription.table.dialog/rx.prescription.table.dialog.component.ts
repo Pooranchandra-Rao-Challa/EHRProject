@@ -14,7 +14,7 @@ import { RxPrescriptionInfoDialogComponent } from '../rx.prescription.info.dialo
   styleUrls: ['./rx.prescription.table.dialog.component.scss']
 })
 export class RxPrescriptionTableDialogComponent implements OnInit {
-  prescriptionColumns: string[] = ['DrugName', 'Status', 'PatientDirection', 'Type', 'CompletedAt'];
+  prescriptionColumns: string[] = ['DrugName', 'PatientDirection', 'Type', 'CompletedAt', 'Status'];
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   public prescriptions = new MatTableDataSource<Prescription>();
   eRxPrescriptionInfoDialogComponent = RxPrescriptionInfoDialogComponent;
@@ -27,13 +27,9 @@ export class RxPrescriptionTableDialogComponent implements OnInit {
   }
 
   updateLocalModel(data) {
-    console.log(data);
-
     this.prescriptions.data = [];
     if (data == null) return;
     this.patientService.Prescriptions(data).subscribe((resp) => {
-      console.log(resp);
-
       if(resp.IsSuccess){
         this.prescriptions.data = resp.ListResult as Prescription[];
       }else this.prescriptions.data = [];

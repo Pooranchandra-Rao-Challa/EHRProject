@@ -11,14 +11,6 @@
     <div class="modal-body">
       <div class="scrollable-mat-table">
         <mat-table [dataSource]="prescriptions" matSort>
-          <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
-            <mat-cell *matCellDef="let prescription">
-              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
-                {{prescription?.Status}}
-              </a>
-            </mat-cell>
-          </ng-container>
           <ng-container matColumnDef="DrugName">
             <mat-header-cell *matHeaderCellDef mat-sort-header="DrugName">Name</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
@@ -53,7 +45,14 @@
               </a>
             </mat-cell>
           </ng-container>
-
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{prescription?.Status}}
+              </a>
+            </mat-cell>
+          </ng-container>
           <mat-header-row *matHeaderRowDef="prescriptionColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: prescriptionColumns"></mat-row>
         </mat-table>

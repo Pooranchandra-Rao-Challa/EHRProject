@@ -14,7 +14,6 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
   user: User;
   viewModel: ViewModel;
   patient: ProviderPatient;
-  // Locations: UserLocations[];
   patientAllergies: Allergy[];
   prescription: Prescription = new Prescription();
 
@@ -25,16 +24,12 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
     this.viewModel = authService.viewModel;
     this.patient = this.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
-    // this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
-    console.log(this.user);
-
   }
 
   updateLocalModel(data) {
     this.prescription = {};
     if (data == null) return;
     else this.prescription = data;
-    console.log(this.prescription);
   }
 
   ngOnInit(): void {
@@ -50,7 +45,6 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
     this.patientService.AllergiesByPatientId({ PatientId: this.patient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.patientAllergies = resp.ListResult;
       else this.patientAllergies = [];
-      console.log(this.patientAllergies);
     });
   }
 
