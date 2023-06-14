@@ -248,10 +248,11 @@
           </mat-form-field>
         </div>
         <div class="form-group mt-4 col-md-6">
-          <button type="button" class="btn btn-orange mt-1" [disabled]="disableDiscontinue()"
+          <button type="button" class="btn btn-orange mt-1"
             (click)="openComponentDialog(discontinueDialogComponent,null,ActionTypes.add)">
             Discontinue
           </button>
+          <!-- [disabled]="disableDiscontinue()" -->
         </div>
       </div>
       <div class="row mt-2">

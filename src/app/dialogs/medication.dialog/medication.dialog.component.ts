@@ -327,9 +327,9 @@ export class MedicationDialogComponent implements OnInit {
     this.ndcList = [];
   }
 
-  disableDiscontinue(): boolean{
-    return this.patientMedication.MedicationId == undefined;
-  }
+  // disableDiscontinue(): boolean{
+  //   return this.patientMedication.MedicationId == undefined;
+  // }
 
   DeleteMedication(){
     this.patientService.DeleteMedication(
