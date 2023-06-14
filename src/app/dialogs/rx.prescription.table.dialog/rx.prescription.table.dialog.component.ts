@@ -14,7 +14,7 @@ import { RxPrescriptionInfoDialogComponent } from '../rx.prescription.info.dialo
   styleUrls: ['./rx.prescription.table.dialog.component.scss']
 })
 export class RxPrescriptionTableDialogComponent implements OnInit {
-  prescriptionColumns: string[] = ['Status', 'Name', 'Type', 'Method'];
+  prescriptionColumns: string[] = ['BrandName', 'Status', 'PatientDirection', 'Type', 'CompletedAt'];
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   public prescriptions = new MatTableDataSource<Prescription>();
   eRxPrescriptionInfoDialogComponent = RxPrescriptionInfoDialogComponent;
@@ -41,6 +41,10 @@ export class RxPrescriptionTableDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    this.prescriptions.sort = this.sort.toArray()[0];
   }
 
   cancel() {

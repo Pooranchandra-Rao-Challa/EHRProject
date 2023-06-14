@@ -1,51 +1,63 @@
+<div class="modal-dialog prescription-table-modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">
+        <span>Prescriptions</span>
+      </h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="scrollable-mat-table">
+        <mat-table [dataSource]="prescriptions" matSort>
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Status">Status</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{prescription?.Status}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="BrandName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandName">Name</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{prescription?.DrugName}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="PatientDirection">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Dose">Patient Direction</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{patientMedication?.Action}} {{patientMedication?.Dose}}
+                {{patientMedication?.DoseUnits}} {{patientMedication?.DoseRoute}} {{patientMedication?.DoseTiming}}
+                {{patientMedication?.DoseOther}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Type">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandName">Type</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{prescription?.BrandName}} {{prescription?.BrandType}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CompletedAt">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="CompletedAt">Completed Date</mat-header-cell>
+            <mat-cell *matCellDef="let prescription">
+              <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
+                {{prescription?.CompletedAt | date:'dd/MM/yyyy'}}
+              </a>
+            </mat-cell>
+          </ng-container>
 
-  <div class="modal-dialog prescription-table-modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">
-          <span>Prescriptions</span>
-        </h4>
-        <span type="button" class="cross-mark" (click)="cancel()">
-          X
-        </span>
+          <mat-header-row *matHeaderRowDef="prescriptionColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: prescriptionColumns"></mat-row>
+        </mat-table>
       </div>
-      <div class="modal-body">
-        <div class="scrollable-mat-table">
-          <mat-table [dataSource]="prescriptions" matSort>
-            <ng-container matColumnDef="Status">
-              <mat-header-cell *matHeaderCellDef mat-sort-header="StartAt">Status</mat-header-cell>
-              <mat-cell *matCellDef="let prescription">
-                <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
-                  {{prescription?.StartAt | date:'MM/dd/yyyy'}}
-                </a>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="Name">
-              <mat-header-cell *matHeaderCellDef mat-sort-header="DrugName">Name</mat-header-cell>
-              <mat-cell *matCellDef="let prescription">
-                <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
-                  {{medication?.DrugName}}
-                </a>
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="Type">
-              <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-              <mat-cell *matCellDef="let prescription">
-              </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="Method">
-              <mat-header-cell *matHeaderCellDef>Method</mat-header-cell>
-              <mat-cell *matCellDef="let prescription"></mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="prescriptionColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: prescriptionColumns"></mat-row>
-          </mat-table>
-        </div>
-      </div>
-      <!-- <div class="modal-footer">
-        <button class="btn btn-green mx-2">Add</button>
-        <button class="btn btn-green" (click)="cancel()">Cancel</button>
-      </div> -->
     </div>
   </div>
+</div>
