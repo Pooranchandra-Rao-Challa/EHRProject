@@ -63,7 +63,7 @@
           <label class="title-field">Drug Form:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #drugFormInput placeholder="Drug and Form" name="DrugForm:"
-              [(ngModel)]="patientMedication.QuantityUnits" [matAutocomplete]="drugForm" />
+              [(ngModel)]="patientMedication.DrugForm" [matAutocomplete]="drugForm" />
           </mat-form-field>
           <mat-autocomplete #drugForm="matAutocomplete">
             <mat-option *ngFor="let option of filteredDrugForm | async" [value]="option">

@@ -360,7 +360,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.eRXPrescriptionTableDialogComponent) {
-      reqdata = dialogData;
+      if(dialogData == null)
+        reqdata = {PatientId: this.currentPatient.PatientId};
+      else
+        reqdata = {PatientId: this.currentPatient.PatientId, MedicationId: dialogData.MedicationId};
     }
     else if (action == Actions.view && content === this.interventionDialogComponent) {
       reqdata = dialogData;
@@ -491,6 +494,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
+        console.log(this.chartInfo );
+
         if(this.chartInfo){
           this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
         }
