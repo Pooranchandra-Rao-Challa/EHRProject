@@ -14,7 +14,7 @@ import { NunberMaskDirective } from 'src/app/_directives/number.mask.directive'
 import { AlphaDirective } from "../_directives/alphaonly.directive";
 import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
 import { MaxValueDirective,MinValueDirective} from 'src/app/_directives/min.max.validator.directive'
-//import { InterceptorService } from "../_loader/interceptor.service";
+import { NumberToWordsPipe } from "src/app/_pipes/number.word";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
@@ -38,6 +38,7 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
     GroupByPipe,
     FilterPipe,
     SearchPipe,
+    NumberToWordsPipe,
     TeethPlacePipe,
     TimeMaskDirective,
     SimplePaginationDirective,
@@ -49,7 +50,7 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
     AttachmentPreviewComponent,
     AttachmentNopreviewComponent,
   ],
-  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,
+  declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,NumberToWordsPipe,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
     ssnValidatorDirective,NunberMaskDirective,AlphaDirective,MaxValueDirective,MinValueDirective,
     PaginatorDirective,AttachmentPreviewComponent,AttachmentNopreviewComponent,],
