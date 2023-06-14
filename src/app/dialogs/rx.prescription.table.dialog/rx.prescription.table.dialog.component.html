@@ -30,7 +30,7 @@
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandType">Type</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandName">Type</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
               <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
                 {{prescription?.BrandName}} {{prescription?.BrandType}}
