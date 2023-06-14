@@ -31,9 +31,9 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="Dose">Patient Direction</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
               <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
-                {{patientMedication?.Action}} {{patientMedication?.Dose}}
-                {{patientMedication?.DoseUnits}} {{patientMedication?.DoseRoute}} {{patientMedication?.DoseTiming}}
-                {{patientMedication?.DoseOther}}
+                {{prescription?.Action}} {{prescription?.Dose}}
+                {{prescription?.DoseUnits}} {{prescription?.DoseRoute}} {{prescription?.DoseTiming}}
+                {{prescription?.DoseOther}}
               </a>
             </mat-cell>
           </ng-container>
