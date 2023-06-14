@@ -176,6 +176,8 @@ export class InsuranceComponent implements OnInit {
   }
 
   displayPrimaryInsurancePatient(value: PatientSearch) {
+   console.log(value);
+
     return value != null ? value.Name : "";
 
   }
@@ -184,14 +186,14 @@ export class InsuranceComponent implements OnInit {
 
   }
   onPrimaryInsurancePatientSelected($event) {
-    this.primaryInsurancePatientSearch = $event.option.value;
+    Object.assign(this.primaryInsurancePatientSearch,$event.option.value);
     this.primaryInsurance.SubscriberName = this.primaryInsurancePatientSearch.Name
     this.primaryInsurance.DateOfBirth = this.datePipe.transform(this.primaryInsurancePatientSearch.Dob, "yyyy-MM-dd");
     this.primaryInsurance.Gender = this.primaryInsurancePatientSearch.Gender
   }
 
   onSecondaryInsurancePatientSelected($event) {
-    this.secondaryInsurancePatientSearch = $event.option.value;
+    Object.assign(this.secondaryInsurancePatientSearch,$event.option.value);
     this.secondaryInsurance.SubscriberName = this.secondaryInsurancePatientSearch.Name
     this.secondaryInsurance.DateOfBirth = this.datePipe.transform(this.secondaryInsurancePatientSearch.Dob, "yyyy-MM-dd");
     this.secondaryInsurance.Gender = this.secondaryInsurancePatientSearch.Gender
@@ -380,9 +382,13 @@ export class InsuranceComponent implements OnInit {
   primaryInsurancePatientSearch: PatientSearch = {};
   secondaryInsurancePatientSearch: PatientSearch = {};
   updateSearchTermInsurance(source: InsuranceDto, destination: PatientSearch) {
+    console.log(source);
+
     destination.Name = source.SubscriberName;
     destination.Dob = new Date(source.DateOfBirth);
     destination.Gender = source.Gender;
+    console.log(this.primaryInsurancePatientSearch);
+
   }
   // get patient details by id
   getInsuranceList() {
@@ -531,13 +537,12 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuranceDetails(item) {
-   // console.log(item);
-
-    return;
+    console.log(this.primaryInsurance)
     if (item == "primary") {
 
       let isAdd = this.primaryInsurance.InsuranceId == undefined;
 
+      //this.primaryInsurance.SubscriberName = this.primaryInsurancePatientSearch.Name;
       this.primaryInsurance.ProviderId = this.user.ProviderId;
       this.primaryInsurance.PatientId = this.PatientDetails.PatientId;
       this.primaryInsurance.LocationId = this.changedLocationId;

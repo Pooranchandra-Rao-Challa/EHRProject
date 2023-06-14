@@ -468,4 +468,8 @@ export class PatientService extends APIEndPoint {
   SyncChart(reqparams: any){
     return this._ProcessPostRequest<any>(this._syncChartURL, reqparams);
   }
+
+  Prescriptions(reqparams: any){
+    return this._ProcessPostRequest<any>(this._prescriptionsURL, reqparams);
+  }
 }

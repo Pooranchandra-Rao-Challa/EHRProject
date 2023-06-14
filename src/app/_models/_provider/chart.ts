@@ -138,15 +138,16 @@ export class Medication {
   PatientId?: string;
   ProviderId?: string;
   DrugName?: string;
+  DrugForm?: string;
   DisplayName?: string;
   Rxcui?: string;
   NDC?: string;
   DoesspotMedicationId?: string;
   DrugStrength?: string;
   Dose?: string;
-  DoseUnits?:string;
+  DoseUnits?: string;
   DoseOther?: string;
-  DoseRoute?:string;
+  DoseRoute?: string;
   Quantity?: number;
   QuantityUnits?: string;
   Route?: string;
@@ -167,7 +168,7 @@ export class Medication {
   PrescriptionStatus?: string;
   IsPrescription?: boolean;
   MedicationRcopiaId?: string;
-
+  HasPrescriptions?: string;
 }
 
 export class TobaccoUseScreenings {
@@ -229,6 +230,34 @@ export class Diagnosis {
   Referral?: boolean = false;
   Primary?: boolean = false;
   //IsEditable?: boolean = true;
+}
+
+export class Prescription {
+  PrescriptionId?: string;
+  PatientId?: string;
+  DrugName?: string;
+  BrandName?: string;
+  RxcuiId?: string;
+  NDCId?: string;
+  DrugStrength?: string;
+  QuantityUnits?: string;
+  Quantity?: number;
+  Refills?: Number;
+  Duration?: Number;
+  CompletedAt?: Date;
+  StopAt?: Date;
+  PatientNotes?: string;
+  Status?: string;
+  Action?: string;
+  Dose?: string;
+  DoseUnits?: string;
+  DoseRoute?: string;
+  DoseOther?: string;
+  DoseTiming?: string;
+  Route?: string;
+  BrandType?: string;
+  IsElectronicPrescription?: boolean;
+  PrescriptionRcopiaId?: string;
 }
 
 export class Intervention {

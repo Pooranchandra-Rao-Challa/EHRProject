@@ -1101,6 +1101,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DrFirstNotifications";
   }
 
+  get _prescriptionsURL() {
+    return this._baseUrl + "Prescriptions";
+  }
+
   constructor(public http: HttpClient) {
     super();
   }

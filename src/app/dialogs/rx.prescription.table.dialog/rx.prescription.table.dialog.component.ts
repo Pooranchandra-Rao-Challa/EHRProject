@@ -1,10 +1,11 @@
+import { PatientService } from './../../_services/patient.service';
 import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
-import { Actions, Medication } from 'src/app/_models';
+import { Actions, Medication, Prescription } from 'src/app/_models';
 import { RxPrescriptionInfoDialogComponent } from '../rx.prescription.info.dialog/rx.prescription.info.dialog.component';
 
 @Component({
@@ -15,26 +16,34 @@ import { RxPrescriptionInfoDialogComponent } from '../rx.prescription.info.dialo
 export class RxPrescriptionTableDialogComponent implements OnInit {
   prescriptionColumns: string[] = ['Status', 'Name', 'Type', 'Method'];
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
-  public prescriptions = new MatTableDataSource<Medication>();
+  public prescriptions = new MatTableDataSource<Prescription>();
   eRxPrescriptionInfoDialogComponent = RxPrescriptionInfoDialogComponent;
   ActionTypes = Actions;
 
   constructor(private ref: EHROverlayRef,
-    private overlayService: OverlayService) {
+    private overlayService: OverlayService,
+    private patientService:PatientService) {
     this.updateLocalModel(ref.RequestData);
   }
 
-  updateLocalModel(data: Medication) {
+  updateLocalModel(data) {
+    console.log(data);
+
     this.prescriptions.data = [];
     if (data == null) return;
-    this.prescriptions.data = data as Medication[];
-    console.log(this.prescriptions.data);
+    this.patientService.Prescriptions(data).subscribe((resp) => {
+      console.log(resp);
+
+      if(resp.IsSuccess){
+        this.prescriptions.data = resp.ListResult as Prescription[];
+      }else this.prescriptions.data = [];
+    });
   }
 
   ngOnInit(): void {
   }
 
-  cancel(){
+  cancel() {
     this.ref.close(null);
   }
 
@@ -47,7 +56,7 @@ export class RxPrescriptionTableDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       // this.UpdateView(res.data);
-      if(res.data != null){
+      if (res.data != null) {
         this.ref.close(res.data);
       }
     });
