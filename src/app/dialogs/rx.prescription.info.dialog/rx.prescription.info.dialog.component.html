@@ -59,7 +59,9 @@
                   <p class="col-md-3 col-12 p-0">Refills</p>
                   <p class="col-md-9 col-12">{{prescription?.Refills}}</p>
                   <p class="col-md-3 col-12 p-0">Days Supply</p>
-                  <p class="col-md-9 col-12">{{prescription?.Duration}} days</p>
+                  <p class="col-md-9 col-12">
+                    {{prescription?.Duration | numberToWords}} {{prescription?.Duration == 1 ? 'day' : 'days'}}
+                  </p>
                   <p class="col-md-3 col-12 p-0">Order #</p>
                   <p class="col-md-9 col-12">{{prescription?.PrescriptionRcopiaId}}</p>
                 </div>
@@ -94,7 +96,8 @@
           <div class="card-body">
             <b>Transmission History</b>
             <ul>
-              <li><b>created</b><span> on 06/13/2023 11.46.34 AM IST by Michael Campbell.</span></li>
+              <li><b>created</b><span> on 06/13/2023 11.46.34 AM IST by
+                  {{this.user.FirstName}} {{this.user.LastName}}.</span></li>
             </ul>
             <div class="form-group" hidden>
               <label class="text-bold title-field">Comments For Office Use Only</label>

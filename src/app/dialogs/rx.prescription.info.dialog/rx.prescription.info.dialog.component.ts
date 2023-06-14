@@ -15,7 +15,7 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
   viewModel: ViewModel;
   patient: ProviderPatient;
   // Locations: UserLocations[];
-  patientAllergies: Allergy[] = [];
+  patientAllergies: Allergy[];
   prescription: Prescription = new Prescription();
 
   constructor(private ref: EHROverlayRef,
