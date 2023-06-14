@@ -17,7 +17,7 @@
         <!-- Leann Hancock 09/22/1982 Female 640 N Fairview Ave Burns, OR 97720-1110 Mobile (775) 375-7082 -->
       </div>
       <div class="prescription-body">
-        <p class="mb-0">Patient Allergies: <b class="text-danger" *ngIf="patientAllergies.length == 0">
+        <p class="mb-0">Patient Allergies: <b class="text-danger" *ngIf="patientAllergies?.length == 0">
             <span>Allergies Not Entered</span></b>
         </p>
         <ul class="main-list" *ngFor="let allergie of patientAllergies">
