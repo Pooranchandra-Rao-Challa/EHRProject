@@ -19,8 +19,8 @@
               </a>
             </mat-cell>
           </ng-container>
-          <ng-container matColumnDef="BrandName">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandName">Name</mat-header-cell>
+          <ng-container matColumnDef="DrugName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="DrugName">Name</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
               <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
                 {{prescription?.DrugName}}
@@ -31,14 +31,14 @@
             <mat-header-cell *matHeaderCellDef mat-sort-header="Dose">Patient Direction</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
               <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
-                {{patientMedication?.Action}} {{patientMedication?.Dose}}
-                {{patientMedication?.DoseUnits}} {{patientMedication?.DoseRoute}} {{patientMedication?.DoseTiming}}
-                {{patientMedication?.DoseOther}}
+                {{prescription?.Action}} {{prescription?.Dose}}
+                {{prescription?.DoseUnits}} {{prescription?.DoseRoute}} {{prescription?.DoseTiming}}
+                {{prescription?.DoseOther}}
               </a>
             </mat-cell>
           </ng-container>
           <ng-container matColumnDef="Type">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandName">Type</mat-header-cell>
+            <mat-header-cell *matHeaderCellDef mat-sort-header="BrandType">Type</mat-header-cell>
             <mat-cell *matCellDef="let prescription">
               <a (click)="openComponentDialog(eRxPrescriptionInfoDialogComponent, prescription, ActionTypes.view)">
                 {{prescription?.BrandName}} {{prescription?.BrandType}}

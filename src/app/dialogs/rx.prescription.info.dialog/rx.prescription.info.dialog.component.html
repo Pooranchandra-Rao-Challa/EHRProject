@@ -17,7 +17,7 @@
         <!-- Leann Hancock 09/22/1982 Female 640 N Fairview Ave Burns, OR 97720-1110 Mobile (775) 375-7082 -->
       </div>
       <div class="prescription-body">
-        <p>Patient Allergies: <b class="text-danger" *ngIf="patientAllergies.length == 0">
+        <p class="mb-0">Patient Allergies: <b class="text-danger" *ngIf="patientAllergies.length == 0">
             <span>Allergies Not Entered</span></b>
         </p>
         <ul class="main-list" *ngFor="let allergie of patientAllergies">
@@ -45,18 +45,23 @@
           <div class="card-body">
             <div class="row">
               <div class="col-lg-9 col-md-7 col-12">
-                <b>tramadol hydrochloride (bulk) 100% powder <span class="text-danger">C - lV</span></b>
+                <p><b>{{prescription?.DrugName}}</b></p>
                 <div class="row">
-                  <p class="col-md-3 col-12">Directions</p>
-                  <p class="col-md-9 col-12">Place 2 (two) gram dissolved in water twice a day as directed</p>
-                  <p class="col-md-3 col-12">Quantity</p>
-                  <p class="col-md-9 col-12">**12** (twelve) gram</p>
-                  <p class="col-md-3 col-12">Refills</p>
-                  <p class="col-md-9 col-12">**none** Substitution Permitted</p>
-                  <p class="col-md-3 col-12">Days Supply</p>
-                  <p class="col-md-9 col-12">Three days</p>
-                  <p class="col-md-3 col-12">Order #</p>
-                  <p class="col-md-9 col-12">SB-26357211282</p>
+                  <p class="col-md-3 col-12 p-0">Directions</p>
+                  <p class="col-md-9 col-12">
+                    {{prescription?.Action}} {{prescription?.Dose}}
+                    {{prescription?.DoseUnits}} {{prescription?.DoseRoute}} {{prescription?.DoseTiming}}
+                    {{prescription?.DoseOther}}
+                  </p>
+                  <p class="col-md-3 col-12 p-0">Quantity</p>
+                  <!-- <p class="col-md-9 col-12">**12** (twelve) gram</p> -->
+                  <p class="col-md-9 col-12">{{prescription?.Quantity}} {{prescription?.QuantityUnits}}</p>
+                  <p class="col-md-3 col-12 p-0">Refills</p>
+                  <p class="col-md-9 col-12">{{prescription?.Refills}}</p>
+                  <p class="col-md-3 col-12 p-0">Days Supply</p>
+                  <p class="col-md-9 col-12">{{prescription?.Duration}} days</p>
+                  <p class="col-md-3 col-12 p-0">Order #</p>
+                  <p class="col-md-9 col-12">{{prescription?.PrescriptionRcopiaId}}</p>
                 </div>
               </div>
               <div class="left-container title-bio col-lg-3 col-md-5 col-12">
@@ -71,11 +76,11 @@
                   <p>NPI: </p>
                   <p>DEA: </p>
                 </div>
-                <div class="label mt-2">
+                <div class="label mt-2" hidden>
                   <p>Pharmacy</p>
                   <b>ANS Corp Pharmacy of Modern Med |</b>
                 </div>
-                <div class="info">
+                <div class="info" hidden>
                   <p>650 Louise Drive Warminster, PA 18974</p>
                   <p>Phone: (215) 268-7394</p>
                   <p>Fax: (215) 555-1313</p>
@@ -89,9 +94,9 @@
           <div class="card-body">
             <b>Transmission History</b>
             <ul>
-              <li><b>created</b><span>on 06/13/2023 11.46.34 AM IST by Michael Campbell.</span></li>
+              <li><b>created</b><span> on 06/13/2023 11.46.34 AM IST by Michael Campbell.</span></li>
             </ul>
-            <div class="form-group">
+            <div class="form-group" hidden>
               <label class="text-bold title-field">Comments For Office Use Only</label>
               <textarea class="form-control col-12 mt-3 mt-md-0" placeholder="Comments"></textarea>
             </div>
@@ -101,7 +106,7 @@
     </div>
     <div class="modal-footer">
       <div class="w-100">
-        <button type="button" class="btn btn-green pull-left">
+        <button type="button" class="btn btn-green pull-left" hidden>
           Save Comments
         </button>
         <button type="button" class="btn btn-green pull-right" (click)="cancel()">
