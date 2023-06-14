@@ -14,7 +14,7 @@ import { RxPrescriptionInfoDialogComponent } from '../rx.prescription.info.dialo
   styleUrls: ['./rx.prescription.table.dialog.component.scss']
 })
 export class RxPrescriptionTableDialogComponent implements OnInit {
-  prescriptionColumns: string[] = ['BrandName', 'Status', 'PatientDirection', 'Type', 'CompletedAt'];
+  prescriptionColumns: string[] = ['DrugName', 'Status', 'PatientDirection', 'Type', 'CompletedAt'];
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   public prescriptions = new MatTableDataSource<Prescription>();
   eRxPrescriptionInfoDialogComponent = RxPrescriptionInfoDialogComponent;

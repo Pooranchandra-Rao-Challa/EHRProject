@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Allergy, User, UserLocations, ViewModel } from 'src/app/_models';
+import { Allergy, Prescription, User, UserLocations, ViewModel } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -16,6 +16,7 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
   patient: ProviderPatient;
   // Locations: UserLocations[];
   patientAllergies: Allergy[] = [];
+  prescription: Prescription = new Prescription();
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -23,9 +24,17 @@ export class RxPrescriptionInfoDialogComponent implements OnInit {
     this.user = authService.userValue;
     this.viewModel = authService.viewModel;
     this.patient = this.viewModel.Patient;
+    this.updateLocalModel(ref.RequestData);
     // this.Locations = JSON.parse(this.authService.userValue.LocationInfo);
     console.log(this.user);
 
+  }
+
+  updateLocalModel(data) {
+    this.prescription = {};
+    if (data == null) return;
+    else this.prescription = data;
+    console.log(this.prescription);
   }
 
   ngOnInit(): void {
