@@ -59,7 +59,6 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     this.familyMedicalHistory = {Diagnoses:[]};
     if (data == null) return;
     this.familyMedicalHistory = data;
-    console.log(this.familyMedicalHistory);
 
   }
 

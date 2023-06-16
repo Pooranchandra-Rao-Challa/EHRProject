@@ -20,6 +20,7 @@ export class EhrInterceptor implements HttpInterceptor {
     const isLoggedIn = this.authenticationService.isLoggedIn();
 
     if (isLoggedIn && isApiUrl) {
+      //this.authenticationService.refreshToken();
       const req = request.clone({
         headers: request.headers.set(TOKEN_HEADER_KEY, currentUser.JwtToken)
       });
@@ -30,9 +31,7 @@ export class EhrInterceptor implements HttpInterceptor {
 
   };
 
-  private refreshAccessToken(): Observable<any> {
-    return of(this.authenticationService.refreshToken());
-  }
+
 
   private addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
     // If we do not have a token yet then we should not set the header.

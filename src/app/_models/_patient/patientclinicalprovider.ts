@@ -84,6 +84,7 @@ export interface MedicationsAllergies {
   SeverityLevel?: string
   OnSetAt?: string
   StartAt?: string
+  dtStartAt?: Date;
   EndAt?: string
   Note?: string
   Reaction?:string

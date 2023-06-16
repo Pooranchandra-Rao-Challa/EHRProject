@@ -41,8 +41,6 @@ export class BreadcrumComponent implements OnInit {
         this.drfirstProviderReportUrl = data.url
     });
     this.settingsService.DrFirstNotifications(this.user.ProviderId).subscribe(resp => {
-      console.log(resp);
-
       if (resp.IsSuccess) {
         if (resp.Result != null)
           this.notifications = resp.Result as DrFirstNotificationsData;

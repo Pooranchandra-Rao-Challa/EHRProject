@@ -32,7 +32,9 @@ export class DrfirstService {
     private drfirstUrlChanged: DrfirstUrlChanged,
   ) {
     this.user = this.authService.userValue;
-    this.drFirstAttributes = this.user.DrFirstAttributes;
+    this.drFirstAttributes = this.authService.GetDrFirstAttributes();
+    console.log(this.user);
+
   }
 
   initDrFirstAttribute(providerId, DrFirstPatientId, startup) {
@@ -40,9 +42,9 @@ export class DrfirstService {
       this.utilityService.DrfirstProviderParams(providerId, undefined).subscribe(resp => {
         if (resp.IsSuccess) {
           var drfirstProviderParams = resp.Result as DrFirstAttributes;
-          this.authService.UpdateDrFirstAttribues(drfirstProviderParams)
+          this.authService.SetDrFirstAttributes(drfirstProviderParams)
           this.user = this.authService.userValue;
-          this.drFirstAttributes = this.user.DrFirstAttributes;
+          this.drFirstAttributes =  this.authService.GetDrFirstAttributes();
           if (!DrFirstPatientId) {
             this.prepareURL(startup, 'provider')
           } else {
@@ -55,7 +57,7 @@ export class DrfirstService {
         this.prepareURL(startup, 'provider')
       } else {
         this.drFirstAttributes.DrFirstPatientId = DrFirstPatientId;
-        this.authService.UpdateDrFirstAttribues(this.drFirstAttributes)
+        //this.authService.UpdateDrFirstAttribues(this.drFirstAttributes)
         this.prepareURL(startup, 'patient')
       }
     }

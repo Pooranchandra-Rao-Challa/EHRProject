@@ -168,7 +168,6 @@ export class AmendmentsComponent implements OnInit {
   }
 
   ItemRemoved($event) {
-    //console.log($event);
   }
 
   get Attachments(): Attachment[]{

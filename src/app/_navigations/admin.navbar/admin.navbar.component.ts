@@ -12,6 +12,7 @@ export class AdminNavbarComponent implements OnInit {
   user:User
 
   constructor(private authenticationService: AuthenticationService) {
+    authenticationService.startRefreshTokenTimer();
     this.user = this.authenticationService.userValue;
   }
 

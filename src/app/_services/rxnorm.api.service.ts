@@ -1,4 +1,5 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { StringMapWithRename } from "@angular/compiler/src/compiler_facade_interface";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable, of, pipe, throwError } from "rxjs";
 import { catchError, map, take, tap } from "rxjs/operators";
@@ -6,7 +7,8 @@ import {
   environment,
   RX_DRUG_URI,
   RX_NDCS_STATUS_URI,
-  RX_NDCS_URI
+  RX_NDCS_URI,
+  RX_URI_NDC_PROPERTIES
 } from "src/environments/environment";
 
 
@@ -36,14 +38,13 @@ export class RxNormAPIService {
     return baseUri + ndcStatusUri;
   }
 
+  private _ndcPropertiesUrl(ndc:string):string{
+    return RX_URI_NDC_PROPERTIES(ndc);
+  }
   Drugs(term: string): Observable<Drug[]> {
-    console.log(this._drugUrl(term));
-
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
         let returnDrugs: Drug[] = [];
-        console.log(result);
-
         var drugs = result as Drugs;
         if (drugs != null &&
           drugs.drugGroup != null &&
@@ -55,7 +56,8 @@ export class RxNormAPIService {
               value.conceptProperties.forEach((props) => {
                 returnDrugs.push(
                   {
-                    Name: props.name,
+                    Name: props.synonym ? props.synonym : props.name,
+                    Synonym: props.synonym,
                     rxcui: props.rxcui
                   }
                 )
@@ -126,6 +128,37 @@ export class RxNormAPIService {
 
     );
   }
+
+  // ndcProperties(ndc:string):Observable<string[]>{
+
+  //   return this.http.get<Drug[]>(this._ndcPropertiesUrl(ndc)).pipe(
+  //     map((result) => {
+  //       let returnDrugs: Drug[] = [];
+  //       var drugs = result as Drugs;
+  //       if (drugs != null &&
+  //         drugs.drugGroup != null &&
+  //         drugs.drugGroup.conceptGroup != null &&
+  //         drugs.drugGroup.conceptGroup.length > 0) {
+  //         drugs.drugGroup.conceptGroup.forEach((value) => {
+  //           if (value != null && value.conceptProperties != null
+  //             && value.conceptProperties.length > 0) {
+  //             value.conceptProperties.forEach((props) => {
+  //               returnDrugs.push(
+  //                 {
+  //                   Name: props.name,
+  //                   Synonym: props.synonym,
+  //                   rxcui: props.rxcui
+  //                 }
+  //               )
+  //             })
+  //           }
+  //         })
+  //       }
+  //       return returnDrugs;
+  //     }),
+  //     catchError(this._handleError)
+  //   );
+  // }
   //Handel Errorss
   private _handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -140,6 +173,7 @@ export class RxNormAPIService {
 
 export interface Drug {
   Name: string;
+  Synonym:string;
   rxcui: string;
 }
 

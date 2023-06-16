@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { PatientService } from './../_services/patient.service'
 import { Component, OnInit } from '@angular/core'
 import { User, UserLocations } from '../_models'
@@ -32,7 +33,9 @@ export class MyhealthComponent implements OnInit {
   ProcedurePatietn: ProblemDX[];
   CarePlan: ProblemDX[];
 
-  constructor(private authenticationService: AuthenticationService, private patientservise: PatientService,) {
+  constructor(private authenticationService: AuthenticationService,
+    private patientservise: PatientService,
+    private datePipe: DatePipe) {
     this.user = authenticationService.userValue
     this.locationsInfo = JSON.parse(this.user.LocationInfo)
   }
@@ -85,80 +88,69 @@ export class MyhealthComponent implements OnInit {
     var req = {
       "ClinicId": this.user.ClinicId,
     }
-    this.patientservise.PatientProviders(req).subscribe(req => {
-      this.Providerdata = req.ListResult;
+    this.patientservise.PatientProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) this.Providerdata = resp.ListResult;
+      else this.CarePlan = []
     })
   }
 
   getCareTeamByPatientId() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.CareTeamByPatientId(reqparam).subscribe(resp => {
-      this.CareTeamList = resp.ListResult;
+    this.patientservise.CareTeamByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.CareTeamList = resp.ListResult;
+      else this.CareTeamList = []
     });
   }
 
   getProblemDx() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.ProblemDx(reqparam).subscribe(resp => {
-      this.ProblemDxData = resp.ListResult;
+    this.patientservise.ProblemDx({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.ProblemDxData = resp.ListResult;
+      else this.ProblemDxData = []
     });
   }
 
   getMedicationsByPatientId() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.MedicationsByPatientId(reqparam).subscribe(resp => {
-      this.Medications = resp.ListResult;
+    this.patientservise.MedicationsByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.Medications = resp.ListResult;
+      else this.Medications = []
     });
   }
 
   getAllMedicationAlleries() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.AllergiesByPatientId(reqparam).subscribe(resp => {
-      this.AllAlergies = resp.ListResult;
+    this.patientservise.AllergiesByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.AllAlergies = resp.ListResult as MedicationsAllergies[];
+      }
+
+      else this.AllAlergies = []
     });
   }
 
   getLabTest() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.LabTestResultByPatientId(reqparam).subscribe(resp => {
-      this.LabTest = resp.ListResult;
+    this.patientservise.LabTestResultByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.LabTest = resp.ListResult as LabtestResult[];
+      else this.LabTest = []
     })
   }
 
   getVitalStatus() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.VitalStatsByPatientId(reqparam).subscribe(resp => {
-      this.VitalStatus = resp.ListResult;
+    this.patientservise.VitalStatsByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.VitalStatus = resp.ListResult as VitalStats[];
+      else this.VitalStatus = []
+
     });
   }
 
   getCarePlanInstruction() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.CarePlanGoalInstructionsBypatientId(reqparam).subscribe(resp => {
-      this.CarePlan = resp.ListResult;
+    this.patientservise.CarePlanGoalInstructionsBypatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.CarePlan = resp.ListResult;
+      else this.CarePlan = []
     });
   }
 
   getProcedurePatient() {
-    let reqparam = {
-      'PatientId': this.user.PatientId,
-    }
-    this.patientservise.ProcedureByPatientId(reqparam).subscribe(resp => {
-      this.ProcedurePatietn = resp.ListResult;
+    this.patientservise.ProcedureByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+      if (resp.IsSuccess) this.ProcedurePatietn = resp.ListResult;
+      else this.CarePlan = []
     });
   }
 }

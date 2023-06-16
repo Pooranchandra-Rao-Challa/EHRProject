@@ -111,7 +111,6 @@ export class ClinicDecisionComponent implements OnInit {
         let alt = response.ListResult as CDSAlert[];
         this.clinicalDecisionSupportList = alt;
         alt.forEach(a => this.flag = a.Active || this.flag)
-       // console.log(alt);
         if(!this.flag)
         this.show = this.flag;
       }
@@ -119,12 +118,10 @@ export class ClinicDecisionComponent implements OnInit {
   }
 
   onAlertOpened(alert: CDSAlert){
-    //console.log(alert);
     if(!alert.Triggers){
       this.settingservice.CDSAlertTrigger({alertId:alert.AlertId}).subscribe(response => {
         if (response.IsSuccess) {
           let triggers = response.ListResult as AlertTrigger[];
-         // console.log(response.ListResult);
 
           triggers.forEach((value) => {
             value.Codes = JSON.parse(value.strCodes)
@@ -199,7 +196,7 @@ export class ClinicDecisionComponent implements OnInit {
 
   removeTriggerCode(value: CDSCode, index: number) {
     var deleteIndex = this.alertTrigger.Codes.indexOf(value);
-  //  console.log(deleteIndex);
+
     this.alertTrigger.Codes.splice(deleteIndex,1);
     this.codesBehaviour.next(this.alertTrigger.Codes);
   }

@@ -36,6 +36,7 @@ export class PatientNavbarComponent implements OnInit,AfterViewInit {
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
     private notifyMessage: NotifyMessageService,) {
+    authenticationService.startRefreshTokenTimer();
     this.user = authenticationService.userValue;
     this.unreadMails = this.user.UnReadMails;
     this.urgentMails = this.user.UrgentMessages;

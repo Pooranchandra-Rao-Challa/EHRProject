@@ -11,7 +11,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { fromEvent, Observable, of } from 'rxjs';
 import { Actions, User } from 'src/app/_models';
-import { ProviderPatient } from 'src/app/_models/_provider/ProviderPatient';
+import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
@@ -222,7 +222,7 @@ export class ProfileComponent implements OnInit {
         this.patientMyProfile = resp.ListResult[0];
 
 
-      } //else console.log(resp);
+      }
 
     });
   }
@@ -377,7 +377,7 @@ export class ProfileComponent implements OnInit {
     this.ageCalculator();
     this.patientMyProfile.strDateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
     this.patientMyProfile.strDateOfDeath = this.datepipe.transform(this.patientMyProfile.DateOfDeath, "MM/dd/yyyy hh:mm:ss a");
-    //console.log(this.patientMyProfile);
+
 
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {

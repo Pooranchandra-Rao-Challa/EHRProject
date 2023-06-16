@@ -1331,7 +1331,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
 
       this.getDetailsTabData = mainData;
       this.getDetailsTabData1 = childData;
-      //console.log(this.getDetailsTabData);
+
     });
   }
 
@@ -1391,12 +1391,12 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
 
     this.measureIdentifiers = this.selectedQueuedReport.MeasuresList.split(",");
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
-      //console.log(data.ListResult)
+
       this.getDashBoardreport = data.ListResult;
       let reportGroups: QueueReportInfo[] = data.ListResult as QueueReportInfo[];
 
       this.reportMeasureGroups = groupBy(reportGroups, reportGroups => reportGroups.MeasureIdentifier);
-      //console.log(this.reportMeasureGroups);
+
 
     });
   }
@@ -1581,7 +1581,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
     this.accountservice.getCQMReportsDashboard(req).subscribe((data) => {
       if (data.IsSuccess) {
         this.getPatientListTabData = data.ListResult;
-        //console.log(this.getPatientListTabData);
+
 
         this.patientlistfilter = this.getPatientListTabData;
         this.patientlistfilterlength = this.patientlistfilter.length;
@@ -1618,17 +1618,15 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       MeasureSetId: this.MeasureSetId,
       PatientId: PatientId,
     };
-    //this.MeasureIdentifier = this.MeasureIdentifier;
-    //this.measureidentifiler = this.MeasureIdentifier;
+
     this.DrilldownPatientData = [];
-    //this.ipp_conditions = [];
-    //this.deno_conditions = [];
+
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     this.accountservice
       .getCQMReportsMeasurePatientMetInfo(req)
       .subscribe((cmscoditions_data) => {
         if (cmscoditions_data.IsSuccess) {
-          //console.log(cmscoditions_data.ListResult);
+
 
           this.DrilldownPatientData = cmscoditions_data.ListResult[0];
 
@@ -2278,9 +2276,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
   //   ];
   // }
   drilldownViewConditions(PatientId) {
-    //console.log(this.selectedQueuedReport);
-    //console.log(this.patientinfo);
-    //console.log(this.selectedMeasureInfo);
+
 
     var req = {
       ReportId: this.MeasureReportId,
@@ -2288,7 +2284,7 @@ export class CqmreportsComponent implements OnInit, AfterViewInit {
       PopulationId: this.selectedMeasureInfo.PopulationId,
       PatientId: PatientId
     };
-    //console.log(req);
+
 
     this.accountservice.DrilldownViewConditions(req).subscribe(data => {
       this.conditions = JSON.parse(data.Result);

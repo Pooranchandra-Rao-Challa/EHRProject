@@ -51,7 +51,7 @@ export const RX_ALL_NDCS_URI = (rxcui: string) => `REST/rxcui/${rxcui}/allndcs.j
 
 export const RX_NDCS_STATUS_URI = (ndc: string) => `REST/ndcstatus.json?ndc=${ndc}`;
 
-export const RX_URI_NDC_PROPERTIES = (ndc: string) => `REST/rxcui/${ndc}/properties.json`;
+export const RX_URI_NDC_PROPERTIES = (ndc: string) => `${environment.RX_END_POINT}REST/rxcui/${ndc}/properties.json`;
 
 export const UPLOAD_URL = (uri: string) => `${environment.baseUrl}${uri}`;
 

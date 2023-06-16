@@ -233,7 +233,6 @@ export class NewMessageDialogComponent implements OnInit {
     }
   }
   ItemRemoved($event) {
-    //console.log($event);
   }
 
   get Attachments(): Attachment[]{

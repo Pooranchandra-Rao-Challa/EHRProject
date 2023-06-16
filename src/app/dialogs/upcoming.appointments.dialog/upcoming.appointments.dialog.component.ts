@@ -51,8 +51,6 @@ export class UpcomingAppointmentsDialogComponent implements OnInit {
       this.dialogIsLoading = true;
       if (resp.IsSuccess) {
         this.AppointmentsOfPatient = resp.ListResult as ScheduledAppointment[];
-        //console.log(this.AppointmentsOfPatient);
-
         this.dialogIsLoading = false;
       }
     });

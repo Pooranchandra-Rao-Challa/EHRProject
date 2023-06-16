@@ -148,7 +148,7 @@ export class PatientlistComponent implements OnInit {
     };
     if (this.filter.ProviderId == null && this.filter.LocationId == null)
       this.filter.ClinicId = this.authenticationService.userValue.ClinicId;
-    //console.log(this.filter);
+
     this.getAllPatientList();
   }
   disableApplyButton() {

@@ -205,7 +205,7 @@ export class PatientEdnMaterialComponent implements OnInit {
     return this.educationMaterial.Attachments.filter(fn => !fn.IsDeleted);
   }
   ItemRemoved($event) {
-    //console.log($event);
+
   }
 }
 

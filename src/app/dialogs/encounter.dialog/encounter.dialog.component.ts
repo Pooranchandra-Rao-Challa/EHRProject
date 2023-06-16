@@ -165,8 +165,6 @@ export class EncounterDialogComponent implements OnInit {
 
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
-   // console.log(this.encounterInfo.Diagnoses);
-
     this.encounterInfo.Diagnoses.forEach(fn => {
       fn.PatientEdn = "Medline Plus"
       fn.MedLineUrl = this.medLinePlusUrl({
@@ -447,10 +445,7 @@ export class EncounterDialogComponent implements OnInit {
 
     let isAdd = this.encounterInfo.EncounterId == null;
 
-    //console.log(this.encounterInfo);
-
-
-    if (this.encounterInfo.Vital.CollectedAt != null)
+     if (this.encounterInfo.Vital.CollectedAt != null)
       this.encounterInfo.Vital.strCollectedAt = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "MM/dd/yyyy")
 
     if (this.encounterInfo.Vital.CollectedTime != null)

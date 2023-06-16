@@ -184,7 +184,6 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer", headers : this.headers  })
       .subscribe(
         (resp) => {
-          //console.log(resp.headers.get("content-type"));
           const blob = new Blob([resp.body], {
             type: resp.headers.get("content-type"),
           });
@@ -204,16 +203,9 @@ export class DownloadService {
       .post(endpointUrl, reqObj, { observe: "response", responseType: "arraybuffer", headers : this.headers  })
       .subscribe(
         (resp) => {
-          //console.log(resp.headers.get("content-type"));
           const blob = new Blob([resp.body], {
             type: resp.headers.get("content-type"),
           });
-          // const document = window.URL.createObjectURL(blob);
-          // FileSaver.saveAs(document, reqObj.AttachmentId);
-          // if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-          //   window.navigator.msSaveOrOpenBlob(blob, fileName);
-          //   return;
-          // }
 
           // Other Browsers
           const url = (window.URL || window.webkitURL).createObjectURL(blob);

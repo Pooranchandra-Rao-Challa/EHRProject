@@ -80,7 +80,7 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
 
   numberOnly(event): boolean {
     const charCode = (event.which) ? event.which : event.keyCode;
-    //console.log(charCode);
+
 
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
@@ -261,7 +261,6 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
 
   UseEmail() {
     let val = this.emailForm.value;
-    //console.log(this.authService.viewModel.Patient);
     if (this.authService.viewModel.Patient.Email != 'No Email') {
       val.Email = this.authService.viewModel.Patient.Email;
       val.ConfirmEmail = this.authService.viewModel.Patient.Email;
@@ -298,7 +297,6 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
       this.EmailNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.EmailNotificatonType.URL = this.url;
-      //console.log(this.EmailNotificatonType);
       this.UpdateNofication(this.EmailNotificatonType, "M2CN002", "E2CN002", this.ResetEmailButtonText, oldtext);
 
     }
@@ -319,7 +317,6 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
       this.SMSNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.SMSNotificatonType.URL = this.url;
-      //console.log(this.SMSNotificatonType);
       this.UpdateNofication(this.SMSNotificatonType, "M2CN001", "E2CN001", this.ResetSMSButtonText, oldtext);
     }
   }
@@ -339,7 +336,6 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
       this.VoiceNotificatonType.PatientId = this.user.PatientId ? this.user.PatientId :
         this.authService.viewModel.Patient.PatientId;
       this.VoiceNotificatonType.URL = this.url;
-      //console.log(this.VoiceNotificatonType);
       this.UpdateNofication(this.VoiceNotificatonType, "M2CN003", "E2CN003", this.ResetVoiceButtonText, oldtext);
     }
   }

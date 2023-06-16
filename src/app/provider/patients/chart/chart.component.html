@@ -341,7 +341,7 @@
                   <div class="col-md-8 col-6">
                     <p class="card-title">
                       Medications and Prescription
-                      <b class="pointer prescription-icon" (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, null , ActionTypes.view)"></b>
+                      <b class="pointer prescription-icon prescription-icon-display" (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, null , ActionTypes.view)"></b>
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -355,7 +355,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let medication of chartInfo?.Medications | slice:0:5">
                   <li>
-                    <div style="display:inline-flex">
+                    <div style="width:100%">
                       <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)"
                       *ngIf="!medication.IsElectronicPrescription">
                         <span>
@@ -367,7 +367,7 @@
                           - {{GetDisplayName(medication)}}
                         </span>
                       </a>
-                      <div *ngIf="medication.HasPrescriptions" class="pointer prescription-icon2"
+                      <div *ngIf="medication.HasPrescriptions" class="pointer prescription-icon2 prescription-icon2-display"
                       (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, medication , ActionTypes.view)">
 
                       </div>

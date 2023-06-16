@@ -428,18 +428,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   UpdateView(data) {
-    //console.log(data);
+
 
     if (data == null) return;
     if (data.UpdatedModal == PatientChart.Diagnoses) {
       this.DiagnosesByPatientId();
-      // data.DiagnosesList = data.DiagnosesList == undefined ? [] : data.DiagnosesList.length;
-      // if (this.chartInfo.Diagnoses.length < data.DiagnosesList.length) {
-      //   this.chartInfo.Diagnoses = data.DiagnosesList;
-      // }
-      // else {
-      //   this.DiagnosesByPatientId();
-      // }
     }
     else if (data.UpdatedModal == PatientChart.AdvancedDirectives) {
       this.AdvancedDirectivesByPatientId();
@@ -465,25 +458,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
-      //console.log(data.UpdatedModel);
 
       this.MedicationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
-      // data.InterventionsDataSource = data.InterventionsDataSource == undefined ? [] : data.InterventionsDataSource.length;
-      // if (this.chartInfo.Interventions.length < data.InterventionsDataSource.length) {
-      //   this.chartInfo.Interventions = data.InterventionsDataSource;
-      // }
-      // else {
         this.InterventionsByPatientId();
-      // }
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
     }
-    // else if (data.UpdatedModal == PatientChart.Message) {
-    //   this.GetProviderMessagesFromPatient();
-    // }
+
     else if (data.UpdatedModal == PatientChart.Appointment) {
       this.AppointmentsByPatientId();
     }
@@ -494,8 +478,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-        console.log(this.chartInfo );
-
         if(this.chartInfo){
           this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
         }
@@ -909,7 +891,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   initCDSAlert(){
-   // console.log(this.currentPatient);
     if(!this.currentPatient) return;
     this.settingsService.EvalPatientCDSAlerts({patientId:this.currentPatient.PatientId,providerId:this.user.ProviderId})
     .subscribe((resp)=>{
@@ -923,8 +904,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
           })
           alert.IsMet = isMet;
         })
-   //     console.log(this.alertResult);
-
       }
     })
   }

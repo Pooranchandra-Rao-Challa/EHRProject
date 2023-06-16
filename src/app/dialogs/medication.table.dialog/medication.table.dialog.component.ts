@@ -47,7 +47,7 @@ export class MedicationTableDialogComponent implements OnInit {
 
   initPrescriptions(PatientId:string){
     this.patientService.Prescriptions({PatientId:PatientId}).subscribe((resp) => {
-      console.log(resp);
+
 
       if(resp.IsSuccess){
         this.prescriptions.data = resp.ListResult as Prescription[];

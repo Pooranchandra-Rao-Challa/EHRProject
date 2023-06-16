@@ -30,7 +30,8 @@
               "moment-timezone",
               "moment",
               "qrcode",
-              "xml2js"
+              "xml2js",
+              "crypto-js"
             ],
             "outputPath": "dist/EHRProject",
             "index": "src/index.html",

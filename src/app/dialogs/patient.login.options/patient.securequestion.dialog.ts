@@ -53,8 +53,6 @@ export class PatientSecurityQuestionDialogComponent implements OnInit {
       && this.userInfo.SecureQuestion != null && this.userInfo.SecureQuestion != '')
   }
   disableResetPassword() {
-    //console.log( this.resetPassowrdForm.invalid);
-
     let frmValues = this.resetPassowrdForm.value;
     return this.resetPassowrdForm.invalid
   }

@@ -53,6 +53,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     private chdetref: ChangeDetectorRef,
     private uplodateLocations: ProviderLocationUpdateNotifier) {
     // config.placement = 'bottom-right';
+    authenticationService.startRefreshTokenTimer();
     this.user = authenticationService.userValue;
     this.unreadMails = this.user.UnReadMails;
     this.urgentMails = this.user.UrgentMessages;
@@ -96,7 +97,6 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Provider")
         this.drfirstProviderUrl = data.url
-      //console.log(this.drfirstProviderUrl);
     });
   }
   ngAfterViewInit(): void {

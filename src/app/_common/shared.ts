@@ -15,11 +15,10 @@ import { AlphaDirective } from "../_directives/alphaonly.directive";
 import { FileUploadModule } from 'src/app/file.upload/file-upload.module'
 import { MaxValueDirective,MinValueDirective} from 'src/app/_directives/min.max.validator.directive'
 import { NumberToWordsPipe } from "src/app/_pipes/number.word";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { EncryptDescryptService} from 'src/app/_services/encrypt.decrypt.service';
 import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
 import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
-//import { QRCodeModule } from 'angularx-qrcode'
 @NgModule({
   imports: [
     QuickAppProMaterialModule,
@@ -54,9 +53,9 @@ import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/at
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
     ssnValidatorDirective,NunberMaskDirective,AlphaDirective,MaxValueDirective,MinValueDirective,
     PaginatorDirective,AttachmentPreviewComponent,AttachmentNopreviewComponent,],
-  // providers : [
-  //   { provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true },
-  // ],
+  providers : [
+    EncryptDescryptService,
+  ],
   entryComponents: []
 })
 export class SharedModule { }

@@ -176,8 +176,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   displayPrimaryInsurancePatient(value: PatientSearch) {
-   console.log(value);
-
     return value != null ? value.Name : "";
 
   }
@@ -382,12 +380,9 @@ export class InsuranceComponent implements OnInit {
   primaryInsurancePatientSearch: PatientSearch = {};
   secondaryInsurancePatientSearch: PatientSearch = {};
   updateSearchTermInsurance(source: InsuranceDto, destination: PatientSearch) {
-    console.log(source);
-
     destination.Name = source.SubscriberName;
     destination.Dob = new Date(source.DateOfBirth);
     destination.Gender = source.Gender;
-    console.log(this.primaryInsurancePatientSearch);
 
   }
   // get patient details by id
@@ -426,7 +421,6 @@ export class InsuranceComponent implements OnInit {
         this.primaryInsurance = {};
         this.secondaryInsurance = {};
       }
-    ///  console.log(this.primaryInsurance);
 
     });
   }
@@ -537,7 +531,6 @@ export class InsuranceComponent implements OnInit {
   }
 
   CreateUpdateInsuranceDetails(item) {
-    console.log(this.primaryInsurance)
     if (item == "primary") {
 
       let isAdd = this.primaryInsurance.InsuranceId == undefined;
@@ -694,9 +687,6 @@ export class InsuranceComponent implements OnInit {
     )
   }
   secondaryenableSave() {
-
-    //console.log(this.secondaryInsurance);
-
     return !(this.secondaryInsurance.SubscriberName != null && this.secondaryInsurance.SubscriberName != ""
       && this.secondaryInsurance.DateOfBirth != null && this.secondaryInsurance.DateOfBirth != ""
       && this.secondaryInsurance.Gender != null && this.secondaryInsurance.Gender != ""

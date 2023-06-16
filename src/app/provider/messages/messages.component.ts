@@ -131,8 +131,6 @@ export class MessagesComponent implements OnDestroy, AfterContentChecked {
 
   showMessage(message: Messages) {
     this.currentMessage = message;
-    //console.log(this.currentMessage);
-
     if (this.currentMessageView == 'Inbox' || this.currentMessageView == 'Urgent') {
       this.messageService.ReadInboxMessages(this.currentMessage).subscribe(resp => {
         if (resp.IsSuccess) {

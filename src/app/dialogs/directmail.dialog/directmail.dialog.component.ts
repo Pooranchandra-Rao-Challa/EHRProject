@@ -70,7 +70,6 @@ export class DirectmailDialogComponent implements OnInit {
   }
 
   ItemRemoved($event) {
-    //console.log($event);
   }
 
   get Attachments(): Attachment[] {

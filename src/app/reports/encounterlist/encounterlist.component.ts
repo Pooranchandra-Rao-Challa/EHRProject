@@ -176,7 +176,7 @@ export class EncounterlistComponent implements OnInit {
     this.service.EncounterListForReport(this.filter).subscribe((data) => {
       this.encounterlist.data = [];
       this.showencounterTable = true;
-    //  console.log(data);
+
 
       if (data.IsSuccess) {
         this.showEncounterControls = true;

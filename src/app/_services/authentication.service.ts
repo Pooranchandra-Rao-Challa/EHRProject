@@ -1,3 +1,4 @@
+import { ReferralInfo } from './../_models/_provider/encounter';
 import { MessageCounts, ProviderHeader } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
@@ -8,12 +9,15 @@ import { map, tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
 import { User, ResponseData, ViewModel, AdminViewModal, DrFirstAttributes } from '../_models';
-import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
+import { ERROR_CODES,AlertMessage } from 'src/app/_alerts/alertMessage'
+import  Swal from 'sweetalert2'
 import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
-import { Buffer } from 'buffer';
+import { EncryptDescryptService } from 'src/app/_services/encrypt.decrypt.service';
+import  jwtdecode from 'jwt-decode'
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
+
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   baseUrl: string = environment.baseUrl;
@@ -21,7 +25,7 @@ export class AuthenticationService {
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
   public resp: Observable<ResponseData>;
-  private refreshTokenTimeout;
+  private refreshTokenTimer;
 
   public get userValue(): User {
     if (this.userSubject != undefined)
@@ -43,7 +47,8 @@ export class AuthenticationService {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private apiEndPoint: APIEndPoint
+    private apiEndPoint: APIEndPoint,
+    private encryptDescryptService: EncryptDescryptService
   ) {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -186,7 +191,6 @@ export class AuthenticationService {
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
           if (resp.IsSuccess) {
-            this.revokeToken();
             localStorage.clear();
             this.userSubject = new BehaviorSubject<User>(resp.Result as User);
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
@@ -255,41 +259,82 @@ export class AuthenticationService {
   }
 
   refreshToken() {
-    return this.http.post<any>('${this.baseUrl + /refreshtoken', {}, { withCredentials: true })
-      .pipe(map((resp) => {
-        this.userSubject.next(resp.Result as User);
-        this.startRefreshTokenTimer();
-        return resp;
-      }));
+    var url = this.baseUrl + 'refreshtoken';
+    this.http.post<any>(url, {Refresh:this.userValue.RefreshToken,UserIP:this.userIP})
+    .subscribe((resp)=>{
+        if(resp.IsSuccess){
+          const u = resp.Result as User;
+          this.userValue.JwtToken = u.JwtToken;
+          this.userValue.RefreshToken = u.RefreshToken;
+          this.userSubject = new BehaviorSubject<User>(this.userValue);
+          localStorage.setItem('user', JSON.stringify(this.userValue));
+          this.startRefreshTokenTimer();
+        }
+
+    })
+  }
+  openRefeshDialog(){
+    this.UserIp().subscribe(resp => {
+      this.userIP = resp.ip;
+      Swal.fire({
+        title: 'Do you want extend the session?',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Refresh Session',
+        denyButtonText: `Revoke Session`,
+        customClass:{
+          confirmButton:'confirm-refresh-session'
+        }
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          this.refreshToken()
+        } else if (result.isDenied) {
+          this.logout();
+        }
+      })
+    });
+
   }
 
   revokeToken() {
-    return this.http.post<any>('${this.baseUrl + /revoketoken', {}, { withCredentials: true })
-      .pipe(map((resp) => {
-        this.userSubject.next(resp.Result as User);
-        this.startRefreshTokenTimer();
-        return resp.Result;
-      }));
+    var url = this.baseUrl + 'revoketoken';
+    this.http.post<any>(url, {Refresh:this.userValue.RefreshToken,UserIP:this.userIP})
+    .subscribe(resp =>{
+      this.stopRefreshTokenTimer();
+      localStorage.removeItem('user');
+      this.router.navigate(['/account/home']).then(() => {
+        window.location.reload();
+      });
+    });
   }
 
   logout(error: any = '') {
-    localStorage.removeItem('user');
     this.revokeToken();
-    this.stopRefreshTokenTimer();
     if(error != '' && error != null)
       localStorage.setItem('message',error);
-      this.router.navigate(['/account/home']);
   }
 
   isLoggedIn() {
     if (!this.userValue) return false;
     if(!this.userValue.JwtToken) return false;
-    const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
-    const expires = new Date(jwtToken.exp * 1000);
-    const timediff = expires.getTime() - Date.now();
-    this.startRefreshTokenTimer();
-    return timediff > 0;
+    const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
+    const exp = new Date(jwtToken.exp * 1000);
+    const iat = new Date(jwtToken.iat * 1000);
+    const nbf = new Date(jwtToken.nbf * 1000);
+    const flag = new Date() > nbf && new Date() > iat && new Date() < exp;
+    return flag
   }
+
+  public startRefreshTokenTimer() {
+    const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
+    const expires = new Date(jwtToken.exp * 1000);
+    const timeout = expires.getTime() - (new Date()).getTime();
+    if(this.refreshTokenTimer) clearInterval(this.refreshTokenTimer);
+    this.refreshTokenTimer = setInterval(() => this.openRefeshDialog(), timeout);
+  }
+
+
 
   permissions(){
     if (!this.userValue) return false;
@@ -316,9 +361,17 @@ export class AuthenticationService {
     return true;
   }
 
-  UpdateDrFirstAttribues(drFirstAttributes: DrFirstAttributes){
-    this.userValue.DrFirstAttributes = drFirstAttributes;
+  SetDrFirstAttributes(drFirstAttributes: DrFirstAttributes){
+
+    let strAttributes = JSON.stringify(drFirstAttributes);
+    this.userValue.DrFirstAttributes = this.encryptDescryptService.set("DrFirstKeyEncryption",strAttributes);;
     localStorage.setItem('user', JSON.stringify(this.userValue));
+  }
+
+  GetDrFirstAttributes(){
+    if(!this.userValue.DrFirstAttributes) return undefined;
+    let strAttributes =  this.encryptDescryptService.get("DrFirstKeyEncryption",this.userValue.DrFirstAttributes);
+    return (JSON.parse('['+strAttributes+']')[0] as unknown as DrFirstAttributes);
   }
 
   UpdateTimeZone(user:User){
@@ -434,15 +487,10 @@ export class AuthenticationService {
     localStorage.setItem('user', JSON.stringify(this.userValue as User));
   }
 
-  private startRefreshTokenTimer() {
-    const jwtToken = JSON.parse(atob(this.userValue.JwtToken.split('.')[1]));
-    const expires = new Date(jwtToken.exp * 1000);
-    const timeout = expires.getTime() - Date.now() - (60 * 1000);
-    this.refreshTokenTimeout = setTimeout(() => this.refreshToken(), timeout);
-  }
+
 
   private stopRefreshTokenTimer() {
-    clearTimeout(this.refreshTokenTimeout);
+    clearTimeout(this.refreshTokenTimer);
   }
 
   private updateViewModel() {

@@ -54,8 +54,6 @@ export class CCdaDialogComponent implements OnInit {
     this.patient = this.authService.viewModel.Patient;
     this.c_CDAParams.PatientId = this.patient.PatientId;
     this.c_CDAParams.ProviderId = this.user.ProviderId;
-    //console.log(this.patient);
-
   }
 
   cancel() {
@@ -175,13 +173,11 @@ export class CCdaDialogComponent implements OnInit {
   }
 
   SendToPateint(){
-    //console.log(this.c_CDAParams);
     this.c_CDAParams.SendToPatient = true;
     this.dialogIsLoading = true;
     this.patientService.SendCCDAToPatient(this.c_CDAParams).subscribe(
       {
       next: (resp) =>{
-        //console.log(resp);
         if(resp.IsSuccess){
           let messageInfo: MessageDialogInfo = {};
           messageInfo.MessageFor = "Practice"
