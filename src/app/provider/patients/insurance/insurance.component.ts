@@ -176,6 +176,8 @@ export class InsuranceComponent implements OnInit {
   }
 
   displayPrimaryInsurancePatient(value: PatientSearch) {
+    console.log((value));
+
     return value != null ? value.Name : "";
 
   }
@@ -383,6 +385,7 @@ export class InsuranceComponent implements OnInit {
     destination.Name = source.SubscriberName;
     destination.Dob = new Date(source.DateOfBirth);
     destination.Gender = source.Gender;
+    console.log(this.primaryInsurancePatientSearch);
 
   }
   // get patient details by id

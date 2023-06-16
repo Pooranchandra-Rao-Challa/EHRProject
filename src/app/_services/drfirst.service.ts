@@ -33,7 +33,7 @@ export class DrfirstService {
   ) {
     this.user = this.authService.userValue;
     this.drFirstAttributes = this.authService.GetDrFirstAttributes();
-    console.log(this.user);
+    //console.log(this.user);
 
   }
 

@@ -240,7 +240,7 @@
 
         </div>
       </div>
-      <div class="row mt-2">
+      <div class="row mt-2" *ngIf="patientMedication.MedicationId != null && patientMedication.MedicationId != undefined">
         <div class=" form-group col-md-6">
           <label class="title-field">Reasons</label>
           <mat-form-field class="grey-matform" appearance="outline">

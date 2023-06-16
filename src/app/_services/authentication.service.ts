@@ -9,19 +9,19 @@ import { map, tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
 import { User, ResponseData, ViewModel, AdminViewModal, DrFirstAttributes } from '../_models';
-import { ERROR_CODES,AlertMessage } from 'src/app/_alerts/alertMessage'
-import  Swal from 'sweetalert2'
+import { ERROR_CODES, AlertMessage } from 'src/app/_alerts/alertMessage'
+import Swal from 'sweetalert2'
 import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
 import { EncryptDescryptService } from 'src/app/_services/encrypt.decrypt.service';
-import  jwtdecode from 'jwt-decode'
+import jwtdecode from 'jwt-decode'
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   baseUrl: string = environment.baseUrl;
-  private userIP:string;
+  private userIP: string;
   private userSubject: BehaviorSubject<User>;
   public user: Observable<User>;
   public resp: Observable<ResponseData>;
@@ -85,10 +85,10 @@ export class AuthenticationService {
                 this.logout(ERROR_CODES["EL012"]);
               }
               else
-              this.router.navigate(
-                ['provider/smartschedule'],
-                { queryParams: { name: 'Smart Schedule' } }
-              );
+                this.router.navigate(
+                  ['provider/smartschedule'],
+                  { queryParams: { name: 'Smart Schedule' } }
+                );
             }
             else if (this.isAdmin)
               if (this.isUserLocked)
@@ -139,7 +139,7 @@ export class AuthenticationService {
     return this.http.post<any>(endpointUrl, creds);
   }
 
-  PatientSecurityQuestion(userInfo: any){
+  PatientSecurityQuestion(userInfo: any) {
     const endpointUrl = this.baseUrl + "PatientSecurityQuestion";
     return this.http.post<any>(endpointUrl, userInfo);
   }
@@ -156,7 +156,7 @@ export class AuthenticationService {
             this.updateViewModel();
             this.startRefreshTokenTimer();
             if (this.isProvider) {
-              if(!this.isProviderActive){
+              if (!this.isProviderActive) {
                 this.logout(ERROR_CODES["EL008"])
               }
               else if (!this.isProviderVerfied) {
@@ -184,7 +184,7 @@ export class AuthenticationService {
     }
   }
 
-  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string}) {
+  SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
@@ -197,9 +197,9 @@ export class AuthenticationService {
             this.startRefreshTokenTimer();
             // will have to show msg when the user(patient) is not login for first time
             if (this.isPatient) {
-              if(!this.isPatientActive){
+              if (!this.isPatientActive) {
                 this.logout(ERROR_CODES["EL014"])
-              }else{
+              } else {
                 this.router.navigate(
                   ['/patient/dashboard'],
                   { queryParams: { name: 'dashboard' } }
@@ -229,17 +229,17 @@ export class AuthenticationService {
         this.startRefreshTokenTimer();
         this.SetViewParam("View", "dashboard")
 
-        if(this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin){
+        if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/security-question']);
         }
-        else if(this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
+        else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/reset-password']);
         }
-        else if(this.isPatient && this.hasPatientRelations && this.isPatientActive) {
+        else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
           this.router.navigate(['/account/patient-relations']);
-        }else if(this.isPatient && !this.isPatientActive){
+        } else if (this.isPatient && !this.isPatientActive) {
           this.logout(ERROR_CODES["EL014"])
-        }else if(this.isRepresentative && !this.isRepresentaiveActive){
+        } else if (this.isRepresentative && !this.isRepresentaiveActive) {
           this.logout(ERROR_CODES["EL015"])
         }
         else if (this.isPatient || this.isRepresentative)
@@ -259,9 +259,9 @@ export class AuthenticationService {
 
   refreshToken() {
     var url = this.baseUrl + 'refreshtoken';
-    this.http.post<any>(url, {Refresh:this.userValue.RefreshToken,UserIP:this.userIP})
-    .subscribe((resp)=>{
-        if(resp.IsSuccess){
+    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP })
+      .subscribe((resp) => {
+        if (resp.IsSuccess) {
           const u = resp.Result as User;
           this.userValue.JwtToken = u.JwtToken;
           this.userValue.RefreshToken = u.RefreshToken;
@@ -270,9 +270,9 @@ export class AuthenticationService {
           this.startRefreshTokenTimer();
         }
 
-    })
+      })
   }
-  openRefeshDialog(){
+  openRefeshDialog() {
     this.UserIp().subscribe(resp => {
       this.userIP = resp.ip;
       Swal.fire({
@@ -281,8 +281,8 @@ export class AuthenticationService {
         showCancelButton: false,
         confirmButtonText: 'Refresh Session',
         denyButtonText: `Revoke Session`,
-        customClass:{
-          confirmButton:'confirm-refresh-session'
+        customClass: {
+          confirmButton: 'confirm-refresh-session'
         }
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
@@ -298,16 +298,30 @@ export class AuthenticationService {
 
   revokeToken(error: any = '') {
     var url = this.baseUrl + 'revoketoken';
-    this.http.post<any>(url, {Refresh:this.userValue.RefreshToken,UserIP:this.userIP})
-    .subscribe(resp =>{
-      this.stopRefreshTokenTimer();
-      localStorage.removeItem('user');
-      this.router.navigate(['/account/home']).then(() => {
-        window.location.reload();
-        if(error != '' && error != null)
-          localStorage.setItem('message',error);
-      });
-    });
+    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP })
+      .subscribe({
+        next: (resp) => {
+          this.stopRefreshTokenTimer();
+          localStorage.removeItem('user');
+          if (error != '' && error != null)
+              localStorage.setItem('message', error);
+          this.router.navigate(['/account/home'])
+          //.then(() => {window.location.reload();});
+        },
+        error: (error) => {
+          this.stopRefreshTokenTimer();
+          localStorage.removeItem('user');
+          if (error != '' && error != null)
+              localStorage.setItem('message', error);
+          this.router.navigate(['/account/home']);
+          //.then(() => {window.location.reload();});
+        },
+        complete: () =>{
+
+        }
+      }
+
+      );
   }
 
   logout(error: any = '') {
@@ -316,12 +330,16 @@ export class AuthenticationService {
 
   isLoggedIn() {
     if (!this.userValue) return false;
-    if(!this.userValue.JwtToken) return false;
+    if (!this.userValue.JwtToken) return false;
     const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
     const exp = new Date(jwtToken.exp * 1000);
     const iat = new Date(jwtToken.iat * 1000);
     const nbf = new Date(jwtToken.nbf * 1000);
-    const flag = new Date() > nbf && new Date() > iat && new Date() < exp;
+    exp.setSeconds(0);
+    iat.setSeconds(0);
+    nbf.setSeconds(0);
+    const today = new Date();
+    const flag = today >= nbf && today >= iat && today <= exp;
     return flag
   }
 
@@ -329,26 +347,29 @@ export class AuthenticationService {
     const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - (new Date()).getTime();
-    if(this.refreshTokenTimer) clearInterval(this.refreshTokenTimer);
+    if (this.refreshTokenTimer) clearInterval(this.refreshTokenTimer);
     this.refreshTokenTimer = setInterval(() => this.openRefeshDialog(), timeout);
+  }
+
+  public clearTimer(){
+    clearInterval(this.refreshTokenTimer);
   }
 
 
 
-  permissions(){
+  permissions() {
     if (!this.userValue) return false;
-    if(!this.userValue.Permissions) return false;
+    if (!this.userValue.Permissions) return false;
     return JSON.parse(this.userValue.Permissions);
   }
 
 
-  UpdateUser(user: User){
+  UpdateUser(user: User) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  UpdatePatientUser(patientRelation: PatientRelationInfo):boolean
-  {
-    this.userValue.PatientId =  patientRelation.PatientId;
+  UpdatePatientUser(patientRelation: PatientRelationInfo): boolean {
+    this.userValue.PatientId = patientRelation.PatientId;
     this.userValue.FirstName = patientRelation.FirstName;
     this.userValue.LastName = patientRelation.LastName;
     this.userValue.Role = patientRelation.Role;
@@ -360,20 +381,20 @@ export class AuthenticationService {
     return true;
   }
 
-  SetDrFirstAttributes(drFirstAttributes: DrFirstAttributes){
+  SetDrFirstAttributes(drFirstAttributes: DrFirstAttributes) {
 
     let strAttributes = JSON.stringify(drFirstAttributes);
-    this.userValue.DrFirstAttributes = this.encryptDescryptService.set("DrFirstKeyEncryption",strAttributes);;
+    this.userValue.DrFirstAttributes = this.encryptDescryptService.set("DrFirstKeyEncryption", strAttributes);;
     localStorage.setItem('user', JSON.stringify(this.userValue));
   }
 
-  GetDrFirstAttributes(){
-    if(!this.userValue.DrFirstAttributes) return undefined;
-    let strAttributes =  this.encryptDescryptService.get("DrFirstKeyEncryption",this.userValue.DrFirstAttributes);
-    return (JSON.parse('['+strAttributes+']')[0] as unknown as DrFirstAttributes);
+  GetDrFirstAttributes() {
+    if (!this.userValue.DrFirstAttributes) return undefined;
+    let strAttributes = this.encryptDescryptService.get("DrFirstKeyEncryption", this.userValue.DrFirstAttributes);
+    return (JSON.parse('[' + strAttributes + ']')[0] as unknown as DrFirstAttributes);
   }
 
-  UpdateTimeZone(user:User){
+  UpdateTimeZone(user: User) {
     localStorage.setItem('user', JSON.stringify(user as User));
   }
 
@@ -444,12 +465,12 @@ export class AuthenticationService {
     return this.userValue.AdminActive;
   }
 
-  get isPatientActive():boolean{
+  get isPatientActive(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.PatientActive;
   }
 
-  get isRepresentaiveActive():boolean{
+  get isRepresentaiveActive(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.RepresentativeActive;
   }
@@ -497,7 +518,7 @@ export class AuthenticationService {
     localStorage.setItem('viewModel', JSON.stringify(viewModel));
   }
 
-  public UserIp(): Observable<any>{
+  public UserIp(): Observable<any> {
     return this.http.get('https://jsonip.com/')
   }
 

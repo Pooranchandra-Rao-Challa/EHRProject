@@ -274,7 +274,8 @@ export class MedicationDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       if( res.data.reason){
-        this.patientMedication.ReasonDescription = res.data.ReasonDescription;
+        this.patientMedication.ReasonDescription = res.data.reason.ReasonDescription;
+        this.patientMedication.ReasonDescription = res.data.reason.ReasonDescription;
         this.disContinueReasonUpdated = true;
       }
 
