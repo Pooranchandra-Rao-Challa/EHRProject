@@ -150,7 +150,6 @@ export class AuthenticationService {
       let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
         tap(resp => {
           if (resp.IsSuccess) {
-            this.revokeToken();
             localStorage.clear();
             this.userSubject = new BehaviorSubject<User>(resp.Result as User);
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
@@ -297,7 +296,7 @@ export class AuthenticationService {
 
   }
 
-  revokeToken() {
+  revokeToken(error: any = '') {
     var url = this.baseUrl + 'revoketoken';
     this.http.post<any>(url, {Refresh:this.userValue.RefreshToken,UserIP:this.userIP})
     .subscribe(resp =>{
@@ -305,14 +304,14 @@ export class AuthenticationService {
       localStorage.removeItem('user');
       this.router.navigate(['/account/home']).then(() => {
         window.location.reload();
+        if(error != '' && error != null)
+          localStorage.setItem('message',error);
       });
     });
   }
 
   logout(error: any = '') {
-    this.revokeToken();
-    if(error != '' && error != null)
-      localStorage.setItem('message',error);
+    this.revokeToken(error);
   }
 
   isLoggedIn() {

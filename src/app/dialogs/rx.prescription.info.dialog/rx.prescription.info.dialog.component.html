@@ -96,7 +96,7 @@
           <div class="card-body">
             <b>Transmission History</b>
             <ul>
-              <li><b>created</b><span> on 06/13/2023 11.46.34 AM IST by
+              <li><b>created</b><span> on {{prescription?.CompletedAt | date: "MM/dd/yyyy hh:mm:ss a"}} by
                   {{this.user.FirstName}} {{this.user.LastName}}.</span></li>
             </ul>
             <div class="form-group" hidden>
