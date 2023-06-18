@@ -1,11 +1,14 @@
-import { PatientData } from '../_models/_provider/_reports/patient';
+import { Drug } from 'src/app/_services/rxnorm.api.service';
+import { RxNormAPIService } from './rxnorm.api.service';
 import { Injectable } from "@angular/core";
 import { APIEndPoint } from "./api.endpoint.service";
 import { HttpClient } from "@angular/common/http";
-import { DrFirstPatient, Patient, PatientPortalUser} from 'src/app/_models';
+import { Patient, PatientPortalUser} from 'src/app/_models';
+import { CodeSystemGroup, MedicalCode } from '../_models/codes';
+import { BehaviorSubject, of } from 'rxjs';
 @Injectable()
 export class UtilityService extends APIEndPoint {
-  constructor(http: HttpClient) { super(http); }
+  constructor(http: HttpClient,private rxNormAPIService:RxNormAPIService,) { super(http); }
 
   States() {
     return this._ProcessGetRequest<any>(this._statesUrl);
@@ -38,7 +41,7 @@ export class UtilityService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._createPatientAccountUrl,patientAccount);
   }
   MedicalCodes(searchTerm: string,codeSystem: string){
-    return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});
+      return this._ProcessPostRequest<any>(this._medicalCodesUrl,{CodeSystem: codeSystem,SearchTerm: searchTerm});
   }
   LanguagesInfo()
   {

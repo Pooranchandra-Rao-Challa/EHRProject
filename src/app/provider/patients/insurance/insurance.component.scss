@@ -448,3 +448,15 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+::ng-deep .patient-insurance .mat-form-field-wrapper{
+  margin: unset !important;
+}
+
+::ng-deep .insurance-gender-group .radio-btn-label{
+  margin-left: 15px !important;
+}
+
+::ng-deep .insurance-gender-group .radio-btn-label:first-child{
+  margin-left: 5px !important;
+}

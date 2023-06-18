@@ -64,7 +64,8 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
 
   cancel() {
     this.ref.close({
-      Close: true
+      UpdatedModal: PatientChart.FamilyMedicalHistory,
+      SaveRecord:false
     });
   }
 
@@ -135,7 +136,8 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   Create() {
     this.familyRecordNotifier.sendData(this.familyMedicalHistory,false);
     this.ref.close({
-      UpdatedModal: PatientChart.FamilyMedicalHistory
+      UpdatedModal: PatientChart.FamilyMedicalHistory,
+      SaveRecord:true
     });
   }
 
@@ -148,7 +150,8 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   DeleteFamilyHealthRecord(){
     this.familyRecordNotifier.sendData(this.familyMedicalHistory,true);
     this.ref.close({
-      UpdatedModal: PatientChart.FamilyMedicalHistory
+      UpdatedModal: PatientChart.FamilyMedicalHistory,
+      SaveRecord:true
     });
   }
 

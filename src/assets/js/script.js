@@ -1,8 +1,9 @@
-const { ajax } = require("jquery");
-const DocumentContext = require("pdfmake/src/documentContext");
+//const { ajax } = require("jquery");
+//const DocumentContext = require("pdfmake/src/documentContext");
 
 
 let arrow = document.querySelectorAll(".arrow");
+if(arrow)
 for (var i = 0; i < arrow.length; i++) {
   arrow[i].addEventListener("click", (e)=>{
  let arrowParent = e.target.parentElement;//selecting main parent of arrow
@@ -10,13 +11,6 @@ for (var i = 0; i < arrow.length; i++) {
   });
 }
 
-let sidebar = document.querySelector(".sidebar");
-const newLocal = ".bx-menu";
-let sidebarBtn = document.querySelector(newLocal);
-
-sidebarBtn.addEventListener("click", ()=>{
-  sidebar.classList.toggle("close");
-});
 
 function CloseAppointment(){
   var appevent = jQuery.Event( "click" );

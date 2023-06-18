@@ -16,6 +16,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 import { DataExtractorService } from 'mat-table-exporter';
 import { I } from '@angular/cdk/keycodes';
+import { MatInput } from '@angular/material/input';
 declare var $: any;
 @Component({
   selector: 'app-insurance',
@@ -30,8 +31,8 @@ export class InsuranceComponent implements OnInit {
   data: boolean = true;
   cancel1: boolean = false;
   cancel2: boolean = false;
-  viewpidetailsforprimary: boolean = true;
-  viewpidetailsforsecondary: boolean = true;
+  viewpidetailsforprimary: boolean = false;
+  viewpidetailsforsecondary: boolean = false;
   SourceOfPaymentTypologyCodes: any = [];
   InsurancePlanList: any = [];
   PatientDetails: any = [];
@@ -133,7 +134,7 @@ export class InsuranceComponent implements OnInit {
         // subscription for response
       ).subscribe(value => this._filterPatients(value, 'primary'));
 
-    if (this.searchPrimaryInsurancePatient != null)
+    if (this.searchSecondaryInsurancePatient != null)
 
       fromEvent(this.searchSecondaryInsurancePatient.nativeElement, 'keyup').pipe(
         // get value
@@ -385,8 +386,6 @@ export class InsuranceComponent implements OnInit {
     destination.Name = source.SubscriberName;
     destination.Dob = new Date(source.DateOfBirth);
     destination.Gender = source.Gender;
-    console.log(this.primaryInsurancePatientSearch);
-
   }
   // get patient details by id
   getInsuranceList() {

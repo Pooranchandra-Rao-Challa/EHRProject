@@ -18,28 +18,29 @@ import { SectionNewComponent } from 'src/app/admin/section-new/section-new.compo
 import { ImportPatientsComponent } from 'src/app/admin/import-patients/import-patients.component';
 import { ImportEncountersComponent } from 'src/app/admin/import-encounters/import-encounters.component';
 import { ListImportedDataComponent } from 'src/app/admin/list-imported-data/list-imported-data.component';
+import { AuthGuard } from 'src/app/_helpers/auth.guard';
 
 const routes: Routes = [
   {
-    path: '', component: AdminComponent,
+    path: '', component: AdminComponent,canActivateChild: [AuthGuard] ,
     children: [
-      { path: 'providerslist', component: ProviderlistComponent },
-      { path: 'dashboard', component: DashboardComponent },
-      { path: 'admins', component: AdminsComponent },
-      { path: 'defaultmessage', component: DefaultMessagesComponent },
-      { path: 'setting', component: AdminsettingComponent},
-      { path: 'communicationsettings', component: CommunicationsettingsComponent },
-      { path: 'practice', component: AdminPracticeComponent },
-      { path: 'weeklyupdates', component: WeeklyUpdatedComponent },
-      { path: 'activepatient', component: ActivePatientsComponent },
-      { path: 'inactivepatient', component: InActivePatientsComponent },
-      { path: 'editdefaultmessage', component: EditDefaultMessageComponent },
-      { path: 'billing', component: BillingComponent },
-      { path: 'reports', component: ReportsComponent },
-      { path: 'sectionnew', component: SectionNewComponent },
-      { path: 'importpatient', component: ImportPatientsComponent },
-      { path: 'importencounter', component: ImportEncountersComponent },
-      { path: 'importeddata', component: ListImportedDataComponent },
+      { path: 'providerslist', component: ProviderlistComponent, },
+      { path: 'dashboard', component: DashboardComponent,  },
+      { path: 'admins', component: AdminsComponent,  },
+      { path: 'defaultmessage', component: DefaultMessagesComponent,  },
+      { path: 'setting', component: AdminsettingComponent,  },
+      { path: 'communicationsettings', component: CommunicationsettingsComponent,  },
+      { path: 'practice', component: AdminPracticeComponent,  },
+      { path: 'weeklyupdates', component: WeeklyUpdatedComponent,  },
+      { path: 'activepatient', component: ActivePatientsComponent,  },
+      { path: 'inactivepatient', component: InActivePatientsComponent, },
+      { path: 'editdefaultmessage', component: EditDefaultMessageComponent,  },
+      { path: 'billing', component: BillingComponent,   },
+      { path: 'reports', component: ReportsComponent,  },
+      { path: 'sectionnew', component: SectionNewComponent,  },
+      { path: 'importpatient', component: ImportPatientsComponent,  },
+      { path: 'importencounter', component: ImportEncountersComponent,  },
+      { path: 'importeddata', component: ListImportedDataComponent,  },
     ]
   }
 ]

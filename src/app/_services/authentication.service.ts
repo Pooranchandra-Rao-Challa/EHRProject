@@ -15,6 +15,7 @@ import { getLogger } from "../logger.config";
 import { PatientRelationInfo } from '../_models/_provider/patientRelationship';
 import { EncryptDescryptService } from 'src/app/_services/encrypt.decrypt.service';
 import jwtdecode from 'jwt-decode'
+import { PlatformLocation } from '@angular/common';
 const logModel = getLogger("ehr");
 const logger = logModel.getChildCategory("AuthenticationService");
 
@@ -48,7 +49,8 @@ export class AuthenticationService {
     private router: Router,
     private http: HttpClient,
     private apiEndPoint: APIEndPoint,
-    private encryptDescryptService: EncryptDescryptService
+    private encryptDescryptService: EncryptDescryptService,
+    private plaformLocation: PlatformLocation
   ) {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -76,19 +78,29 @@ export class AuthenticationService {
               else if (this.isUserLocked && !this.hasEmergencyAccess) {
                 this.router.navigate(
                   ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule' } }
-                );
+                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
+                )
+                .then(() => window.location.reload());
               }
               else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 // Provider trial period is closed please do subscribe for accessing application.
                 // alert('Provider trial period is closed please do subscribe for accessing application.');
                 this.logout(ERROR_CODES["EL012"]);
               }
-              else
+              else{
+                // console.log(this.router.parseUrl(this.router.url));
+                // let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
+                // console.log(url);
+                // this.router.navigateByUrl(url);
+
                 this.router.navigate(
                   ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule' } }
-                );
+                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() }}
+                )
+                .then(() => window.location.reload());
+              }
+
+
             }
             else if (this.isAdmin)
               if (this.isUserLocked)
@@ -98,8 +110,9 @@ export class AuthenticationService {
               else
                 this.router.navigate(
                   ['admin/dashboard'],
-                  { queryParams: { name: 'Providers' } }
-                );
+                  { queryParams: { name: 'Providers', key: (new Date()).getTime() } }
+                )
+                //.then(() => window.location.reload());
             else if (this.isPatient)
               this.logout(ERROR_CODES["EL001"]);
           } else if (this.isFirstTimeLogin) {
@@ -114,7 +127,12 @@ export class AuthenticationService {
           this.logout(ERROR_CODES["EL001"]);
         }
       }, err => {
-        this.logout(ERROR_CODES["EL002"]);
+        console.log(err);
+        let error = ERROR_CODES["EL002"]
+        if (error != '' && error != null)
+        localStorage.setItem('message', error);
+        this.router.navigate(['/account/home']);
+        //this.logout(ERROR_CODES["EL002"]);
       }),
 
     );
@@ -168,8 +186,10 @@ export class AuthenticationService {
               else
                 this.router.navigate(
                   ['/provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule' } }
-                );
+                  { queryParams: { name: 'Smart Schedule', time: (new Date()).toUTCString() } }
+                )
+                //.then(() => window.location.reload());
+
             }
 
           } else {
@@ -202,8 +222,9 @@ export class AuthenticationService {
               } else {
                 this.router.navigate(
                   ['/patient/dashboard'],
-                  { queryParams: { name: 'dashboard' } }
+                  { queryParams: { name: 'dashboard', key: (new Date()).getTime() } }
                 );
+                //.then(() => window.location.reload());
               }
 
             }
@@ -230,20 +251,28 @@ export class AuthenticationService {
         this.SetViewParam("View", "dashboard")
 
         if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
-          this.router.navigate(['/account/security-question']);
+          this.router.navigate(['/account/security-question'],
+          { queryParams: { key: (new Date()).getTime() } });
+          //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
-          this.router.navigate(['/account/reset-password']);
+          this.router.navigate(['/account/reset-password'],
+          { queryParams: { key: (new Date()).getTime() } });
+          //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
-          this.router.navigate(['/account/patient-relations']);
+          this.router.navigate(['/account/patient-relations'],
+          { queryParams: { key: (new Date()).getTime() } });
+          //.then(() => window.location.reload());
         } else if (this.isPatient && !this.isPatientActive) {
           this.logout(ERROR_CODES["EL014"])
         } else if (this.isRepresentative && !this.isRepresentaiveActive) {
           this.logout(ERROR_CODES["EL015"])
         }
         else if (this.isPatient || this.isRepresentative)
-          this.router.navigate(['patient/dashboard']);
+          this.router.navigate(['patient/dashboard'],
+          { queryParams: { key: (new Date()).getTime() } });
+          //.then(() => window.location.reload());
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
@@ -251,8 +280,12 @@ export class AuthenticationService {
         this.logout(ERROR_CODES["EL001"]);
       }
     }),
-      (error) => {
-        this.logout(ERROR_CODES["EL002"]);
+      (err) => {
+        console.log(err);
+        let error = ERROR_CODES["EL002"]
+        if (error != '' && error != null)
+        localStorage.setItem('message', error);
+        this.router.navigate(['/account/home']);
       };
     return observable;
   }

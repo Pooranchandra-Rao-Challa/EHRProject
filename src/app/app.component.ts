@@ -12,7 +12,8 @@ import { NgbDropdownConfig } from '@ng-bootstrap/ng-bootstrap';
 export class AppComponent {
   title = 'EHRProject';
   constructor(){
-    console.log(environment.baseUrl);
+    if(!environment.production)
+      console.log(environment.baseUrl);
   }
 
 }

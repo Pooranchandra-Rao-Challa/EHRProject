@@ -1,12 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Router, CanActivate, ActivatedRouteSnapshot,
-  RouterStateSnapshot, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, UrlTree } from "@angular/router";
+import {
+  Router, CanActivate, ActivatedRouteSnapshot,
+  RouterStateSnapshot, CanActivateChild, CanDeactivate, CanLoad, Route, UrlSegment, UrlTree
+} from "@angular/router";
 
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from '../_services/authentication.service';
 import { IdService } from './_id.service';
-import {ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { ERROR_CODES } from 'src/app/_alerts/alertMessage'
 
 
 
@@ -22,15 +24,13 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const user = this.authenticationService.userValue;
-    //console.log(user);
-
+    //console.log(route.url);
     if (this.authenticationService.isLoggedIn()) {
       return true;
-    }else this.authenticationService.clearTimer();
+    } else this.authenticationService.clearTimer();
 
     // not logged in so redirect to login page with the return url
-    localStorage.setItem('message',ERROR_CODES["EL003"]);
+    localStorage.setItem('message', ERROR_CODES["EL017"]);
     this.router.navigate(['/account/home']);
     return false;
   }
@@ -38,7 +38,16 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
+    //console.log(childRoute.url);
+    //console.log(this.authenticationService.permissions())
+    if (this.authenticationService.isLoggedIn()) {
+      return true;
+    } else this.authenticationService.clearTimer();
+
+    // not logged in so redirect to login page with the return url
+    localStorage.setItem('message', ERROR_CODES["EL017"]);
+    this.router.navigate(['/account/home']);
+    return false;
   }
   canDeactivate(
     component: unknown,
@@ -47,12 +56,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
     nextState?: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     return true;
   }
-  /*
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return true;
-  }*/
+
 
   canLoad(route: Route, segments: UrlSegment[]): boolean | Observable<boolean> | Promise<boolean> {
     return true;

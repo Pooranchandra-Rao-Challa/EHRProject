@@ -8,8 +8,7 @@ export const environment = {
   DR_FIRST_ONSTAGE: true,
   //baseUrl: 'http://182.18.157.215/EHR/API/',
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
-  RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
-  showemail: false,
+  //RX_URI_NDC_PROPERTIES: 'REST/rxcui/{0}/properties.json',
 };
 
 export enum DrFristParamNames {
@@ -51,6 +50,9 @@ export const RX_ALL_NDCS_URI = (rxcui: string) => `REST/rxcui/${rxcui}/allndcs.j
 export const RX_NDCS_URI = (rxcui: string) => `${environment.RX_END_POINT}REST/rxcui/${rxcui}/ndcs.json`;
 
 export const RX_NDCS_STATUS_URI = (ndc: string) => `REST/ndcstatus.json?ndc=${ndc}`;
+
+export const RXCUI_NAME_URI = (rxcui: string) => `${environment.RX_END_POINT}REST/rxcui/${rxcui}.json`;
+//https://rxnav.nlm.nih.gov/REST/rxcui/131725.json
 
 export const RX_URI_NDC_PROPERTIES = (ndc: string) => `${environment.RX_END_POINT}REST/rxcui/${ndc}/properties.json`;
 

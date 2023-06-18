@@ -1,3 +1,4 @@
+import { Drug, RxNormAPIService } from './../../../_services/rxnorm.api.service';
 
 import { MatInput } from '@angular/material/input';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -173,6 +174,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
     @Optional() _parentForm: NgForm,
     @Optional() _parentFormGroup: FormGroupDirective,
     private utilityService: UtilityService,
+    private rxNormAPIService:RxNormAPIService,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
 
@@ -248,7 +250,38 @@ export class FieldControlComponent extends _SearchInputMixiBase
 
   updateSearchResults(term: FormFieldValue) {
     if (term.SearchTerm.length >= this.MinTermLength && term.CodeSystem != "") {
-      this.utilityService.MedicalCodes(term.SearchTerm, term.CodeSystem)
+      if(term.CodeSystem == 'RxNorm'){
+        let drugs: Drug[]
+        let medicalCodes: MedicalCode[] =[];
+        let cdg: CodeSystemGroup[] = [];
+        this.rxNormAPIService.Drugs(term.SearchTerm).subscribe(resp =>{
+          drugs = resp as Drug[];
+          drugs.forEach(durg =>{
+            medicalCodes.push({Code:durg.rxcui,Description:durg.Synonym,CodeSystem:term.CodeSystem})
+          })
+          cdg.push({name:term.CodeSystem,codes:medicalCodes })
+          this.filteredOptions = of(cdg);
+        })
+      }else if(term.CodeSystem == 'NDC'){
+        let ndcs: string[]
+        let medicalCodes: MedicalCode[] =[];
+        let cdg: CodeSystemGroup[] = [];
+        this.rxNormAPIService.rxcuiName(term.SearchTerm).subscribe(resp=>{
+          console.log(resp);
+          let drugName = resp;
+          this.rxNormAPIService.ndclist(term.SearchTerm).subscribe(resp =>{
+            ndcs = resp;
+            ndcs.forEach(ndc =>{
+              medicalCodes.push({Code:ndc,Description:drugName,CodeSystem:term.CodeSystem})
+            })
+            cdg.push({name:term.CodeSystem,codes:medicalCodes })
+            this.filteredOptions = of(cdg);
+          })
+
+        })
+      }
+      else{
+        this.utilityService.MedicalCodes(term.SearchTerm, term.CodeSystem)
         .subscribe(resp => {
           this.isLoading = false;
           if (resp.IsSuccess) {
@@ -258,6 +291,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
                 codesystem => codesystem.CodeSystem));
           } else this.filteredOptions = of([]);
         })
+      }
     } else this.filteredOptions = of([]);
   }
 

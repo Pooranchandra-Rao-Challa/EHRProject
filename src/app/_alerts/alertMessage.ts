@@ -536,6 +536,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'EL015': 'Representative is not active, contact provider/administrator',
   'ML001': 'Password is updated can login now.',
   'EL016': 'Password is not updated, contract provider/administrator',
+  'EL017': 'Your session is closed, so, need to sign in before continuing.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',

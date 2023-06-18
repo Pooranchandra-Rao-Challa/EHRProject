@@ -7,14 +7,14 @@
       </span>
     </div>
     <div class="modal-body">
-      <div class="col-md-12 mt-1">
-        <label [ngClass]="isMajorEventValid ? 'required' : ''">Major Events:</label>
-        <textarea class="form-control col-12 mt-3 mt-md-0"
+      <div class="col-md-12 mt-1"><!-- [ngClass]="isMajorEventValid ? 'required' : ''"-->
+        <label [class.required]="true">Major Events:</label>
+        <textarea class="form-control col-12 mt-3 mt-md-0" #MajorEvents
           [(ngModel)]="patientPastMedicalHistory.MajorEvents"></textarea>
       </div>
-      <div class="col-md-12 mt-1">
-        <label [ngClass]="isOngoingProblemsValid ? 'required' : ''">Ongoing Medical Problems:</label>
-        <textarea class="form-control col-12 mt-3 mt-md-0"
+      <div class="col-md-12 mt-1"><!-- [ngClass]="isOngoingProblemsValid ? 'required' : ''"-->
+        <label [class.required]="true">Ongoing Medical Problems:</label>
+        <textarea class="form-control col-12 mt-3 mt-md-0" #OngoingMedicalProblems
           [(ngModel)]="patientPastMedicalHistory.OngoingProblems"></textarea>
       </div>
       <div class="row card-bg mt-2">
@@ -47,14 +47,14 @@
           </li>
         </ul>
       </div>
-      <div class="col-md-12 mt-1">
-        <label [ngClass]="isPerventiveCareValid ? 'required' : ''">Preventative Care:</label>
-        <textarea class="form-control col-12 mt-3 mt-md-0"
+      <div class="col-md-12 mt-1"> <!-- [ngClass]="isPerventiveCareValid ? 'required' : ''"-->
+        <label [class.required]="true">Preventative Care:</label>
+        <textarea class="form-control col-12 mt-3 mt-md-0" #PreventativeCare
           [(ngModel)]="patientPastMedicalHistory.PerventiveCare"></textarea>
       </div>
       <div class="col-md-12 mt-1">
-        <label [ngClass]="isNutritionHistoryValid ? 'required' : ''">Nutrition History:</label>
-        <textarea class="form-control col-12 mt-3 mt-md-0"
+        <label [class.required]="true">Nutrition History:</label>
+        <textarea class="form-control col-12 mt-3 mt-md-0" #NutritionHistory
           [(ngModel)]="patientPastMedicalHistory.NutritionHistory"></textarea>
       </div>
       <div class="col-12 mt-3">

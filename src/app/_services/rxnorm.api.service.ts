@@ -8,7 +8,8 @@ import {
   RX_DRUG_URI,
   RX_NDCS_STATUS_URI,
   RX_NDCS_URI,
-  RX_URI_NDC_PROPERTIES
+  RX_URI_NDC_PROPERTIES,
+  RXCUI_NAME_URI
 } from "src/environments/environment";
 
 
@@ -112,6 +113,15 @@ export class RxNormAPIService {
       catchError(this._handleError)
     );
   }
+
+  rxcuiName(rxcui:string):Observable<string>{
+    return this.http.get<idGroup>(RXCUI_NAME_URI(rxcui)).pipe(
+      map(result => {
+        let res = (result as any).idGroup
+        return res.name;
+      })
+    )
+  }
   ndcStatus(ndc: string): Observable<ndcStatusObj> {
     return this.http.get<ndcStatusObj>(this._ndcStatusUrl(ndc)).pipe(
       map((result) => {
@@ -181,6 +191,10 @@ export class Drugs {
   public drugGroup?: drugGroupObj;
 }
 
+export class idGroup
+{
+  public name:string;
+}
 export class drugGroupObj {
   public name: string;
   public conceptGroup?: conceptGroupObj[]

@@ -445,7 +445,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       // this.TobaccoUseInterventions();
       this.TobaccoUseByPatientId();
     }
-    else if (data.UpdatedModal == PatientChart.PastMedicalHistory || data.UpdatedModal == PatientChart.FamilyMedicalHistory) {
+    else if (data.UpdatedModal == PatientChart.PastMedicalHistory) {
       this.PastMedicalHistoriesByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Allergies) {

@@ -8,14 +8,18 @@
         <div class="card-body insurance-panel-view">
           <label class="Helvetica-sans-serif-medium required">Subscriber
             Name</label>
-          <div class="input-group mb-3">
-            <input type="text" *ngIf="hideSubscriber"
+          <div class="input-group mb-3" style="display: flow-root;">
+            <div class="col-6 pull-left">
+              <input type="text"
               class="form-control patientInsuranceTab Helvetica-sans-serif-medium" placeholder="Subscriber Name"
               [(ngModel)]="primaryInsurance.SubscriberName" aria-label="Subscriber Name" aria-describedby="basic-addon"
               alphaOnly #subscriberName="ngModel" required>
-            <mat-form-field appearance="outline" class="col-12 hover">
+            </div>
+            <div class="col-5 pull-right">
+              <mat-form-field appearance="outline" class="col-12 patient-insurance" matAutocompleteOrigin #origin="matAutocompleteOrigin">
               <input matInput #searchPrimaryInsurancePatient class="form-control Helvetica-sans-serif-medium"
-                placeholder="Patient Name" [matAutocomplete]="patients" [(ngModel)]="primaryInsurancePatientSearch">
+                placeholder="Search Subscriber In Patients" [matAutocomplete]="patients" [(ngModel)]="primaryInsurancePatientSearch"
+                [matAutocompleteConnectedTo]="origin">
               <mat-autocomplete [displayWith]="displayPrimaryInsurancePatient" #patients="matAutocomplete"
                 (optionSelected)="onPrimaryInsurancePatientSelected($event)">
                 <mat-option *ngIf="isPrimaryInsuranceLoading">Loading ...</mat-option>
@@ -24,7 +28,8 @@
                   {{option.Name}}
                 </mat-option>
               </mat-autocomplete>
-            </mat-form-field>
+            </mat-form-field></div>
+
           </div>
           <!-- <div *ngIf="subscriberName.errors && (subscriberName.touched)">
             <div class="error_message" *ngIf="subscriberName.errors?.required">
@@ -54,7 +59,7 @@
             </div>
             <div class="col-lg-6 col-md-12 col-12">
               <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
-              <div>
+              <div class="insurance-gender-group">
                 <mat-radio-group [(ngModel)]="primaryInsurance.Gender">
                   <mat-radio-button class="radio-btn-label label-design my-1" value="male"> Male
                   </mat-radio-button>
@@ -268,14 +273,16 @@
         <div class="card-body insurance-panel-view">
           <label class="Helvetica-sans-serif-medium required">Subscriber
             Name</label>
-          <div class="input-group mb-3">
-            <input type="text"  *ngIf="hideSubscriber" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
+          <div class="input-group mb-3" style="display: flow-root;">
+            <div class="col-6 pull-left">
+              <input type="text"  class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
               placeholder="Subscriber Name" aria-label="Subscriber Name" aria-describedby="basic-addon1"
               [(ngModel)]="secondaryInsurance.SubscriberName" alphaOnly #sSubscriberName="ngModel" required>
-
-              <mat-form-field appearance="outline" class="col-12 hover">
+            </div>
+            <div class="col-5 pull-right">
+              <mat-form-field appearance="outline" class="col-12 patient-insurance">
                 <input matInput #searchSecondaryInsurancePatient class="form-control Helvetica-sans-serif-medium"
-                  placeholder="Patient Name" [matAutocomplete]="secondarypatients"
+                  placeholder="Search Subscriber In Patients" [matAutocomplete]="secondarypatients"
                   [(ngModel)]="secondaryInsurancePatientSearch">
                 <mat-autocomplete [displayWith]="displaySecondaryInsurancePatient" #secondarypatients="matAutocomplete"
                   (optionSelected)="onSecondaryInsurancePatientSelected($event)">
@@ -286,13 +293,9 @@
                   </mat-option>
                 </mat-autocomplete>
               </mat-form-field>
-          </div>
-          <!-- <div *ngIf="sSubscriberName.errors && (sSubscriberName.touched)">
-            <div class="text-danger" *ngIf="sSubscriberName.errors?.required">
-              <span class="text-danger"></span>
-              <p class="errormessage">Please enter Subscriber Name</p>
             </div>
-          </div> -->
+          </div>
+
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
               <label class="Helvetica-sans-serif-medium d-block required">Date of Birth</label>
@@ -314,7 +317,7 @@
             </div>
             <div class="col-lg-6 col-md-12 col-12">
               <label class="Helvetica-sans-serif-medium d-block required">Gender:</label>
-              <div>
+              <div class="insurance-gender-group">
                 <mat-radio-group [(ngModel)]="secondaryInsurance.Gender">
                   <mat-radio-button value="male" class="radio-btn-label label-design my-1">Male
                   </mat-radio-button>

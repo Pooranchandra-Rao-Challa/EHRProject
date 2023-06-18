@@ -1,6 +1,7 @@
+import { BehaviorSubject, Observable, Subject, fromEvent, merge } from 'rxjs';
 import { FamilyMedicalHistory, PatientChart } from './../../_models/_provider/chart';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Actions, ChartInfo, PastMedicalHistory } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
@@ -10,6 +11,7 @@ import { FamilyHealthHistoryDialogComponent } from '../family.health.history.dia
 import { ComponentType } from 'ngx-toastr';
 import { OverlayService } from 'src/app/overlay.service';
 import { FamilyRecordNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-past.medical.history.dialog',
@@ -19,13 +21,8 @@ import { FamilyRecordNotifier } from 'src/app/_navigations/provider.layout/view.
 export class PastMedicalHistoryDialogComponent implements OnInit {
   patientPastMedicalHistory: PastMedicalHistory = new PastMedicalHistory();
   currentPatient: ProviderPatient;
-  chartInfo: ChartInfo = new ChartInfo;
   familyHealthHistoryDialogComponent = FamilyHealthHistoryDialogComponent;
   ActionTypes = Actions;
-  isMajorEventValid: boolean = true;
-  isOngoingProblemsValid: boolean = true;
-  isPerventiveCareValid: boolean = true;
-  isNutritionHistoryValid: boolean = true;
 
   constructor(private ref: EHROverlayRef,
     private authService: AuthenticationService,
@@ -35,7 +32,7 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     private familyRecordNotifier: FamilyRecordNotifier,
     private cdref: ChangeDetectorRef) {
     this.currentPatient = this.authService.viewModel.Patient;
-    this.updateLocalModel(ref.RequestData);
+
   }
 
   ngAfterContentChecked() {
@@ -44,6 +41,8 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.familyRecordNotifier.getData().subscribe(resp => {
+      console.log(resp);
+
       if (resp.isdeleted) {
         this.patientPastMedicalHistory.FamilyMedicalHistories.splice(resp.record.Index, 1)
       } else {
@@ -54,8 +53,10 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
         }
         this.patientPastMedicalHistory.FamilyMedicalHistories.push(resp.record);
       }
-      this.CreatePastMedicalHistories();
+      //this.CreatePastMedicalHistories();
     });
+    this.updateLocalModel(this.ref.RequestData);
+
   }
 
   updateLocalModel(data: any) {
@@ -66,6 +67,9 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
       this.patientPastMedicalHistory.strFamilyMedicalHistories != null &&
         this.patientPastMedicalHistory.strFamilyMedicalHistories != '' ?
         JSON.parse(this.patientPastMedicalHistory.strFamilyMedicalHistories) : [];
+    console.log(this.patientPastMedicalHistory);
+
+
   }
   cancel() {
     this.ref.close({
@@ -73,15 +77,17 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     });
   }
 
-  CreatePastMedicalHistories() {
+  CreatePastMedicalHistories(close:boolean = true) {
     let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
     this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
-        this.ref.close({
-          "UpdatedModal": PatientChart.PastMedicalHistory
-        });
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
+        if(close){
+          this.ref.close({
+            "UpdatedModal": PatientChart.PastMedicalHistory
+          });
+          this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CPMH001" : "M2CPMH002"]);
+        }
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CPMH001"]);
@@ -90,40 +96,16 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   }
 
   disablePastMedicalHistory() {
-    if (this.patientPastMedicalHistory.MajorEvents) {
-      this.isMajorEventValid = true;
-      this.isOngoingProblemsValid = false;
-      this.isPerventiveCareValid = false;
-      this.isNutritionHistoryValid = false;
-    }
-    else if (this.patientPastMedicalHistory.OngoingProblems) {
-      this.isMajorEventValid = false;
-      this.isOngoingProblemsValid = true;
-      this.isPerventiveCareValid = false;
-      this.isNutritionHistoryValid = false;
-    }
-    else if (this.patientPastMedicalHistory.PerventiveCare) {
-      this.isMajorEventValid = false;
-      this.isOngoingProblemsValid = false;
-      this.isPerventiveCareValid = true;
-      this.isNutritionHistoryValid = false;
-    }
-    else if (this.patientPastMedicalHistory.NutritionHistory) {
-      this.isMajorEventValid = false;
-      this.isOngoingProblemsValid = false;
-      this.isPerventiveCareValid = false;
-      this.isNutritionHistoryValid = true;
-    }
     return !(this.patientPastMedicalHistory.MajorEvents || this.patientPastMedicalHistory.OngoingProblems
       || this.patientPastMedicalHistory.PerventiveCare || this.patientPastMedicalHistory.NutritionHistory)
   }
 
-  // Get Past Medical Histories info
-  PastMedicalHistoriesByPatientId() {
-    this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
-    });
-  }
+  // // Get Past Medical Histories info
+  // PastMedicalHistoriesByPatientId() {
+  //   this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+  //     if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
+  //   });
+  // }
 
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
@@ -138,6 +120,10 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
+      if(res.data && res.data.UpdatedModal == PatientChart.FamilyMedicalHistory
+        && res.data.SaveRecord == true){
+          this.CreatePastMedicalHistories(false);
+        }
     });
   }
 

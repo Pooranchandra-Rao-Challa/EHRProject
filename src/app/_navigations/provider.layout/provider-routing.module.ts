@@ -12,22 +12,23 @@ import { ErxComponent } from '../../provider/erx/erx.component';
 import { BillingComponent } from '../../provider/billing/billing.component';
 import { MessagesComponent } from '../../provider/messages/messages.component';
 import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
+import { AuthGuard } from 'src/app/_helpers/auth.guard';
 
 const routes: Routes = [
   {
-    path: '', component: ProviderComponent,
+    path: '', component: ProviderComponent,canActivateChild: [AuthGuard],
     children: [
-      { path: "calendar", component: CalendarComponent },
-      { path: 'smartschedule', component: SmartScheduleComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'patients', component: PatientsComponent },
-      { path: 'patientdetails', component: PatientDetailsComponent },
-      { path: 'directmsg', component: DirectMsgComponent },
-      { path: 'erx', component: ErxComponent },
-      { path: 'billing', component: BillingComponent },
-      { path: 'messages', component: MessagesComponent },
-      { path: 'labsimaging', component: LabsImagingComponent },
-      { path: 'categoryreports', component: CategoryreportsComponent }
+      { path: "calendar", component: CalendarComponent,  },
+      { path: 'smartschedule', component: SmartScheduleComponent, },
+      { path: 'settings', component: SettingsComponent, },
+      { path: 'patients', component: PatientsComponent,  },
+      { path: 'patientdetails', component: PatientDetailsComponent, },
+      { path: 'directmsg', component: DirectMsgComponent, },
+      { path: 'erx', component: ErxComponent,  },
+      { path: 'billing', component: BillingComponent, },
+      { path: 'messages', component: MessagesComponent,  },
+      { path: 'labsimaging', component: LabsImagingComponent,  },
+      { path: 'categoryreports', component: CategoryreportsComponent,  }
     ]
   }
 ]

@@ -24,7 +24,7 @@ export class PatientEdnMaterialComponent implements OnInit {
   searchnow: boolean = true;
   patientmaterialfrom: FormGroup
   expandedchangecolor: boolean = false;
-  codeSystemsForPatientEducation: string[] = ['SNOMED/ICD10', 'CDT/CPT', 'Lonics', 'NDC', 'RxNorm'];
+  codeSystemsForPatientEducation: string[] = ['SNOMED','ICD10', 'CDT', 'Lonics', 'NDC', 'RxNorm'];
   educationMaterials: EducationMaterial[] =[];
   patientEducationSearchList = new BehaviorSubject<EducationMaterial[]>([]);
   columnsToDisplay = ['action', 'name', 'weight', 'symbol', 'position'];
