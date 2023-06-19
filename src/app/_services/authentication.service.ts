@@ -368,9 +368,10 @@ export class AuthenticationService {
     const exp = new Date(jwtToken.exp * 1000);
     const iat = new Date(jwtToken.iat * 1000);
     const nbf = new Date(jwtToken.nbf * 1000);
-    exp.setSeconds(0);
+    //exp.setSeconds(0);
     iat.setSeconds(0);
     nbf.setSeconds(0);
+    console.log(exp);
     const today = new Date();
     const flag = today >= nbf && today >= iat && today <= exp;
     return flag

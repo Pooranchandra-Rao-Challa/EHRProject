@@ -257,7 +257,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
         this.rxNormAPIService.Drugs(term.SearchTerm).subscribe(resp =>{
           drugs = resp as Drug[];
           drugs.forEach(durg =>{
-            medicalCodes.push({Code:durg.rxcui,Description:durg.Synonym,CodeSystem:term.CodeSystem})
+            medicalCodes.push({Code:durg.rxcui,Description:durg.Name,CodeSystem:term.CodeSystem})
           })
           cdg.push({name:term.CodeSystem,codes:medicalCodes })
           this.filteredOptions = of(cdg);
