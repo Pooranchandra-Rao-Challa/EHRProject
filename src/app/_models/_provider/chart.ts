@@ -85,9 +85,10 @@ export class ChartInfo {
   Appointments?: NewAppointment[] = []
   Medications?: Medication[] = []
   SmokingStatuses?: SmokingStatus[] = []
-  TobaccoUseInterventions?: TobaccoUseScreenings[] = []
-  TobaccoUseScreenings?: TobaccoUseInterventions[] = []
+  TobaccoUseInterventions?: TobaccoUseScreening[] = []
+  TobaccoUseScreenings?: TobaccoUseIntervention[] = []
   Interventions?: Intervention[] = []
+  TobaccoUse?: TobaccoUse[] =[];
 }
 
 export class Immunization {
@@ -171,30 +172,7 @@ export class Medication {
   HasPrescriptions?: string;
 }
 
-export class TobaccoUseScreenings {
-  TobaccoUseId?: string;
-  PatientId?: string;
-  ScreeningId?: string;
-  ScreeningType?: string;
-  ScreeningDate?: Date;
-  ScreeningDescription?: string;
-  ScreeningCode?: string;
-  Status?: string;
-  ScreeningPerformed?: string;
-  CQMReason?: string;
-}
-
-export class TobaccoUseInterventions {
-  TobaccoUseId?: string;
-  PatientId?: string;
-  CI_Id?: string;
-  CI_Date?: Date;
-  CI_Type?: string;
-  CI_Code?: string;
-  CI_Description?: string;
-}
-
-export class TobaccoUse {
+export class TobaccoUseScreening {
   TobaccoUseId?: string;
   PatientId?: string;
   ScreeningId?: string;
@@ -203,14 +181,35 @@ export class TobaccoUse {
   strScreeningDate?: string;
   ScreeningDescription?: string;
   ScreeningCode?: string;
-  Status?: string;
+  ScreeningStatus?: string;
   ScreeningPerformed?: string;
-  CI_Id?: string;
-  CI_Date?: Date;
-  strCI_Date?: string;
-  CI_Type?: string;
-  CI_Code?: string;
-  CI_Description?: string;
+  CQMReason?: string;
+}
+
+export class TobaccoUseIntervention {
+  TobaccoUseId?: string;
+  InterventionId?: string;
+  PatientId?: string;
+  InterventionDate?: Date;
+  strInterventionDate?: string;
+  InterventionType?: string;
+  InterventionCode?: string;
+  InterventionDescription?: string;
+  Reason?: string;
+	ReasonCode?: string;
+	ReasonDescription?: string;
+  NotPerformed?: boolean;
+}
+
+export class TobaccoUse {
+  TobaccoUseId?: string;
+  PatientId?: string;
+  strScreenings?:string;
+  strInterventions?: string;
+  Screenings?: TobaccoUseScreening[]
+  Interventions?: TobaccoUseIntervention[]
+  TotalRecords?: number;
+
 }
 
 export class Diagnosis {

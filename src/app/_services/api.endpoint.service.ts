@@ -1105,6 +1105,12 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "Prescriptions";
   }
 
+  get _checkEducationMaterialURL() {
+    return this._baseUrl + "CheckEducationMaterial";
+  }
+
+
+
   constructor(public http: HttpClient) {
     super();
   }

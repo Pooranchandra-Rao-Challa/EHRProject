@@ -1,11 +1,11 @@
-import { MEDLINE_PLUS_URL,MEDLINE_PLUS_RXNORM } from 'src/environments/environment';
+import { MEDLINE_PLUS_URL,MEDLINE_PLUS_RXNORM, MEDLINE_PLUS_SNOMED } from 'src/environments/environment';
 import { Drug, RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { DiscontinueDialogComponent } from '../discontinue.dialog/discontinue.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Actions, Medication, PatientChart,GlobalConstants } from 'src/app/_models';
+import { Actions, Medication, PatientChart,GlobalConstants, EducationMaterial } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -44,6 +44,7 @@ export class MedicationDialogComponent implements OnInit {
   QuntityUnit: string[]
   Route: string[]
   Dose: string[]
+  educationMaterial: EducationMaterial = null;
   filteredRoutes: Observable<string[]>;
   filteredDoseUnits: Observable<string[]>;
   filteredActions: Observable<string[]>;
@@ -74,7 +75,7 @@ export class MedicationDialogComponent implements OnInit {
 
 
 
-    this.updateLocalModel(ref.RequestData);
+
     if (this.patientMedication.StartAt) {
       this.minDateForEndDate = new Date(this.patientMedication.StartAt);
     }
@@ -163,6 +164,7 @@ export class MedicationDialogComponent implements OnInit {
       // subscription for response
     ).subscribe(value => this._filterMedicationNames(value));
     this.NDCList();
+    this.updateLocalModel(this.ref.RequestData);
   }
 
   _filterRoutes(value){
@@ -246,7 +248,8 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
-
+    if(this.patientMedication.Rxcui)
+      this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
 
   cancel(doCanel:boolean=false) {
@@ -280,6 +283,37 @@ export class MedicationDialogComponent implements OnInit {
       }
 
     });
+  }
+
+  CheckEducationMatieal(code: string) {
+
+    if (this.currentPatient)
+      this.patientService.CheckEducationMaterial({
+        ClinicId: this.authService.userValue.ClinicId,
+        PatientId: this.currentPatient.PatientId,
+        Code: code
+      }).subscribe({
+        next: (resp) => {
+          if (resp.IsSuccess) {
+            this.educationMaterial = resp.Result;
+            console.log(this.educationMaterial);
+            if (this.educationMaterial.strAttachments)
+              this.educationMaterial.Attachments = JSON.parse(this.educationMaterial.strAttachments);
+
+            this.educationMaterial.PatientId = this.currentPatient.PatientId;
+          }
+        },
+        error: (error) => { this.educationMaterial = null },
+        complete: () => {
+
+        }
+      })
+  }
+
+  MedLinePlusUrl():string {
+    if (this.patientMedication.Rxcui)
+      return MEDLINE_PLUS_URL(this.patientMedication.Rxcui, MEDLINE_PLUS_RXNORM);
+    else return '#';
   }
 
   // DrugNames(searchTerm: any) {
@@ -364,7 +398,5 @@ export class MedicationDialogComponent implements OnInit {
         });
   }
 
-  get medLinePlusUrl():string{
-    return MEDLINE_PLUS_URL(this.patientMedication.Rxcui,MEDLINE_PLUS_RXNORM);
-  }
+
 }

@@ -93,7 +93,7 @@ export class AddeditinterventionComponent implements OnInit {
   }
 
   updateLocalModel(data: CQMNotPerformed) {
-    this.CQMNotPerformed = new CQMNotPerformed;
+    this.CQMNotPerformed = {};
     if (data == null) return;
     this.CQMNotPerformed = data;
     this.CQMNotPerformed.CessationInterventionId = data.CessationInterventionId;
@@ -102,8 +102,11 @@ export class AddeditinterventionComponent implements OnInit {
 
   addUpdateCQMNotPerformed() {
     let isAdd = this.CQMNotPerformed.NPRId == undefined;
+    if(!this.CQMNotPerformed.PatientId)
     this.CQMNotPerformed.PatientId = this.PatientDetails.PatientId;
+    if(!this.CQMNotPerformed.ProviderId)
     this.CQMNotPerformed.ProviderId = this.PatientDetails.ProviderId;
+
     this.CQMNotPerformed.strDate = this.datepipe.transform(this.CQMNotPerformed.Date, "MM/dd/yyyy hh:mm:ss a", "en-US");
     this.cqmNotperformedService.AddUpdateCQMNotPerformed(this.CQMNotPerformed).subscribe(resp => {
       if (resp.IsSuccess) {

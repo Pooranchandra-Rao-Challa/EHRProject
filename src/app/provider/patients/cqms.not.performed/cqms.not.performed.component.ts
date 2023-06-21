@@ -40,6 +40,8 @@ export class CqmsNotPerformedComponent implements OnInit {
       "ProviderId": this.PatientDetails.ProviderId
     }
     this.cqmNotperformedService.CQMNotPerformed(reqparam).subscribe(resp => {
+      console.log(resp);
+
       if (resp.IsSuccess) {
         this.CQMNotPreformedDataSource = resp.ListResult;
       }

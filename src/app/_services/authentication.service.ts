@@ -4,7 +4,7 @@ import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, Observer, observable, throwError, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, tap } from 'rxjs/operators';
 import { APIEndPoint } from './api.endpoint.service';
 import { environment } from "src/environments/environment";
@@ -80,14 +80,14 @@ export class AuthenticationService {
                   ['provider/smartschedule'],
                   { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
                 )
-                .then(() => window.location.reload());
+                  .then(() => window.location.reload());
               }
               else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 // Provider trial period is closed please do subscribe for accessing application.
                 // alert('Provider trial period is closed please do subscribe for accessing application.');
                 this.logout(ERROR_CODES["EL012"]);
               }
-              else{
+              else {
                 // console.log(this.router.parseUrl(this.router.url));
                 // let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 // console.log(url);
@@ -95,9 +95,9 @@ export class AuthenticationService {
 
                 this.router.navigate(
                   ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() }}
+                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
                 )
-                .then(() => window.location.reload());
+                  .then(() => window.location.reload());
               }
 
 
@@ -112,7 +112,7 @@ export class AuthenticationService {
                   ['admin/dashboard'],
                   { queryParams: { name: 'Providers', key: (new Date()).getTime() } }
                 )
-                //.then(() => window.location.reload());
+            //.then(() => window.location.reload());
             else if (this.isPatient)
               this.logout(ERROR_CODES["EL001"]);
           } else if (this.isFirstTimeLogin) {
@@ -130,7 +130,7 @@ export class AuthenticationService {
         console.log(err);
         let error = ERROR_CODES["EL002"]
         if (error != '' && error != null)
-        localStorage.setItem('message', error);
+          localStorage.setItem('message', error);
         this.router.navigate(['/account/home']);
         //this.logout(ERROR_CODES["EL002"]);
       }),
@@ -165,7 +165,11 @@ export class AuthenticationService {
   SwitchUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchUser/";
-      let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
+      const headers = new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": this.userValue.JwtToken
+      });
+      let observable = this.http.post<ResponseData>(endpointUrl, data, { headers: headers }).pipe<ResponseData>(
         tap(resp => {
           if (resp.IsSuccess) {
             localStorage.clear();
@@ -188,7 +192,7 @@ export class AuthenticationService {
                   ['/provider/smartschedule'],
                   { queryParams: { name: 'Smart Schedule', time: (new Date()).toUTCString() } }
                 )
-                //.then(() => window.location.reload());
+              //.then(() => window.location.reload());
 
             }
 
@@ -207,7 +211,12 @@ export class AuthenticationService {
   SwitchToPatientUser(data: { SwitchUserKey: string, SwitchUserEncKey: string, UserIP: string }) {
     if (this.isAdmin) {
       const endpointUrl = this.baseUrl + "SwitchToPatientUser/";
-      let observable = this.http.post<ResponseData>(endpointUrl, data).pipe<ResponseData>(
+
+      const headers = new HttpHeaders({
+        "Content-Type": "application/json",
+        "Authorization": this.userValue.JwtToken
+      });
+      let observable = this.http.post<ResponseData>(endpointUrl, data, { headers: headers }).pipe<ResponseData>(
         tap(resp => {
           if (resp.IsSuccess) {
             localStorage.clear();
@@ -252,17 +261,17 @@ export class AuthenticationService {
 
         if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/security-question'],
-          { queryParams: { key: (new Date()).getTime() } });
+            { queryParams: { key: (new Date()).getTime() } });
           //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           this.router.navigate(['/account/reset-password'],
-          { queryParams: { key: (new Date()).getTime() } });
+            { queryParams: { key: (new Date()).getTime() } });
           //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
           this.router.navigate(['/account/patient-relations'],
-          { queryParams: { key: (new Date()).getTime() } });
+            { queryParams: { key: (new Date()).getTime() } });
           //.then(() => window.location.reload());
         } else if (this.isPatient && !this.isPatientActive) {
           this.logout(ERROR_CODES["EL014"])
@@ -271,8 +280,8 @@ export class AuthenticationService {
         }
         else if (this.isPatient || this.isRepresentative)
           this.router.navigate(['patient/dashboard'],
-          { queryParams: { key: (new Date()).getTime() } });
-          //.then(() => window.location.reload());
+            { queryParams: { key: (new Date()).getTime() } });
+        //.then(() => window.location.reload());
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
@@ -284,7 +293,7 @@ export class AuthenticationService {
         console.log(err);
         let error = ERROR_CODES["EL002"]
         if (error != '' && error != null)
-        localStorage.setItem('message', error);
+          localStorage.setItem('message', error);
         this.router.navigate(['/account/home']);
       };
     return observable;
@@ -292,7 +301,11 @@ export class AuthenticationService {
 
   refreshToken() {
     var url = this.baseUrl + 'refreshtoken';
-    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP })
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": this.userValue.JwtToken
+    });
+    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP }, { headers: headers })
       .subscribe((resp) => {
         if (resp.IsSuccess) {
           const u = resp.Result as User;
@@ -305,15 +318,34 @@ export class AuthenticationService {
 
       })
   }
+
+  //resetSessionMonitor;
   openRefeshDialog() {
+    //if (this.resetSessionMonitor) clearTimeout(this.refreshTokenTimer);
+    //this.resetSessionMonitor = setTimeout(() => this.revokeToken('Session is ended'), 30*1000);
+    let timerInterval
     this.UserIp().subscribe(resp => {
       this.userIP = resp.ip;
       Swal.fire({
         title: 'Do you want extend the session?',
+        html: 'Session will close in <b></b> seconds.',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Refresh Session',
         denyButtonText: `Revoke Session`,
+        timer: 60000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading(Swal.getDenyButton())
+          const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = (Swal.getTimerLeft()/1000) + ''
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval);
+          this.revokeToken(ERROR_CODES["EL018"]);
+        },
         customClass: {
           confirmButton: 'confirm-refresh-session'
         }
@@ -321,35 +353,43 @@ export class AuthenticationService {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           this.refreshToken()
-        } else if (result.isDenied) {
-          this.logout();
         }
+        // else if (result.isDenied) {
+        //   this.logout();
+        // }
       })
     });
 
   }
 
   revokeToken(error: any = '') {
+    //if (this.resetSessionMonitor) clearTimeout(this.refreshTokenTimer);
     var url = this.baseUrl + 'revoketoken';
-    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP })
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": this.userValue.JwtToken
+    });
+    this.http.post<any>(url, { Refresh: this.userValue.RefreshToken, UserIP: this.userIP }, { headers: headers })
       .subscribe({
         next: (resp) => {
           this.stopRefreshTokenTimer();
           localStorage.removeItem('user');
           if (error != '' && error != null)
-              localStorage.setItem('message', error);
+            localStorage.setItem('message', error);
           this.router.navigate(['/account/home'])
           //.then(() => {window.location.reload();});
         },
         error: (error) => {
+          console.log(error);
+
           this.stopRefreshTokenTimer();
           localStorage.removeItem('user');
           if (error != '' && error != null)
-              localStorage.setItem('message', error);
+            localStorage.setItem('message', error);
           this.router.navigate(['/account/home']);
           //.then(() => {window.location.reload();});
         },
-        complete: () =>{
+        complete: () => {
 
         }
       }
@@ -380,12 +420,12 @@ export class AuthenticationService {
   public startRefreshTokenTimer() {
     const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
     const expires = new Date(jwtToken.exp * 1000);
-    const timeout = expires.getTime() - (new Date()).getTime();
+    const timeout = expires.getTime() - (new Date()).getTime() - 60000;
     if (this.refreshTokenTimer) clearInterval(this.refreshTokenTimer);
-    this.refreshTokenTimer = setInterval(() => this.openRefeshDialog(), timeout);
+    this.refreshTokenTimer = setTimeout(() => this.openRefeshDialog(), timeout);
   }
 
-  public clearTimer(){
+  public clearTimer() {
     clearInterval(this.refreshTokenTimer);
   }
 

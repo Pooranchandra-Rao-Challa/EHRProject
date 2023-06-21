@@ -269,13 +269,13 @@
           </div>
           <div class="col-md-5 col-sm-5">
             <a class="underlined"
-              [href]="medLinePlusUrl"
+              [href]="MedLinePlusUrl()"
               target="_blank">
               Medline Plus
             </a>
           </div>
           <div class="col-md-5 col-sm-5">
-            <a class="underlined" id="education_materials_show"
+            <a class="underlined" id="education_materials_show" *ngIf="educationMaterial != null"
               (click)="openComponentDialog(patientEducationMaterialDialogComponent,null,ActionTypes.view)">Patient
               Education Materials
             </a>

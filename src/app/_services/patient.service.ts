@@ -472,4 +472,10 @@ export class PatientService extends APIEndPoint {
   Prescriptions(reqparams: any){
     return this._ProcessPostRequest<any>(this._prescriptionsURL, reqparams);
   }
+
+  CheckEducationMaterial(reqparams: any){
+    return this._ProcessPostRequest<any>(this._checkEducationMaterialURL,reqparams);
+  }
+
+
 }

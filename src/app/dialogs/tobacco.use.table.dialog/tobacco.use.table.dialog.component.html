@@ -1,7 +1,7 @@
 <div class="modal-dialog tobacco-use">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Tobacco Use</h4>
+      <h4 class="modal-title Helvetica-sans-serif-large w-100 text-center">Tobacco Use</h4>
       <span type="button" class="cross-mark" (click)="cancel()">
         X
       </span>
@@ -10,7 +10,7 @@
       <div class="content">
         <div class="panel">
           <div class="panel-header">
-            <p class="panel-title Helvetica-sans-serif-medium">Screening and Use:</p>
+            <p class="panel-title Helvetica-sans-serif-large">Screening and Use:</p>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -19,28 +19,28 @@
                   <p class="Helvetica-sans-serif-medium">Recorded Screening and Use</p>
                 </div>
                 <div class="scrollable-mat-table screening-table">
-                  <mat-table [dataSource]="patientTobaccoUse" matSort>
+                  <mat-table [dataSource]="tobaccoUseScreenings" matSort>
                     <ng-container matColumnDef="DatePerf">
                       <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.ScreeningDate | date: 'MM/dd/yyyy'}}
+                      <mat-cell *matCellDef="let screening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, screening, ActionTypes.view)">
+                          {{screening.ScreeningDate | date: 'MM/dd/yyyy'}}
                         </a>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Screeningperf">
                       <mat-header-cell *matHeaderCellDef>Screening perf</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.ScreeningType}}
+                      <mat-cell *matCellDef="let screening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, screening, ActionTypes.view)">
+                          {{screening.ScreeningType}}
                         </a>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Status">
                       <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.Status}}
+                      <mat-cell *matCellDef="let screening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, screening, ActionTypes.view)">
+                          {{screening.Status}}
                         </a>
                       </mat-cell>
                     </ng-container>
@@ -62,7 +62,7 @@
         </div>
         <div class="panel">
           <div class="panel-header">
-            <p class="panel-title">Cessation Intervention:</p>
+            <p class="panel-title Helvetica-sans-serif-large">Cessation Intervention:</p>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -71,28 +71,28 @@
                   <p class="Helvetica-sans-serif-medium">Recorded Cessation Interventions</p>
                 </div>
                 <div class="scrollable-mat-table">
-                  <mat-table [dataSource]="patientTobaccoUse" matSort>
+                  <mat-table [dataSource]="tobaccoUseInterventions" matSort>
                     <ng-container matColumnDef="DatePerf">
                       <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.CI_Date | date: 'MM/dd/yyyy'}}
+                      <mat-cell *matCellDef="let tobaccoScreening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent,tobaccoScreening, ActionTypes.view)">
+                          {{tobaccoScreening.InterventionDate | date: 'MM/dd/yyyy'}}
                         </a>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="Interventionperf">
                       <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.CI_Type}}
+                      <mat-cell *matCellDef="let tobaccoScreening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccoScreening, ActionTypes.view)">
+                          {{tobaccoScreening.InterventionType}}
                         </a>
                       </mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="InterventionDesc">
                       <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
-                      <mat-cell *matCellDef="let tobaccouse">
-                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccouse, ActionTypes.view)">
-                          {{tobaccouse.CI_Description}}
+                      <mat-cell *matCellDef="let tobaccoScreening">
+                        <a (click)="openComponentDialog(tobaccoUseDialogComponent, tobaccoScreening, ActionTypes.view)">
+                          {{tobaccoScreening.InterventionDescription}}
                         </a>
                       </mat-cell>
                     </ng-container>

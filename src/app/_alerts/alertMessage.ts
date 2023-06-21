@@ -537,6 +537,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'ML001': 'Password is updated can login now.',
   'EL016': 'Password is not updated, contract provider/administrator',
   'EL017': 'Your session is closed, so, need to sign in before continuing.',
+  'EL018': 'Your session is auto closed.',
 
   //Education Material Message
   'M2JPE001': 'Education Material added successfully',

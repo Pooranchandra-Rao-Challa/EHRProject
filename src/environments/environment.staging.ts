@@ -51,6 +51,8 @@ export const RX_NDCS_STATUS_URI = (ndc:string) => `REST/ndcstatus.json?ndc=${ndc
 
 export const RX_URI_NDC_PROPERTIES = (ndc: string) => `${environment.RX_END_POINT}REST/rxcui/${ndc}/properties.json`;
 
+export const RXCUI_NAME_URI = (rxcui: string) => `${environment.RX_END_POINT}REST/rxcui/${rxcui}.json`;
+
 export const DR_FIRSR_VERESION = 2.45;
 
 export const UPLOAD_URL = (uri:string) => `${environment.baseUrl}${uri}`;

@@ -5,6 +5,12 @@
   --bs-table-accent-bg: none !important;
 }
 
+
+
+.mat-row.highlighted {
+  background: #999;
+}
+
 .modal-dialog {
   overflow-y: initial !important;
 }
@@ -78,7 +84,7 @@
 }
 
 .tobacco-use .screening-list .mat-row:hover {
-  background-color: #fff !important;
+  background-color: #eee !important;
 }
 
 .tobacco-use .screening-list .mat-cell,
@@ -125,6 +131,7 @@
     width: 1350px;
   }
 }
+
 .tobacco-use .btn.btn-green {
   height: 45px;
 }

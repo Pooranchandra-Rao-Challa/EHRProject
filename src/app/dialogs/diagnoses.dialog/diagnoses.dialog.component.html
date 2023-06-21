@@ -74,21 +74,21 @@
           <textarea placeholder="Diagnosis Notes:" class="form-control col-12 mt-3 mt-md-0 diagnosis-note"
             [(ngModel)]="patientDiagnoses.Note" matInput style="margin: 10px 14px 10px;"></textarea>
           </div>
-          <div class="row links-item mt-2" *ngIf="patientDiagnoses.DiagnosisId != undefined">
+          <div class="row links-item mt-2" *ngIf="this.patientDiagnoses.Code != null">
             <div class="col-lg-3 col-md-3 col-sm-3">
               <p>Resources:</p>
             </div>
             <div class="col-md-4 col-sm-4">
               <a class="underlined"
-                href="https://connect.medlineplus.gov/application?mainSearchCriteria.v.cs=2.16.840.1.113883.6.88&mainSearchCriteria.v.c="
+                [href]="MedLinePlusUrl()"
                 target="_blank">
                 Medline Plus
               </a>
             </div>
-            <div class="col-md-5 col-sm-5">
-              <a class="underlined" id="education_materials_show"
-                (click)="openComponentDialog(patientEducationMaterialDialogComponent,null,ActionTypes.add)">Patient
-                Education Materials</a>
+            <div class="col-md-5 col-sm-5" *ngIf="this.educationMaterial != null">
+              <span class="underlined" id="education_materials_show"
+                (click)="openComponentDialog(patientEducationMaterialDialogComponent,null,ActionTypes.view)">Patient
+                Education Materials</span>
             </div>
           </div>
         </div>

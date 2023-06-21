@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ComponentType } from 'ngx-toastr';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
-import { Actions, TobaccoUse } from 'src/app/_models';
+import { Actions, TobaccoUse, TobaccoUseIntervention, TobaccoUseScreening } from 'src/app/_models';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { TobaccoUseDialogComponent } from '../tobacco.use.dialog/tobacco.use.dialog.component';
@@ -18,7 +18,11 @@ export class TobaccoUseTableDialogComponent implements OnInit {
   screeningColumns: string[] = ['DatePerf', 'Screeningperf', 'Status', 'TobaccoUsecode_desc'];
   interventionColumns: string[] = ['DatePerf', 'Interventionperf', 'InterventionDesc'];
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
-  public patientTobaccoUse = new MatTableDataSource<TobaccoUse>();
+  patientTobaccoUse = new MatTableDataSource<TobaccoUse>();
+
+  toabccoUses: TobaccoUse[] = []
+  tobaccoUseScreenings = new MatTableDataSource<TobaccoUseScreening>();
+  tobaccoUseInterventions = new MatTableDataSource<TobaccoUseIntervention>();
   ActionTypes = Actions;
   tobaccoUseDialogComponent = TobaccoUseDialogComponent;
 
@@ -26,8 +30,8 @@ export class TobaccoUseTableDialogComponent implements OnInit {
     private authService: AuthenticationService,
     private overlayService: OverlayService,
     private patientService: PatientService) {
-      this.updateLocalModel(ref.RequestData);
-     }
+    this.updateLocalModel(ref.RequestData);
+  }
 
   ngOnInit(): void {
   }
@@ -36,10 +40,26 @@ export class TobaccoUseTableDialogComponent implements OnInit {
     this.patientTobaccoUse.sort = this.sort.toArray()[0];
   }
 
-  updateLocalModel(data: TobaccoUse) {
+  updateLocalModel(data: TobaccoUse[]) {
     this.patientTobaccoUse.data = [];
+
     if (data == null) return;
-    this.patientTobaccoUse.data = data as TobaccoUse[];
+    let tobaccoUse: TobaccoUse[] = data
+    this.toabccoUses = tobaccoUse;
+    //this.patientTobaccoUse.data = data as TobaccoUse[];
+    console.log(tobaccoUse);
+
+    tobaccoUse.forEach(value => {
+      if (!this.tobaccoUseScreenings.data) this.tobaccoUseScreenings.data = [];
+      if (!this.tobaccoUseInterventions.data) this.tobaccoUseInterventions.data = [];
+      this.tobaccoUseScreenings.data.push(...value.Screenings)
+      this.tobaccoUseInterventions.data.push(...value.Interventions)
+    })
+
+  }
+
+  getTobaccoUseOfEntity(tobaccoUseId: string) {
+    return this.toabccoUses.filter(f => f.TobaccoUseId == tobaccoUseId)[0]
   }
 
   cancel() {
@@ -49,12 +69,18 @@ export class TobaccoUseTableDialogComponent implements OnInit {
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
+    console.log(dialogData);
+
     if (action == Actions.view && content === this.tobaccoUseDialogComponent) {
-      reqdata = dialogData;
+      console.log(dialogData.TobaccoUseId);
+
+      var d = { tobaccoUse: this.getTobaccoUseOfEntity(dialogData.TobaccoUseId), screening: dialogData }
+      reqdata = d;
+      console.log(reqdata);
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      if(res.data != null){
+      if (res.data != null) {
         this.ref.close(res.data);
       }
     });

@@ -17,7 +17,7 @@ import { InterventionDialogComponent } from 'src/app/dialogs/intervention.dialog
 import { PatientService } from '../../../_services/patient.service';
 import {
   ChartInfo, PatientChart, Actions,
-  Immunization, EncounterInfo, NewAppointment, TobaccoUseScreenings, TobaccoUseInterventions, PracticeProviders,
+  Immunization, EncounterInfo, NewAppointment, TobaccoUseScreening, TobaccoUseIntervention, PracticeProviders,
   AppointmentTypes, UserLocations, Room, AppointmentDialogInfo, Vaccine, User, TobaccoUse, GlobalConstants,
   PatientSearchResults, Labandimaging, PatientSearch, AlertResult, TriggerResult, Medication
 } from 'src/app/_models';
@@ -102,8 +102,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
   appointments: NewAppointment[];
-  tobaccoscreenings: TobaccoUseScreenings[];
-  tobaccointerventions: TobaccoUseInterventions[];
+  tobaccoscreenings: TobaccoUseScreening[];
+  tobaccointerventions: TobaccoUseIntervention[];
   immUnits: GlobalConstants;
   immRoutes: GlobalConstants;
   immBodySites: GlobalConstants;
@@ -134,7 +134,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   patientMessages: Messages[] = [];
   customizedspinner: boolean;
   alertResult: AlertResult[] = []
-  drFirstMedicationUrl:string;
+  drFirstMedicationUrl: string;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -145,8 +145,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
     private smartSchedulerService: SmartSchedulerService,
     private settingsService: SettingsService,
     private viewChangeService: ViewChangeService,
-    private drfirstService:DrfirstService,
-    private drfirstUrlChanged:DrfirstUrlChanged) {
+    private drfirstService: DrfirstService,
+    private drfirstUrlChanged: DrfirstUrlChanged) {
     this.user = authService.userValue;
     this.viewModel = authService.viewModel;
   }
@@ -236,12 +236,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.ChartInfo();
     this.loadDefaults();
     this.loadLocationsList();
-    this.TobaccoUseByPatientId();
+    //this.TobaccoUseByPatientId();
     this.GetProviderMessagesFromPatient();
     this.initCDSAlert();
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if(data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageMedication){
-        this.drFirstMedicationUrl=data.url
+      if (data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageMedication) {
+        this.drFirstMedicationUrl = data.url
       }
     });
     this.MedicationURL();
@@ -305,11 +305,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.immReasonRefusedsCode = GlobalConstants.DrugReasonRefusedsCode;
   }
 
-  openPastMedicalHistory(){
-    if(this.chartInfo.PastMedicalHistories && this.chartInfo.PastMedicalHistories.length == 1){
+  openPastMedicalHistory() {
+    if (this.chartInfo.PastMedicalHistories && this.chartInfo.PastMedicalHistories.length == 1) {
       this.openComponentDialog(this.pastMedicalHistoryDialogComponent, this.chartInfo.PastMedicalHistories[0], this.ActionTypes.view)
     }
-    else{
+    else {
       this.openComponentDialog(this.pastMedicalHistoryDialogComponent, null, this.ActionTypes.add)
     }
   }
@@ -360,10 +360,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.eRXPrescriptionTableDialogComponent) {
-      if(dialogData == null)
-        reqdata = {PatientId: this.currentPatient.PatientId};
+      if (dialogData == null)
+        reqdata = { PatientId: this.currentPatient.PatientId };
       else
-        reqdata = {PatientId: this.currentPatient.PatientId, MedicationId: dialogData.MedicationId};
+        reqdata = { PatientId: this.currentPatient.PatientId, MedicationId: dialogData.MedicationId };
     }
     else if (action == Actions.view && content === this.interventionDialogComponent) {
       reqdata = dialogData;
@@ -428,8 +428,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   UpdateView(data) {
-
-
     if (data == null) return;
     if (data.UpdatedModal == PatientChart.Diagnoses) {
       this.DiagnosesByPatientId();
@@ -462,7 +460,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       this.MedicationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
-        this.InterventionsByPatientId();
+      this.InterventionsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Encounters) {
       this.EncountersByPatientId();
@@ -474,15 +472,34 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ChartInfo() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo = resp.Result;
-        if(this.chartInfo){
+        if (this.chartInfo.TobaccoUse) {
+          this.chartInfo.TobaccoUse.forEach((value) => {
+            if (value.strScreenings)
+              value.Screenings = JSON.parse(value.strScreenings)
+            else value.Screenings = [];
+            if (value.strInterventions)
+              value.Interventions = JSON.parse(value.strInterventions)
+            else value.Interventions = [];
+            value.TotalRecords = value.Interventions.length + value.Interventions.length;
+          })
+        }else this.chartInfo.TobaccoUse = []
+
+        if (this.chartInfo) {
           this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
         }
       }
     });
+  }
+
+  get TobaccoUseRecords(): number{
+    let i: number = 0;
+    if(this.chartInfo.TobaccoUse)
+    this.chartInfo.TobaccoUse.forEach(value => i+= value.TotalRecords);
+    return i;
   }
 
   resetDialog() {
@@ -524,7 +541,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsAdministered() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientImmunization.strExpirationAt = this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss a");
@@ -548,7 +565,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsHistorical() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateImmunizationsHistorical(this.patientImmunization).subscribe((resp) => {
@@ -565,7 +582,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   CreateImmunizationsRefused() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     let isAdd = this.patientImmunization.ImmunizationId == undefined;
     this.patientImmunization.PatientId = this.currentPatient.PatientId;
     this.patientService.CreateImmunizationsRefused(this.patientImmunization).subscribe((resp) => {
@@ -623,7 +640,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get Past Medical Histories info
   PastMedicalHistoriesByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.PastMedicalHistoriesByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.PastMedicalHistories = resp.ListResult;
       else this.chartInfo.PastMedicalHistories = [];
@@ -632,31 +649,31 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get Immunizations info
   ImmunizationsByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.ImmunizationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo.Immunizations = resp.ListResult;
         this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
-      }else this.chartInfo.Immunizations = [];
+      } else this.chartInfo.Immunizations = [];
     });
   }
 
   // Get medications info
   MedicationsByPatientId() {
 
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.MedicationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Medications = resp.ListResult;
       else this.chartInfo.Medications = [];
     });
   }
-  GetString(medication){return JSON.stringify(medication)}
-  GetDisplayName(medication: Medication){
-     return medication.DrugName == null || medication.DrugName == "" ? medication.DisplayName : medication.DrugName;
+  GetString(medication) { return JSON.stringify(medication) }
+  GetDisplayName(medication: Medication) {
+    return medication.DrugName == null || medication.DrugName == "" ? medication.DisplayName : medication.DrugName;
   }
   // Get encounters info
   EncountersByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.EncountersByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Encounters = resp.ListResult;
       else this.chartInfo.Encounters = [];
@@ -665,7 +682,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get appointments info
   AppointmentsByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.AppointmentsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Appointments = resp.ListResult;
       else this.chartInfo.Appointments = [];
@@ -681,24 +698,24 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   // Get tobacco screnning info
-  TobaccoUseScreenings() {
-    this.patientService.TobaccoUseScreenings({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.chartInfo.TobaccoUseScreenings = resp.ListResult;
-      else this.chartInfo.TobaccoUseScreenings = [];
-    });
-  }
+  // TobaccoUseScreenings() {
+  //   this.patientService.TobaccoUseScreenings({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+  //     if (resp.IsSuccess) this.chartInfo.TobaccoUseScreenings = resp.ListResult;
+  //     else this.chartInfo.TobaccoUseScreenings = [];
+  //   });
+  // }
 
   // Get tobacco interventions info
-  TobaccoUseInterventions() {
-    this.patientService.TobaccoUseInterventions({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.chartInfo.TobaccoUseInterventions = resp.ListResult;
-      else this.chartInfo.TobaccoUseInterventions = [];
-    });
-  }
+  // TobaccoUseInterventions() {
+  //   this.patientService.TobaccoUseInterventions({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
+  //     if (resp.IsSuccess) this.chartInfo.TobaccoUseInterventions = resp.ListResult;
+  //     else this.chartInfo.TobaccoUseInterventions = [];
+  //   });
+  // }
 
   // Get tobacco interventions info
   TobaccoUseByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
       else this.tobaccoUseList = [];
@@ -707,7 +724,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get interventions info
   InterventionsByPatientId() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     this.patientService.InterventionsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) this.chartInfo.Interventions = resp.ListResult;
       else this.chartInfo.Interventions = [];
@@ -716,7 +733,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Get patient messages info
   GetProviderMessagesFromPatient() {
-    if(this.currentPatient== null)return;
+    if (this.currentPatient == null) return;
     let reqParams = {
       "UserId": this.user.UserId,
       "SortField": 'Created',
@@ -729,7 +746,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.messageService.Messages(reqParams).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.patientMessages = resp.ListResult.filter((fn) =>
-        fn.PatientId == this.currentPatient.PatientId);
+          fn.PatientId == this.currentPatient.PatientId);
       }
     });
   }
@@ -890,50 +907,51 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  initCDSAlert(){
-    if(!this.currentPatient) return;
-    this.settingsService.EvalPatientCDSAlerts({patientId:this.currentPatient.PatientId,providerId:this.user.ProviderId})
-    .subscribe((resp)=>{
-      if(resp.IsSuccess){
-        this.alertResult = resp.ListResult as AlertResult[]
-        this.alertResult.forEach(alert =>{
-          alert.Triggers = JSON.parse(alert.strTriggers) as TriggerResult[]
-          let isMet = true;
-          alert.Triggers.forEach((trigger)=>{
-            isMet = trigger.IsMet && isMet ;
+  initCDSAlert() {
+    if (!this.currentPatient) return;
+    this.settingsService.EvalPatientCDSAlerts({ patientId: this.currentPatient.PatientId, providerId: this.user.ProviderId })
+      .subscribe((resp) => {
+        if (resp.IsSuccess) {
+          this.alertResult = resp.ListResult as AlertResult[]
+          this.alertResult.forEach(alert => {
+            alert.Triggers = JSON.parse(alert.strTriggers) as TriggerResult[]
+            let isMet = true;
+            if(alert.Triggers)
+            alert.Triggers.forEach((trigger) => {
+              isMet = trigger.IsMet && isMet;
+            })
+            alert.IsMet = isMet;
           })
-          alert.IsMet = isMet;
-        })
-      }
-    })
+        }
+      })
   }
-  get NoAlerts():string{
+  get NoAlerts(): string {
     let rtnMessage = 'Clinical Decision Support Alerts for ID Not Found';
     let flag = false;
-     this.alertResult.forEach(alert=>{
+    this.alertResult.forEach(alert => {
       flag = alert.IsMet || flag;
     })
-    if(!flag) return rtnMessage;
+    if (!flag) return rtnMessage;
     else return '';
   }
 
-  get ActiveAlerts():AlertResult[]{
+  get ActiveAlerts(): AlertResult[] {
     return this.alertResult.filter(f => f.IsMet == true);
   }
 
-  getFormatedDate(date):string{
-    return this.datepipe.transform(date,"MM/dd/yyyy");
+  getFormatedDate(date): string {
+    return this.datepipe.transform(date, "MM/dd/yyyy");
   }
 
-  SyncPatientChart(){
-    this.patientService.SyncChart({ProviderId:this.user.ProviderId,PatientId:this.currentPatient.PatientId}).subscribe(
+  SyncPatientChart() {
+    this.patientService.SyncChart({ ProviderId: this.user.ProviderId, PatientId: this.currentPatient.PatientId }).subscribe(
       {
-        next: (resp) =>{
-          if(resp.IsSuccess){
+        next: (resp) => {
+          if (resp.IsSuccess) {
             this.alertmsg.displayMessageDailog(ERROR_CODES["M2AP005"]);
           }
         },
-        error: (error)=>{
+        error: (error) => {
 
         }
       }
@@ -942,17 +960,17 @@ export class ChartComponent implements OnInit, AfterViewInit {
 
   // Access Permissions
 
-  canView(policyName: string, methodName: string): boolean{
+  canView(policyName: string, methodName: string): boolean {
     var permissions = this.authService.permissions();
-    if(!permissions) return false;
+    if (!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
-    if(providerpermissions && providerpermissions.length == 1) return true;
+    if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == policyName && fn.MethodName == methodName)
-    if(temp.length == 0) return false;
+    if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
 
-  MedicationURL(){
+  MedicationURL() {
     this.drfirstService.PatientUrl(DrFirstStartUpScreens.ManageMedication)
   }
 

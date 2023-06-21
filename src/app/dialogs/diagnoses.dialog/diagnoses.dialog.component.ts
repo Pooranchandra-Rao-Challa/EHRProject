@@ -6,11 +6,12 @@ import { Subject } from 'rxjs-compat';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { OverlayService } from 'src/app/overlay.service';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { Actions, Diagnosis, DiagnosisDpCodes, PatientChart } from 'src/app/_models';
+import { Actions, Diagnosis, DiagnosisDpCodes, EducationMaterial, PatientChart } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
+import { MEDLINE_PLUS_SNOMED, MEDLINE_PLUS_URL, environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-add.diagnoses.dialog',
@@ -22,6 +23,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
   DxCodes: DiagnosisDpCodes[];
   currentPatient: ProviderPatient;
   patientEducationMaterialDialogComponent = PatientEducationMaterialDialogComponent;
+  educationMaterial: EducationMaterial = null;
   ActionTypes = Actions;
   minDateToFinish = new Subject<string>()
   endDateForDiagnosis: Date;
@@ -32,7 +34,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     public overlayService: OverlayService) {
-    this.updateLocalModel(ref.RequestData);
+
     if (this.patientDiagnoses.StartAt) {
       this.endDateForDiagnosis = new Date(this.patientDiagnoses.StartAt);
     }
@@ -47,15 +49,18 @@ export class AddDiagnosesDialogComponent implements OnInit {
   ngOnInit(): void {
     this.currentPatient = this.authService.viewModel.Patient;
     this.DxCodes = Object.values(DiagnosisDpCodes);
+    this.updateLocalModel(this.ref.RequestData);
   }
 
   updateLocalModel(data: Diagnosis) {
     this.patientDiagnoses = {};
-    if (data == null){
+    if (data == null) {
       this.isDisabled = false;
       return;
     }
     this.patientDiagnoses = data;
+    if (this.patientDiagnoses.Code)
+      this.CheckEducationMatieal(this.patientDiagnoses.Code);
   }
 
   cancel() {
@@ -89,7 +94,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     this.patientDiagnoses.strStartAt = this.datepipe.transform(this.patientDiagnoses.StartAt, "MM/dd/yyyy hh:mm:ss a", "en-US")
     this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "MM/dd/yyyy hh:mm:ss a", "en-US");
     let reqparams = {}
-    Object.assign(reqparams,this.patientDiagnoses);
+    Object.assign(reqparams, this.patientDiagnoses);
 
     this.patientService.CreateDiagnosis(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
@@ -115,33 +120,64 @@ export class AddDiagnosesDialogComponent implements OnInit {
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
     if (action == Actions.view && content === this.patientEducationMaterialDialogComponent) {
-      reqdata = dialogData;
+      reqdata = this.educationMaterial;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
     });
   }
 
-  DeleteDiagnosis(){
+  CheckEducationMatieal(code: string) {
+      if (this.currentPatient)
+      this.patientService.CheckEducationMaterial({
+        ClinicId: this.authService.userValue.ClinicId,
+        PatientId: this.currentPatient.PatientId,
+        Code: code
+      }).subscribe({
+        next: (resp) => {
+          if (resp.IsSuccess) {
+            this.educationMaterial = resp.Result;
+            console.log(this.educationMaterial);
+            if (this.educationMaterial.strAttachments)
+              this.educationMaterial.Attachments = JSON.parse(this.educationMaterial.strAttachments);
+            this.educationMaterial.PatientId = this.currentPatient.PatientId;
+          }
+        },
+        error: (error) => { this.educationMaterial = null },
+        complete: () => {
+
+        }
+      })
+  }
+
+  MedLinePlusUrl() {
+    if (this.patientDiagnoses.Code)
+      return MEDLINE_PLUS_URL(this.patientDiagnoses.Code, MEDLINE_PLUS_SNOMED);
+    else return '#';
+  }
+
+  DeleteDiagnosis() {
     this.patientService.DeleteDiagnosis(
-      {DiagnosisId: this.patientDiagnoses.DiagnosisId,
-      PatinetId: this.patientDiagnoses.PatientId,
-      ProviderId: this.authService.userValue.ProviderId}).subscribe(
+      {
+        DiagnosisId: this.patientDiagnoses.DiagnosisId,
+        PatinetId: this.patientDiagnoses.PatientId,
+        ProviderId: this.authService.userValue.ProviderId
+      }).subscribe(
         {
-          next: (resp)=>{
-            if(resp.IsSuccess){
+          next: (resp) => {
+            if (resp.IsSuccess) {
               this.alertmsg.displayMessageDailog(ERROR_CODES["M2CD003"]);
               this.cancel();
-            }else{
+            } else {
               this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD002"]);
               this.cancel();
             }
           },
-          error: (error)=>{
+          error: (error) => {
             this.alertmsg.displayErrorDailog(ERROR_CODES["E2CD002"]);
             this.cancel();
           },
-          complete: () =>{
+          complete: () => {
 
           }
 

@@ -1,7 +1,7 @@
 <div class="modal-dialog tobacco-use">
   <div class="modal-content">
     <div class="modal-header">
-      <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Tobacco Use</h4>
+      <h4 class="modal-title Helvetica-sans-serif-large w-100 text-center">Tobacco Use</h4>
       <span type="button" class="cross-mark" (click)="cancel()">
         X
       </span>
@@ -10,7 +10,7 @@
       <div class="content">
         <div class="panel">
           <div class="panel-header">
-            <p class="panel-title Helvetica-sans-serif-medium">Screening and Use:</p>
+            <p class="panel-title Helvetica-sans-serif-large">Screening and Use:</p>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -19,7 +19,7 @@
               </div>
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Screening Performed" disableOptionCentering
-                  [(ngModel)]="patientTobaccoUse.ScreeningType">
+                  [(ngModel)]="tobaccoScreening.ScreeningType">
                   <mat-option class="option-white-space" *ngFor="let screening of screeningPerformed" [value]="screening.Performed">
                     {{screening.Performed}}
                   </mat-option>
@@ -32,14 +32,14 @@
                 class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="screeningDate"
                   (click)="screeningDate.open()" readonly placeholder="Date Performed"
-                  [(ngModel)]="patientTobaccoUse.ScreeningDate" />
+                  [(ngModel)]="tobaccoScreening.ScreeningDate" />
                 <mat-datepicker-toggle matSuffix [for]="screeningDate"></mat-datepicker-toggle>
                 <mat-datepicker #screeningDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="col-md-6 col-12">
-                <mat-select placeholder="Search Tobacco Use/Non-use" #screeningCode [(ngModel)]="patientTobaccoUse.ScreeningCode">
+                <mat-select placeholder="Search Tobacco Use/Non-use" #screeningCode [(ngModel)]="tobaccoScreening.ScreeningCode">
                   <mat-select-filter [displayMember]="'CodeDescription'" [array]="screeningTobaccoStatusFilter"
                     (filteredReturn)="screeningTobaccoStatus = $event" *ngIf="screeningCode.focused"></mat-select-filter>
                   <mat-option class="option-white-space" *ngFor="let screening of screeningTobaccoStatus" [value]="screening.Code"
@@ -51,8 +51,8 @@
               <div class="col-lg-2 col-md-2 col-12 tobacoo-padding">
                 <mat-label class="required">Status:</mat-label>
               </div>
-              <div class="col-lg-4 col-md-4 col-12 tobacoo-padding">
-                <mat-radio-group [(ngModel)]="patientTobaccoUse.Status">
+              <div class="col-lg-4 col-md-4 col-12 tobacoo-padding"z>
+                <mat-radio-group [(ngModel)]="tobaccoScreening.ScreeningStatus">
                   <mat-radio-button [value]="'user'"></mat-radio-button>
                   <mat-label class="Helvetica-sans-serif-medium">User</mat-label>
                   <mat-radio-button class="ms-5" [value]="'non_user'"></mat-radio-button>
@@ -91,7 +91,7 @@
                     </ng-container>
                     <ng-container matColumnDef="Status">
                       <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-                      <mat-cell *matCellDef="let loc">{{loc.Status}}</mat-cell>
+                      <mat-cell *matCellDef="let loc">{{loc.ScreeningStatus}}</mat-cell>
                     </ng-container>
                     <ng-container matColumnDef="TobaccoUsecode_desc">
                       <mat-header-cell *matHeaderCellDef>Tobacco use code & Desc</mat-header-cell>
@@ -99,9 +99,13 @@
                       </mat-cell>
                     </ng-container>
                     <mat-header-row *matHeaderRowDef="screeningColumns"></mat-header-row>
-                    <mat-row *matRowDef="let row; columns: screeningColumns"></mat-row>
+                    <!-- (click)="selection.toggle(row)"  -->
+                    <mat-row  *matRowDef="let row; columns: screeningColumns"
+                    (click)="onScreeningRowSelection($event,row);selectionForScreening.toggle(row)"
+                    [ngClass]="{highlighted: selectionForScreening.isSelected(row)}"
+                   ></mat-row>
                   </mat-table>
-                  <div class="norecords-found" *ngIf="tobaccoScreenings.length == 0">
+                  <div class="norecords-found" *ngIf="patientTobaccoUse.Screenings.length == 0">
                     No Screenings Record
                   </div>
                 </div>
@@ -111,7 +115,7 @@
         </div>
         <div class="panel">
           <div class="panel-header">
-            <p class="panel-title">Cessation Intervention:</p>
+            <p class="panel-title Helvetica-sans-serif-large">Cessation Intervention:</p>
           </div>
           <div class="panel-body">
             <div class="row">
@@ -120,7 +124,7 @@
               </div>
               <mat-form-field appearance="outline" class="col-lg-4 col-md-6 col-12 hover">
                 <mat-select placeholder="Select Intervention Performed" disableOptionCentering
-                  [(ngModel)]="patientTobaccoUse.CI_Type">
+                  [(ngModel)]="tobaccoIntervention.InterventionType">
                   <mat-option class="option-white-space" *ngFor="let intervention of interventionPerformed" [value]="intervention.Performed">
                     {{intervention.Performed}}
                   </mat-option>
@@ -133,14 +137,14 @@
                 class="grey-matform grey-calendar medication-datepicker col-lg-4 col-md-6 col-12">
                 <input matInput class="pointer" autocomplete="off" [matDatepicker]="interventionDate"
                   (click)="interventionDate.open()" readonly placeholder="Screening Date"
-                  [(ngModel)]="patientTobaccoUse.CI_Date" />
+                  [(ngModel)]="tobaccoIntervention.InterventionDate"/>
                 <mat-datepicker-toggle matSuffix [for]="interventionDate"></mat-datepicker-toggle>
                 <mat-datepicker #interventionDate></mat-datepicker>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field appearance="outline" class="col-md-6 col-12">
-                <mat-select placeholder="Search Tobacco Use/Non-use" #interventionCode [(ngModel)]="patientTobaccoUse.CI_Code" [disableOptionCentering]="true">
+                <mat-select placeholder="Search Tobacco Use/Non-use" #interventionCode [(ngModel)]="tobaccoIntervention.InterventionCode" [disableOptionCentering]="true">
                   <mat-select-filter [displayMember]="'CodeDescription'" [array]="interventionTobaccoStatusFilter"
                     (filteredReturn)="interventionTobaccoStatus = $event" *ngIf="interventionCode.focused"></mat-select-filter>
                   <mat-option class="option-white-space" *ngFor="let intervention of interventionTobaccoStatus" [value]="intervention.Code"
@@ -164,33 +168,35 @@
                 <mat-table [dataSource]="tobacooUseInterventionsSubject" matSort>
                   <ng-container matColumnDef="DatePerf">
                     <mat-header-cell *matHeaderCellDef>Date Perf</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.CI_Date | date: 'MM/dd/yyyy'}}</mat-cell>
+                    <mat-cell *matCellDef="let loc">{{loc.InterventionDate | date: 'MM/dd/yyyy'}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Interventionperf">
                     <mat-header-cell *matHeaderCellDef>Intervention perf</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.CI_Type}}</mat-cell>
+                    <mat-cell *matCellDef="let loc">{{loc.InterventionType}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="InterventionDesc">
                     <mat-header-cell *matHeaderCellDef>Intervention Desc</mat-header-cell>
-                    <mat-cell *matCellDef="let loc">{{loc.CI_Description}}</mat-cell>
+                    <mat-cell *matCellDef="let loc">{{loc.InterventionDescription}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="AddReasonNotPerformed">
                     <mat-header-cell *matHeaderCellDef>Add Reason Not Performed</mat-header-cell>
                     <mat-cell *matCellDef="let loc" class="text-center">
-                      <button class="btn btn-green btn-add-cqm" *ngIf="loc.CI_Id != undefined" [disabled]="loc.CQMReason"
-                  (click)="openComponentDialog(cqmNotPerformedDialogComponent,loc.CI_Id,ActionTypes.view)">Add</button>
+                      <button class="btn btn-green btn-add-cqm" [disabled]="loc.NotPerformed"
+                  (click)="openComponentDialog(cqmNotPerformedDialogComponent,loc.InterventionId,ActionTypes.view)">Add</button>
                     </mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="Reason">
                     <mat-header-cell *matHeaderCellDef>Reason</mat-header-cell>
                     <mat-cell *matCellDef="let loc">
-                      {{loc.CQMReason}}
+                      {{loc.Reason}}
                     </mat-cell>
                   </ng-container>
                   <mat-header-row *matHeaderRowDef="interventionColumns"></mat-header-row>
-                  <mat-row *matRowDef="let row; columns: interventionColumns"></mat-row>
+                  <mat-row *matRowDef="let row; columns: interventionColumns"
+                  (click)="onInterventionRowSelection($event,row);selectionForIntervention.toggle(row)"
+                  [ngClass]="{highlighted: selectionForIntervention.isSelected(row)}"></mat-row>
                 </mat-table>
-                <div class="norecords-found" *ngIf="tobaccoInterventions.length == 0">
+                <div class="norecords-found" *ngIf="patientTobaccoUse.Interventions.length == 0">
                   No Interventions Record
                 </div>
               </div>

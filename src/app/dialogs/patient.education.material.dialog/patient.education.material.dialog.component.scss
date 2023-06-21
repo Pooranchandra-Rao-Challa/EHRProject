@@ -1,6 +1,6 @@
 @import "../../../assets/cstm.material.scss";
 @import "../../../assets/common.scss";
-
+$green:         #41b6a6;
 .header-change {
   background-color: #D9534E;;
 }
@@ -22,4 +22,53 @@
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: center;
+}
+
+.edu-material-modal{
+  .patient-name{
+    font-weight: bold !important;
+    font-size: 22px !important;
+  }
+  .print {
+    &, * {
+      display: block !important;
+    }
+    .print-patient {
+      border-top: 1px solid white !important;
+      background-color: rgba(65, 182, 166, 0.20) !important;
+      padding: 15px 50px 20px 50px !important;
+      border: 0 !important;
+      font-size: 15px !important;
+
+    }
+    .print-provider {
+      background-color: $green !important;
+      padding: 20px 50px !important;
+      p {
+        color: white !important;
+      }
+    }
+    .print-diagnosis {
+      p {
+        border-bottom: 1px solid $green !important;
+        font-size: 20px !important;
+        font-family: 'SF UI Text Bold' !important;
+        text-transform: uppercase !important;
+        padding: 20px 50px !important;
+      }
+    }
+    .title{
+      display: inline-flex !important;
+    }
+    .items{
+      .item{
+        padding: 10px 0;
+        font-family: 'SF UI Text Bold' !important;
+        &:hover{
+          color:blue;
+          text-decoration: underline;
+        }
+      }
+    }
+  }
 }

@@ -1,18 +1,67 @@
 <div class="modal-dialog edu-material-modal" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">{{codeData.Code}} {{codeData.CodeSystem}}</h4>
+        <h4 class="modal-title Helvetica-sans-serif-medium">{{educationMaterial.Code}} {{educationMaterial.CodeSystem}}</h4>
         <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="cancel()">
           X
         </span>
       </div>
       <div class="modal-body">
         <div class="scrollable-container" style="height: auto;">
-          <div class="content">
-            <div>
-
+          <div class="content print">
+            <div *ngIf="this.educationMaterial != null">
+              <div class="row print-patient" style="display: grid;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 patient-name">
+                  <p>{{currentPatient.FirstName}} {{currentPatient.LastName}}</p>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 patient-phone">
+                  {{currentPatient.PrimaryPhone}}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 patient-id">
+                  {{currentPatient.PatientId}}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 patient-email">
+                  {{currentPatient.Email}}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 patient-birth">
+                  {{currentPatient.Dob}}
+                </div>
+              </div>
+              <div class="row print-provider" style="display: grid;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {{user.BusinessName}}
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  {{user. FirstName}} {{user.LastName}}
+                </div>
+              </div>
+              <div class="row print-diagnosis" style="display: grid;">
+                <div class="col-lg-12">
+                  <p>{{educationMaterial.Name}}</p>
+                </div>
+              </div>
+              <div class="row mt-1">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title">
+                  <b>Code:</b>&nbsp;{{educationMaterial.Code}} ({{educationMaterial.CodeSystem}})
+                </div>
+              </div>
+              <div class="row mt-1" *ngIf="educationMaterial.ResourceNotes != null && educationMaterial.ResourceNotes != ''">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 title">
+                  <b>Resource Notes:</b>&nbsp;{{educationMaterial.ResourceNotes}}
+                </div>
+              </div>
+              <div class="row mt-1" style="display: grid;" *ngIf="educationMaterial.strAttachments != null && educationMaterial.strAttachments != ''">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 title">
+                  <b>Attachments:</b>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="items" *ngFor="let attachment of educationMaterial.Attachments">
+                    <div class="item" (click)="showDocument(attachment)">{{attachment.FileName}}</div>
+                  </div>
+                 </div>
+              </div>
             </div>
-            <div>
+            <div *ngIf="this.educationMaterial == null">
               <div class="row">
                 <div class="col-lg-12">
                   <div class="icon icon-ic-material-not-found"></div>

@@ -164,51 +164,55 @@
                   </a>
                   <br>
                 </div>
-                <div *ngFor="let screening_interventions of tobaccoUseList | slice:0:4">
-                  <ul class="main-list">
-                    <li>
-                      <a
-                        (click)="openComponentDialog(tobaccoUseDialogComponent, screening_interventions, ActionTypes.view)">
-                        <span
-                          *ngIf="screening_interventions?.ScreeningDate != null && screening_interventions?.ScreeningDate !=''">
-                          - {{screening_interventions?.ScreeningDate | date: 'MM/dd/yyyy'}}
-                        </span>
-                        <span
-                          *ngIf="screening_interventions?.ScreeningDescription != null && screening_interventions?.ScreeningDescription !=''">
-                          - {{screening_interventions?.ScreeningDescription}}
-                        </span>
-                        <span
-                          *ngIf="screening_interventions?.ScreeningCode != null && screening_interventions?.ScreeningCode !=''">
-                          / {{screening_interventions?.ScreeningCode}}
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
-                  <ul class="main-list">
-                    <li>
-                      <a
-                        (click)="openComponentDialog(tobaccoUseDialogComponent, screening_interventions, ActionTypes.view)">
-                        <span *ngIf="screening_interventions?.CI_Date != null && screening_interventions?.CI_Date !=''">
-                          - {{screening_interventions.CI_Date | date: 'MM/dd/yyyy'}}
-                        </span>
-                        <span
-                          *ngIf="screening_interventions?.CI_Description != null && screening_interventions?.CI_Description !=''">
-                          - {{screening_interventions.CI_Description}}
-                        </span>
-                        <span *ngIf="screening_interventions?.CI_Code != null && screening_interventions?.CI_Code !=''">
-                          / {{screening_interventions.CI_Code}}
-                        </span>
-                      </a>
-                    </li>
-                  </ul>
+                <div *ngFor="let tobaccoUse of chartInfo?.TobaccoUse">
+                  <div>
+                    <ul class="main-list">
+                      <li *ngFor="let tobaccoScreening of tobaccoUse.Screenings | slice:0:2">
+                        <a
+                          (click)="openComponentDialog(tobaccoUseDialogComponent, {tobaccoUse: tobaccoUse,screening: tobaccoScreening}, ActionTypes.view)">
+                          <span
+                            *ngIf="tobaccoScreening?.ScreeningDate != null && tobaccoScreening?.ScreeningDate !=''">
+                            - {{tobaccoScreening?.ScreeningDate | date: 'MM/dd/yyyy'}}
+                          </span>
+                          <span
+                            *ngIf="tobaccoScreening?.ScreeningDescription != null && tobaccoScreening?.ScreeningDescription !=''">
+                            - {{tobaccoScreening?.ScreeningDescription}}
+                          </span>
+                          <span
+                            *ngIf="tobaccoScreening?.ScreeningCode != null && tobaccoScreening?.ScreeningCode !=''">
+                            / {{tobaccoScreening?.ScreeningCode}}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                    <ul class="main-list">
+                      <li *ngFor="let tobaccoIntervension of tobaccoUse.Interventions| slice:0:2">
+                        <a
+                          (click)="openComponentDialog(tobaccoUseDialogComponent, {tobaccoUse: tobaccoUse,intervention: tobaccoIntervension}, ActionTypes.view)">
+                          <span *ngIf="tobaccoIntervension?.InterventionDate != null && tobaccoIntervension?.InterventionDate !=''">
+                            - {{tobaccoIntervension.InterventionDate | date: 'MM/dd/yyyy'}}
+                          </span>
+                          <span
+                            *ngIf="tobaccoIntervension?.InterventionDescription != null && tobaccoIntervension?.InterventionDescription !=''">
+                            - {{tobaccoIntervension.InterventionDescription}}
+                          </span>
+                          <span *ngIf="tobaccoIntervension?.InterventionCode != null && tobaccoIntervension?.InterventionCode !=''">
+                            / {{tobaccoIntervension.InterventionCode}}
+                          </span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+
                 </div>
-                <ul class="main-list" *ngIf="tobaccoUseList.length == 4">
+
+                <ul class="main-list" *ngIf="chartInfo?.TobaccoUse.length == 0">
                   <li>
                     <span>No tobacco use recorded.</span>
                   </li>
                 </ul>
-                <a *ngIf="tobaccoUseList?.length > 2"
-                  (click)="openComponentDialog(tobaccoUseTableDialogComponent, tobaccoUseList, ActionTypes.view)"
+                <a *ngIf="TobaccoUseRecords > 4"
+                  (click)="openComponentDialog(tobaccoUseTableDialogComponent, chartInfo?.TobaccoUse, ActionTypes.view)"
                   class="view-more pull-right">view more</a>
               </div>
             </div>
