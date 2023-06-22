@@ -139,7 +139,8 @@ import { NotifyMessageService,
   NotifyProviderHeaderService,
   ProviderLocationUpdateNotifier,
   UpdateEmergencyAccess,
-  FamilyRecordNotifier } from "src/app/_navigations/provider.layout/view.notification.service";
+  FamilyRecordNotifier,
+  NotifyPatientChangedInProviderPatientDetails } from "src/app/_navigations/provider.layout/view.notification.service";
 //mport { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
@@ -160,7 +161,7 @@ import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/dir
 import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.dialog/directproviders.dialog.component';
 import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
 import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescription.info.dialog/rx.prescription.info.dialog.component';
-//import { SelectionModel } from '@angular/cdk/collections';
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -363,7 +364,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService, AdminService,
     AlertMessage, RxNormAPIService, MessagesService, FileUploadService, ProviderLocationUpdateNotifier,
     NotifyMessageService, NotifyProviderHeaderService, UpdateEmergencyAccess, DrfirstService,DrfirstUrlChanged,
-    FamilyRecordNotifier,
+    FamilyRecordNotifier,NotifyPatientChangedInProviderPatientDetails,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,

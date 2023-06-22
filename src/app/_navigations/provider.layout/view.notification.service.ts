@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 import { FamilyMedicalHistory, User, UserLocations } from 'src/app/_models';
 import { PatientProfile } from 'src/app/_models/_patient/patientprofile';
+import { PatientBreadcurm } from 'src/app/_models/_provider/Providerpatient';
 
 @Injectable()
 export class LocationSelectService {
@@ -184,6 +185,24 @@ export class FamilyRecordNotifier {
   }
 
   getData(): Observable<{ record: FamilyMedicalHistory,isdeleted: boolean }> {
+    return this.subject.asObservable();
+  }
+}
+
+
+@Injectable()
+export class NotifyPatientChangedInProviderPatientDetails {
+  private subject = new Subject<{ breadcrumb: PatientBreadcurm,showListView: boolean }>();
+
+  sendData(breadcrumb: PatientBreadcurm,showListView: boolean ) {
+    this.subject.next({ breadcrumb: breadcrumb, showListView: showListView });
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<{ breadcrumb: PatientBreadcurm,showListView: boolean }> {
     return this.subject.asObservable();
   }
 }

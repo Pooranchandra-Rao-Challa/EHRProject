@@ -1,8 +1,9 @@
 
 import { PatientService } from 'src/app/_services/patient.service';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { AuthenticationService} from 'src/app/_services/authentication.service';
+import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientBreadcurm } from 'src/app/_models/_provider/Providerpatient';
+import { NotifyPatientChangedInProviderPatientDetails } from 'src/app/_navigations/provider.layout/view.notification.service';
 
 
 @Component({
@@ -10,20 +11,29 @@ import { PatientBreadcurm } from 'src/app/_models/_provider/Providerpatient';
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
 })
-export class BreadcrumbComponent{
+export class BreadcrumbComponent {
 
-  @Input() breadcrumbs: PatientBreadcurm[]=[];
-  @Output() removePatientInBreadcrumb = new EventEmitter<string>();
+  @Input() breadcrumbs: PatientBreadcurm[] = [];
+  @Output() removePatientInBreadcrumb = new EventEmitter<PatientBreadcurm>();
   @Output() navigateTo = new EventEmitter<PatientBreadcurm>();
   constructor(private authService: AuthenticationService,
-    private patientService: PatientService ){
+    private patientService: PatientService,
+    private notifyPatientChanged: NotifyPatientChangedInProviderPatientDetails) {
   }
 
-  removePatientBreadcrumbInView(patientId: string){
-    this.removePatientInBreadcrumb.emit(patientId);
+  removePatientBreadcrumbInView(breadcrumb: PatientBreadcurm) {
+    this.removePatientInBreadcrumb.emit(breadcrumb);
   }
 
-  patientDetailsView(breadcrumb: PatientBreadcurm){
+  patientDetailsView(breadcrumb: PatientBreadcurm) {
     this.navigateTo.emit(breadcrumb);
   }
+
+  onSwitchPatient(breadcrumb: PatientBreadcurm,showListView: boolean) {
+
+
+    this.notifyPatientChanged.sendData(breadcrumb,showListView)
+  }
+
+
 }

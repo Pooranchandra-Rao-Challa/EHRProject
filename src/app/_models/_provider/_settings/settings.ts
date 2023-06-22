@@ -149,6 +149,7 @@ export class CDSAlert {
   triggersInfo?: string;
   strReleaseAt?: string;
   Active?: boolean;
+  IsSystemCreatedCDS?: boolean;
 }
 export class CDSCode implements IDeleteFlag {
   TriggerId?: String
@@ -165,6 +166,7 @@ export class AlertTrigger {
   Category?: string;
   Codes?: CDSCode[] = [];
   strCodes?: string;
+  IsSystemCreatedCDS?: boolean;
 }
 
 export class AlertResult {

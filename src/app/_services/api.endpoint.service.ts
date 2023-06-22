@@ -1109,6 +1109,9 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEducationMaterial";
   }
 
+  get _deleteAlertURL() {
+    return this._baseUrl + "DeleteAlert";
+  }
 
 
   constructor(public http: HttpClient) {

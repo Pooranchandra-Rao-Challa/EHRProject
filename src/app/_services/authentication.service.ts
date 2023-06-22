@@ -339,12 +339,12 @@ export class AuthenticationService {
           Swal.showLoading(Swal.getDenyButton())
           const b = Swal.getHtmlContainer().querySelector('b')
           timerInterval = setInterval(() => {
-            b.textContent = (Swal.getTimerLeft()/1000) + ''
+            b.textContent = Math.floor(Swal.getTimerLeft()/1000) + ''
           }, 100)
         },
         willClose: () => {
           clearInterval(timerInterval);
-          this.revokeToken(ERROR_CODES["EL018"]);
+
         },
         customClass: {
           confirmButton: 'confirm-refresh-session'
@@ -352,7 +352,11 @@ export class AuthenticationService {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          this.refreshToken()
+          clearInterval(timerInterval);
+          this.refreshToken();
+        }else
+        if (result.dismiss === Swal.DismissReason.timer) {
+          this.revokeToken(ERROR_CODES["EL018"]);
         }
         // else if (result.isDenied) {
         //   this.logout();

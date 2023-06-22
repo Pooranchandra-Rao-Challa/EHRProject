@@ -160,7 +160,9 @@
             </mat-form-field>
           </div>
           <div class="col-md-12 pd-r-30">
-          <button class="btn btn-green btn-clinic pull-right" type="button"
+            <button class="btn btn-danger btn-clinic pull-left" type="button" *ngIf="!item.IsSystemCreatedCDS"
+            (click)="DeleteAlert(item)">Delete</button>
+          <button class="btn btn-green btn-clinic pull-right" type="button" *ngIf="!item.IsSystemCreatedCDS"
             (click)="InsertUpadateClincialDecisionSupport(item)">Save</button></div>
         </div>
       </mat-expansion-panel>
@@ -343,7 +345,7 @@
       </div>
       <div class="modal-footer">
 
-        <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal"
+        <button class="btn btn-green btn-clinic " type="button" data-bs-dismiss="modal" *ngIf="!alertTrigger.IsSystemCreatedCDS"
            [disabled]="enableTriggerSave()" (click)="CreateTrigger()">{{actionButtonTitle}}</button>
       </div>
     </div>

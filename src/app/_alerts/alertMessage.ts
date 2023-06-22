@@ -560,14 +560,16 @@ export const ERROR_CODES: { [key: string]: string } = {
   //Clinical Decision Support
   'M2JCDS001': 'Alert added successfully',
   'M2JCDS002': 'Alert updated successfully',
+  'M2JCDS006': 'Alert deleted successfully',
   //Trigger Added and Delete
   'M2JCDS003': 'Trigger added successfully',
   'M2JCDS005': 'Trigger updated successfully',
   'M2JCDS004': 'Trigger deleted successfully ',
   //Error for CDS
-  'E2JCDS001': 'Alert updation error',
-  'E2JCDS002': 'Trigger updation error',
-  'E2JCDS003': 'Trigger deletion error',
+  'E2JCDS001': 'Alert updation failed',
+  'E2JCDS002': 'Trigger updation failed',
+  'E2JCDS003': 'Trigger deletion failed',
+  'E2JCDS004': 'Alert deletion failed',
   //Messages for Patient Appoinments
   'M3A001': 'Appointments added successfully ',
   'M3A002': 'Appointments cancelled successfully',
