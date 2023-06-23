@@ -16,6 +16,7 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { TreeProcedureComponent } from './tree.procedure.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { DentalChartNotifier } from 'src/app/_navigations/provider.layout/view.notification.service'
 
 declare var $: any;
 @Component({
@@ -43,12 +44,13 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
   public procedureDataSource: ProcedureDatasource;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-
+  dataRefreshing: boolean = false;
 
   constructor(private overlayService: OverlayService,
     private dentalService: DentalChartService,
     private authService: AuthenticationService,
-    private alertmsg: AlertMessage,) {
+    private alertmsg: AlertMessage,
+    private dentalChartNotifier: DentalChartNotifier) {
     this.user = authService.userValue;
     this.currentPatient = authService.viewModel.Patient;
 
@@ -98,8 +100,13 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     this.procedureTree.filter.next(term);
   }
   ngOnInit(): void {
+    this.dataRefreshing = true;
     this.patientUsedProcedures();
     this.patientProcedureView();
+    this.dentalChartNotifier.getData().subscribe({
+      next: resp => this.dataRefreshing = false,
+      error: (error) => this.dataRefreshing = false
+    })
   }
 
   patientUsedProcedures() {
@@ -114,7 +121,7 @@ export class DentalChartComponent implements OnInit, AfterViewInit {
     let reqparams = {
       "PatientId": this.currentPatient.PatientId,
     }
-    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams, this.authService);
+    this.procedureDataSource = new ProcedureDatasource(this.dentalService, reqparams, this.authService, this.dentalChartNotifier);
     this.procedureDataSource.loadProcedures();
   }
 
@@ -206,9 +213,11 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
   private proceduresSubject = new BehaviorSubject<ProceduresInfo[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
+  //public dataRefreshing = true;
 
   constructor(private dentalService: DentalChartService, private queryParams: {},
-    private authService: AuthenticationService) {
+    private authService: AuthenticationService,
+    private dentalChartNotifier: DentalChartNotifier) {
     this.currentPatient = authService.viewModel.Patient;
   }
   connect(collectionViewer: CollectionViewer): Observable<ProceduresInfo[] | readonly ProceduresInfo[]> {
@@ -240,9 +249,11 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(resp => {
-      if (resp.IsSuccess)
-        this.proceduresSubject.next(resp.ListResult as ProceduresInfo[])
-      else this.proceduresSubject.next([]);
+      if (resp.IsSuccess){
+        this.proceduresSubject.next(resp.ListResult as ProceduresInfo[]);
+        this.dentalChartNotifier.sendData(true);
+      }
+      else {this.proceduresSubject.next([]);this.dentalChartNotifier.sendData(true);}
     });
   }
 
@@ -253,3 +264,5 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
   }
 
 }
+
+

@@ -203,4 +203,8 @@ export class SettingsService extends APIEndPoint {
   DrFirstNotifications(providerId){
     return this._ProcessGetRequestWithId<any>(this._drFirstNotificationsURL,providerId);
   }
+
+  DeleteAlert(alertId){
+    return this._ProcessGetRequestWithId<any>(this._deleteAlertURL,alertId);
+  }
 }

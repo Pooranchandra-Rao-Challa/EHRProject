@@ -214,6 +214,9 @@ export class ClinicDecisionComponent implements OnInit {
     this.triggerTitle ="Edit Trigger"
     this.actionButtonTitle = "Save Trigger"
     this.alertTrigger = Object.assign({}, trigger);
+    console.log(trigger);
+    console.log(this.alertTrigger);
+
     this.codesBehaviour.next(this.alertTrigger.Codes);
   }
 
@@ -244,6 +247,17 @@ export class ClinicDecisionComponent implements OnInit {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS003"]);
       }
     });
+  }
+
+  DeleteAlert(data: CDSAlert){
+    this.settingservice.DeleteAlert(data.AlertId).subscribe(resp => {
+      if(resp.IsSuccess){
+        this.CDSupports();
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2JCDS006"]);
+      }else{
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2JCDS004"]);
+      }
+    })
   }
 }
 

@@ -74,8 +74,10 @@ export class BreadcrumComponent implements OnInit {
     this.trigger.toggleMenu();
   }
 
-  // closeMyMenu() {
-  //   this.trigger.closeMenu();
-  // }
+
+
+  closeMyMenu() {
+    this.trigger.toggleMenu();
+  }
 
 }

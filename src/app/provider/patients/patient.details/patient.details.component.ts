@@ -19,7 +19,7 @@ import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encou
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { OrderResultDialogComponent } from 'src/app/dialogs/lab.imaging.dialog/order.result.dialog.component'
-import { DrfirstUrlChanged, PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { DrfirstUrlChanged, NotifyPatientChangedInProviderPatientDetails, PatientUpdateService, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { CCdaDialogComponent } from 'src/app/dialogs/c-cda.dialog/c-cda.dialog.component';
 import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authorizedrepresentative.dialog/authorizedrepresentative.dialog.component';
 import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/newmessage.dialog.component';
@@ -79,7 +79,8 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     private viewChangeService: ViewChangeService,
     private patientUpdateNotifier: PatientUpdateService,
     private drfirstService: DrfirstService,
-    private drfirstUrlChanged: DrfirstUrlChanged,) {
+    private drfirstUrlChanged: DrfirstUrlChanged,
+    private notifyPatientChanged: NotifyPatientChangedInProviderPatientDetails) {
     this.viewModel = authService.viewModel;
 
     if (this.viewModel.PatientView == null
@@ -151,7 +152,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.chartviewcontainerref.clear();
           this.loadPatientsComponent();
         }
-        else if (viewname == 'CQMs Not Performed'){
+        else if (viewname == 'CQMs Not Performed') {
           this.chartviewcontainerref.clear();
           this.loadCQMsNotPerformedComponent();
         }
@@ -162,6 +163,13 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient)
         this.drfirstPatientUrl = data.url
       this.loadingURLSubject.next(false);
+    });
+
+    this.notifyPatientChanged.getData().subscribe(resp => {
+      if (!resp.showListView)
+        this.loadBreadcurmDataV2(resp.breadcrumb);
+      else
+        this.router.navigate(["provider/patients"]);
     });
   }
 
@@ -316,6 +324,76 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     });
   }
 
+
+
+  loadBreadcurmDataV2(breadcrumb: PatientBreadcurm) {
+    this.loadingBreadcrumb = true;
+    this.chartviewcontainerref.clear();
+    // let paramkey = this.activatedRoute.snapshot.queryParams.paramkey;
+    // if (paramkey == null) {
+    //   this.patient = this.authService.viewModel.Patient;
+    //   this.loadDependents();
+    //   // When navigated from links or from patient list the call to url should be here.
+    //   this.drfirstService.PatientUrl();
+    // }
+    this.authService.SetViewParam('Patient', breadcrumb.Details);
+    this.patient = breadcrumb.Details;
+    this.patientService.LatestUpdatedPatientsUrl({
+      ProviderId: this.authService.userValue.ProviderId,
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+      PatientId: breadcrumb.PatientId,
+      EncKey: breadcrumb.EncKey
+    })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          let patients = resp.ListResult as ProviderPatient[];
+          this.breadcrumbs = [];
+          let pb: PatientBreadcurm = {
+            Name: "Patients",
+            ViewType: 0,
+            ActiveId: false,
+            ProviderId: this.authService.userValue.ProviderId
+          }
+          this.breadcrumbs.push(pb);
+          //let flag = false;
+          patients.forEach((p) => {
+            let pb: PatientBreadcurm = {
+              Name: p.FirstName + ' ' + p.LastName,
+              DOB: p.Dob,
+              ViewType: 1,
+              PatientId: p.PatientId,
+              ProviderId: this.authService.userValue.ProviderId,
+              ShowRemoveIcon: true,
+              EncKey: p.EncKey,
+              ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
+              Details: p
+            }
+            if (p.ShowDetailView) {
+              this.authService.SetViewParam('Patient', p);
+              this.viewModel = this.authService.viewModel;
+              this.patient = this.viewModel.Patient;
+
+
+              if (this.viewModel.PatientView == null ||
+                this.viewModel.PatientView == '')
+                this.viewModel.PatientView = 'Chart'
+              this.chartSubject.next(this.viewModel.PatientView);
+            }
+            this.breadcrumbs.push(pb);
+          });
+
+          this.patient = this.authService.viewModel.Patient;
+          this.loadPatientBreadcrumbView();
+          this.loadDependents();
+          this.loadingBreadcrumb = false;
+          // When navigated from links or from patient list the call to url should be here.
+          this.drfirstService.PatientUrl();
+        }
+      })
+  }
+
+
+
   loadingBreadcrumb: boolean = false;
   loadBreadcurmData() {
     this.loadingBreadcrumb = true;
@@ -374,18 +452,18 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadPatientBreadcrumbView();
           this.loadDependents();
           this.loadingBreadcrumb = false;
-           // When navigated from links or from patient list the call to url should be here.
+          // When navigated from links or from patient list the call to url should be here.
           this.drfirstService.PatientUrl();
         }
       })
   }
 
-  removePatientBreadcrumbInView(patientId: string) {
+  removePatientBreadcrumbInView(breadcrumb: PatientBreadcurm) {
     if (this.removedPatientIdsInBreadcurmb == null)
       this.removedPatientIdsInBreadcurmb = [];
-    this.removedPatientIdsInBreadcurmb.push(patientId);
+    this.removedPatientIdsInBreadcurmb.push(breadcrumb.PatientId);
     this.authService.SetViewParam('PatientBreadCrumb', this.removedPatientIdsInBreadcurmb);
-    this.loadBreadcurmData();
+    this.loadBreadcurmDataV2(breadcrumb);
   }
 
   _detailsView(patientview) {

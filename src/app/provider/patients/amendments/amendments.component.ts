@@ -29,6 +29,7 @@ export class AmendmentsComponent implements OnInit {
   EntityName: string = "Amendment"
   httpRequestParams = new HttpParams();
   attachmentSubject: BehaviorSubject<Attachment[]> = new BehaviorSubject<Attachment[]>([]);
+  dataRefreshing: boolean = false;
 
 
   constructor(private patientservice: PatientService, private authService: AuthenticationService,
@@ -40,6 +41,7 @@ export class AmendmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataRefreshing = true;
     this.getPatientDetails();
     this.getAmendmentStatuses();
     this.getAmendmentSources();
@@ -70,8 +72,9 @@ export class AmendmentsComponent implements OnInit {
           amendment.Attachments = JSON.parse(amendment.strAttachments);
           amendment.DateofAccept = this.datePipe.transform(amendment.DateofAccept, "yyyy-MM-dd");
           amendment.DateofAppended = this.datePipe.transform(amendment.DateofAppended, "yyyy-MM-dd");
-        })
-      }else this.amendments =  [];
+        });
+        this.dataRefreshing = false;
+      }else {this.amendments =  []; this.dataRefreshing = false;}
     });
   }
 

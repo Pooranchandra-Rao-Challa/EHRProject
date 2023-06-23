@@ -37,6 +37,7 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
   emailButtonText: string = "Add Email"
   voiceButtonText: string = "Add Voice"
   url: string;
+  dataRefreshing: boolean = false;
   smsForm = this.formBuilder.group({
     NoOfDays: ['', [Validators.required, Validators.min(this.smsMinValue), Validators.max(this.smsMaxValue)]],
     Duration: ['', [Validators.required]],
@@ -90,7 +91,7 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    this.dataRefreshing = true;
     this.user = this.authService.userValue;
     let patientId = this.user.PatientId ? this.user.PatientId :
       this.authService.viewModel.Patient.PatientId;
@@ -124,10 +125,13 @@ export class NotificationSettingsComponent implements OnInit, AfterViewInit {
         else this.VoiceNotificatonType = {}
         if (this.VoiceNotificatonType.NotificationTypeId != null && this.VoiceNotificatonType.IsVerified)
           this.voiceButtonText = "Update Voice";
+
+        this.dataRefreshing = false;
       }else{
         this.SMSNotificatonType = {}
         this.EmailNotificatonType = {}
         this.VoiceNotificatonType = {}
+        this.dataRefreshing = false;
       }
       this.setDefaults(this.SMSNotificatonType, 'text_sms');
       this.setDefaults(this.EmailNotificatonType, 'email');

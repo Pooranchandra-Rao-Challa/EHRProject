@@ -100,6 +100,7 @@ export class ProfileComponent implements OnInit {
   selectedPatient: ProviderPatient;
   selectedPatientRelation: PatientRelationShip;
   patientRelationShip: PatientRelationShip;
+  dataRefreshing: boolean = false;
 
   constructor(private patientService: PatientService,
     private utilityService: UtilityService,
@@ -148,6 +149,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.dataRefreshing = true;
     this.getPatientDetails();
     this.getPatientMyProfile();
     this.getProviderList();
@@ -217,14 +220,26 @@ export class ProfileComponent implements OnInit {
     var reqparam = {
       "PatientId": this.PatientDetails.PatientId
     }
-    this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.patientMyProfile = resp.ListResult[0];
+    this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(
+      {
+        error: (error) =>{
+          this.dataRefreshing = false;
+        },
+        next: resp => {
+          if (resp.IsSuccess) {
+            this.patientMyProfile = resp.ListResult[0];
+            this.dataRefreshing = false;
 
+          }
+        },
+        complete() {
+          this.dataRefreshing = false;
+        },
 
       }
 
-    });
+
+    );
   }
 
   // get provider list

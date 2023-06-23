@@ -2,8 +2,8 @@
   <p class="text-center mb-0">eRX Notice: You currently have <span>{{notifications.Error}}</span> Transmission Errors, <span>{{notifications.Refill}}</span> Refill
     Notices and <span>{{notifications.RxPending}}</span>
     Pending Prescriptions.
-    <a (mouseover)="openMyMenu()" [matMenuTriggerFor]="openeRX">Open eRX</a>
-    <mat-menu #openeRX="matMenu">
+    <button mat-button [matMenuTriggerFor]="openeRX" class="mat-button">Open eRX</button>
+    <mat-menu #openeRX="matMenu" xPosition="after" class="mat-elevation-z8">
       <li mat-menu-item class="mat-menu-item"><a [href]="drfirstProviderMessageUrl" href="javascript:void(0)" target="_blank">eRX Messages</a></li>
       <li mat-menu-item class="mat-menu-item"><a [href]="drfirstProviderReportUrl" href="javascript:void(0)" target="_blank">eRX Reports</a></li>
     </mat-menu>

@@ -14,7 +14,7 @@ import { PatientService } from './../../_services/patient.service';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, fromEvent, merge, Observable, of } from 'rxjs';
 import { catchError, finalize, tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
+import { NotifyPatientChangedInProviderPatientDetails, ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 declare var $: any;
 
 @Component({
@@ -43,7 +43,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     private router: Router,
     private smartSchedulerService: SmartSchedulerService,
     private viewChangeService: ViewChangeService,
-    private cfr: ComponentFactoryResolver) {
+    private cfr: ComponentFactoryResolver,
+    private notifyPatientChanged: NotifyPatientChangedInProviderPatientDetails) {
     this.user = authService.userValue;
     this.removedPatientIdsInBreadcurmb = authService.viewModel.PatientBreadCrumb
   }
@@ -52,6 +53,9 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     this.loadPatientProviders();
     this.getPatientsByProvider();
     this.loadBreadcurmData();
+    this.notifyPatientChanged.getData().subscribe(resp =>{
+      this.onChangeViewState(resp.breadcrumb.Details);
+    })
   }
 
   async loadPatientBreadcrumbView() {
@@ -67,6 +71,41 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     viewcomp.instance.removePatientInBreadcrumb.subscribe(($event) => {
       this.removePatientBreadcrumbInView($event);
     });
+  }
+
+  loadBreadcurmDataV2(breadcrumb: PatientBreadcurm) {
+    this.patientService.LatestUpdatedPatientsUrl({
+      ProviderId: this.authService.userValue.ProviderId,
+      RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+      PatientId : ''
+    })
+      .subscribe(resp => {
+        if (resp.IsSuccess) {
+          let patients = resp.ListResult as ProviderPatient[];
+          this.breadcrumbs = [];
+          let pb: PatientBreadcurm = {
+            Name: "Patients",
+            ViewType: 0,
+            ProviderId: this.authService.userValue.ProviderId,
+            ActiveId: true,
+          }
+          this.breadcrumbs.push(pb);
+          patients.forEach((p) => {
+            let pb: PatientBreadcurm = {
+              Name: p.FirstName + ' ' + p.LastName,
+              DOB: p.Dob,
+              ViewType: 1,
+              PatientId: p.PatientId,
+              ShowRemoveIcon: true,
+              EncKey: p.EncKey,
+              Details: p
+            }
+            this.breadcrumbs.push(pb);
+          });
+
+          this.loadPatientBreadcrumbView()
+        }
+      })
   }
 
   loadBreadcurmData() {
@@ -104,12 +143,12 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       })
   }
 
-  removePatientBreadcrumbInView(patientId: string) {
+  removePatientBreadcrumbInView(breadcrumb: PatientBreadcurm) {
     if (this.removedPatientIdsInBreadcurmb == null)
       this.removedPatientIdsInBreadcurmb = [];
-    this.removedPatientIdsInBreadcurmb.push(patientId);
+    this.removedPatientIdsInBreadcurmb.push(breadcrumb.PatientId);
     this.authService.SetViewParam('PatientBreadCrumb', this.removedPatientIdsInBreadcurmb);
-    this.loadBreadcurmData();
+    this.loadBreadcurmDataV2(breadcrumb);
   }
 
   ngAfterViewInit(): void {
@@ -156,8 +195,6 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     this.authService.SetViewParam("View", "Patients")
     this.authService.SetViewParam("Patient", patientview);
     this.authService.SetViewParam("PatientView", "Chart");
-
-
     this.router.navigate(["/provider/patientdetails"]);
   }
 

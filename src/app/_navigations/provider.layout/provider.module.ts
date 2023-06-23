@@ -139,7 +139,9 @@ import { NotifyMessageService,
   NotifyProviderHeaderService,
   ProviderLocationUpdateNotifier,
   UpdateEmergencyAccess,
-  FamilyRecordNotifier } from "src/app/_navigations/provider.layout/view.notification.service";
+  FamilyRecordNotifier,
+  NotifyPatientChangedInProviderPatientDetails,
+  DentalChartNotifier } from "src/app/_navigations/provider.layout/view.notification.service";
 //mport { NotifyProviderHeaderService, ProviderLocationUpdateNotifier, UpdateEmergencyAccess } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
@@ -163,6 +165,7 @@ import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescripti
 import { ImmunizationDialogComponent } from 'src/app/dialogs/immunization.dialog/immunization.dialog.component';
 import { ImmunizationTableDialogComponent } from 'src/app/dialogs/immunization.table.dialog/immunization.table.dialog.component';
 //import { SelectionModel } from '@angular/cdk/collections';
+
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -369,7 +372,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     UtilityService, SmartSchedulerService, OverlayService, PatientService, BillingService, AdminService,
     AlertMessage, RxNormAPIService, MessagesService, FileUploadService, ProviderLocationUpdateNotifier,
     NotifyMessageService, NotifyProviderHeaderService, UpdateEmergencyAccess, DrfirstService,DrfirstUrlChanged,
-    FamilyRecordNotifier,
+    FamilyRecordNotifier,NotifyPatientChangedInProviderPatientDetails,DentalChartNotifier,
     { provide: LOCALE_ID, useValue: 'en-US' },
     { provide: MAT_DATE_LOCALE, useValue: 'en-US' },
     ProviderCodeDatabase,
