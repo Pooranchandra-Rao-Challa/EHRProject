@@ -50,9 +50,10 @@ import { NewMessageDialogComponent } from 'src/app/dialogs/newmessage.dialog/new
 import { MessagesTableDialogComponent } from 'src/app/dialogs/messages.table.dialog/messages.table.dialog.component';
 import { ViewMessageDialogComponent } from 'src/app/dialogs/view.message.dialog/view.message.dialog.component';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { DrFirstStartUpScreens } from 'src/environments/environment';
 import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
+import { ImmunizationDialogComponent } from 'src/app/dialogs/immunization.dialog/immunization.dialog.component';
+import { ImmunizationTableDialogComponent } from 'src/app/dialogs/immunization.table.dialog/immunization.table.dialog.component';
 declare var $: any;
 
 @Component({
@@ -63,13 +64,11 @@ declare var $: any;
 })
 export class ChartComponent implements OnInit, AfterViewInit {
   public selectedPatient: PatientSearchResults[];
-  public chartInfoImmunizations = new MatTableDataSource<Immunization>();
   @ViewChildren(MatSort) sort = new QueryList<MatSort>();
   @ViewChild('searchVaccineCode', { static: true }) searchVaccineCode: ElementRef;
   @ViewChild('searchPatient', { static: true })
   searchPatient: ElementRef;
   labandimaging: Labandimaging;
-  vaccines: Observable<Vaccine[]>;
   filteredMedicines: any = [];
   isLoading: boolean = false;
   filteredPatients: Observable<PatientSearch[]>;
@@ -90,6 +89,8 @@ export class ChartComponent implements OnInit, AfterViewInit {
   discontinueDialogComponent = DiscontinueDialogComponent;
   medicationDialogComponent = MedicationDialogComponent;
   medicationTableDialogComponent = MedicationTableDialogComponent;
+  immunizationDialogComponent = ImmunizationDialogComponent;
+  immunizationTableDialogComponent = ImmunizationTableDialogComponent;
   eRXPrescriptionTableDialogComponent = RxPrescriptionTableDialogComponent;
   allergyDialogComponent = AllergyDialogComponent;
   allergyTableDialogComponent = AllergyTableDialogComponent;
@@ -99,21 +100,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
   MessageDialogComponent = NewMessageDialogComponent;
   messagesTableDialogComponent = MessagesTableDialogComponent;
   viewMessageDialogComponent = ViewMessageDialogComponent;
-  patientImmunization: Immunization = new Immunization();
   tobaccoUseList: TobaccoUse[] = [];
   appointments: NewAppointment[];
   tobaccoscreenings: TobaccoUseScreening[];
   tobaccointerventions: TobaccoUseIntervention[];
-  immUnits: GlobalConstants;
-  immRoutes: GlobalConstants;
-  immBodySites: GlobalConstants;
-  immFundingSources: GlobalConstants;
-  immRegistryNotifications: GlobalConstants;
-  immVfcClasses: GlobalConstants;
-  immManufacturers: GlobalConstants;
-  immSourceOfInfo: GlobalConstants;
-  immReasonRefuseds: GlobalConstants;
-  immReasonRefusedsCode: GlobalConstants;
   currentPatient: ProviderPatient;
   ActionTypes = Actions;
   chartInfo: ChartInfo = new ChartInfo;
@@ -121,11 +111,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
   AppointmentTypes: AppointmentTypes[];
   Locations: UserLocations[];
   Rooms: Room[];
-  immunizationColumns: string[] = ['Description', 'CVXCode', 'Date', 'Status'];
   administered: boolean = false;
   historical: boolean = true;
   refused: boolean = true;
-  LocationAddress: any;
   user: User;
   vaccinesFilter: any;
   displayMessage: boolean = true;
@@ -152,27 +140,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.chartInfoImmunizations.sort = this.sort.toArray()[0];
-
-    fromEvent(this.searchVaccineCode.nativeElement, 'keyup').pipe(
-      // get value
-      map((event: any) => {
-        this.vaccines = of([]);
-        this.noRecords = false;
-        if (event.target.value == '') {
-          this.displayMessage = true;
-        }
-        return event.target.value;
-      })
-      // if character length greater or equals to 1
-      , filter(res => res.length >= 1)
-      // Time in milliseconds between key events
-      , debounceTime(1000)
-      // If previous query is diffent from current
-      , distinctUntilChanged()
-      // subscription for response
-    ).subscribe(value => this._filterVaccine(value));
-
     fromEvent(this.searchPatient.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -230,12 +197,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
-    this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
     this.loadDefaults();
-    this.loadLocationsList();
     //this.TobaccoUseByPatientId();
     this.GetProviderMessagesFromPatient();
     this.initCDSAlert();
@@ -247,41 +211,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.MedicationURL();
   }
 
-  _filterVaccine(term) {
-    this.isLoading = true;
-    let reqparams = {
-      SearchTearm: term,
-    };
-    this.patientService.Vaccines(reqparams)
-      .subscribe(resp => {
-        this.isLoading = false;
-        this.displayMessage = false;
-        if (resp.IsSuccess) {
-          this.vaccines = of(
-            resp.ListResult as Vaccine[]);
-        }
-        else {
-          this.vaccines = of([]);
-          this.noRecords = true;
-        }
-      });
-  }
-
-  displayWithVaccine(value: any): string {
-    if (!value) return "";
-    else return "";
-  }
-
-  deleteVaccineCode() {
-    this.patientImmunization.Code = '';
-    this.patientImmunization.Description = '';
-  }
-
-  onSelectedImmunization(selected) {
-    this.patientImmunization.Code = selected.option.value.Code;
-    this.patientImmunization.Description = selected.option.value.Description;
-  }
-
   onMedicineSelected(selected) {
     this.labandimaging.ProviderId = selected.option.value.ProviderId;
     this.labandimaging.PatientId = selected.option.value.PatientId;
@@ -290,19 +219,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   displayMedicineWith(value: any): string {
     if (!value) return "";
     return value.ReasonCode + "-" + value.ReasonDescription;
-  }
-
-  loadGlobalConstants() {
-    this.immUnits = GlobalConstants.Units;
-    this.immRoutes = GlobalConstants.Routes;
-    this.immBodySites = GlobalConstants.BodySites;
-    this.immFundingSources = GlobalConstants.FundingSources;
-    this.immRegistryNotifications = GlobalConstants.RegistryNotifications;
-    this.immVfcClasses = GlobalConstants.VfcClasses;
-    this.immManufacturers = GlobalConstants.Manufacturers;
-    this.immSourceOfInfo = GlobalConstants.SourceOfInfo;
-    this.immReasonRefuseds = GlobalConstants.ReasonRefuseds;
-    this.immReasonRefusedsCode = GlobalConstants.DrugReasonRefusedsCode;
   }
 
   openPastMedicalHistory() {
@@ -357,6 +273,12 @@ export class ChartComponent implements OnInit, AfterViewInit {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.medicationTableDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.immunizationDialogComponent) {
+      reqdata = dialogData;
+    }
+    else if (action == Actions.view && content === this.immunizationTableDialogComponent) {
       reqdata = dialogData;
     }
     else if (action == Actions.view && content === this.eRXPrescriptionTableDialogComponent) {
@@ -456,8 +378,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     }
     else if (data.UpdatedModal == PatientChart.Medications) {
-
       this.MedicationsByPatientId();
+    }
+    else if (data.UpdatedModal == PatientChart.Immunizations) {
+      this.ImmunizationsByPatientId();
     }
     else if (data.UpdatedModal == PatientChart.Interventions) {
       this.InterventionsByPatientId();
@@ -486,133 +410,20 @@ export class ChartComponent implements OnInit, AfterViewInit {
             else value.Interventions = [];
             value.TotalRecords = value.Interventions.length + value.Interventions.length;
           })
-        }else this.chartInfo.TobaccoUse = []
-
-        if (this.chartInfo) {
-          this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
-        }
+        } else this.chartInfo.TobaccoUse = []
       }
     });
   }
 
-  get TobaccoUseRecords(): number{
+  get TobaccoUseRecords(): number {
     let i: number = 0;
-    if(this.chartInfo.TobaccoUse)
-    this.chartInfo.TobaccoUse.forEach(value => i+= value.TotalRecords);
+    if (this.chartInfo.TobaccoUse)
+      this.chartInfo.TobaccoUse.forEach(value => i += value.TotalRecords);
     return i;
-  }
-
-  resetDialog() {
-    this.patientImmunization = new Immunization;
-    this.searchVaccineCode.nativeElement.value = '';
-    this.ImmunizationsByPatientId();
-  }
-
-  editDialog(dialogData, name) {
-    if (name == 'immunization') {
-      this.patientImmunization = dialogData;
-      // var dateString = this.patientImmunization.AdministeredAt;
-      // var timeFull = dateString.split('T');
-      // var time = timeFull[1].split('.');
-      // this.patientImmunization.AdministeredAt = this.datepipe.transform(timeFull[0], "yyyy-MM-dd");
-      // this.patientImmunization.AdministeredTime = time[0];
-      this.patientImmunization.AdministeredTime = this.datepipe.transform(this.patientImmunization.AdministeredAt, "hh:mm a");
-      this.patientImmunization.AdministeredAt = this.datepipe.transform(new Date(this.patientImmunization.AdministeredAt), "yyyy-MM-dd");
-    }
   }
 
   GetAppointmentInfo() {
     let data: AppointmentDialogInfo = {}
-  }
-
-  // get display Location Details
-  loadLocationsList() {
-    this.LocationAddress = [];
-    this.settingsService.PracticeLocations(this.user.ProviderId, this.user.ClinicId).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.LocationAddress = resp.ListResult;
-      }
-    });
-  }
-
-  vaccineCodeDescription(vaccine) {
-    this.patientImmunization.Code = vaccine.code;
-    this.patientImmunization.Description = vaccine.description;
-  }
-
-  CreateImmunizationsAdministered() {
-    if (this.currentPatient == null) return;
-    let isAdd = this.patientImmunization.ImmunizationId == undefined;
-    this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    this.patientImmunization.strExpirationAt = this.datepipe.transform(this.patientImmunization.ExpirationAt, "MM/dd/yyyy hh:mm:ss a");
-    // var dateString = this.datepipe.transform(this.patientImmunization.AdministeredAt, "yyyy-MM-dd");
-    //   var datetime = dateString.split(' ');
-    //   var onlyDate = datetime[0];
-    //   this.patientImmunization.AdministeredAt = onlyDate + 'T' + this.patientImmunization.AdministeredTime;
-    this.patientImmunization.AdministeredAt = this.datepipe.transform(this.patientImmunization.AdministeredAt, "MM/dd/yyyy");
-    this.patientImmunization.AdministeredAt = this.patientImmunization.AdministeredAt + ' ' + this.patientImmunization.AdministeredTime;
-    this.patientService.CreateImmunizationsAdministered(this.patientImmunization).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.ImmunizationsByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCI001" : "M2CCI002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCI001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  CreateImmunizationsHistorical() {
-    if (this.currentPatient == null) return;
-    let isAdd = this.patientImmunization.ImmunizationId == undefined;
-    this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    this.patientService.CreateImmunizationsHistorical(this.patientImmunization).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.ImmunizationsByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCI001" : "M2CCI002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCI001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  CreateImmunizationsRefused() {
-    if (this.currentPatient == null) return;
-    let isAdd = this.patientImmunization.ImmunizationId == undefined;
-    this.patientImmunization.PatientId = this.currentPatient.PatientId;
-    this.patientService.CreateImmunizationsRefused(this.patientImmunization).subscribe((resp) => {
-      if (resp.IsSuccess) {
-        this.ImmunizationsByPatientId();
-        this.resetDialog();
-        this.alertmsg.displayMessageDailog(ERROR_CODES[isAdd ? "M2CCI001" : "M2CCI002"]);
-      }
-      else {
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2CCI001"]);
-        this.resetDialog();
-      }
-    });
-  }
-
-  disableImmAdministered() {
-    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.AdministeredTime != '00:00 AM'
-      && this.patientImmunization.AdministeredById && this.patientImmunization.OrderedById && this.patientImmunization.LocationId
-      && this.patientImmunization.Manufacturer && this.patientImmunization.Lot && this.patientImmunization.Quantity && this.patientImmunization.Dose
-      && this.patientImmunization.Unit && this.patientImmunization.ExpirationAt)
-  }
-
-  disableImmHistorical() {
-    return !(this.patientImmunization.Code && this.patientImmunization.AdministeredAt && this.patientImmunization.SourceOfInformation
-      && this.patientImmunization.LocationId)
-  }
-
-  disableImmRefused() {
-    return !(this.patientImmunization.Code && this.patientImmunization.ReasonRefused && this.patientImmunization.ReasonCode
-      && this.patientImmunization.RefusedAt && this.patientImmunization.LocationId)
   }
 
   // Get advanced directives info
@@ -653,7 +464,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.patientService.ImmunizationsByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.chartInfo.Immunizations = resp.ListResult;
-        this.chartInfoImmunizations.data = this.chartInfo.Immunizations;
       } else this.chartInfo.Immunizations = [];
     });
   }
@@ -667,10 +477,13 @@ export class ChartComponent implements OnInit, AfterViewInit {
       else this.chartInfo.Medications = [];
     });
   }
+
   GetString(medication) { return JSON.stringify(medication) }
+
   GetDisplayName(medication: Medication) {
     return medication.DrugName == null || medication.DrugName == "" ? medication.DisplayName : medication.DrugName;
   }
+
   // Get encounters info
   EncountersByPatientId() {
     if (this.currentPatient == null) return;
@@ -836,17 +649,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
     });
   }
 
-  resetImmunization(event) {
-    this.searchVaccineCode.nativeElement.value = '';
-    this.vaccines = of([]);
-    if (this.patientImmunization.ImmunizationId == undefined) {
-      this.patientImmunization = new Immunization;
-    }
-    else {
-      this.ImmunizationsByPatientId();
-    }
-  }
-
   scrollToDiagnoses() {
     document.getElementById("toDiagnoses").scrollIntoView();
   }
@@ -916,15 +718,16 @@ export class ChartComponent implements OnInit, AfterViewInit {
           this.alertResult.forEach(alert => {
             alert.Triggers = JSON.parse(alert.strTriggers) as TriggerResult[]
             let isMet = true;
-            if(alert.Triggers)
-            alert.Triggers.forEach((trigger) => {
-              isMet = trigger.IsMet && isMet;
-            })
+            if (alert.Triggers)
+              alert.Triggers.forEach((trigger) => {
+                isMet = trigger.IsMet && isMet;
+              })
             alert.IsMet = isMet;
           })
         }
       })
   }
+
   get NoAlerts(): string {
     let rtnMessage = 'Clinical Decision Support Alerts for ID Not Found';
     let flag = false;
@@ -959,7 +762,6 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   // Access Permissions
-
   canView(policyName: string, methodName: string): boolean {
     var permissions = this.authService.permissions();
     if (!permissions) return false;

@@ -447,78 +447,14 @@ textarea.form-control.inputclass:hover {
   margin-top: -28px;
 }
 
-// add/edit immunization
-#immunization-modal .modal-footer .btn-green {
-  width: 85px !important;
-}
-
-#immunization-modal .modal-dialog {
-  max-width: 750px;
-}
-
-#immunization-modal textarea {
-  // height: 131px !important;
-  min-height: 119px !important;
-  resize: both;
-  background-color: #fff;
-  border-color: #41b6a6;
-  border-radius: 6px;
-}
-
-#immunization-modal mat-label {
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  font-size: 15px;
-  color: #74757e;
-  margin: 0 0 10px 5px;
-}
-
-#immunization-modal .textarea-margin {
-  margin: 0px;
-}
-
-#immunization-modal.modal .modal-dialog .modal-content .modal-body {
-  padding: 0px;
-  overflow-x: hidden !important;
-}
-
-#immunization-modal.modal .modal-footer {
-  padding: 10px 23px !important;
-}
-
-::ng-deep #immunization-modal .mat-select,
-.mat-input-element {
-  vertical-align: -webkit-baseline-middle;
-  font-size: 15px;
-}
-
-::ng-deep #immunization-modal .mat-select-value {
-  font-size: 15px;
-}
-
 ::ng-deep .mat-select-panel .mat-option {
   font-size: 15px;
 }
-
 
 .textarea-margin mat-label {
   padding: 0px;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
   font-size: 15px;
-}
-
-// immunization table
-#immunization-table-modal .modal-dialog {
-  max-width: 1179px;
-}
-
-#immunization-table-modal .mat-row {
-  padding: 10px;
-}
-
-#immunization-table-modal .mat-row:hover {
-  a {
-    color: #41b6a6 !important;
-  }
 }
 
 a.view-more:hover {
@@ -560,37 +496,40 @@ a.view-more:hover {
   }
 }
 
-.prescription-icon::before{
+.prescription-icon::before {
   content: "\211E";
 
   width: 25px;
   height: 25px;
   font-family: "Font Awesome 6 free";
-	font-weight: 900;
+  font-weight: 900;
   padding-left: 30px;
 }
 
-.prescription-icon2::after{
+.prescription-icon2::after {
   content: "\211E";
   width: 25px;
   height: 25px;
   font-family: "Font Awesome 6 free";
-	font-weight: 900;
+  font-weight: 900;
   padding-left: 30px;
   float: right;
 }
-.prescription-icon2-display:hover{
-  color:#dd7239;
-  display:inline
-}
-.prescription-icon2-display{
-  color:#41b6a6;
-  display:inline
+
+.prescription-icon2-display:hover {
+  color: #dd7239;
+  display: inline
 }
 
-.prescription-icon-display:hover{
-  color:#dd7239;
+.prescription-icon2-display {
+  color: #41b6a6;
+  display: inline
 }
-.prescription-icon-display{
-  color:#fff;
+
+.prescription-icon-display:hover {
+  color: #dd7239;
+}
+
+.prescription-icon-display {
+  color: #fff;
 }
