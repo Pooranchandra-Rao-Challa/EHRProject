@@ -1,0 +1,51 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.immunization-modal {
+  max-width: 750px;
+  padding: 0px;
+  overflow-x: hidden !important;
+
+  .modal-body {
+    max-height: calc(90vh - 160px);
+    overflow-y: auto;
+  }
+
+  .modal-footer .btn-green {
+    width: 85px !important;
+  }
+
+  textarea {
+    // height: 131px !important;
+    min-height: 119px !important;
+    resize: both;
+    background-color: #fff;
+    border-color: #41b6a6;
+    border-radius: 6px;
+  }
+
+  mat-label {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    color: #74757e;
+    margin: 0 0 10px 5px;
+  }
+
+  .textarea-margin {
+    margin: 0px;
+  }
+
+  .modal-footer {
+    padding: 10px 23px !important;
+  }
+
+  ::ng-deep .mat-select,
+  .mat-input-element {
+    vertical-align: -webkit-baseline-middle;
+    font-size: 15px;
+  }
+
+  ::ng-deep .mat-select-value {
+    font-size: 15px;
+  }
+}

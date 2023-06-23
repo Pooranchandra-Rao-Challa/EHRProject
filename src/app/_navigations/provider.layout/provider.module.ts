@@ -160,6 +160,8 @@ import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/dir
 import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.dialog/directproviders.dialog.component';
 import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
 import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescription.info.dialog/rx.prescription.info.dialog.component';
+import { ImmunizationDialogComponent } from 'src/app/dialogs/immunization.dialog/immunization.dialog.component';
+import { ImmunizationTableDialogComponent } from 'src/app/dialogs/immunization.table.dialog/immunization.table.dialog.component';
 //import { SelectionModel } from '@angular/cdk/collections';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -222,7 +224,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DirectmailDialogComponent,
     DirectprovidersDialogComponent,
     RxPrescriptionTableDialogComponent,
-    RxPrescriptionInfoDialogComponent
+    RxPrescriptionInfoDialogComponent,
+    ImmunizationDialogComponent,
+    ImmunizationTableDialogComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -320,7 +324,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DirectmailDialogComponent,
     DirectprovidersDialogComponent,
     RxPrescriptionTableDialogComponent,
-    RxPrescriptionInfoDialogComponent
+    RxPrescriptionInfoDialogComponent,
+    ImmunizationDialogComponent,
+    ImmunizationTableDialogComponent
   ],
   imports: [
     FullCalendarModule,
@@ -425,7 +431,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     DirectmailDialogComponent,
     DirectprovidersDialogComponent,
     RxPrescriptionTableDialogComponent,
-    RxPrescriptionInfoDialogComponent
+    RxPrescriptionInfoDialogComponent,
+    ImmunizationDialogComponent,
+    ImmunizationTableDialogComponent
   ]
 })
 export class ProviderModule {
