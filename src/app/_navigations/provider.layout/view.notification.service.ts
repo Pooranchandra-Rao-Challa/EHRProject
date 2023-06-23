@@ -206,3 +206,20 @@ export class NotifyPatientChangedInProviderPatientDetails {
     return this.subject.asObservable();
   }
 }
+
+@Injectable()
+export class DentalChartNotifier {
+  private subject = new Subject<any>();
+
+  sendData(updateLocations: boolean) {
+    this.subject.next(updateLocations);
+  }
+
+  clearData() {
+    this.subject.next();
+  }
+
+  getData(): Observable<boolean> {
+    return this.subject.asObservable();
+  }
+}

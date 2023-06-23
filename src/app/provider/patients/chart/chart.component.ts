@@ -135,6 +135,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   customizedspinner: boolean;
   alertResult: AlertResult[] = []
   drFirstMedicationUrl: string;
+  dataRefreshing:boolean = false;
 
   constructor(public overlayService: OverlayService,
     private patientService: PatientService,
@@ -230,7 +231,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
+    this.dataRefreshing = true;
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
     this.ChartInfo();
@@ -245,6 +246,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
       }
     });
     this.MedicationURL();
+    //this.dataRefreshing = false;
   }
 
   _filterVaccine(term) {
@@ -472,9 +474,10 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ChartInfo() {
-    if (this.currentPatient == null) return;
+    if (this.currentPatient == null) {this.dataRefreshing = false; return;};
     this.patientService.ChartInfo({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
       if (resp.IsSuccess) {
+        this.dataRefreshing = false;
         this.chartInfo = resp.Result;
         if (this.chartInfo.TobaccoUse) {
           this.chartInfo.TobaccoUse.forEach((value) => {

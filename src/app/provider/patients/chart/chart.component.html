@@ -3,6 +3,7 @@
 </div>
 
 <div class="chart-wrapper">
+  <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="dataRefreshing"></mat-progress-bar>
   <div class="controls-container">
     <div class="row controls">
       <div class="col-xl-6 col-lg-5 col-md-12 col-12">
@@ -72,7 +73,7 @@
       </div>
     </div>
   </div>
-  <div class="chart-tab-content">
+  <div class="chart-tab-content" *ngIf="!dataRefreshing">
     <div class="patientChartTab">
       <div class="content">
         <div class="row">

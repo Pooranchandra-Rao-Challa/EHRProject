@@ -62,6 +62,8 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
+    console.log(endpointUrl);
+
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
         if (resp.IsSuccess) {
@@ -76,11 +78,14 @@ export class AuthenticationService {
               else if (!this.isProviderActive && !this.hasEmergencyAccess)
                 this.logout(ERROR_CODES["EL008"]);
               else if (this.isUserLocked && !this.hasEmergencyAccess) {
-                this.router.navigate(
-                  ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
-                )
-                  .then(() => window.location.reload());
+                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
+                //console.log(url);
+                window.location.replace(url);
+                // this.router.navigate(
+                //   ['provider/smartschedule'],
+                //   { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
+                // )
+                 // .then(() => window.location.reload());
               }
               else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 // Provider trial period is closed please do subscribe for accessing application.
@@ -89,15 +94,15 @@ export class AuthenticationService {
               }
               else {
                 // console.log(this.router.parseUrl(this.router.url));
-                // let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
-                // console.log(url);
+                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
+                //console.log(url);
                 // this.router.navigateByUrl(url);
-
-                this.router.navigate(
-                  ['provider/smartschedule'],
-                  { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
-                )
-                  .then(() => window.location.reload());
+                window.location.replace(url);
+                // this.router.navigate(
+                //   ['provider/smartschedule'],
+                //   { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
+                // )
+                  //.then(() => window.location.reload());
               }
 
 
@@ -260,28 +265,48 @@ export class AuthenticationService {
         this.SetViewParam("View", "dashboard")
 
         if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
-          this.router.navigate(['/account/security-question'],
-            { queryParams: { key: (new Date()).getTime() } });
+
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/security-question?key=${(new Date()).getTime()}`;
+          //console.log(url);
+          // this.router.navigateByUrl(url);
+          window.location.replace(url);
+
+          // this.router.navigate(['/account/security-question'],
+          //   { queryParams: { key: (new Date()).getTime() } });
           //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
-          this.router.navigate(['/account/reset-password'],
-            { queryParams: { key: (new Date()).getTime() } });
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/reset-password?key=${(new Date()).getTime()}`;
+          //console.log(url);
+          // this.router.navigateByUrl(url);
+          window.location.replace(url);
+          // this.router.navigate(['/account/reset-password'],
+          //   { queryParams: { key: (new Date()).getTime() } });
           //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
-          this.router.navigate(['/account/patient-relations'],
-            { queryParams: { key: (new Date()).getTime() } });
+          // this.router.navigate(['/account/patient-relations'],
+          //   { queryParams: { key: (new Date()).getTime() } });
+            let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/patient-relations?key=${(new Date()).getTime()}`;
+            //console.log(url);
+            // this.router.navigateByUrl(url);
+            window.location.replace(url);
           //.then(() => window.location.reload());
         } else if (this.isPatient && !this.isPatientActive) {
           this.logout(ERROR_CODES["EL014"])
         } else if (this.isRepresentative && !this.isRepresentaiveActive) {
           this.logout(ERROR_CODES["EL015"])
         }
-        else if (this.isPatient || this.isRepresentative)
-          this.router.navigate(['patient/dashboard'],
-            { queryParams: { key: (new Date()).getTime() } });
-        //.then(() => window.location.reload());
+        else if (this.isPatient || this.isRepresentative){
+
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/patient/dashboard?key=${(new Date()).getTime()}`;
+                //console.log(url);
+                // this.router.navigateByUrl(url);
+          window.location.replace(url);
+                // this.router.navigate(['patient/dashboard'],
+                // { queryParams: { key: (new Date()).getTime() } });
+            //.then(() => window.location.reload());
+        }
         else {
           this.logout(ERROR_CODES["EL001"]);
         }
