@@ -22,6 +22,7 @@ export class CqmsNotPerformedComponent implements OnInit {
   CQMNotPerformed: CQMNotPerformed;
   ActionTypes = Actions;
   CQMNotPerformedResponse: any;
+  dataRefreshing: boolean = false;
 
   constructor(private overlayService: OverlayService, private authService: AuthenticationService,
     private cqmNotperformedService: CQMNotPerformedService) {
@@ -30,6 +31,7 @@ export class CqmsNotPerformedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataRefreshing = true;
     this.PatientDetails = this.authService.viewModel.Patient;
     this.getCQMNotPerformed();
   }
@@ -40,11 +42,11 @@ export class CqmsNotPerformedComponent implements OnInit {
       "ProviderId": this.PatientDetails.ProviderId
     }
     this.cqmNotperformedService.CQMNotPerformed(reqparam).subscribe(resp => {
-      console.log(resp);
 
       if (resp.IsSuccess) {
         this.CQMNotPreformedDataSource = resp.ListResult;
-      }
+        this.dataRefreshing = false;
+      }else this.dataRefreshing = false;
     });
   }
 

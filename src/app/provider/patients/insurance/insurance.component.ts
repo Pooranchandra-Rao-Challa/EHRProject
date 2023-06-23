@@ -82,6 +82,7 @@ export class InsuranceComponent implements OnInit {
   minDateToSecondary = new Subject<string>();
   endDateForSecondary: Date;
   hideSubscriber: boolean = false;
+  dataRefreshing: boolean = false;
 
   dateChangeForPrimary(e) {
     this.minDateToPrimary.next(e.value.toString());
@@ -110,7 +111,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.dataRefreshing = true;
     this.getPatientDetails();
     this.getSourceOfPaymentTypologyCodesDD();
     this.InsuranceCompanyPlanList();
@@ -419,9 +420,11 @@ export class InsuranceComponent implements OnInit {
         }
         this.updateSearchTermInsurance(this.primaryInsurance, this.primaryInsurancePatientSearch);
         this.updateSearchTermInsurance(this.secondaryInsurance, this.secondaryInsurancePatientSearch);
+        this.dataRefreshing = false;
       } else {
         this.primaryInsurance = {};
         this.secondaryInsurance = {};
+        this.dataRefreshing = false;
       }
 
     });
