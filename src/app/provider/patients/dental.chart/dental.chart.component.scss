@@ -99,24 +99,24 @@ img,svg {
  {
   overflow-y: scroll;
   max-height: calc(100vh - 400px);
-  min-height: 607px
+  min-height: calc(100vh - 297px)
 }
 
 .adult-frequnecy {
   overflow-y: scroll;
   max-height: calc(70vh - 53px);
-  min-height: 654px;
+  min-height: calc(70vh - 25px);;
 }
 
 .child-procedure {
   max-height: calc(70vh - 53px);
-    min-height: 609px;
+    min-height: calc(100vh - 297px);
     overflow-y: scroll;
   // max-height: calc(30vh - 25px);
 }
 
 .child-frequnecy {
-  min-height: 657px;
+  min-height: calc(100vh - 297px);
   overflow-y: scroll;
   max-height: calc(70vh - 53px);
 }

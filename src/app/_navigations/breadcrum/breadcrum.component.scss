@@ -211,7 +211,7 @@ li a.inactive {
   display: inline-block;
   white-space: nowrap;
   text-decoration: none;
-  vertical-align: baseline;
+  vertical-align: bottom;
   text-align: center;
   margin: 0;
   min-width: 64px;
@@ -219,9 +219,9 @@ li a.inactive {
   padding: 0 0;
   border-radius: 4px;
   overflow: visible;
-  color: hsl(330, 5%, 7%);
+  color: #02efcf;
   &:hover {
     filter: brightness(85%);
-    color: hsl(353, 18%, 81%);
+    color: #00ffe9;;
   }
 }

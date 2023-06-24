@@ -8,6 +8,7 @@ import { Allergy, GlobalConstants, AllergyType, OnSetAt, SeverityLevel, AllergyN
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete/autocomplete';
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -31,6 +32,10 @@ export class AllergyDialogComponent implements OnInit {
   noRecords: boolean = false;
   minDateToFinish = new Subject<string>();
   minDateForEndDate;
+
+  @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
+  filteredOptions: AllergyNames[] =[];
+  public height: string;
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -67,6 +72,21 @@ export class AllergyDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
+    fromEvent(this.cdkSearchAllergyName.nativeElement,'keyup').pipe(
+      map((event:any) => {
+
+
+        return event.target.value;
+      }),
+      filter(searchInput => searchInput.length >= 1)
+      , debounceTime(100)
+      // If previous query is diffent from current
+      , distinctUntilChanged()
+      // subscription for response
+    ).subscribe(searchText => this._filterAllergyNames2(searchText));
+
+
+
     fromEvent(this.searchAllergyName.nativeElement, 'keyup').pipe(
       // get value
       map((event: any) => {
@@ -80,12 +100,40 @@ export class AllergyDialogComponent implements OnInit {
       // if character length greater or equals to 1
       , filter(res => res.length >= 1)
       // Time in milliseconds between key events
-      , debounceTime(1000)
+      , debounceTime(100)
       // If previous query is diffent from current
       , distinctUntilChanged()
       // subscription for response
     ).subscribe(value => this._filterAllergyNames(value));
   }
+
+
+  _filterAllergyNames2(term) {
+    this.isLoading = true;
+    let reqparams = {
+      SearchTearm: term,
+    };
+    this.patientService.AllergyNames(reqparams)
+      .subscribe(resp => {
+        //this.isLoading = false;
+        //this.displayMessage = false;
+        if (resp.IsSuccess) {
+          this.filteredOptions = resp.ListResult as AllergyNames[];
+        } else {
+          this.filteredOptions = [];
+          //this.noRecords = true;
+        }
+
+        if (this.filteredOptions.length < 4) {
+          this.height = this.filteredOptions.length * 50 + "px";
+        } else {
+          this.height = "200px";
+        }
+
+      });
+  }
+
+
 
   _filterAllergyNames(term) {
     this.isLoading = true;
@@ -104,6 +152,15 @@ export class AllergyDialogComponent implements OnInit {
           this.noRecords = true;
         }
       });
+  }
+
+  public handleKeyboardEvent(event: MatAutocompleteSelectedEvent): void {
+    console.log(event);
+
+    if (event.source.isOpen) {
+      ((event.option as any)
+        ._element as ElementRef).nativeElement.scrollIntoView();
+    }
   }
 
   displayWithAllergy(value: any): string {

@@ -104,7 +104,7 @@
                   <td (click)="EditTrigger(data)" data-bs-toggle="modal"
                   data-bs-target="#TriggerModal" style="color:#41b6a6">
                     {{data.Description}}</td>
-                  <td (click)="DeleteTrigger(data.TriggerId)">
+                  <td (click)="DeleteTrigger(data.TriggerId)" *ngIf="!data.IsSystemCreatedCDS">
                     <mat-icon class="close-icon  Cancelbtn" style="cursor: pointer;">close
                     </mat-icon>
                   </td>
@@ -287,38 +287,38 @@
         <mat-table mat-table [dataSource]="codesBehaviour" id="procedure-table" class="tbl-trigger-codes">
           <ng-container matColumnDef="CODE">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first">Code</p>
+              Code
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
-              <span>{{ item.Code }}</span>
+              {{ item.Code }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="DESCRIPTION">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first">Description</p>
+              Description
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
-              <span>{{ item.Description }}</span>
+              {{ item.Description }}
             </mat-cell>
           </ng-container>
 
           <ng-container matColumnDef="CODE SYSTEM">
             <mat-header-cell *matHeaderCellDef>
-              <p class="text-capitalize-first">CodeSystem</p>
+              Code System
             </mat-header-cell>
             <mat-cell *matCellDef="let item">
-              <span>{{ item.CodeSystem }}</span>
+              {{ item.CodeSystem }}
             </mat-cell>
           </ng-container>
 
-          <ng-container matColumnDef="Delete">
+          <ng-container matColumnDef="Delete" >
             <mat-header-cell *matHeaderCellDef>
               <p class="text-capitalize-first"></p>
             </mat-header-cell>
             <mat-cell *matCellDef="let item; let i = index; ">
               <button type="button" class="btn cross-mark error-close" (click)="removeTriggerCode(item,i)"
-                title="Delete recommended Procedure">x</button>
+                title="Delete recommended Procedure" *ngIf="!alertTrigger.IsSystemCreatedCDS">x</button>
             </mat-cell>
           </ng-container>
           <mat-header-row *matHeaderRowDef="clinicalDecisionSearchColumns"></mat-header-row>

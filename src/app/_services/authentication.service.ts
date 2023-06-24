@@ -78,7 +78,7 @@ export class AuthenticationService {
               else if (!this.isProviderActive && !this.hasEmergencyAccess)
                 this.logout(ERROR_CODES["EL008"]);
               else if (this.isUserLocked && !this.hasEmergencyAccess) {
-                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
+                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 //console.log(url);
                 window.location.replace(url);
                 // this.router.navigate(
@@ -94,7 +94,7 @@ export class AuthenticationService {
               }
               else {
                 // console.log(this.router.parseUrl(this.router.url));
-                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
+                let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 //console.log(url);
                 // this.router.navigateByUrl(url);
                 window.location.replace(url);
@@ -266,7 +266,7 @@ export class AuthenticationService {
 
         if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
 
-          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/security-question?key=${(new Date()).getTime()}`;
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/security-question?key=${(new Date()).getTime()}`;
           //console.log(url);
           // this.router.navigateByUrl(url);
           window.location.replace(url);
@@ -276,7 +276,7 @@ export class AuthenticationService {
           //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
-          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/reset-password?key=${(new Date()).getTime()}`;
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/reset-password?key=${(new Date()).getTime()}`;
           //console.log(url);
           // this.router.navigateByUrl(url);
           window.location.replace(url);
@@ -287,7 +287,7 @@ export class AuthenticationService {
         else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
           // this.router.navigate(['/account/patient-relations'],
           //   { queryParams: { key: (new Date()).getTime() } });
-            let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/account/patient-relations?key=${(new Date()).getTime()}`;
+            let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/patient-relations?key=${(new Date()).getTime()}`;
             //console.log(url);
             // this.router.navigateByUrl(url);
             window.location.replace(url);
@@ -299,7 +299,7 @@ export class AuthenticationService {
         }
         else if (this.isPatient || this.isRepresentative){
 
-          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}/patient/dashboard?key=${(new Date()).getTime()}`;
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/patient/dashboard?key=${(new Date()).getTime()}`;
                 //console.log(url);
                 // this.router.navigateByUrl(url);
           window.location.replace(url);

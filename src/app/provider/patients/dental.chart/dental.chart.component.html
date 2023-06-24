@@ -29,7 +29,7 @@
     <div class="col-lg-6 col-md-6 col-12  patientDentalChartTab" *ngIf="AdultPrem">
       <div class="panel-teeth double-border">
         <div class="table-responsive border">
-          <table class="table" style="height: 715px;">
+          <table class="table">
             <thead></thead>
             <tbody class="tbody-teeth">
               <tr class="mt-2">
@@ -423,7 +423,7 @@
     <div class="col-lg-6 col-md-6 col-12  patientDentalChartTab " *ngIf="ChilPrim">
       <div class="panel-teeth double-border">
         <div class="table-responsive border">
-          <table class="table" style="height: 715px ;">
+          <table class="table">
             <thead></thead>
             <tbody class="tbody-teeth ">
               <tr>
@@ -611,7 +611,7 @@
             </div>
           </div>
         </div>
-        <div [ngClass]="AdultPrem?'Adult-procedure':'child-procedure'" style="height: 492px;">
+        <div [ngClass]="AdultPrem?'Adult-procedure':'child-procedure'">
           <tree-procedure #procedureTree></tree-procedure>
         </div>
 

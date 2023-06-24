@@ -338,9 +338,17 @@ mat-accordion .mat-expansion-panel:first-of-type {
   .mat-row{
     padding: 10px 10px !important;
   }
-  .mat-cell:last-child, .mat-cell:nth-child(1), .mat-cell:nth-child(2),
-  .mat-header-cell:last-child, .mat-header-cell:nth-child(1), .mat-header-cell:nth-child(2){
-    width:10%;
+  .mat-cell:last-child, .mat-cell:nth-child(n+1), .mat-cell:nth-child(n+2),
+  .mat-header-cell:last-child, .mat-header-cell:nth-child(n+1), .mat-header-cell:nth-child(n+2){
+    width:15%;
+    flex:none;
+  }
+
+  .mat-cell:nth-child(n+3),
+  .mat-header-cell:nth-child(n+3){
+    width:auto;
+    white-space: pre-wrap;
+    flex:auto;
   }
 }
 
@@ -411,3 +419,5 @@ div.clinical-decision-table table tbody tr td{
 .pd-r-30{
   padding: 0 30px 00;
 }
+
+

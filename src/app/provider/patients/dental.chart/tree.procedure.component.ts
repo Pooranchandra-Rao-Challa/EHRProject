@@ -235,6 +235,9 @@ export class TreeProcedureComponent implements OnInit {
     return null;
   }
 
+  getChildClass(i){
+    return 'child-'+i.level
+  }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     dialogData, actions: Actions = this.ActionTypes.new,node:any = null) {

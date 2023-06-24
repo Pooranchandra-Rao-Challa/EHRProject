@@ -232,16 +232,16 @@ export class TobaccoUseDialogComponent implements OnInit {
   }
 
   disableTobaccoUse() {
-    console.log(this.editScreeningUpdated);
-    console.log(this.editInterventionUpdated);
-    console.log(this.disableRecordScreening());
-    console.log(this.disableRecordIntervention());
+    // console.log(this.editScreeningUpdated);
+    // console.log(this.editInterventionUpdated);
+    // console.log(this.disableRecordScreening());
+    // console.log(this.disableRecordIntervention());
 
     if(this.patientTobaccoUse.TobaccoUseId)
       return !(this.editScreeningUpdated ||
              this.editInterventionUpdated)
     else if(this.editScreeningUpdated && this.editInterventionUpdated)
-        return this.disableRecordScreening() || this.disableRecordIntervention();
+        return !this.disableRecordScreening() || !this.disableRecordIntervention();
     else return true;
 
   }
