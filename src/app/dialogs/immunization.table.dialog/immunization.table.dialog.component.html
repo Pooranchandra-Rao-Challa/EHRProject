@@ -1,0 +1,56 @@
+<div class="modal-dialog immunization-table-modal" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Immunizations</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="scrollable-mat-table">
+        <mat-table [dataSource]="chartInfoImmunizations" matSort>
+          <ng-container matColumnDef="Description">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Description">Vaccine Description
+            </mat-header-cell>
+            <mat-cell *matCellDef="let immunization">
+              <a (click)="openComponentDialog(immunizationDialogComponent,immunization,ActionTypes.view)">{{immunization.Description}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="CVXCode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="Code">CVX Code</mat-header-cell>
+            <mat-cell *matCellDef="let immunization">
+              <a (click)="openComponentDialog(immunizationDialogComponent,immunization,ActionTypes.view)">{{immunization.Code}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="AdministeredAt">Date</mat-header-cell>
+            <mat-cell *matCellDef="let immunization">
+              <a (click)="openComponentDialog(immunizationDialogComponent,immunization,ActionTypes.view)">{{immunization.AdministeredAt
+                | date: 'MM/dd/yyyy'}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header="ImmType">Status</mat-header-cell>
+            <mat-cell *matCellDef="let immunization">
+              <a (click)="openComponentDialog(immunizationDialogComponent,immunization,ActionTypes.view)">{{immunization.ImmType}}
+              </a>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="immunizationColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: immunizationColumns"></mat-row>
+        </mat-table>
+        <div class="norecords-found" *ngIf="chartInfoImmunizations?.data?.length == 0">
+          No Immunizations Found
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green" (click)="openComponentDialog(immunizationDialogComponent,null,ActionTypes.add)">Add
+        Vaccine</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

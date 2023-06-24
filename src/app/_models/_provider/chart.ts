@@ -67,6 +67,7 @@ export enum PatientChart {
   FamilyMedicalHistory,
   Allergies,
   Medications,
+  Immunizations,
   Discontinue,
   Interventions,
   Encounters,

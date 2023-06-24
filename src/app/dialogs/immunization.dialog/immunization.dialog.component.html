@@ -1,0 +1,358 @@
+<div class="modal-dialog immunization-modal" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title Helvetica-sans-serif-medium">Add/Edit Vaccination</h4>
+      <span type="button" class="cross-mark" (click)="cancel()">
+        X
+      </span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <mat-radio-group [(ngModel)]="patientImmunization.ImmType">
+          <mat-radio-button value="administered" (change)="resetImmunization($event)">
+            <mat-label class="Helvetica-sans-serif-medium">Administered</mat-label>
+          </mat-radio-button>
+          <mat-radio-button class="ms-5" value="historical" (change)="resetImmunization($event)">
+            <mat-label class="Helvetica-sans-serif-medium">Historical</mat-label>
+          </mat-radio-button>
+          <mat-radio-button class="ms-lg-5 mt-2 mt-sm-0" value="refused" (change)="resetImmunization($event)">
+            <mat-label class="Helvetica-sans-serif-medium">Refused</mat-label>
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="row mt-3">
+        <mat-label class="required">Vaccine:</mat-label>
+        <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
+          <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
+            id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode" />
+          <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
+            (optionSelected)="onSelectedImmunization($event)">
+            <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
+              Enter atleast 1 character, you can only select 1 item
+            </mat-option>
+            <mat-option *ngIf="isLoading">Loading ...</mat-option>
+            <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
+              {{option.Code}} - {{option.Description}}
+            </mat-option>
+            <mat-option *ngIf="noRecords">No Records Found</mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+        <span class="selected-allergen" id="allergenName" *ngIf="patientImmunization.Code != ''">
+          <p>{{patientImmunization.Code}} - {{patientImmunization.Description}}</p>
+          <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
+            (click)="deleteVaccineCode()"></a>
+        </span>
+      </div>
+      <div
+        [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Date Administered:</mat-label>
+              <mat-form-field appearance="outline" class="green-calendar col-12">
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministered"
+                  (click)="dateAdministered.open()" readonly placeholder="Date administered"
+                  [(ngModel)]="patientImmunization.AdministeredAt" />
+                <mat-datepicker-toggle matSuffix [for]="dateAdministered"></mat-datepicker-toggle>
+                <mat-datepicker #dateAdministered></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Time administered:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput type="text" appTimeMask [(ngModel)]="patientImmunization.AdministeredTime" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Administered by:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select administered by" [(ngModel)]="patientImmunization.AdministeredById">
+                  <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
+                    {{providers.FullName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Ordered by:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select ordered by" [(ngModel)]="patientImmunization.OrderedById">
+                  <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
+                    {{providers.FullName}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <mat-label class="required">Administered:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
+              <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                {{item.LocationName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Manufacturer:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
+                  <mat-option *ngFor="let manufacturer of immManufacturers" [value]="manufacturer">
+                    {{manufacturer}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Lot:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput placeholder="Enter lot" [(ngModel)]="patientImmunization.Lot" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Quantity:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput placeholder="Enter quantity" [(ngModel)]="patientImmunization.Quantity" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Dose:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <input matInput placeholder="Enter dose" [(ngModel)]="patientImmunization.Dose" />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Units:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select unit" [(ngModel)]="patientImmunization.Unit">
+                  <mat-option *ngFor="let unit of immUnits" [value]="unit">
+                    {{unit}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Expiration Date:</mat-label>
+              <mat-form-field appearance="outline" class="green-calendar col-12">
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="expirationDate"
+                  (click)="expirationDate.open()" readonly placeholder="Expiration date"
+                  [(ngModel)]="patientImmunization.ExpirationAt" />
+                <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
+                <mat-datepicker #expirationDate></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <mat-label>Route:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select a route" [(ngModel)]="patientImmunization.Route">
+              <mat-option *ngFor="let route of immRoutes" [value]="route">
+                {{route}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Body Site:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select a body site" [(ngModel)]="patientImmunization.BodySite">
+              <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
+                {{bodysite}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Funding Source:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select a funding source" [(ngModel)]="patientImmunization.FundingSource">
+              <mat-option *ngFor="let source of immFundingSources" [value]="source">
+                {{source}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>Registry Notifications:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Notify me" [(ngModel)]="patientImmunization.RegistryNotification">
+              <mat-option *ngFor="let notify of immRegistryNotifications" [value]="notify">
+                {{notify}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <mat-label>VFC Financial Class:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Class selection" [(ngModel)]="patientImmunization.VFCClass">
+              <mat-option *ngFor="let vfcclass of immVfcClasses" [value]="vfcclass">
+                {{vfcclass}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Comments:</mat-label>
+          <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Notes:</mat-label>
+          <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+        </div>
+      </div>
+      <div
+        [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Date Administered:</mat-label>
+              <mat-form-field appearance="outline" class="green-calendar col-12">
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministeredHistorical"
+                  (click)="dateAdministeredHistorical.open()" readonly placeholder="Date administered"
+                  [(ngModel)]="patientImmunization.AdministeredAt" />
+                <mat-datepicker-toggle matSuffix [for]="dateAdministeredHistorical"></mat-datepicker-toggle>
+                <mat-datepicker #dateAdministeredHistorical></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Source of Information:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select a source" [(ngModel)]="patientImmunization.SourceOfInformation">
+                  <mat-option *ngFor="let info of immSourceOfInfo" [value]="info">
+                    {{info}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <mat-label class="required">Administered:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
+              <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                {{item.LocationName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Comments:</mat-label>
+          <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Notes:</mat-label>
+          <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+        </div>
+      </div>
+      <div
+        [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }">
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Reason Refused:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select refusal reason" [(ngModel)]="patientImmunization.ReasonRefused">
+                  <mat-option *ngFor="let refused of immReasonRefuseds" [value]="refused">
+                    {{refused}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Reason Refused Code:</mat-label>
+              <mat-form-field appearance="outline" class="col-12">
+                <mat-select placeholder="Select refusal code" [(ngModel)]="patientImmunization.ReasonCode">
+                  <mat-option *ngFor="let refusedcode of immReasonRefusedsCode" [value]="refusedcode">
+                    {{refusedcode}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label class="required">Date Refused:</mat-label>
+              <mat-form-field appearance="outline" class="green-calendar col-12">
+                <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateRefused"
+                  (click)="dateRefused.open()" readonly placeholder="Date refused"
+                  [(ngModel)]="patientImmunization.RefusedAt" />
+                <mat-datepicker-toggle matSuffix [for]="dateRefused"></mat-datepicker-toggle>
+                <mat-datepicker #dateRefused></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col-md-6 col-12">
+            <div class="row">
+              <mat-label>Status:</mat-label>
+              <h4 class="mt-3">Refused</h4>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <mat-label class="required">Practice:</mat-label>
+          <mat-form-field appearance="outline" class="col-12">
+            <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.LocationId">
+              <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
+                {{item.LocationName}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Comments:</mat-label>
+          <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
+        </div>
+        <div class="row textarea-margin">
+          <mat-label>Notes:</mat-label>
+          <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-green"
+        [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+        [disabled]="disableImmAdministered()" (click)="CreateImmunizationsAdministered()">Save</button>
+      <button class="btn btn-green"
+        [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
+        [disabled]="disableImmHistorical()" (click)="CreateImmunizationsHistorical()">Save</button>
+      <button class="btn btn-green"
+        [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }"
+        [disabled]="disableImmRefused()" (click)="CreateImmunizationsRefused()">
+        Save</button>
+      <button class="btn btn-green" (click)="cancel()">Cancel</button>
+    </div>
+  </div>
+</div>

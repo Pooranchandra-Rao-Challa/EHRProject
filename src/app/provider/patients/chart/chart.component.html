@@ -64,9 +64,11 @@
       <div class="col-xl-6 col-lg-7 col-md-12 col-12">
         <div class="row float-end mt-2 mt-lg-0 g-0">
           <a class="btn btn-green mb-2 mb-md-0" (click)="SyncPatientChart()">Sync Chart</a>
-          <a class="btn btn-green mb-2 mb-md-0" data-bs-toggle="modal" data-bs-target="#ccda-alerts-modal">Check CDS Alerts</a>
+          <a class="btn btn-green mb-2 mb-md-0" data-bs-toggle="modal" data-bs-target="#ccda-alerts-modal">Check CDS
+            Alerts</a>
           <!-- <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a> -->
-          <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"  *ngIf="canView('EncounterPolicy', 'show')">New
+          <a class="btn btn-orange" (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)"
+            *ngIf="canView('EncounterPolicy', 'show')">New
             Encounter Note
           </a>
         </div>
@@ -78,7 +80,7 @@
       <div class="content">
         <div class="row">
           <div class="col-lg-4 col-4">
-            <div class="card" id="toDiagnoses"  *ngIf="canView('DiagnosisPolicy', 'show')">
+            <div class="card" id="toDiagnoses" *ngIf="canView('DiagnosisPolicy', 'show')">
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-8 col-6">
@@ -132,11 +134,13 @@
                     <p class="card-title">
                       <span class="pointer"
                         (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
-                        Status <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i class="fa fa-plus"></i></div> </span>
+                        Status <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i
+                            class="fa fa-plus"></i></div> </span>
                       <span> and </span>
                       <span class="pointer"
                         (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
-                        Use <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i class="fa fa-plus"></i></div></span>
+                        Use <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i
+                            class="fa fa-plus"></i></div></span>
                     </p>
                   </div>
                 </div>
@@ -171,16 +175,14 @@
                       <li *ngFor="let tobaccoScreening of tobaccoUse.Screenings | slice:0:2">
                         <a
                           (click)="openComponentDialog(tobaccoUseDialogComponent, {tobaccoUse: tobaccoUse,screening: tobaccoScreening}, ActionTypes.view)">
-                          <span
-                            *ngIf="tobaccoScreening?.ScreeningDate != null && tobaccoScreening?.ScreeningDate !=''">
+                          <span *ngIf="tobaccoScreening?.ScreeningDate != null && tobaccoScreening?.ScreeningDate !=''">
                             - {{tobaccoScreening?.ScreeningDate | date: 'MM/dd/yyyy'}}
                           </span>
                           <span
                             *ngIf="tobaccoScreening?.ScreeningDescription != null && tobaccoScreening?.ScreeningDescription !=''">
                             - {{tobaccoScreening?.ScreeningDescription}}
                           </span>
-                          <span
-                            *ngIf="tobaccoScreening?.ScreeningCode != null && tobaccoScreening?.ScreeningCode !=''">
+                          <span *ngIf="tobaccoScreening?.ScreeningCode != null && tobaccoScreening?.ScreeningCode !=''">
                             / {{tobaccoScreening?.ScreeningCode}}
                           </span>
                         </a>
@@ -190,14 +192,16 @@
                       <li *ngFor="let tobaccoIntervension of tobaccoUse.Interventions| slice:0:2">
                         <a
                           (click)="openComponentDialog(tobaccoUseDialogComponent, {tobaccoUse: tobaccoUse,intervention: tobaccoIntervension}, ActionTypes.view)">
-                          <span *ngIf="tobaccoIntervension?.InterventionDate != null && tobaccoIntervension?.InterventionDate !=''">
+                          <span
+                            *ngIf="tobaccoIntervension?.InterventionDate != null && tobaccoIntervension?.InterventionDate !=''">
                             - {{tobaccoIntervension.InterventionDate | date: 'MM/dd/yyyy'}}
                           </span>
                           <span
                             *ngIf="tobaccoIntervension?.InterventionDescription != null && tobaccoIntervension?.InterventionDescription !=''">
                             - {{tobaccoIntervension.InterventionDescription}}
                           </span>
-                          <span *ngIf="tobaccoIntervension?.InterventionCode != null && tobaccoIntervension?.InterventionCode !=''">
+                          <span
+                            *ngIf="tobaccoIntervension?.InterventionCode != null && tobaccoIntervension?.InterventionCode !=''">
                             / {{tobaccoIntervension.InterventionCode}}
                           </span>
                         </a>
@@ -228,8 +232,7 @@
                   </div>
                   <div class="col-md-4 col-6">
                     <div class="col-12">
-                      <div class="edit-icon pull-right"
-                        (click)="openPastMedicalHistory()">
+                      <div class="edit-icon pull-right" (click)="openPastMedicalHistory()">
                         <span class="cstm-icon-pencil"></span>
                       </div>
                     </div>
@@ -239,8 +242,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let pastmedical of chartInfo?.PastMedicalHistories">
                   <li>
-                    <a
-                      (click)="openPastMedicalHistory()">
+                    <a (click)="openPastMedicalHistory()">
                       <span *ngIf="pastmedical?.CreatedAt != null && pastmedical?.CreatedAt !=''">
                         - {{pastmedical?.CreatedAt | date: 'MM/dd/yyyy'}}
                       </span>
@@ -346,7 +348,8 @@
                   <div class="col-md-8 col-6">
                     <p class="card-title">
                       Medications and Prescription
-                      <b class="pointer prescription-icon prescription-icon-display" (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, null , ActionTypes.view)"></b>
+                      <b class="pointer prescription-icon prescription-icon-display"
+                        (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, null , ActionTypes.view)"></b>
                     </p>
                   </div>
                   <div class="col-md-4 col-6">
@@ -362,7 +365,7 @@
                   <li>
                     <div style="width:100%">
                       <a (click)="openComponentDialog(medicationDialogComponent, medication , ActionTypes.view)"
-                      *ngIf="!medication.IsElectronicPrescription">
+                        *ngIf="!medication.IsElectronicPrescription">
                         <span>
                           - {{GetDisplayName(medication)}}
                         </span>
@@ -372,8 +375,9 @@
                           - {{GetDisplayName(medication)}}
                         </span>
                       </a>
-                      <div *ngIf="medication.HasPrescriptions" class="pointer prescription-icon2 prescription-icon2-display"
-                      (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, medication , ActionTypes.view)">
+                      <div *ngIf="medication.HasPrescriptions"
+                        class="pointer prescription-icon2 prescription-icon2-display"
+                        (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, medication , ActionTypes.view)">
 
                       </div>
                     </div>
@@ -408,7 +412,8 @@
                       Immunizations</p>
                   </div>
                   <div class="col-md-4 col-6">
-                    <div class="col-12 plusicon pull-right" data-bs-toggle="modal" data-bs-target="#immunization-modal">
+                    <div class="col-12 plusicon pull-right"
+                      (click)="openComponentDialog(immunizationDialogComponent,null,ActionTypes.add)">
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -417,8 +422,7 @@
               <div class="card-body">
                 <ul class="main-list" *ngFor="let immunization of chartInfo?.Immunizations | slice:0:5">
                   <li>
-                    <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
-                      (click)="editDialog(immunization, 'immunization')">
+                    <a (click)="openComponentDialog(immunizationDialogComponent, immunization , ActionTypes.view)">
                       <span *ngIf="immunization?.Code != null && immunization?.Code !=''">
                         - {{immunization?.Code}}
                       </span>
@@ -441,7 +445,7 @@
                     <span>No immunizations recorded.</span>
                   </li>
                 </ul>
-                <a data-bs-toggle="modal" data-bs-target="#immunization-table-modal"
+                <a (click)="openComponentDialog(immunizationTableDialogComponent, chartInfo?.Immunizations, ActionTypes.view)"
                   *ngIf="chartInfo?.Immunizations?.length > 5" class="view-more pull-right">view more</a>
               </div>
             </div>
@@ -572,7 +576,7 @@
                 </ul>
                 <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
                   *ngIf="patientMessages.length > 5" class="view-more pull-right">view more</a>
-                  <!-- <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
+                <!-- <a (click)="openComponentDialog(messagesTableDialogComponent,patientMessages,ActionTypes.view)"
                   *ngIf="chartInfo?.Appointments?.length > 5" class="view-more pull-right">view more</a> -->
               </div>
             </div>
@@ -624,451 +628,23 @@
   </div>
 </div>
 
-<!-- modal dialogs -->
-
-<!-- Add/Edit Immunization -->
-<div class="modal fade" id="immunization-modal" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium">Add/Edit Vaccination</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal" (click)="resetDialog()">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <mat-radio-group [(ngModel)]="patientImmunization.ImmType">
-            <mat-radio-button value="administered" (change)="resetImmunization($event)">
-              <mat-label class="Helvetica-sans-serif-medium">Administered</mat-label>
-            </mat-radio-button>
-            <mat-radio-button class="ms-5" value="historical" (change)="resetImmunization($event)">
-              <mat-label class="Helvetica-sans-serif-medium">Historical</mat-label>
-            </mat-radio-button>
-            <mat-radio-button class="ms-lg-5 mt-2 mt-sm-0" value="refused" (change)="resetImmunization($event)">
-              <mat-label class="Helvetica-sans-serif-medium">Refused</mat-label>
-            </mat-radio-button>
-          </mat-radio-group>
-        </div>
-        <div class="row mt-3">
-          <mat-label class="required">Vaccine:</mat-label>
-          <mat-form-field class="procedure-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
-            <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
-              id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode" />
-            <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
-              (optionSelected)="onSelectedImmunization($event)">
-              <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
-                Enter atleast 1 character, you can only select 1 item
-              </mat-option>
-              <mat-option *ngIf="isLoading">Loading ...</mat-option>
-              <mat-option *ngFor="let option of vaccines | async" [value]="option" class="medical-code-option">
-                {{option.Code}} - {{option.Description}}
-              </mat-option>
-              <mat-option *ngIf="noRecords">No Records Found</mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-          <span class="selected-allergen" id="allergenName" *ngIf="patientImmunization.Code != ''">
-            <p>{{patientImmunization.Code}} - {{patientImmunization.Description}}</p>
-            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
-              (click)="deleteVaccineCode()"></a>
-          </span>
-        </div>
-        <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Date Administered:</mat-label>
-                <mat-form-field appearance="outline" class="green-calendar col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministered"
-                    (click)="dateAdministered.open()" readonly placeholder="Date administered"
-                    [(ngModel)]="patientImmunization.AdministeredAt" />
-                  <mat-datepicker-toggle matSuffix [for]="dateAdministered"></mat-datepicker-toggle>
-                  <mat-datepicker #dateAdministered></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Time administered:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <input matInput type="text" appTimeMask [(ngModel)]="patientImmunization.AdministeredTime" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Administered by:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select administered by" [(ngModel)]="patientImmunization.AdministeredById">
-                    <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
-                      {{providers.FullName}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Ordered by:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select ordered by" [(ngModel)]="patientImmunization.OrderedById">
-                    <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
-                      {{providers.FullName}}</mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <mat-label class="required">Administered:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
-                  {{item.LocationName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Manufacturer:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
-                    <mat-option *ngFor="let manufacturer of immManufacturers" [value]="manufacturer">
-                      {{manufacturer}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Lot:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter lot" [(ngModel)]="patientImmunization.Lot" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Quantity:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter quantity" [(ngModel)]="patientImmunization.Quantity" />
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Dose:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <input matInput placeholder="Enter dose" [(ngModel)]="patientImmunization.Dose" />
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Units:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select unit" [(ngModel)]="patientImmunization.Unit">
-                    <mat-option *ngFor="let unit of immUnits" [value]="unit">
-                      {{unit}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Expiration Date:</mat-label>
-                <mat-form-field appearance="outline" class="green-calendar col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="expirationDate"
-                    (click)="expirationDate.open()" readonly placeholder="Expiration date"
-                    [(ngModel)]="patientImmunization.ExpirationAt" />
-                  <mat-datepicker-toggle matSuffix [for]="expirationDate"></mat-datepicker-toggle>
-                  <mat-datepicker #expirationDate></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <mat-label>Route:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select a route" [(ngModel)]="patientImmunization.Route">
-                <mat-option *ngFor="let route of immRoutes" [value]="route">
-                  {{route}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-label>Body Site:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select a body site" [(ngModel)]="patientImmunization.BodySite">
-                <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
-                  {{bodysite}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-label>Funding Source:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select a funding source" [(ngModel)]="patientImmunization.FundingSource">
-                <mat-option *ngFor="let source of immFundingSources" [value]="source">
-                  {{source}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-label>Registry Notifications:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Notify me" [(ngModel)]="patientImmunization.RegistryNotification">
-                <mat-option *ngFor="let notify of immRegistryNotifications" [value]="notify">
-                  {{notify}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row">
-            <mat-label>VFC Financial Class:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Class selection" [(ngModel)]="patientImmunization.VFCClass">
-                <mat-option *ngFor="let vfcclass of immVfcClasses" [value]="vfcclass">
-                  {{vfcclass}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Comments:</mat-label>
-            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Notes:</mat-label>
-            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
-          </div>
-        </div>
-        <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }">
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Date Administered:</mat-label>
-                <mat-form-field appearance="outline" class="green-calendar col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateAdministeredHistorical"
-                    (click)="dateAdministeredHistorical.open()" readonly placeholder="Date administered"
-                    [(ngModel)]="patientImmunization.AdministeredAt" />
-                  <mat-datepicker-toggle matSuffix [for]="dateAdministeredHistorical"></mat-datepicker-toggle>
-                  <mat-datepicker #dateAdministeredHistorical></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Source of Information:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select a source" [(ngModel)]="patientImmunization.SourceOfInformation">
-                    <mat-option *ngFor="let info of immSourceOfInfo" [value]="info">
-                      {{info}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <mat-label class="required">Administered:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
-                  {{item.LocationName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Comments:</mat-label>
-            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Notes:</mat-label>
-            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
-          </div>
-        </div>
-        <div
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }">
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Reason Refused:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select refusal reason" [(ngModel)]="patientImmunization.ReasonRefused">
-                    <mat-option *ngFor="let refused of immReasonRefuseds" [value]="refused">
-                      {{refused}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Reason Refused Code:</mat-label>
-                <mat-form-field appearance="outline" class="col-12">
-                  <mat-select placeholder="Select refusal code" [(ngModel)]="patientImmunization.ReasonCode">
-                    <mat-option *ngFor="let refusedcode of immReasonRefusedsCode" [value]="refusedcode">
-                      {{refusedcode}}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label class="required">Date Refused:</mat-label>
-                <mat-form-field appearance="outline" class="green-calendar col-12">
-                  <input matInput class="pointer" autocomplete="off" [matDatepicker]="dateRefused"
-                    (click)="dateRefused.open()" readonly placeholder="Date refused"
-                    [(ngModel)]="patientImmunization.RefusedAt" />
-                  <mat-datepicker-toggle matSuffix [for]="dateRefused"></mat-datepicker-toggle>
-                  <mat-datepicker #dateRefused></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-            <div class="col-md-6 col-12">
-              <div class="row">
-                <mat-label>Status:</mat-label>
-                <h4 class="mt-3">Refused</h4>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <mat-label class="required">Practice:</mat-label>
-            <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.LocationId">
-                <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
-                  {{item.LocationName}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Comments:</mat-label>
-            <textarea class="col-12" placeholder="Comments" [(ngModel)]="patientImmunization.Comments"></textarea>
-          </div>
-          <div class="row textarea-margin">
-            <mat-label>Notes:</mat-label>
-            <textarea class="col-12 form-control" placeholder="Notes" [(ngModel)]="patientImmunization.Notes"></textarea>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-green" data-bs-dismiss="modal"
-          [ngStyle]="{'display': patientImmunization.ImmType == 'historical' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
-          [disabled]="disableImmAdministered()" (click)="CreateImmunizationsAdministered()">Save</button>
-        <button class="btn btn-green" data-bs-dismiss="modal"
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'refused' ? 'none' : 'block' }"
-          [disabled]="disableImmHistorical()" (click)="CreateImmunizationsHistorical()">Save</button>
-        <button class="btn btn-green" data-bs-dismiss="modal"
-          [ngStyle]="{'display': patientImmunization.ImmType == 'administered' || patientImmunization.ImmType == 'historical' ? 'none' : 'block' }"
-          [disabled]="disableImmRefused()" (click)="CreateImmunizationsRefused()">
-          Save</button>
-        <button class="btn btn-green" data-bs-dismiss="modal" (click)="resetDialog()">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Immunization table -->
-<div class="modal fade" id="immunization-table-modal" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title Helvetica-sans-serif-medium w-100 text-center">Immunizations</h4>
-        <span type="button" class="cross-mark" data-bs-dismiss="modal">
-          X
-        </span>
-      </div>
-      <div class="modal-body">
-        <mat-table [dataSource]="chartInfoImmunizations" matSort>
-          <ng-container matColumnDef="Description">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Description">Vaccine Description
-            </mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
-                (click)="editDialog(loc, 'immunization')">{{loc.Description}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="CVXCode">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="Code">CVX Code</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
-                (click)="editDialog(loc, 'immunization')">{{loc.Code}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Date">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="AdministeredAt">Date</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
-                (click)="editDialog(loc, 'immunization')">{{loc.AdministeredAt | date: 'MM/dd/yyyy'}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <ng-container matColumnDef="Status">
-            <mat-header-cell *matHeaderCellDef mat-sort-header="ImmType">Status</mat-header-cell>
-            <mat-cell *matCellDef="let loc">
-              <a data-bs-toggle="modal" data-bs-target="#immunization-modal"
-                (click)="editDialog(loc, 'immunization')">{{loc.ImmType}}
-              </a>
-            </mat-cell>
-          </ng-container>
-          <mat-header-row *matHeaderRowDef="immunizationColumns"></mat-header-row>
-          <mat-row *matRowDef="let row; columns: immunizationColumns"></mat-row>
-        </mat-table>
-        <div class="norecords-found" *ngIf="chartInfo?.Immunizations?.length == 0">
-          No Immunizations Found
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-green" data-bs-toggle="modal" data-bs-target="#immunization-modal">Add Vaccine</button>
-        <button class="btn btn-green" data-bs-dismiss="modal">Cancel</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- Check CDS Alert -->
+<!-- Check CDS Alert Dialog-->
 <div class="modal fade" id="ccda-alerts-modal" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-    <div class="modal-header">
-      <p class="modal-title Helvetica-sans-serif-medium">Clinical Decision Support Alerts</p>
-      <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close" >
-        X
-      </span>
-    </div>
-    <div class="modal-body">
-      <div  class="cds-alert-messages">
-        <p class="Helvetica-sans-serif-large" *ngFor="let alert of ActiveAlerts">{{alert.Description}}</p>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p class="modal-title Helvetica-sans-serif-medium">Clinical Decision Support Alerts</p>
+        <span type="button" class="cross-mark" data-bs-dismiss="modal" aria-label="Close">
+          X
+        </span>
       </div>
-      <p class="Helvetica-sans-serif-medium text-center" *ngIf="ActiveAlerts.length == 0">{{NoAlerts}}</p>
+      <div class="modal-body">
+        <div class="cds-alert-messages">
+          <p class="Helvetica-sans-serif-large" *ngFor="let alert of ActiveAlerts">{{alert.Description}}</p>
+        </div>
+        <p class="Helvetica-sans-serif-medium text-center" *ngIf="ActiveAlerts.length == 0">{{NoAlerts}}</p>
+      </div>
     </div>
   </div>
-</div>
 </div>

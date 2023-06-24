@@ -1,0 +1,62 @@
+@import"../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.immunization-table-modal {
+  overflow-y: initial !important;
+  max-width: 1200px;
+  --bs-table-accent-bg: none !important;
+
+  .modal-body {
+    max-height: calc(90vh - 160px);
+    overflow-y: auto;
+  }
+
+  .mat-row {
+    padding: 5px 10px;
+  }
+
+  .mat-row:hover {
+    background-color: #fff !important;
+
+    a {
+      color: #41b6a6 !important;
+    }
+  }
+
+  .mat-table {
+    border-radius: 3px;
+    max-height: 450px !important;
+    overflow-y: auto;
+  }
+
+  @media (max-width: 1350px) {
+    .scrollable-mat-table {
+      max-width: 1200px;
+      overflow-x: scroll;
+    }
+
+    .mat-table {
+      width: 1300px;
+    }
+  }
+
+  mat-cell:nth-child(1),
+  mat-header-cell:nth-child(1) {
+    flex: 0 0 46%;
+  }
+
+  mat-cell:nth-child(2),
+  mat-header-cell:nth-child(2) {
+    flex: 0 0 18%;
+  }
+
+  mat-cell:nth-child(3),
+  mat-header-cell:nth-child(3) {
+    flex: 0 0 18%;
+  }
+
+  mat-cell:nth-child(4),
+  mat-header-cell:nth-child(4) {
+    flex: 0 0 18%;
+  }
+}
