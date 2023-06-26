@@ -125,7 +125,8 @@ export class DirectMsgComponent {
       this.sort.active,
       this.sort.direction,
       this.currentPage - 1,
-      this.pageSize
+      this.pageSize,
+      true
     );
   }
 
@@ -159,6 +160,19 @@ export class DirectMsgComponent {
         this.DialogResponse = res.data;
       }
     });
+  }
+
+  get IsSent(): boolean {
+    return this.currentMessageView == "Sent"
+  }
+
+  getMessages(filter: string) {
+    this.currentMessageView = filter;
+    this.messageDataSource.MessageFilter = filter;
+    this.currentMessage = null;
+    this.currentPage = 1;
+    this.pagination.pageNo = 1;
+    this.loadMessages()
   }
 
 }

@@ -997,14 +997,23 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       let localStart = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarFrom, "HH:mm:ss"))
       let localEnd = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarTo, "HH:mm:ss"))
 
-      let isTimeInBusinessHours = (event.start as Date).getTime() > localStart.getTime()
-        && (event.start as Date).getTime() < localEnd.getTime()
+      let weeklyOff = [0,6].indexOf((event.start as Date).getDay())!=-1;
+      let isTimeInBusinessHours = ((event.start as Date).getTime() > localStart.getTime()
+        && (event.start as Date).getTime() < localEnd.getTime())
 
+
+        console.log( event.start);
+
+        console.log((event.start as Date).getDay());
+        console.log([0,6].indexOf((event.start as Date).getDay()));
 
       if (this.CalendarSchedule.OutSidePracticeHour
-        || isTimeInBusinessHours)
+        || (isTimeInBusinessHours && !weeklyOff))
         this.openComponentDialog(this.appointmentDialogComponent,
           dialog, Actions.view);
+      else if (weeklyOff){
+        this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B006"], dialog)
+      }
       else if (!isTimeInBusinessHours) {
         this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B005"], dialog)
       }

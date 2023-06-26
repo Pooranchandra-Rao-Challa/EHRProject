@@ -65,9 +65,23 @@ $green:         #41b6a6;
         padding: 10px 0;
         font-family: 'SF UI Text Bold' !important;
         &:hover{
-          color:blue;
+          color:#41b6a6;
           text-decoration: underline;
+          cursor: pointer;
         }
+      }
+    }
+    .items.show-inline{
+      display: flex !important;
+    }
+    .attach-btn{
+      padding-top: 5px;
+      height: 34px !important;
+      cursor: pointer;
+      &:hover{
+        background-color: #41b6a6;
+        color: #fff;
+        border: #41b6a6 1px solid;
       }
     }
   }

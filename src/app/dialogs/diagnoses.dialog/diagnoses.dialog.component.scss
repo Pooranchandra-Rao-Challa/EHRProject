@@ -69,3 +69,11 @@ textarea.form-control {
     cursor: not-allowed !important;
   }
 }
+#education_materials_show{
+
+  &:hover{
+    color: #fe8f00;
+    cursor: pointer !important;
+    text-decoration: underline;
+  }
+}

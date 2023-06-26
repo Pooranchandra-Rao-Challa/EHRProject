@@ -33,9 +33,9 @@ export class AllergyDialogComponent implements OnInit {
   minDateToFinish = new Subject<string>();
   minDateForEndDate;
 
-  @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
-  filteredOptions: AllergyNames[] =[];
-  public height: string;
+  // @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
+  // filteredOptions: AllergyNames[] =[];
+  // public height: string;
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -72,18 +72,18 @@ export class AllergyDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
-    fromEvent(this.cdkSearchAllergyName.nativeElement,'keyup').pipe(
-      map((event:any) => {
+    // fromEvent(this.cdkSearchAllergyName.nativeElement,'keyup').pipe(
+    //   map((event:any) => {
 
 
-        return event.target.value;
-      }),
-      filter(searchInput => searchInput.length >= 1)
-      , debounceTime(100)
-      // If previous query is diffent from current
-      , distinctUntilChanged()
-      // subscription for response
-    ).subscribe(searchText => this._filterAllergyNames2(searchText));
+    //     return event.target.value;
+    //   }),
+    //   filter(searchInput => searchInput.length >= 1)
+    //   , debounceTime(100)
+    //   // If previous query is diffent from current
+    //   , distinctUntilChanged()
+    //   // subscription for response
+    // ).subscribe(searchText => this._filterAllergyNames2(searchText));
 
 
 
@@ -108,30 +108,30 @@ export class AllergyDialogComponent implements OnInit {
   }
 
 
-  _filterAllergyNames2(term) {
-    this.isLoading = true;
-    let reqparams = {
-      SearchTearm: term,
-    };
-    this.patientService.AllergyNames(reqparams)
-      .subscribe(resp => {
-        //this.isLoading = false;
-        //this.displayMessage = false;
-        if (resp.IsSuccess) {
-          this.filteredOptions = resp.ListResult as AllergyNames[];
-        } else {
-          this.filteredOptions = [];
-          //this.noRecords = true;
-        }
+  // _filterAllergyNames2(term) {
+  //   this.isLoading = true;
+  //   let reqparams = {
+  //     SearchTearm: term,
+  //   };
+  //   this.patientService.AllergyNames(reqparams)
+  //     .subscribe(resp => {
+  //       //this.isLoading = false;
+  //       //this.displayMessage = false;
+  //       if (resp.IsSuccess) {
+  //         this.filteredOptions = resp.ListResult as AllergyNames[];
+  //       } else {
+  //         this.filteredOptions = [];
+  //         //this.noRecords = true;
+  //       }
 
-        if (this.filteredOptions.length < 4) {
-          this.height = this.filteredOptions.length * 50 + "px";
-        } else {
-          this.height = "200px";
-        }
+  //       if (this.filteredOptions.length < 4) {
+  //         this.height = this.filteredOptions.length * 50 + "px";
+  //       } else {
+  //         this.height = "200px";
+  //       }
 
-      });
-  }
+  //     });
+  // }
 
 
 

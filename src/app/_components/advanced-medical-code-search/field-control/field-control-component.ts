@@ -100,7 +100,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
     }
   }
   get value() {
-    return this.form.value;
+    return  this.form ? this.form.value : {};
   }
   @Output() valueChange = new EventEmitter<FormFieldValue>();
 
@@ -183,10 +183,10 @@ export class FieldControlComponent extends _SearchInputMixiBase
       this.ngControl.valueAccessor = this;
     }
     this.form = this.fb.group({
-      CodeSystem: new FormControl(''),
-      SearchTerm: new FormControl(''),
+      CodeSystem: new FormControl(this.value ? this.value.CodeSystem : ''),
+      SearchTerm: new FormControl(this.value ? this.value.SearchTerm : ''),
     });
-
+    //this.form.controls["CodeSystem"].disable(this.codeSystems.length == 0);
   }
 
   writeValue(obj: FormFieldValue): void {

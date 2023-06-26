@@ -40,6 +40,8 @@ export class ClinicDecisionComponent implements OnInit {
   ];
   triggerTitle: string ="Add new Trigger"
   actionButtonTitle:string = "Add Trigger"
+  showTriggerCodes = new BehaviorSubject(true);
+
 
   constructor(private fb: FormBuilder, private authService: AuthenticationService,
     private settingservice: SettingsService, private alertmsg: AlertMessage,
@@ -192,6 +194,7 @@ export class ClinicDecisionComponent implements OnInit {
     if(!this.alertTrigger.Codes) this.alertTrigger.Codes = [];
     this.alertTrigger.Codes.push(triggerCode);
     this.codesBehaviour.next(this.alertTrigger.Codes);
+    this.showTriggerCodes.next(this.alertTrigger.Codes.length > 0);
   }
 
   removeTriggerCode(value: CDSCode, index: number) {
@@ -201,23 +204,23 @@ export class ClinicDecisionComponent implements OnInit {
     this.codesBehaviour.next(this.alertTrigger.Codes);
   }
 
-  newtrigger(alertId) {
+  AddTrigger(alertId) {
     this.triggerTitle ="Add new Trigger"
     this.actionButtonTitle = "Add Trigger"
     this.alertTrigger = {}
     this.alertTrigger.AlertId = alertId;
     if(!this.alertTrigger.Codes) this.alertTrigger.Codes = [];
     this.codesBehaviour.next(this.alertTrigger.Codes);
+    this.showTriggerCodes.next(this.alertTrigger.Codes.length > 0);
   }
 
   EditTrigger(trigger){
     this.triggerTitle ="Edit Trigger"
     this.actionButtonTitle = "Save Trigger"
     this.alertTrigger = Object.assign({}, trigger);
-    console.log(trigger);
-    console.log(this.alertTrigger);
-
+    if(!this.alertTrigger.Codes) this.alertTrigger.Codes = [];
     this.codesBehaviour.next(this.alertTrigger.Codes);
+    this.showTriggerCodes.next(this.alertTrigger.Codes.length > 0);
   }
 
   CreateTrigger() {

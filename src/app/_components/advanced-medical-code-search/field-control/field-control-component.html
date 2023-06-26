@@ -1,6 +1,6 @@
 <ng-container [formGroup]="form" id="mat-advance-medical-code">
-  <mat-select class="select" formControlName="CodeSystem" *ngIf="hideCodeSystem" [disabled]="codeSystems.length == 0"
-  disableOptionCentering panelClass="optionPanelClass" [(ngModel)]="value.CodeSystem">
+  <mat-select class="select" formControlName="CodeSystem" *ngIf="hideCodeSystem"
+  disableOptionCentering panelClass="optionPanelClass" > <!-- [(ngModel)]="value.CodeSystem" [disabled]="codeSystems.length == 0"-->
     <mat-option *ngFor="let codeSystem  of codeSystems" [value]="codeSystem">{{codeSystem}}</mat-option>
   </mat-select>
   <mat-divider [vertical]="true" class="divider" *ngIf="hideCodeSystem"></mat-divider>
@@ -13,10 +13,9 @@
     name="advanced-search"
     class="input"
     [matAutocomplete]="auto"
-    [(ngModel)]="value.SearchTerm"
-  />
-  <mat-autocomplete #auto="matAutocomplete"
-  [displayWith]="displayWith" (optionSelected)="onSelected($event)" >
+
+  /><!--[(ngModel)]="value.SearchTerm"-->
+  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected)="onSelected($event)" >
     <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
     <mat-optgroup *ngFor="let group of filteredOptions | async" [label]="group.name" class="mat-advance-medical-group">
       <mat-option *ngFor="let option of group.codes" [value]="option"

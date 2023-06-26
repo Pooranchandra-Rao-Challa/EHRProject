@@ -506,64 +506,6 @@
     }
   }
 
-  .card-weather {
-    background: #e1ecff;
-    background-image: linear-gradient(to left bottom,
-        #d6eef6,
-        #dff0fa,
-        #e7f3fc,
-        #eff6fe,
-        #f6f9ff);
-
-    .card-body {
-      background: $white;
-
-      &:first-child {
-        background: url("../../../assets/images/samples/weather.svg") no-repeat center;
-        background-size: cover;
-      }
-    }
-
-    .weather-date-location {
-      padding: 0 0 38px;
-    }
-
-    .weather-data {
-      padding: 0 0 4.75rem;
-
-      i {
-        font-size: 5.313rem;
-        line-height: 1;
-      }
-    }
-
-    .weakly-weather {
-      background: $white;
-      overflow-x: auto;
-
-      .weakly-weather-item {
-        flex: 0 0 14.28%;
-        border-right: 1px solid $border-color;
-        padding: 1rem;
-        text-align: center;
-
-        i {
-          font-size: 1.2rem;
-        }
-
-        &:last-child {
-          border-right: 0;
-        }
-
-        .symbol {
-          color: $text-muted;
-          font-size: 1.875rem;
-          font-weight: 300;
-        }
-      }
-    }
-  }
-
   .product-chart-wrapper {
     height: 92%;
   }

@@ -55,8 +55,13 @@
                   <b>Attachments:</b>
                 </div>
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                  <div class="items" *ngFor="let attachment of educationMaterial.Attachments">
+                  <div class="items show-inline" *ngFor="let attachment of educationMaterial.Attachments">
                     <div class="item" (click)="showDocument(attachment)">{{attachment.FileName}}</div>
+                    <label for="singleFile"
+                      style=" margin-left: 20px;
+                      vertical-align: middle;" (click)="DownloadAttachment(attachment)">
+                      <mat-icon class="attach-btn">attach_file</mat-icon>
+                    </label>
                   </div>
                  </div>
               </div>

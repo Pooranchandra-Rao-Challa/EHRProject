@@ -22,9 +22,12 @@ export interface CareTeam {
 
 // ProblemDxData and Care Plane
 export interface ProblemDX {
+  DiagnosisId?: string;
   Description?: string
   Code?: string
-  StartDate?: string
+  StartDate?: string;
+  Terminal?: boolean;
+  Acute?: boolean;
 }
 
 // Allergies By PatientId
@@ -88,6 +91,7 @@ export interface MedicationsAllergies {
   EndAt?: string
   Note?: string
   Reaction?:string
+  Active?: boolean;
 }
 export interface LabtestResult {
   Num?: string

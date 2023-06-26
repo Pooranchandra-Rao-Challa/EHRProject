@@ -12,6 +12,12 @@
           </li>
           <li class="nav-item" role="presentation">
             <a class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
+              aria-controls="send" aria-selected="true" (click)="getMessages('Sent')" [class.active]="IsSent"
+              [class.inactive]="!IsSent">Sent
+            </a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link" id="send-tab" data-bs-toggle="tab" data-bs-target="#send" type="button" role="tab"
               aria-controls="send" aria-selected="true">Archive
             </a>
           </li>

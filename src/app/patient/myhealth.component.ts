@@ -22,7 +22,8 @@ export class MyhealthComponent implements OnInit {
   ProvidersList: any;
   smokingStatus: any;
   CareTeamList: CareTeam[];
-  ProblemDxData: ProblemDX[];
+  acuteDiagnosis: ProblemDX[];
+  termainalDiagnosis: ProblemDX[];
   Providerdata: PatientClinicalProvider[];
   clinicaldata: PatientClinicalProvider[]
   AllergiesData: Allergies[];
@@ -103,8 +104,12 @@ export class MyhealthComponent implements OnInit {
 
   getProblemDx() {
     this.patientservise.ProblemDx({PatientId: this.user.PatientId}).subscribe(resp => {
-      if (resp.IsSuccess) this.ProblemDxData = resp.ListResult;
-      else this.ProblemDxData = []
+      if (resp.IsSuccess){
+        let temp = resp.ListResult as ProblemDX[];
+        this.acuteDiagnosis = temp.filter(value => value.Acute == true);
+        this.termainalDiagnosis = temp.filter(value => value.Terminal == true);
+      }
+      else this.acuteDiagnosis = []
     });
   }
 
@@ -118,9 +123,8 @@ export class MyhealthComponent implements OnInit {
   getAllMedicationAlleries() {
     this.patientservise.AllergiesByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.AllAlergies = resp.ListResult as MedicationsAllergies[];
+        this.AllAlergies = (resp.ListResult as MedicationsAllergies[]).filter(value => value.Active == true);
       }
-
       else this.AllAlergies = []
     });
   }

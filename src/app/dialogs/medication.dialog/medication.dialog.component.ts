@@ -230,6 +230,7 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication.DrugName = selected.option.value.Name;
     this.patientMedication.Rxcui = selected.option.value.rxcui;
     this.NDCList();
+    this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
 
   NDCList() {
@@ -268,20 +269,14 @@ export class MedicationDialogComponent implements OnInit {
     if (action == Actions.view && content === this.discontinueDialogComponent) {
       reqdata = dialogData;
     }else if(action == Actions.view && content === this.patientEducationMaterialDialogComponent){
-      reqdata = {
-        Code: this.patientMedication.Rxcui,
-        CodeSystem: "RxNorm" ,
-        PatientId: this.patientMedication.PatientId
-      };
+      reqdata = this.educationMaterial;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       if( res.data.reason){
         this.patientMedication.ReasonDescription = res.data.reason.ReasonDescription;
-        this.patientMedication.ReasonDescription = res.data.reason.ReasonDescription;
         this.disContinueReasonUpdated = true;
       }
-
     });
   }
 

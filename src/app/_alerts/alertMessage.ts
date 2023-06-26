@@ -556,7 +556,8 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2B002': 'An appointment is existing for the same time and resource',
   'E2B003': 'Appointment is not rescheduled',
   'E2B004': 'Appointment is not allocated',
-  'E2B005': 'Creating appointment outside business hours, If acceptable click Confirm else Reject.',
+  'E2B005': 'Creating appointment outside business hours, If acceptable click Accept else Reject.',
+  'E2B006': 'Creating appointment in weeklyoff day, If acceptable click Accept else Reject.',
   //Clinical Decision Support
   'M2JCDS001': 'Alert added successfully',
   'M2JCDS002': 'Alert updated successfully',

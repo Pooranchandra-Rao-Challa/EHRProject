@@ -67,7 +67,7 @@
               </div>
               <div class="col-lg-6">
                 <button type="button" class="btn btn-green btn-clinic pull-right" data-bs-toggle="modal"
-                  data-bs-target="#TriggerModal" (click)="newtrigger(item.AlertId)">
+                  data-bs-target="#TriggerModal" (click)="AddTrigger(item.AlertId)">
                   New Trigger
                 </button>
               </div>
@@ -284,7 +284,7 @@
           </medical-code-container>
         </div>
 
-        <mat-table mat-table [dataSource]="codesBehaviour" id="procedure-table" class="tbl-trigger-codes">
+        <mat-table mat-table [dataSource]="codesBehaviour" id="procedure-table" class="tbl-trigger-codes" *ngIf="showTriggerCodes | async">
           <ng-container matColumnDef="CODE">
             <mat-header-cell *matHeaderCellDef>
               Code
