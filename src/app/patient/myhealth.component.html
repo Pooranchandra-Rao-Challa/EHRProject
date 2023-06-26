@@ -105,12 +105,15 @@
                 <div class="panel-body">
                   <div class="title-dx">
                     <p class="problem_dx">Chronic:</p>
-
-                    <p class="problem_dx">Acute:</p>
-                    <!-- <div *ngFor="let i of ProblemDxData">
+                    <div *ngFor="let i of termainalDiagnosis">
                       <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'MM/dd/yyyy') }}
                       </div>
-                    </div> -->
+                    </div>
+                    <p class="problem_dx">Acute:</p>
+                    <div *ngFor="let i of acuteDiagnosis">
+                      <div class="acute-item">{{i.Description +' ,'+ i.Code +', '+ (i.StartDate| date:'MM/dd/yyyy') }}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,7 +161,7 @@
                       <div class="acute-item">
                         <p>Severity :{{i.SeverityLevel}}<br>
                           Onset :{{i.OnSetAt}}<br>
-                          Start Date:{{i.dtStartAt | date:'MM/dd/yyyy'}}</p>
+                          Start Date:{{i.StartAt | date:'MM/dd/yyyy'}}</p>
                       </div>
 
                     </div>

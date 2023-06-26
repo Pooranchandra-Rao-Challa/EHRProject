@@ -106,6 +106,10 @@ export class PatientService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._vitalStatsByPatientIdUrl, reqparams);
   }
 
+  patientVitalStats(reqparams: any) {
+    return this._ProcessPostRequest<any>(this._patientVitalStatsUrl, reqparams);
+  }
+
   CarePlanGoalInstructionsBypatientId(reqparams: any) {
     return this._ProcessPostRequest<any>(this._carePlanGoalInstructionsBypatientIdUrl, reqparams);
   }

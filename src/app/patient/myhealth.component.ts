@@ -109,7 +109,10 @@ export class MyhealthComponent implements OnInit {
         this.acuteDiagnosis = temp.filter(value => value.Acute == true);
         this.termainalDiagnosis = temp.filter(value => value.Terminal == true);
       }
-      else this.acuteDiagnosis = []
+      else {
+        this.acuteDiagnosis = [];
+        this.termainalDiagnosis = [];
+      }
     });
   }
 
@@ -123,9 +126,9 @@ export class MyhealthComponent implements OnInit {
   getAllMedicationAlleries() {
     this.patientservise.AllergiesByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.AllAlergies = (resp.ListResult as MedicationsAllergies[]).filter(value => value.Active == true);
+        this.AllAlergies = (resp.ListResult as MedicationsAllergies[]).filter(value => value.Active == false);
       }
-      else this.AllAlergies = []
+      else this.AllAlergies = [];
     });
   }
 
@@ -137,10 +140,9 @@ export class MyhealthComponent implements OnInit {
   }
 
   getVitalStatus() {
-    this.patientservise.VitalStatsByPatientId({PatientId: this.user.PatientId}).subscribe(resp => {
+    this.patientservise.patientVitalStats({PatientId: this.user.PatientId}).subscribe(resp => {
       if (resp.IsSuccess) this.VitalStatus = resp.ListResult as VitalStats[];
       else this.VitalStatus = []
-
     });
   }
 

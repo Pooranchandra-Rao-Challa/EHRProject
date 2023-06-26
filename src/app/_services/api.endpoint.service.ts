@@ -437,6 +437,10 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "VitalStatsByPatientId";
   }
 
+  get _patientVitalStatsUrl() {
+    return this._baseUrl + "PatientVitalStats";
+  }
+
   get _carePlanGoalInstructionsBypatientIdUrl() {
     return this._baseUrl + "CarePlanGoalInstructionsBypatientId";
   }
