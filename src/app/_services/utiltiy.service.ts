@@ -8,7 +8,7 @@ import { CodeSystemGroup, MedicalCode } from '../_models/codes';
 import { BehaviorSubject, of } from 'rxjs';
 @Injectable()
 export class UtilityService extends APIEndPoint {
-  constructor(http: HttpClient,private rxNormAPIService:RxNormAPIService,) { super(http); }
+  constructor(http: HttpClient) { super(http); } // Removed :- private rxNormAPIService:RxNormAPIService
 
   States() {
     return this._ProcessGetRequest<any>(this._statesUrl);

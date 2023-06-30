@@ -119,7 +119,7 @@ export class AdminsComponent implements OnInit {
     this.isAddAdmin = false;
     this.newAdminRegistration.AdminId = item.AdminId;
     this.newAdminRegistration.Role = item.C_role;
-    this.newAdminRegistration.Title = item.C_title;
+    this.newAdminRegistration.Title = item.C_title && (item.C_title[0].toUpperCase() + item.C_title.slice(1));
     this.newAdminRegistration.AltEmail = item.alt_email;
     this.newAdminRegistration.Email = item.email;
     this.newAdminRegistration.FirstName = item.first_name;
