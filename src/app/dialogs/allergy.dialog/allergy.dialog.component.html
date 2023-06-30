@@ -82,20 +82,28 @@
             <label class="title-bold required">Allergen: </label>
           </div>
           <div class="col-md-12 col-12">
-            <!-- <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}">
+            <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}"  autocomplete="off">
               <input matInput #cdkSearchAllergyName class="form-control" placeholder="Select Allergy Name" type="text"
-                 [matAutocomplete]="cdkallergyName" />
-                 <mat-autocomplete #cdkallergyName="matAutocomplete" (optionActivated)="handleKeyboardEvent($event)">
-                  <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" [ngStyle]="{'height': height}" itemSize="25">
-                    <mat-option *cdkVirtualFor="let option of filteredOptions" [value]="option" class="autocomplete-item">
-                      {{option.AllergyName}}
-                    </mat-option>
-                  </cdk-virtual-scroll-viewport>
+                [matAutocomplete]="cdkallergyName" autocomplete="off"/>
+              <mat-autocomplete [displayWith]="displayWithAllergy" #cdkallergyName="matAutocomplete" autocomplete="off"
+                (optionActivated)="handleKeyboardEvent($event)" (optionSelected)="onSelectedAllergy($event)">
+                <mat-option [hidden]="!displayMessage && !isLoading" [disabled]="true" class="text-wrap lh-1 fs-6">
+                  Enter atleast 3 character, you can only select 1 item
+                </mat-option>
+                <mat-option *ngIf="isLoading">Loading ...</mat-option>
+                <mat-option *ngIf="noRecords">No Records Found</mat-option>
+                <cdk-virtual-scroll-viewport class="autocomplete-test-viewport" [ngStyle]="{'height': height}"
+                  itemSize="25">
 
-                </mat-autocomplete>
-            </mat-form-field> -->
+                  <mat-option *cdkVirtualFor="let option of filteredOptions" [value]="option" class="autocomplete-item">
+                    {{option.AllergyName}}
+                  </mat-option>
 
-            <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}">
+                </cdk-virtual-scroll-viewport>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}">
               <input matInput #searchAllergyName class="form-control" placeholder="Select Allergy Name" type="text"
                  [matAutocomplete]="allergyName" />
               <mat-autocomplete [displayWith]="displayWithAllergy" #allergyName="matAutocomplete"
@@ -109,12 +117,12 @@
                 </mat-option>
                 <mat-option *ngIf="noRecords">No Records Found</mat-option>
               </mat-autocomplete>
-            </mat-form-field>
+            </mat-form-field> -->
             <span class="selected-allergen" id="allergenName" *ngIf="patientAllergy.AllergenName != null">
               <div>
-              <p>{{patientAllergy.AllergenName}}</p>
-              <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete-1"
-                (click)="deleteAllergyName()"></a>
+                <p>{{patientAllergy.AllergenName}}</p>
+                <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete-1"
+                  (click)="deleteAllergyName()"></a>
               </div>
             </span>
           </div>
@@ -141,22 +149,24 @@
         </div>
         <div class="col-md-12 mt-3">
           <label class="title-bold">Notes:</label>
-          <textarea class="form-control col-12 mt-3 mt-md-0 allergy-note" matInput [(ngModel)]="patientAllergy.Note"></textarea>
+          <textarea class="form-control col-12 mt-3 mt-md-0 allergy-note" matInput
+            [(ngModel)]="patientAllergy.Note"></textarea>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <div class="w-100">
-      <button type="button" class="btn btn-danger mx-2 pull-left" (click)="deleteAllergy()" *ngIf="canDeleteAllergy">
-        Delete
-      </button>
-      <button type="button" class="btn btn-green mx-2 pull-right" [disabled]="disableAllergies()" (click)="CreateAllergies()">
-        Save
-      </button>
-      <button type="button" class="btn btn-green pull-right" (click)="cancel()">
-        Cancel
-      </button>
-    </div>
+        <button type="button" class="btn btn-danger mx-2 pull-left" (click)="deleteAllergy()" *ngIf="canDeleteAllergy">
+          Delete
+        </button>
+        <button type="button" class="btn btn-green mx-2 pull-right" [disabled]="disableAllergies()"
+          (click)="CreateAllergies()">
+          Save
+        </button>
+        <button type="button" class="btn btn-green pull-right" (click)="cancel()">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>

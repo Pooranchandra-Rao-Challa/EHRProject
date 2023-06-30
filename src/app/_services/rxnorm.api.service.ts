@@ -16,8 +16,6 @@ import {
 
 @Injectable()
 export class RxNormAPIService {
-
-
   constructor(public http: HttpClient) {
 
   }

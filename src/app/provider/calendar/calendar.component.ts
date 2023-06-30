@@ -1001,12 +1001,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       let isTimeInBusinessHours = ((event.start as Date).getTime() > localStart.getTime()
         && (event.start as Date).getTime() < localEnd.getTime())
 
-
-        console.log( event.start);
-
-        console.log((event.start as Date).getDay());
-        console.log([0,6].indexOf((event.start as Date).getDay()));
-
       if (this.CalendarSchedule.OutSidePracticeHour
         || (isTimeInBusinessHours && !weeklyOff))
         this.openComponentDialog(this.appointmentDialogComponent,

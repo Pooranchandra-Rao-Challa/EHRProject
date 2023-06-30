@@ -74,6 +74,8 @@ export class AdminsComponent implements OnInit {
     this.dialogIsLoading = true;
     this.adminservice.AdminList().subscribe(resp => {
       this.dialogIsLoading = false;
+      console.log(resp);
+
       if (resp.IsSuccess) {
         this.adminDataSource = resp.ListResult;
       }

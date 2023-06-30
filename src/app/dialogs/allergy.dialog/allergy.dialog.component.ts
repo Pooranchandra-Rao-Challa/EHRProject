@@ -27,15 +27,16 @@ export class AllergyDialogComponent implements OnInit {
   allergyReactionFilter: GlobalConstants;
   isLoading = false;
   displayMessage = true;
-  @ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
+
+  //@ViewChild('searchAllergyName', { static: true }) searchAllergyName: ElementRef;
   selectedReaction: string[] = [];
   noRecords: boolean = false;
   minDateToFinish = new Subject<string>();
   minDateForEndDate;
 
-  // @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
-  // filteredOptions: AllergyNames[] =[];
-  // public height: string;
+  @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
+  filteredOptions: AllergyNames[] =[];
+  public height: string;
 
   constructor(private ref: EHROverlayRef,
     public datepipe: DatePipe,
@@ -72,87 +73,91 @@ export class AllergyDialogComponent implements OnInit {
   ngOnInit(): void {
     this.loadGlobalConstants();
     this.currentPatient = this.authService.viewModel.Patient;
-    // fromEvent(this.cdkSearchAllergyName.nativeElement,'keyup').pipe(
-    //   map((event:any) => {
-
-
-    //     return event.target.value;
-    //   }),
-    //   filter(searchInput => searchInput.length >= 1)
-    //   , debounceTime(100)
-    //   // If previous query is diffent from current
-    //   , distinctUntilChanged()
-    //   // subscription for response
-    // ).subscribe(searchText => this._filterAllergyNames2(searchText));
-
-
-
-    fromEvent(this.searchAllergyName.nativeElement, 'keyup').pipe(
-      // get value
-      map((event: any) => {
-        this.allergens = of([]);
+    fromEvent(this.cdkSearchAllergyName.nativeElement,'keyup').pipe(
+      map((event:any) => {
+        this.filteredOptions = [];
         this.noRecords = false;
         if (event.target.value == '') {
           this.displayMessage = true;
         }
         return event.target.value;
-      })
-      // if character length greater or equals to 1
-      , filter(res => res.length >= 1)
-      // Time in milliseconds between key events
-      , debounceTime(100)
+      }),
+      filter(searchInput => searchInput.length >= 3)
+      , debounceTime(200)
       // If previous query is diffent from current
-      , distinctUntilChanged()
+      //, distinctUntilChanged()
       // subscription for response
-    ).subscribe(value => this._filterAllergyNames(value));
+    ).subscribe(searchText => this._filterAllergyNames2(searchText));
+
+
+
+    // fromEvent(this.searchAllergyName.nativeElement, 'keyup').pipe(
+    //   // get value
+    //   map((event: any) => {
+    //     this.allergens = of([]);
+    //     this.noRecords = false;
+    //     if (event.target.value == '') {
+    //       this.displayMessage = true;
+    //     }
+    //     return event.target.value;
+    //   })
+    //   // if character length greater or equals to 1
+    //   , filter(res => res.length >= 3)
+    //   // Time in milliseconds between key events
+    //   , debounceTime(300)
+    //   // If previous query is diffent from current
+    //   , distinctUntilChanged()
+    //   // subscription for response
+    // ).subscribe(value => this._filterAllergyNames(value));
   }
 
 
-  // _filterAllergyNames2(term) {
-  //   this.isLoading = true;
-  //   let reqparams = {
-  //     SearchTearm: term,
-  //   };
-  //   this.patientService.AllergyNames(reqparams)
-  //     .subscribe(resp => {
-  //       //this.isLoading = false;
-  //       //this.displayMessage = false;
-  //       if (resp.IsSuccess) {
-  //         this.filteredOptions = resp.ListResult as AllergyNames[];
-  //       } else {
-  //         this.filteredOptions = [];
-  //         //this.noRecords = true;
-  //       }
-
-  //       if (this.filteredOptions.length < 4) {
-  //         this.height = this.filteredOptions.length * 50 + "px";
-  //       } else {
-  //         this.height = "200px";
-  //       }
-
-  //     });
-  // }
-
-
-
-  _filterAllergyNames(term) {
+  _filterAllergyNames2(term) {
     this.isLoading = true;
+    this.displayMessage = false;
     let reqparams = {
       SearchTearm: term,
     };
     this.patientService.AllergyNames(reqparams)
       .subscribe(resp => {
         this.isLoading = false;
-        this.displayMessage = false;
         if (resp.IsSuccess) {
-          this.allergens = of(
-            resp.ListResult as AllergyNames[]);
+          this.filteredOptions = resp.ListResult as AllergyNames[];
         } else {
-          this.allergens = of([]);
+          this.filteredOptions = [];
           this.noRecords = true;
+          this.displayMessage = true;
         }
+
+        if (this.filteredOptions.length < 4) {
+          this.height = this.filteredOptions.length * 50 + "px";
+        } else {
+          this.height = "200px";
+        }
+
       });
   }
+
+
+
+  // _filterAllergyNames(term) {
+  //   this.isLoading = true;
+  //   let reqparams = {
+  //     SearchTearm: term,
+  //   };
+  //   this.patientService.AllergyNames(reqparams)
+  //     .subscribe(resp => {
+  //       this.isLoading = false;
+  //       this.displayMessage = false;
+  //       if (resp.IsSuccess) {
+  //         this.allergens = of(
+  //           resp.ListResult as AllergyNames[]);
+  //       } else {
+  //         this.allergens = of([]);
+  //         this.noRecords = true;
+  //       }
+  //     });
+  // }
 
   public handleKeyboardEvent(event: MatAutocompleteSelectedEvent): void {
     console.log(event);
@@ -169,6 +174,8 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergy(selected) {
+    console.log(selected);
+
     this.patientAllergy.AllergenName = selected.option.value.AllergyName;
   }
 
