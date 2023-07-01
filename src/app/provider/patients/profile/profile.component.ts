@@ -1,4 +1,4 @@
-import { PatientPortalUser } from 'src/app/_models';
+import { DrFirstPatient, PatientPortalUser } from 'src/app/_models';
 import { BehaviorSubject } from 'rxjs';
 import { PatientSearch } from './../../../_models/_account/newPatient';
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
@@ -21,6 +21,8 @@ import { AuthorizedrepresentativeDialogComponent } from 'src/app/dialogs/authori
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password';
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
+import { DrFirstValidFields, USAPhoneFormat } from 'src/app/_services/drfirst.service';
+import Swal from 'sweetalert2';
 
 export class PatientRelationShip {
   RelationPatientId?: string;
@@ -42,7 +44,7 @@ export class PatientRelationShip {
 })
 export class ProfileComponent implements OnInit {
   patient: ProviderPatient;
-  PatientDetails: any = [];
+  PatientDetails: ProviderPatient = {};
   patientMyProfile: PatientProfile = new PatientProfile();
   PracticeProviders: PracticeProviders[];
   myControl: FormControl = new FormControl();
@@ -54,6 +56,7 @@ export class ProfileComponent implements OnInit {
   patientsList: ProviderPatient[];
   SearchKey = "";
   deleteSearch: boolean;
+  validDrFirstField: DrFirstValidFields = new DrFirstValidFields();
   relationship: any = [
     { Id: '1', value: 'Parent-Mother' },
     { Id: '2', value: 'Parent-Father' },
@@ -114,6 +117,7 @@ export class ProfileComponent implements OnInit {
     this.user = authService.userValue;
     //this.currentPatient = this.authService.viewModel.Patient;
     this.selectedPatient = this.authService.viewModel.Patient;
+      console.log(this.selectedPatient);
 
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
@@ -400,7 +404,17 @@ export class ProfileComponent implements OnInit {
         this.getPatientMyProfile();
         // this.patient = this.authService.viewModel.Patient;
         this.patientUpdateNotifier.sendData(this.patientMyProfile);
-        this.authService.SetViewParam("Patient", this.patientMyProfile);
+        console.log(this.patientMyProfile);
+
+        this.PatientDetails.Dob = this.patientMyProfile.DateOfBirth;
+        this.PatientDetails.FirstName = this.patientMyProfile.FirstName;
+        this.PatientDetails.LastName = this.patientMyProfile.LastName;
+        this.PatientDetails.MiddleName = this.patientMyProfile.MiddleName;
+        this.PatientDetails.Gender = this.patientMyProfile.Gender;
+        this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
+        console.log(this.PatientDetails);
+
+        this.authService.SetViewParam("Patient", this.PatientDetails);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -414,6 +428,9 @@ export class ProfileComponent implements OnInit {
         this.getPatientMyProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
         this.patientUpdateNotifier.sendData(this.patientMyProfile);
+        let temp = Object.assign({},this.patientMyProfile) as unknown as ProviderPatient;
+        console.log(temp);
+
         this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
@@ -634,6 +651,110 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  syncPatientProfileToIprecribe(){
+    let patientId = this.PatientDetails.PatientId;
+    let providerId = this.authService.userValue.ProviderId;
+    this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
+      if (resp.IsSuccess) {
+        if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
+          this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
+          .subscribe(resp=>{
+            if(resp.IsSuccess){
+              this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+              this.cancel();
+            }
+            else{
+              this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
+            }
+          });
+      }
+    })
+  }
+
+  openErrorDialog(messages:string[]):boolean {
+    if(messages.length == 0 ) return true;
+    let m:string[]=[]
+    messages.forEach((message)=> m.push('<li>'+message+'</li>'))
+    Swal.fire({
+      title:"Dr First Patient data Validation Message(s)",
+      html: '<ul>'+m.join("")+'</ul>',
+      padding: '1px !important',
+      customClass: {
+        container: 'drfirst-container',
+        title: 'drfirst-title',
+        cancelButton: 'drfirst-cancel-botton',
+        htmlContainer:'drfirst-message',
+        actions:'drfirst-actions'
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      backdrop: true,
+      showConfirmButton: false,
+    });
+  }
+  validateDrfirstPatientSyncInfo(data: DrFirstPatient): string[] {
+    data.MobilePhone = USAPhoneFormat(data.MobilePhone);
+    let messages: string[]=[];
+    let address = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
+
+    if(!data.FirstName && this.validDrFirstField.FirstName.required){
+      messages.push("First Name can not be blank")
+    }else if(data.FirstName.length > this.validDrFirstField.FirstName.length){
+      messages.push(`First Name is too long (it should be maximum ${this.validDrFirstField.FirstName.length}) characters`)
+    }
+
+    if(!data.LastName && this.validDrFirstField.LastName.required){
+      messages.push("Last Name can not be blank")
+    }else if(data.LastName.length > this.validDrFirstField.LastName.length){
+      messages.push(`Last Name is too long (it should be maximum ${this.validDrFirstField.LastName.length}) characters`)
+    }
+
+    if(data.PatientAddress && data.PatientAddress.length > this.validDrFirstField.Address1.length){
+      messages.push(`Address is too long (it should be maximum ${this.validDrFirstField.Address1.length}) characters`)
+    }
+
+    if(!data.City && this.validDrFirstField.City.required){
+      messages.push("City can not be blank")
+    }
+    else if(data.City && data.City.length > this.validDrFirstField.City.length){
+      messages.push(`City is too long  (it should be maximum ${this.validDrFirstField.City.length}) characters`)
+    }
+
+    if(!data.State && this.validDrFirstField.State.required){
+      messages.push("State can not be blank")
+    }
+    else if(data.State && address.indexOf(data.State) == -1){
+      messages.push(`State must be a valid US State`)
+    }
+
+    if(!data.Zip && this.validDrFirstField.Zip.required){
+      messages.push("Zip code can not be blank")
+    }else if(data.Zip && this.validDrFirstField.Zip.size.indexOf(data.Zip.length) == -1){
+      messages.push("Zip code should be 5 or 10 characters long")
+    }
+
+    if(!data.DOB && this.validDrFirstField.DOB.required){
+      messages.push("Date of birth can not be blank")
+    }else if(data.DOB > new Date()){
+      messages.push("Date of birth should be less than or equal to todays date");
+    }
+
+    if(!data.MobilePhone && !data.HomePhone && this.validDrFirstField.MobilePhone.required){
+      messages.push("Primary phone can not be blank")
+    }else if(data.MobilePhone && !data.HomePhone && data.MobilePhone.length > this.validDrFirstField.MobilePhone.length){
+      messages.push("Primary phone is not valid us number")
+    }else if(!data.MobilePhone && data.HomePhone && USAPhoneFormat(data.HomePhone).length > this.validDrFirstField.MobilePhone.length){
+      messages.push("Primary phone is not valid us number")
+    }
+
+
+    return messages;
+  }
+
+  get IsDataUpdated(){
+    return this.PatientDetails.IsUpdatedProfileInfo && this.PatientDetails.DrFirstPatientId;
+  }
   // Access Permissions
 
   get CanViewAdvancedDirectives(): boolean{
@@ -645,6 +766,7 @@ export class ProfileComponent implements OnInit {
     if(temp.length == 0) return false;
     return temp[0].Allowed;
   }
+
 
 }
 

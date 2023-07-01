@@ -329,8 +329,31 @@ export enum AllergyType {
 export enum SeverityLevel {
   VeryMild = 'Very Mild',
   Mild = 'Mild',
+  MildWithqualifiervalue = 'Mild (qualifier value)',
+  MildtoModerate = 'Mild to Moderate',
+  MildtoModerateWithqualifiervalue ='Mild to Moderate (qualifier value)',
+  Midgrade = 'Midgrade',
   Moderate = 'Moderate',
-  Severe = 'Severe'
+  ModerateWithseveritymodifier = 'Moderate (severity modifier)',
+  ModerateWithBothseveritymodifierandqualifiervalue = 'Moderate (severity modifier) (qualifier value)',
+  Moderatetosevere ='Moderate to severe',
+  ModeratetosevereWithqualifiervalue = 'Moderate to severe (qualifier value)',
+  Gravis ='Gravis',
+  Highgrade = 'High grade',
+  Severe = 'Severe',
+  SevereWithseveritymodifier = 'Severe (severity modifier)',
+  SevereWithBothseveritymodifierandqualifiervalue = 'Severe (severity modifier) (qualifier value)',
+  Severely = 'Severely',
+  Lifethreateningseverity = 'Life threatening severity',
+  LifethreateningseverityWithqualifiervalue = 'Life threatening severity (qualifier value)',
+  Fatal = 'Fatal',
+  FatalWithqualifiervalue = 'Fatal (qualifier value)',
+  Nonspecific = 'Non-specific',
+  NonspecificWithqualifiervalue = 'Non-specific (qualifier value)',
+  Nonspecified = 'Non-specified',
+  Unspecified = 'Unspecified',
+  Unknown = 'Unknown',
+  UnknownWithqualifiervalue = 'Unknown (qualifier value)'
 }
 
 export enum OnSetAt {
@@ -339,6 +362,36 @@ export enum OnSetAt {
   Unknown = 'Unknown'
 }
 
+/**
+ *
+ * 255604002	Mild
+255604002	Mild (qualifier value)
+371923003	Mild to Moderate
+371923003	Mild to Moderate (qualifier value)
+6736007	Midgrade
+6736007	Moderate
+6736007	Moderate (severity modifier)
+6736007	Moderate (severity modifier) (qualifier value)
+371924009	Moderate to severe
+371924009	Moderate to severe (qualifier value)
+24484000	Gravis
+24484000	High grade
+24484000	Severe
+2448400	Severe (severity modifier)
+24484000	Severe (severity modifier) (qualifier value)
+24484000	Severely
+442452003	Life threatening severity
+442452003	Life threatening severity (qualifier value)
+399166001	Fatal
+399166001	Fatal (qualifier value)
+10003008	Non-specific
+10003008	Non-specific (qualifier value)
+10003008	Non-specified
+10003008	Unspecified
+261665006	Unknown
+261665006	Unknown (qualifier value)
+
+ */
 // export enum Allergens {
 //   diphenylethylene = '1,1-diphenylethylene',
 //   dioleoyl = '1,2-dioleoyl-sn-glycero-3-phosphocholine',

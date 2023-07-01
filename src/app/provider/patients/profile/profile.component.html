@@ -4,6 +4,9 @@
   <div class="row" style="width: 100%">
     <div class="d-flex justify-content-end flex-sm-row flex-column" style="float: right;
     padding-right: unset;">
+     <!-- to update patient data to IPrescribe-->
+      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" *ngIf="IsDataUpdated" (click)="syncPatientProfileToIprecribe()"
+      >Sync Patient To IPrescribe</button></div>
       <!-- Button trigger modal -->
       <div class="p-2"><button type="button" class="btn btn-lg btn-styles" (click)="resetPassword()"
           >Reset Password</button></div>

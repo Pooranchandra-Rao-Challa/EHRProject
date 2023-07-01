@@ -40,7 +40,6 @@ export class DrFirstDialogComponent implements OnInit {
     let providerId = this.authenticationService.userValue.ProviderId;
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
       if (resp.IsSuccess) {
-
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
           .subscribe(resp=>{

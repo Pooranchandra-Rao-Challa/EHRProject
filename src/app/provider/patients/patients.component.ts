@@ -79,7 +79,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
       PatientId : ''
     })
-      .subscribe(resp => {
+      .subscribe(resp => { console.log(resp);
+
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
           this.breadcrumbs = [];
@@ -114,7 +115,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
       PatientId : ''
     })
-      .subscribe(resp => {
+      .subscribe(resp => { console.log(resp);
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
           this.breadcrumbs = [];

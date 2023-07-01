@@ -24,6 +24,7 @@ export class ProviderPatient{
   TotalPatients?: number;
   UserId?: string;
   RelationShip?: string = 'Parent-Mother';
+  IsUpdatedProfileInfo?: boolean;
 }
 
 

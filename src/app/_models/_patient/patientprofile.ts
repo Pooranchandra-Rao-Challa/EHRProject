@@ -82,6 +82,7 @@ export class PatientProfile {
   WorkPhoneSuffix?: string;
   EmergencyPhonePreffix?: string;
   EmergencyPhoneSuffix?: string;
+  IsUpdatedProfileInfo?: boolean;
 }
 export interface areaCodes {
   areaId?: string;
