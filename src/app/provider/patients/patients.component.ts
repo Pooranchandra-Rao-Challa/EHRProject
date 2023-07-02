@@ -73,43 +73,46 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadBreadcurmDataV2(breadcrumb: PatientBreadcurm) {
-    this.patientService.LatestUpdatedPatientsUrl({
-      ProviderId: this.authService.userValue.ProviderId,
-      RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
-      PatientId : ''
-    })
-      .subscribe(resp => { console.log(resp);
+  // loadBreadcurmDataV2(breadcrumb: PatientBreadcurm) {
+  //   this.loadingBreadcrumb = true;
+  //   this.patientService.LatestUpdatedPatientsUrl({
+  //     ProviderId: this.authService.userValue.ProviderId,
+  //     RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
+  //     PatientId : ''
+  //   })
+  //     .subscribe(resp => { console.log(resp);
 
-        if (resp.IsSuccess) {
-          let patients = resp.ListResult as ProviderPatient[];
-          this.breadcrumbs = [];
-          let pb: PatientBreadcurm = {
-            Name: "Patients",
-            ViewType: 0,
-            ProviderId: this.authService.userValue.ProviderId,
-            ActiveId: true,
-          }
-          this.breadcrumbs.push(pb);
-          patients.forEach((p) => {
-            let pb: PatientBreadcurm = {
-              Name: p.FirstName + ' ' + p.LastName,
-              DOB: p.Dob,
-              ViewType: 1,
-              PatientId: p.PatientId,
-              ShowRemoveIcon: true,
-              EncKey: p.EncKey,
-              Details: p
-            }
-            this.breadcrumbs.push(pb);
-          });
+  //       if (resp.IsSuccess) {
+  //         let patients = resp.ListResult as ProviderPatient[];
+  //         this.breadcrumbs = [];
+  //         let pb: PatientBreadcurm = {
+  //           Name: "Patients",
+  //           ViewType: 0,
+  //           ProviderId: this.authService.userValue.ProviderId,
+  //           ActiveId: true,
+  //         }
+  //         this.breadcrumbs.push(pb);
+  //         patients.forEach((p) => {
+  //           let pb: PatientBreadcurm = {
+  //             Name: p.FirstName + ' ' + p.LastName,
+  //             DOB: p.Dob,
+  //             ViewType: 1,
+  //             PatientId: p.PatientId,
+  //             ShowRemoveIcon: true,
+  //             EncKey: p.EncKey,
+  //             Details: p
+  //           }
+  //           this.breadcrumbs.push(pb);
+  //         });
 
-          this.loadPatientBreadcrumbView()
-        }
-      })
-  }
-
+  //         this.loadPatientBreadcrumbView();
+  //         this.loadingBreadcrumb = false;
+  //       }
+  //     })
+  // }
+  loadingBreadcrumb: boolean = false;
   loadBreadcurmData() {
+    this.loadingBreadcrumb = true;
     this.patientService.LatestUpdatedPatientsUrl({
       ProviderId: this.authService.userValue.ProviderId,
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
@@ -139,7 +142,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
             this.breadcrumbs.push(pb);
           });
 
-          this.loadPatientBreadcrumbView()
+          this.loadPatientBreadcrumbView();
+          this.loadingBreadcrumb = false;
         }
       })
   }
@@ -149,7 +153,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       this.removedPatientIdsInBreadcurmb = [];
     this.removedPatientIdsInBreadcurmb.push(breadcrumb.PatientId);
     this.authService.SetViewParam('PatientBreadCrumb', this.removedPatientIdsInBreadcurmb);
-    this.loadBreadcurmDataV2(breadcrumb);
+    this.loadBreadcurmData();
   }
 
   ngAfterViewInit(): void {

@@ -117,7 +117,7 @@ export class ProfileComponent implements OnInit {
     this.user = authService.userValue;
     //this.currentPatient = this.authService.viewModel.Patient;
     this.selectedPatient = this.authService.viewModel.Patient;
-      console.log(this.selectedPatient);
+    console.log(this.selectedPatient);
 
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {
@@ -226,14 +226,25 @@ export class ProfileComponent implements OnInit {
     }
     this.patientService.PatientMyProfileByPatientId(reqparam).subscribe(
       {
-        error: (error) =>{
+        error: (error) => {
           this.dataRefreshing = false;
         },
         next: resp => {
           if (resp.IsSuccess) {
+            console.log(resp);
             this.patientMyProfile = resp.ListResult[0];
             this.dataRefreshing = false;
-
+            if (this.updatedProfile) {
+              this.updatedProfile = false;
+              this.patientUpdateNotifier.sendData(this.patientMyProfile);
+              this.PatientDetails.Dob = this.patientMyProfile.DateOfBirth;
+              this.PatientDetails.FirstName = this.patientMyProfile.FirstName;
+              this.PatientDetails.LastName = this.patientMyProfile.LastName;
+              this.PatientDetails.MiddleName = this.patientMyProfile.MiddleName;
+              this.PatientDetails.Gender = this.patientMyProfile.Gender;
+              this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
+              this.authService.SetViewParam("Patient", this.PatientDetails);
+            }
           }
         },
         complete() {
@@ -299,7 +310,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.CareTeamList = resp.ListResult;
         this.careTeamName = this.CareTeamList.FirstName;
-      }else{
+      } else {
         this.CareTeamList = [];
       }
     });
@@ -326,7 +337,7 @@ export class ProfileComponent implements OnInit {
         this.patientRelationList = resp.ListResult;
         this.patientRelationListSubject.next(this.patientRelationList);
 
-      }else{
+      } else {
         this.patientRelationList = []
         this.patientRelationListSubject.next(this.patientRelationList);
       }
@@ -379,7 +390,7 @@ export class ProfileComponent implements OnInit {
       if (resp.IsSuccess) {
         this.getCareTeamByPatientId(this.PatientDetails.PatientId);
         this.alertmsg.displayErrorDailog(ERROR_CODES["M2CP0013"]);
-      }else{
+      } else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP0012"]);
       }
     })
@@ -392,6 +403,7 @@ export class ProfileComponent implements OnInit {
       this.patientMyProfile.Age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365.25).toString();
     }
   }
+  updatedProfile: boolean = false;
   updatePatientInformation() {
     this.ageCalculator();
     this.patientMyProfile.strDateOfBirth = this.datepipe.transform(this.patientMyProfile.DateOfBirth, "MM/dd/yyyy hh:mm:ss a");
@@ -400,21 +412,9 @@ export class ProfileComponent implements OnInit {
 
     this.patientService.UpdatePatientInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"])
+        this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP001"]);
+        this.updatedProfile = true;
         this.getPatientMyProfile();
-        // this.patient = this.authService.viewModel.Patient;
-        this.patientUpdateNotifier.sendData(this.patientMyProfile);
-        console.log(this.patientMyProfile);
-
-        this.PatientDetails.Dob = this.patientMyProfile.DateOfBirth;
-        this.PatientDetails.FirstName = this.patientMyProfile.FirstName;
-        this.PatientDetails.LastName = this.patientMyProfile.LastName;
-        this.PatientDetails.MiddleName = this.patientMyProfile.MiddleName;
-        this.PatientDetails.Gender = this.patientMyProfile.Gender;
-        this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
-        console.log(this.PatientDetails);
-
-        this.authService.SetViewParam("Patient", this.PatientDetails);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP001"]);
@@ -425,13 +425,9 @@ export class ProfileComponent implements OnInit {
   updateContactInform() {
     this.patientService.UpdateContactInformation(this.patientMyProfile).subscribe(resp => {
       if (resp.IsSuccess) {
+        this.updatedProfile = true;
         this.getPatientMyProfile();
         this.alertmsg.displayMessageDailog(ERROR_CODES["M2CP002"]);
-        this.patientUpdateNotifier.sendData(this.patientMyProfile);
-        let temp = Object.assign({},this.patientMyProfile) as unknown as ProviderPatient;
-        console.log(temp);
-
-        this.authService.SetViewParam("Patient", this.patientMyProfile);
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP002"]);
@@ -627,14 +623,14 @@ export class ProfileComponent implements OnInit {
     return flag;
   }
 
-  resetPassword(){
-    let ppu: PatientPortalUser = {PatientHasNoEmail:true};
+  resetPassword() {
+    let ppu: PatientPortalUser = { PatientHasNoEmail: true };
     ppu.Username = this.patientMyProfile.username;
-    ppu.PatientName = this.patientMyProfile.FirstName+' '+this.patientMyProfile.LastName;
+    ppu.PatientName = this.patientMyProfile.FirstName + ' ' + this.patientMyProfile.LastName;
     ppu.LocationName = this.authService.userValue.BusinessName;
     ppu.PatientId = this.patientMyProfile.PatientId;
-    this.patientService.ResetPatientPassword(ppu).subscribe((resp)=>{
-      this.openComponentDialog(this.resetPatientPassword,resp.Result as PatientPortalUser)
+    this.patientService.ResetPatientPassword(ppu).subscribe((resp) => {
+      this.openComponentDialog(this.resetPatientPassword, resp.Result as PatientPortalUser)
     })
   }
 
@@ -643,7 +639,7 @@ export class ProfileComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.authorizedRepresentativeDialogComponent) {
       reqdata = dialogData;
-    }else if( content === this.resetPatientPassword){
+    } else if (content === this.resetPatientPassword) {
       reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata);
@@ -651,40 +647,43 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  syncPatientProfileToIprecribe(){
+  syncPatientProfileToIprecribe() {
     let patientId = this.PatientDetails.PatientId;
     let providerId = this.authService.userValue.ProviderId;
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
       if (resp.IsSuccess) {
+        this.patientMyProfile.IsUpdatedProfileInfo = false;
+        this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
+        this.authService.SetViewParam("Patient", this.PatientDetails);
         if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
           this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
-          .subscribe(resp=>{
-            if(resp.IsSuccess){
-              this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
-              this.cancel();
-            }
-            else{
-              this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
-            }
-          });
+            .subscribe(resp => {
+              if (resp.IsSuccess) {
+                this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+                this.cancel();
+              }
+              else {
+                this.alertmsg.displayMessageDailog(ERROR_CODES["E2PE001"]);
+              }
+            });
       }
     })
   }
 
-  openErrorDialog(messages:string[]):boolean {
-    if(messages.length == 0 ) return true;
-    let m:string[]=[]
-    messages.forEach((message)=> m.push('<li>'+message+'</li>'))
+  openErrorDialog(messages: string[]): boolean {
+    if (messages.length == 0) return true;
+    let m: string[] = []
+    messages.forEach((message) => m.push('<li>' + message + '</li>'))
     Swal.fire({
-      title:"Dr First Patient data Validation Message(s)",
-      html: '<ul>'+m.join("")+'</ul>',
+      title: "Dr First Patient data Validation Message(s)",
+      html: '<ul>' + m.join("") + '</ul>',
       padding: '1px !important',
       customClass: {
         container: 'drfirst-container',
         title: 'drfirst-title',
         cancelButton: 'drfirst-cancel-botton',
-        htmlContainer:'drfirst-message',
-        actions:'drfirst-actions'
+        htmlContainer: 'drfirst-message',
+        actions: 'drfirst-actions'
       },
       background: '#f9f9f9',
       showCancelButton: true,
@@ -695,56 +694,56 @@ export class ProfileComponent implements OnInit {
   }
   validateDrfirstPatientSyncInfo(data: DrFirstPatient): string[] {
     data.MobilePhone = USAPhoneFormat(data.MobilePhone);
-    let messages: string[]=[];
+    let messages: string[] = [];
     let address = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
 
-    if(!data.FirstName && this.validDrFirstField.FirstName.required){
+    if (!data.FirstName && this.validDrFirstField.FirstName.required) {
       messages.push("First Name can not be blank")
-    }else if(data.FirstName.length > this.validDrFirstField.FirstName.length){
+    } else if (data.FirstName.length > this.validDrFirstField.FirstName.length) {
       messages.push(`First Name is too long (it should be maximum ${this.validDrFirstField.FirstName.length}) characters`)
     }
 
-    if(!data.LastName && this.validDrFirstField.LastName.required){
+    if (!data.LastName && this.validDrFirstField.LastName.required) {
       messages.push("Last Name can not be blank")
-    }else if(data.LastName.length > this.validDrFirstField.LastName.length){
+    } else if (data.LastName.length > this.validDrFirstField.LastName.length) {
       messages.push(`Last Name is too long (it should be maximum ${this.validDrFirstField.LastName.length}) characters`)
     }
 
-    if(data.PatientAddress && data.PatientAddress.length > this.validDrFirstField.Address1.length){
+    if (data.PatientAddress && data.PatientAddress.length > this.validDrFirstField.Address1.length) {
       messages.push(`Address is too long (it should be maximum ${this.validDrFirstField.Address1.length}) characters`)
     }
 
-    if(!data.City && this.validDrFirstField.City.required){
+    if (!data.City && this.validDrFirstField.City.required) {
       messages.push("City can not be blank")
     }
-    else if(data.City && data.City.length > this.validDrFirstField.City.length){
+    else if (data.City && data.City.length > this.validDrFirstField.City.length) {
       messages.push(`City is too long  (it should be maximum ${this.validDrFirstField.City.length}) characters`)
     }
 
-    if(!data.State && this.validDrFirstField.State.required){
+    if (!data.State && this.validDrFirstField.State.required) {
       messages.push("State can not be blank")
     }
-    else if(data.State && address.indexOf(data.State) == -1){
+    else if (data.State && address.indexOf(data.State) == -1) {
       messages.push(`State must be a valid US State`)
     }
 
-    if(!data.Zip && this.validDrFirstField.Zip.required){
+    if (!data.Zip && this.validDrFirstField.Zip.required) {
       messages.push("Zip code can not be blank")
-    }else if(data.Zip && this.validDrFirstField.Zip.size.indexOf(data.Zip.length) == -1){
+    } else if (data.Zip && this.validDrFirstField.Zip.size.indexOf(data.Zip.length) == -1) {
       messages.push("Zip code should be 5 or 10 characters long")
     }
 
-    if(!data.DOB && this.validDrFirstField.DOB.required){
+    if (!data.DOB && this.validDrFirstField.DOB.required) {
       messages.push("Date of birth can not be blank")
-    }else if(data.DOB > new Date()){
+    } else if (data.DOB > new Date()) {
       messages.push("Date of birth should be less than or equal to todays date");
     }
 
-    if(!data.MobilePhone && !data.HomePhone && this.validDrFirstField.MobilePhone.required){
+    if (!data.MobilePhone && !data.HomePhone && this.validDrFirstField.MobilePhone.required) {
       messages.push("Primary phone can not be blank")
-    }else if(data.MobilePhone && !data.HomePhone && data.MobilePhone.length > this.validDrFirstField.MobilePhone.length){
+    } else if (data.MobilePhone && !data.HomePhone && data.MobilePhone.length > this.validDrFirstField.MobilePhone.length) {
       messages.push("Primary phone is not valid us number")
-    }else if(!data.MobilePhone && data.HomePhone && USAPhoneFormat(data.HomePhone).length > this.validDrFirstField.MobilePhone.length){
+    } else if (!data.MobilePhone && data.HomePhone && USAPhoneFormat(data.HomePhone).length > this.validDrFirstField.MobilePhone.length) {
       messages.push("Primary phone is not valid us number")
     }
 
@@ -752,18 +751,18 @@ export class ProfileComponent implements OnInit {
     return messages;
   }
 
-  get IsDataUpdated(){
+  get IsDataUpdated() {
     return this.PatientDetails.IsUpdatedProfileInfo && this.PatientDetails.DrFirstPatientId;
   }
   // Access Permissions
 
-  get CanViewAdvancedDirectives(): boolean{
+  get CanViewAdvancedDirectives(): boolean {
     var permissions = this.authService.permissions();
-    if(!permissions) return false;
+    if (!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
-    if(providerpermissions && providerpermissions.length == 1) return true;
+    if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == "AdvancedDirectivePolicy" && fn.MethodName == "show")
-    if(temp.length == 0) return false;
+    if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
 

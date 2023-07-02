@@ -375,6 +375,20 @@
                           - {{GetDisplayName(medication)}}
                         </span>
                       </a>
+                      <p>
+                        - Patient Direction: <b>{{medication.Action}} {{medication.Dose}}
+                          {{medication.DoseUnits}} {{medication.Route}} {{medication.DoseTiming}}
+                          {{medication.DoseOther}}</b>
+                          <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">
+                            - {{medication?.StartAt | date: 'MM/dd/yyyy'}}
+                           </span>
+                           <span *ngIf="medication?.StopAt != null && medication?.StopAt !=''">
+                             - {{medication?.StopAt | date: 'MM/dd/yyyy'}}
+                           </span>
+                           <span *ngIf="medication?.CQMStatus != null && medication?.CQMStatus !=''">
+                             - {{medication?.CQMStatus}}
+                           </span>
+                        </p>
                       <div *ngIf="medication.HasPrescriptions"
                         class="pointer prescription-icon2 prescription-icon2-display"
                         (click)="openComponentDialog(eRXPrescriptionTableDialogComponent, medication , ActionTypes.view)">
@@ -382,17 +396,6 @@
                       </div>
                     </div>
 
-                  </li>
-                  <li style="margin-left: 20px;">
-                    <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">
-                      {{medication?.StartAt | date: 'MM/dd/yyyy'}}
-                    </span>
-                    <span *ngIf="medication?.StopAt != null && medication?.StopAt !=''">
-                      - {{medication?.StopAt | date: 'MM/dd/yyyy'}}
-                    </span>
-                    <span *ngIf="medication?.CQMStatus != null && medication?.CQMStatus !=''">
-                      - {{medication?.CQMStatus}}
-                    </span>
                   </li>
                 </ul>
                 <ul class="main-list" *ngIf="chartInfo?.Medications?.length == 0">

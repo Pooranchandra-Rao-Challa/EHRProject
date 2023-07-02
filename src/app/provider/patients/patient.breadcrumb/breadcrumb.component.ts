@@ -30,8 +30,6 @@ export class BreadcrumbComponent {
   }
 
   onSwitchPatient(breadcrumb: PatientBreadcurm,showListView: boolean) {
-
-
     this.notifyPatientChanged.sendData(breadcrumb,showListView)
   }
 

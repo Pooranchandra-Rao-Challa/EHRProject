@@ -29,7 +29,7 @@
       <div class="patient-dob" style="line-height: 1.4; cursor:not-allowed"  [class.bread-crumb-active]="breadcrumb.ActiveId">{{breadcrumb.DOB | date: 'MM/dd/yyyy'}}</div>
     </div>
     <a class="remove-chart-patient patient-remove-link" *ngIf="breadcrumb.ShowRemoveIcon"
-      (click)="removePatientBreadcrumbInView(breadcrumb.PatientId)">
+      (click)="removePatientBreadcrumbInView(breadcrumb)">
       <i class="fa fa-times cross-icon"></i>
     </a>
   </li>
