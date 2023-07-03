@@ -237,6 +237,7 @@ export class Prescription {
   PatientId?: string;
   DrugName?: string;
   BrandName?: string;
+  GenericName?: string;
   RxcuiId?: string;
   NDCId?: string;
   DrugStrength?: string;

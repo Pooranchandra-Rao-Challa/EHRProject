@@ -234,6 +234,8 @@ export class ProfileComponent implements OnInit {
             console.log(resp);
             this.patientMyProfile = resp.ListResult[0];
             this.dataRefreshing = false;
+            console.log(this.updatedProfile);
+
             if (this.updatedProfile) {
               this.updatedProfile = false;
               this.patientUpdateNotifier.sendData(this.patientMyProfile);
@@ -245,6 +247,8 @@ export class ProfileComponent implements OnInit {
               this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
               this.authService.SetViewParam("Patient", this.PatientDetails);
             }
+            console.log(this.PatientDetails);
+
           }
         },
         complete() {

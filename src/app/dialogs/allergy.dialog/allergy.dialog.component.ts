@@ -122,7 +122,7 @@ export class AllergyDialogComponent implements OnInit {
       .subscribe(resp => {
         this.isLoading = false;
         if (resp.IsSuccess) {
-          this.filteredOptions = resp.ListResult as AllergyNames[];
+          this.filteredOptions = (resp.ListResult as AllergyNames[]).sort((a,b)=> b.AllergyName.localeCompare(a.AllergyName));
         } else {
           this.filteredOptions = [];
           this.noRecords = true;

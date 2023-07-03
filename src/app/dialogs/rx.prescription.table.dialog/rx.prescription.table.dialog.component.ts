@@ -62,4 +62,8 @@ export class RxPrescriptionTableDialogComponent implements OnInit {
     });
   }
 
+  getDisplayName(p:Prescription){
+    return p.DrugName ? p.DrugName : `${p.GenericName}(${p.BrandName})`;
+  }
+
 }
