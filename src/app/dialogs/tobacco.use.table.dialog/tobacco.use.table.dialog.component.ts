@@ -47,7 +47,7 @@ export class TobaccoUseTableDialogComponent implements OnInit {
     let tobaccoUse: TobaccoUse[] = data
     this.toabccoUses = tobaccoUse;
     //this.patientTobaccoUse.data = data as TobaccoUse[];
-    console.log(tobaccoUse);
+
 
     tobaccoUse.forEach(value => {
       if (!this.tobaccoUseScreenings.data) this.tobaccoUseScreenings.data = [];
@@ -69,14 +69,9 @@ export class TobaccoUseTableDialogComponent implements OnInit {
   openComponentDialog(content: any | ComponentType<any> | string,
     dialogData, action: Actions = this.ActionTypes.add) {
     let reqdata: any;
-    console.log(dialogData);
-
     if (action == Actions.view && content === this.tobaccoUseDialogComponent) {
-      console.log(dialogData.TobaccoUseId);
-
-      var d = { tobaccoUse: this.getTobaccoUseOfEntity(dialogData.TobaccoUseId), screening: dialogData }
+         var d = { tobaccoUse: this.getTobaccoUseOfEntity(dialogData.TobaccoUseId), screening: dialogData }
       reqdata = d;
-      console.log(reqdata);
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {

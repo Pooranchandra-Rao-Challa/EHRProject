@@ -178,9 +178,7 @@ export class InsuranceComponent implements OnInit {
   }
 
   displayPrimaryInsurancePatient(value: PatientSearch) {
-    console.log((value));
-
-    return value != null ? value.Name : "";
+     return value != null ? value.Name : "";
 
   }
   displaySecondaryInsurancePatient(value: PatientSearch) {

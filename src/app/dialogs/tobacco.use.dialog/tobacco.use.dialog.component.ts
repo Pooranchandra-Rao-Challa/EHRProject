@@ -138,8 +138,6 @@ export class TobaccoUseDialogComponent implements OnInit {
     this.patientTobaccoUse.Interventions.forEach(value =>{
       value.strInterventionDate = this.datepipe.transform(value.InterventionDate, "MM/dd/yyyy hh:mm:ss a", "en-US");
     });
-    console.log(this.patientTobaccoUse);
-
     this.patientService.CreateTobaccoUse(this.patientTobaccoUse).subscribe((resp) => {
       if (resp.IsSuccess) {
         this.ref.close({
@@ -232,10 +230,7 @@ export class TobaccoUseDialogComponent implements OnInit {
   }
 
   disableTobaccoUse() {
-    // console.log(this.editScreeningUpdated);
-    // console.log(this.editInterventionUpdated);
-    // console.log(this.disableRecordScreening());
-    // console.log(this.disableRecordIntervention());
+
 
     if(this.patientTobaccoUse.TobaccoUseId)
       return !(this.editScreeningUpdated ||

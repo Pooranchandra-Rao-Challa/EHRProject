@@ -118,7 +118,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       RemovedPatientIds: this.removedPatientIdsInBreadcurmb,
       PatientId : ''
     })
-      .subscribe(resp => { console.log(resp);
+      .subscribe(resp => {
         if (resp.IsSuccess) {
           let patients = resp.ListResult as ProviderPatient[];
           this.breadcrumbs = [];
@@ -136,7 +136,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
               ViewType: 1,
               PatientId: p.PatientId,
               ShowRemoveIcon: true,
-              EncKey: p.EncKey,
+             // EncKey: p.EncKey,
               Details: p
             }
             this.breadcrumbs.push(pb);

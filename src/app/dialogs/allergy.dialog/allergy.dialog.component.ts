@@ -160,7 +160,7 @@ export class AllergyDialogComponent implements OnInit {
   // }
 
   public handleKeyboardEvent(event: MatAutocompleteSelectedEvent): void {
-    console.log(event);
+
 
     if (event.source.isOpen) {
       ((event.option as any)
@@ -174,7 +174,7 @@ export class AllergyDialogComponent implements OnInit {
   }
 
   onSelectedAllergy(selected) {
-    console.log(selected);
+
 
     this.patientAllergy.AllergenName = selected.option.value.AllergyName;
   }
