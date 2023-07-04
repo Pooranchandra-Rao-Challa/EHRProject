@@ -24,7 +24,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    //console.log(route.url);
     if (this.authenticationService.isLoggedIn()) {
       return true;
     } else this.authenticationService.clearTimer();
@@ -38,8 +37,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   canActivateChild(
     childRoute: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    //console.log(childRoute.url);
-    //console.log(this.authenticationService.permissions())
+
     if (this.authenticationService.isLoggedIn()) {
       return true;
     } else this.authenticationService.clearTimer();

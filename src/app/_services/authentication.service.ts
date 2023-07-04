@@ -62,8 +62,6 @@ export class AuthenticationService {
 
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
-    console.log(endpointUrl);
-
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
         if (resp.IsSuccess) {
@@ -79,13 +77,7 @@ export class AuthenticationService {
                 this.logout(ERROR_CODES["EL008"]);
               else if (this.isUserLocked && !this.hasEmergencyAccess) {
                 let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
-                //console.log(url);
                 window.location.replace(url);
-                // this.router.navigate(
-                //   ['provider/smartschedule'],
-                //   { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
-                // )
-                 // .then(() => window.location.reload());
               }
               else if (!this.isProviderInTrialPeriod && !this.isProviderTrialPeriodClosed) {
                 // Provider trial period is closed please do subscribe for accessing application.
@@ -93,16 +85,8 @@ export class AuthenticationService {
                 this.logout(ERROR_CODES["EL012"]);
               }
               else {
-                // console.log(this.router.parseUrl(this.router.url));
                 let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
-                //console.log(url);
-                // this.router.navigateByUrl(url);
                 window.location.replace(url);
-                // this.router.navigate(
-                //   ['provider/smartschedule'],
-                //   { queryParams: { name: 'Smart Schedule', key: (new Date()).getTime() } }
-                // )
-                  //.then(() => window.location.reload());
               }
 
 
@@ -129,15 +113,15 @@ export class AuthenticationService {
             this.logout(ERROR_CODES["EL001"]);
           }
         } else {
-          this.logout(ERROR_CODES["EL001"]);
+          let error = ERROR_CODES["EL001"];
+          localStorage.setItem('message', error);
+          this.router.navigate(['/account/home']);
         }
       }, err => {
         console.log(err);
         let error = ERROR_CODES["EL002"]
-        if (error != '' && error != null)
-          localStorage.setItem('message', error);
+        localStorage.setItem('message', error);
         this.router.navigate(['/account/home']);
-        //this.logout(ERROR_CODES["EL002"]);
       }),
 
     );
@@ -265,47 +249,24 @@ export class AuthenticationService {
         this.SetViewParam("View", "dashboard")
 
         if (this.isPatient && !this.hasSecureQuestion && this.isFirstTimeLogin) {
-
           let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/security-question?key=${(new Date()).getTime()}`;
-          //console.log(url);
-          // this.router.navigateByUrl(url);
           window.location.replace(url);
-
-          // this.router.navigate(['/account/security-question'],
-          //   { queryParams: { key: (new Date()).getTime() } });
-          //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasSecureQuestion && this.isFirstTimeLogin) {
           let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/reset-password?key=${(new Date()).getTime()}`;
-          //console.log(url);
-          // this.router.navigateByUrl(url);
           window.location.replace(url);
-          // this.router.navigate(['/account/reset-password'],
-          //   { queryParams: { key: (new Date()).getTime() } });
-          //.then(() => window.location.reload());
         }
         else if (this.isPatient && this.hasPatientRelations && this.isPatientActive) {
-          // this.router.navigate(['/account/patient-relations'],
-          //   { queryParams: { key: (new Date()).getTime() } });
-            let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/patient-relations?key=${(new Date()).getTime()}`;
-            //console.log(url);
-            // this.router.navigateByUrl(url);
-            window.location.replace(url);
-          //.then(() => window.location.reload());
+          let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/account/patient-relations?key=${(new Date()).getTime()}`;
+          window.location.replace(url);
         } else if (this.isPatient && !this.isPatientActive) {
           this.logout(ERROR_CODES["EL014"])
         } else if (this.isRepresentative && !this.isRepresentaiveActive) {
           this.logout(ERROR_CODES["EL015"])
         }
-        else if (this.isPatient || this.isRepresentative){
-
+        else if (this.isPatient || this.isRepresentative) {
           let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/patient/dashboard?key=${(new Date()).getTime()}`;
-                //console.log(url);
-                // this.router.navigateByUrl(url);
           window.location.replace(url);
-                // this.router.navigate(['patient/dashboard'],
-                // { queryParams: { key: (new Date()).getTime() } });
-            //.then(() => window.location.reload());
         }
         else {
           this.logout(ERROR_CODES["EL001"]);
@@ -346,8 +307,6 @@ export class AuthenticationService {
 
   //resetSessionMonitor;
   openRefeshDialog() {
-    //if (this.resetSessionMonitor) clearTimeout(this.refreshTokenTimer);
-    //this.resetSessionMonitor = setTimeout(() => this.revokeToken('Session is ended'), 30*1000);
     let timerInterval
     this.UserIp().subscribe(resp => {
       this.userIP = resp.ip;
@@ -364,7 +323,7 @@ export class AuthenticationService {
           Swal.showLoading(Swal.getDenyButton())
           const b = Swal.getHtmlContainer().querySelector('b')
           timerInterval = setInterval(() => {
-            b.textContent = Math.floor(Swal.getTimerLeft()/1000) + ''
+            b.textContent = Math.floor(Swal.getTimerLeft() / 1000) + ''
           }, 100)
         },
         willClose: () => {
@@ -379,20 +338,21 @@ export class AuthenticationService {
         if (result.isConfirmed) {
           clearInterval(timerInterval);
           this.refreshToken();
-        }else
-        if (result.dismiss === Swal.DismissReason.timer) {
-          this.revokeToken(ERROR_CODES["EL018"]);
-        }
-        // else if (result.isDenied) {
-        //   this.logout();
-        // }
+        } else
+          if (result.dismiss === Swal.DismissReason.timer) {
+            this.revokeToken(ERROR_CODES["EL018"]);
+          }
       })
     });
 
   }
 
   revokeToken(error: any = '') {
-    //if (this.resetSessionMonitor) clearTimeout(this.refreshTokenTimer);
+    if (!this.userValue || !this.userValue.JwtToken) {
+      this.stopRefreshTokenTimer();
+      return;
+    }
+
     var url = this.baseUrl + 'revoketoken';
     const headers = new HttpHeaders({
       "Content-Type": "application/json",
@@ -406,17 +366,14 @@ export class AuthenticationService {
           if (error != '' && error != null)
             localStorage.setItem('message', error);
           this.router.navigate(['/account/home'])
-          //.then(() => {window.location.reload();});
         },
         error: (error) => {
           console.log(error);
-
           this.stopRefreshTokenTimer();
           localStorage.removeItem('user');
           if (error != '' && error != null)
-            localStorage.setItem('message', error);
+            localStorage.setItem('message', JSON.stringify(error.message));
           this.router.navigate(['/account/home']);
-          //.then(() => {window.location.reload();});
         },
         complete: () => {
 

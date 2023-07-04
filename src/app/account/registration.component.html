@@ -210,19 +210,20 @@
                   <mat-form-field appearance="outline" class="col-12">
                     <input matInput (mouseover)="viewModel.NPI=$event.target.value!= null&& $event.target.value!=''"
                       (mouseleave)="viewModel.NPI=false" formControlName="NPI" maxlength="10" numberMask="9999999999"
-                      placeholder="National Provider Identifier(NPI)" >
+                      placeholder="National Provider Identifier(NPI)">
                     <mat-icon matSuffix *ngIf="viewModel.NPI && !npi.errors?.invalidnpi && !npi.errors?.required"
                       class="FieldValid">check</mat-icon>
                   </mat-form-field>
                   <!-- <div class="error_message" *ngIf="npi.errors && npi.touched"> -->
-                    <!-- <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
+                  <!-- <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
                       <p class="errormessage"  style="margin: unset;padding: unset">NPI number is invalid</p>
                     </div>
                     <div class="error_message" style="margin: unset;padding: unset" *ngIf="npi.errors?.required">
                       <p class="errormessage" style="margin: unset;padding: unset">Please enter NPI number</p>
                   </div> -->
                   <div *ngIf="(npi.touched || npi.dirty)">
-                    <div class="error_message" style="margin: unset;padding: unset" *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
+                    <div class="error_message" style="margin: unset;padding: unset"
+                      *ngIf="!npi.errors?.required && npi.errors?.invalidnpi">
                       <p class="errormessage" style="margin: unset;padding: unset">NPI number is invalid</p>
                     </div>
                     <div class="error_message" style="margin: unset;padding: unset" *ngIf="npi.errors?.required">
@@ -268,12 +269,14 @@
                     <mat-form-field appearance="outline" class="col-md-6">
                       <input matInput PracticeAddressV
                         (mouseover)="viewModel.PracticeAddress=$event.target.value!= null&& $event.target.value!=''"
-                        (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress" (keyup)="CheckKeyInput($event)"
-                        [readonly]="addressVerified" placeholder="Enter the address here (including suite number)">
-                      <mat-icon matSuffix *ngIf="viewModel.PracticeAddress || addressFieldMouseOver " class="FieldValid">check</mat-icon>
+                        (mouseleave)="viewModel.PracticeAddress=false" formControlName="PracticeAddress"
+                        (keyup)="CheckKeyInput($event)" [readonly]="addressVerified"
+                        placeholder="Enter the address here (including suite number)">
+                      <mat-icon matSuffix *ngIf="viewModel.PracticeAddress || addressFieldMouseOver "
+                        class="FieldValid">check</mat-icon>
                       <mat-icon matSuffix *ngIf="!viewModel.PracticeAddress && !addressFieldMouseOver"
-                      [class.disable-button]="!addressVerified"
-                        class="FieldInvalid pointer" (click)="reVerifyAddress()">clear</mat-icon>
+                        [class.disable-button]="!addressVerified" class="FieldInvalid pointer"
+                        (click)="reVerifyAddress()">clear</mat-icon>
                     </mat-form-field>
 
                     <div class="col-md-2 pt-1">
@@ -482,12 +485,17 @@
         </div>
         <div class="tab-pane fade" id="signup-additionalinfo" role="tabpanel"
           aria-labelledby="signup-additionalinfo-tab">
-          <div class="content">
+          <div class="content" style="display: flex;">
             <button mat-button class="reg-button col-md-2 prev-step4">PREV.
               STEP</button>
             <button mat-button class="reg-button col-md-2 mx-2" (click)="SaveRegitration()"
               *ngIf="!invokedRegistration">
               COMPLETE REGISTRATION</button>
+            <div style="padding-left: 100px;
+  padding-top: 15px;" *ngIf="invokedRegistration">
+              <mat-progress-spinner mode="indeterminate" value="50" color="primary"
+                diameter="30"></mat-progress-spinner>
+            </div>
           </div>
         </div>
       </div>

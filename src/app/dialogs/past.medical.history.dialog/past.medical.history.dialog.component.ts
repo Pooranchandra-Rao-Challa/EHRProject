@@ -41,8 +41,6 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.familyRecordNotifier.getData().subscribe(resp => {
-      //console.log(resp);
-
       if (resp.isdeleted) {
         this.patientPastMedicalHistory.FamilyMedicalHistories.splice(resp.record.Index, 1)
       } else {
@@ -67,10 +65,7 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
       this.patientPastMedicalHistory.strFamilyMedicalHistories != null &&
         this.patientPastMedicalHistory.strFamilyMedicalHistories != '' ?
         JSON.parse(this.patientPastMedicalHistory.strFamilyMedicalHistories) : [];
-    //console.log(this.patientPastMedicalHistory);
-
-
-  }
+     }
   cancel() {
     this.ref.close({
       "UpdatedModal": PatientChart.PastMedicalHistory

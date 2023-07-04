@@ -291,7 +291,6 @@ export class MedicationDialogComponent implements OnInit {
         next: (resp) => {
           if (resp.IsSuccess) {
             this.educationMaterial = resp.Result;
-            console.log(this.educationMaterial);
             if (this.educationMaterial.strAttachments)
               this.educationMaterial.Attachments = JSON.parse(this.educationMaterial.strAttachments);
 

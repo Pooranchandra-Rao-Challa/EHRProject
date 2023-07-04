@@ -267,7 +267,6 @@ export class FieldControlComponent extends _SearchInputMixiBase
         let medicalCodes: MedicalCode[] =[];
         let cdg: CodeSystemGroup[] = [];
         this.rxNormAPIService.rxcuiName(term.SearchTerm).subscribe(resp=>{
-          console.log(resp);
           let drugName = resp;
           this.rxNormAPIService.ndclist(term.SearchTerm).subscribe(resp =>{
             ndcs = resp;

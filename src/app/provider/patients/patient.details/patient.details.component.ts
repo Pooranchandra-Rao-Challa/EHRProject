@@ -364,7 +364,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
               PatientId: p.PatientId,
               ProviderId: this.authService.userValue.ProviderId,
               ShowRemoveIcon: true,
-              EncKey: p.EncKey,
+              //EncKey: p.EncKey,
               ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
               Details: p
             }
@@ -430,7 +430,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
               ViewType: 1,
               PatientId: p.PatientId,
               ShowRemoveIcon: true,
-              EncKey: p.EncKey,
+              //EncKey: p.EncKey,
               ActiveId: p.ShowDetailView == false ? this.patient?.PatientId == p.PatientId : p.ShowDetailView,
               Details: p
             }
