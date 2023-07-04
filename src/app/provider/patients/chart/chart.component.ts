@@ -534,8 +534,21 @@ export class ChartComponent implements OnInit, AfterViewInit {
   TobaccoUseByPatientId() {
     if (this.currentPatient == null) return;
     this.patientService.TobaccoUseByPatientId({ PatientId: this.currentPatient.PatientId }).subscribe((resp) => {
-      if (resp.IsSuccess) this.tobaccoUseList = resp.ListResult;
-      else this.tobaccoUseList = [];
+      if(resp.IsSuccess){
+        this.chartInfo.TobaccoUse = resp.ListResult;
+        if (this.chartInfo.TobaccoUse) {
+          this.chartInfo.TobaccoUse.forEach((value) => {
+            if (value.strScreenings)
+              value.Screenings = JSON.parse(value.strScreenings)
+            else value.Screenings = [];
+            if (value.strInterventions)
+              value.Interventions = JSON.parse(value.strInterventions)
+            else value.Interventions = [];
+            value.TotalRecords = value.Interventions.length + value.Interventions.length;
+          })
+        }
+      }
+      else this.chartInfo.TobaccoUse = []
     });
   }
 
