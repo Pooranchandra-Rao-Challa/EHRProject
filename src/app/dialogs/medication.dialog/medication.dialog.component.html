@@ -287,12 +287,13 @@
       <div class="w-100">
         <button class="btn btn-danger mx-3 pull-left" *ngIf="patientMedication.MedicationId != undefined"
           (click)="DeleteMedication()">Delete</button>
+
+        <button type="button" class="btn btn-green pull-right" (click)="cancel(true)">
+          Cancel
+        </button>
         <button type="button" class="btn btn-green  mx-3 pull-right" [disabled]="disableMedication()"
           (click)="CreateMedication()">
           Save
-        </button>
-        <button type="button" class="btn btn-green pull-right" (click)="cancel(true)">
-          Cancel
         </button>
       </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="calendar-wrapper">
   <div class="calendar-width">
     <mat-drawer-container class="calendar-drawer">
-      <mat-drawer #drawer opened="true" class="calendar-sidenav" mode="side" (openedChange)="handleButtons()">
+      <mat-drawer #drawer id="scrollerbody" opened="true" class="calendar-sidenav" mode="side" (openedChange)="handleButtons()">
         <div class="arrows-toggle pull-right" (click)="drawer.toggle()" *ngIf="toggleButtonVisibility">
           <i class="fa fa-angle-double-left"></i>
         </div>

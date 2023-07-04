@@ -1330,20 +1330,35 @@ i {
 
 
 /* width */
-#providerbody::-webkit-scrollbar {
+#providerbody::-webkit-scrollbar ,
+.mat-drawer-inner-container::-webkit-scrollbar,
+.fc-scroller::-webkit-scrollbar,
+.scrollable-table::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.ehr-cqm-table-container::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
-#providerbody::-webkit-scrollbar-track {
+#providerbody::-webkit-scrollbar-track,
+.mat-drawer-inner-container::-webkit-scrollbar-track,
+.fc-scroller::-webkit-scrollbar-track,
+.scrollable-table::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.ehr-cqm-table-container::-webkit-scrollbar-track  {
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
 }
 
 /* Handle */
-#providerbody::-webkit-scrollbar-thumb {
+#providerbody::-webkit-scrollbar-thumb,
+.mat-drawer-inner-container::-webkit-scrollbar-thumb,
+.fc-scroller::-webkit-scrollbar-thumb,
+.scrollable-table::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.ehr-cqm-table-container::-webkit-scrollbar-thumb   {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1351,7 +1366,12 @@ i {
 }
 
 /* Handle on hover */
-#providerbody::-webkit-scrollbar-thumb:hover {
+#providerbody::-webkit-scrollbar-thumb:hover,
+.mat-drawer-inner-container::-webkit-scrollbar-thumb:hover,
+.fc-scroller::-webkit-scrollbar-thumb:hover,
+.scrollable-table::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.ehr-cqm-table-container::-webkit-scrollbar-thumb:hover {
   background: #41b6a6;
 }
 

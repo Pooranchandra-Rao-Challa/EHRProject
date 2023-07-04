@@ -159,12 +159,12 @@
         <button type="button" class="btn btn-danger mx-2 pull-left" (click)="deleteAllergy()" *ngIf="canDeleteAllergy">
           Delete
         </button>
+        <button type="button" class="btn btn-green pull-right" (click)="cancel()">
+          Cancel
+        </button>
         <button type="button" class="btn btn-green mx-2 pull-right" [disabled]="disableAllergies()"
           (click)="CreateAllergies()">
           Save
-        </button>
-        <button type="button" class="btn btn-green pull-right" (click)="cancel()">
-          Cancel
         </button>
       </div>
     </div>

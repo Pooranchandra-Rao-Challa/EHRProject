@@ -110,12 +110,13 @@
         </div>
 
         <div class="elements">
+
+          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="cancel()">Cancel</button>
           <button type="button" class="btn btn-green btn-msgsave col-md-4 mx-2" data-bs-dismiss="modal"
             [disabled]="!message.toAddress" (click)="InsertMessage(false,true)">Send</button>
           <button type="button" class="btn btn-green btn-msgsave col-md-4"
             [disabled]="!message.toAddress" (click)="InsertMessage(true,false)">Save As
             Draft</button>
-          <button type="button" class="btn btn-green btn-msgsave col-md-4" (click)="cancel()">Cancel</button>
         </div>
       </div>
     </div>
