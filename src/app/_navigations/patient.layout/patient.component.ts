@@ -9,6 +9,7 @@ export class PatientComponent {
     private locationSelectService: LocationSelectService,
     private viewChagneService: ViewChangeService,
   ) {
+    document.body.id ="patientbody"
   }
 
   ngOnInit() {

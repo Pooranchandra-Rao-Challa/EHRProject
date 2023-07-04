@@ -225,24 +225,6 @@ div.search-box button:hover {
   color: #35414f !important;
 }
 
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px #2a3642 !important;
-  border-radius: 10px;
-  background: #f1f1f1;
-}
-
-
-::-webkit-scrollbar-thumb {
-  background: #2a3642 !important;
-  border-radius: 10px;
-  background-clip: padding-box;
-  border: 0.05em solid #eeeeee;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #2a3642;
-}
-
 ::ng-deep .admin-sort .mat-sort-header-arrow {
   color: #757575 !important;
 }

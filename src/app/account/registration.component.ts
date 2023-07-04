@@ -348,12 +348,11 @@ export class RegistrationComponent implements OnInit {
     this.accountservice.RegisterNewProvider(reqparams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.alertWithSuccess();
-        this.router.navigate(['/account/home']);
       }
       else {
         Swal.fire({
-          // icon: 'error',
           title: 'Oops...',
+          icon:'error',
           text: resp.EndUserMessage,
           width: '700',
         })
@@ -368,13 +367,17 @@ export class RegistrationComponent implements OnInit {
 
   alertWithSuccess() {
     Swal.fire({
-      // icon: 'success',
+      position: 'top',
+      icon: 'success',
       title: 'Thank you for registering in an EHR1 Account! An email with instructions for how to complete  setup of your account has been sent to ' + this.AccountDetails.Email,
       showConfirmButton: true,
       confirmButtonText: 'Close',
-      width: '500',
-
-    });
+      width: '600',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/account/home']);
+      }
+    })
   }
 }
 

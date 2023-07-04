@@ -7,6 +7,7 @@ export class ProviderComponent implements OnInit {
     private locationSelectService: LocationSelectService,
     private viewChagneService: ViewChangeService,
   ) {
+    document.body.id ="providerbody"
   }
 
   ngOnInit() {

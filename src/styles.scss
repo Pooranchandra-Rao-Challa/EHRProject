@@ -1328,21 +1328,22 @@ i {
 }
 
 
+
 /* width */
-::-webkit-scrollbar {
+#providerbody::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
-::-webkit-scrollbar-track {
+#providerbody::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
 }
 
 /* Handle */
-::-webkit-scrollbar-thumb {
+#providerbody::-webkit-scrollbar-thumb {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1350,57 +1351,94 @@ i {
 }
 
 /* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
+#providerbody::-webkit-scrollbar-thumb:hover {
   background: #41b6a6;
 }
 
-//   #adminbody::-webkit-scrollbar-track {
-//   box-shadow: inset 0 0 5px #2a3642;
-//   border-radius: 10px;
-//   background: #f1f1f1;
-// }
+
+/* width */
+#adminbody::-webkit-scrollbar {
+  width: 15px;
+  padding-right: 5px;
+}
+
+/* Track */
+#adminbody::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #2a3642;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+#adminbody::-webkit-scrollbar-thumb {
+  background: #2a3642;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}
+
+/* Handle on hover */
+#adminbody::-webkit-scrollbar-thumb:hover {
+  background: #2a3642;
+}
 
 
-// #adminbody::-webkit-scrollbar-thumb {
-//   background: #2a3642;
-//   border-radius: 10px;
-//   background-clip: padding-box;
-//   border: 0.05em solid #eeeeee;
-// }
-
-// #adminbody::-webkit-scrollbar-thumb:hover {
-//   background: #2a3642;
-// }
 
 
-// @document url-prefix("http://localhost:4242/admin")
-// {
-//   /* width */
-//   ::-webkit-scrollbar {
-//     width: 15px;
-//     padding-right: 5px;
-//   }
+/* width */
+#patientbody::-webkit-scrollbar {
+  width: 15px;
+  padding-right: 5px;
+}
 
-//   /* Track */
-//   ::-webkit-scrollbar-track {
-//     box-shadow: inset 0 0 5px #888888;
-//     border-radius: 10px;
-//     background: #f1f1f1;
-//   }
+/* Track */
+#patientbody::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #41b6a6;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
 
-//   /* Handle */
-//   ::-webkit-scrollbar-thumb {
-//     background: red;
-//     border-radius: 10px;
-//     background-clip: padding-box;
-//     border: 0.05em solid #eeeeee;
-//   }
+/* Handle */
+#patientbody::-webkit-scrollbar-thumb {
+  background: #41b6a6;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}
 
-//   /* Handle on hover */
-//   ::-webkit-scrollbar-thumb:hover {
-//     background: blue;
-//   }
-// }
+/* Handle on hover */
+#patientbody::-webkit-scrollbar-thumb:hover {
+  background: #41b6a6;
+}
+
+
+
+/* width */
+#loginbody::-webkit-scrollbar {
+  width: 15px;
+  padding-right: 5px;
+}
+
+/* Track */
+#loginbody::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px #41b6a6;
+  border-radius: 10px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+#loginbody::-webkit-scrollbar-thumb {
+  background: #41b6a6;
+  border-radius: 10px;
+  background-clip: padding-box;
+  border: 0.05em solid #eeeeee;
+}
+
+/* Handle on hover */
+#loginbody::-webkit-scrollbar-thumb:hover {
+  background: #41b6a6;
+}
+
 .input-search.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
   transform: translateY(-1.39375em) scale(0.75) !important;
 }
