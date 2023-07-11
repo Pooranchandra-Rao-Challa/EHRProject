@@ -15,7 +15,7 @@
     [matAutocomplete]="auto"
 
   /><!--[(ngModel)]="value.SearchTerm"-->
-  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayWith" (optionSelected)="onSelected($event)" >
+  <mat-autocomplete #auto="matAutocomplete" class="scrollable-table" [displayWith]="displayWith" (optionSelected)="onSelected($event)" >
     <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
     <mat-optgroup *ngFor="let group of filteredOptions | async" [label]="group.name" class="mat-advance-medical-group">
       <mat-option *ngFor="let option of group.codes" [value]="option"

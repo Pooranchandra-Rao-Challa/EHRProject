@@ -9,7 +9,7 @@
                     placeholder="Schedule Appointment ( Enter a patient's name or phone number )" type="text"
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
                     <mat-autocomplete  #patientSerarch="matAutocomplete"  [displayWith]="displayPatient"
-                    (optionSelected)="onPatientSelected($event)" >
+                    (optionSelected)="onPatientSelected($event)" class="scrollable-table">
                     <mat-option *ngIf="noSearchResults">No patient found. add <a class="new-patient-link" (click)="openComponentDialog(patientDialogComponent)">a new patient</a> and/or retry you search</mat-option>
                   <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
                     {{patient.Name}},

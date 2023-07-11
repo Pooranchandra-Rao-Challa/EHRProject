@@ -26,7 +26,7 @@
           <input matInput #searchVaccineCode class="form-control" placeholder="Search vaccine" type="text"
             id="searchVaccineCode" name=" searchVaccineCode" [matAutocomplete]="vaccineCode" />
           <mat-autocomplete [displayWith]="displayWithVaccine" #vaccineCode="matAutocomplete"
-            (optionSelected)="onSelectedImmunization($event)">
+            (optionSelected)="onSelectedImmunization($event)" class="scrollable-table">
             <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
               Enter atleast 1 character, you can only select 1 item
             </mat-option>
@@ -72,7 +72,7 @@
             <div class="row">
               <mat-label class="required">Administered by:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select administered by" [(ngModel)]="patientImmunization.AdministeredById">
+                <mat-select placeholder="Select administered by" id="administered-by" [(ngModel)]="patientImmunization.AdministeredById">
                   <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
                     {{providers.FullName}}</mat-option>
                 </mat-select>
@@ -83,7 +83,7 @@
             <div class="row">
               <mat-label class="required">Ordered by:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select ordered by" [(ngModel)]="patientImmunization.OrderedById">
+                <mat-select placeholder="Select ordered by" id="ordered-by" [(ngModel)]="patientImmunization.OrderedById">
                   <mat-option *ngFor="let providers of PracticeProviders" [value]="providers.ProviderId">
                     {{providers.FullName}}</mat-option>
                 </mat-select>
@@ -94,7 +94,7 @@
         <div class="row">
           <mat-label class="required">Administered:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
+            <mat-select placeholder="Select administered" id="administered" [(ngModel)]="patientImmunization.LocationId">
               <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                 {{item.LocationName}}
               </mat-option>
@@ -106,7 +106,7 @@
             <div class="row">
               <mat-label class="required">Manufacturer:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
+                <mat-select placeholder="Select manufacturer" id="manufacturer" [(ngModel)]="patientImmunization.Manufacturer">
                   <mat-option *ngFor="let manufacturer of immManufacturers" [value]="manufacturer">
                     {{manufacturer}}
                   </mat-option>
@@ -146,7 +146,7 @@
             <div class="row">
               <mat-label class="required">Units:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select unit" [(ngModel)]="patientImmunization.Unit">
+                <mat-select placeholder="Select unit" id="units" [(ngModel)]="patientImmunization.Unit">
                   <mat-option *ngFor="let unit of immUnits" [value]="unit">
                     {{unit}}
                   </mat-option>
@@ -170,7 +170,7 @@
         <div class="row">
           <mat-label>Route:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select a route" [(ngModel)]="patientImmunization.Route">
+            <mat-select placeholder="Select a route" id="route" [(ngModel)]="patientImmunization.Route">
               <mat-option *ngFor="let route of immRoutes" [value]="route">
                 {{route}}
               </mat-option>
@@ -180,7 +180,7 @@
         <div class="row">
           <mat-label>Body Site:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select a body site" [(ngModel)]="patientImmunization.BodySite">
+            <mat-select placeholder="Select a body site" id="body-site" [(ngModel)]="patientImmunization.BodySite">
               <mat-option *ngFor="let bodysite of immBodySites" [value]="bodysite">
                 {{bodysite}}
               </mat-option>
@@ -190,7 +190,7 @@
         <div class="row">
           <mat-label>Funding Source:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select a funding source" [(ngModel)]="patientImmunization.FundingSource">
+            <mat-select placeholder="Select a funding source" id="funding-source" [(ngModel)]="patientImmunization.FundingSource">
               <mat-option *ngFor="let source of immFundingSources" [value]="source">
                 {{source}}
               </mat-option>
@@ -200,7 +200,7 @@
         <div class="row">
           <mat-label>Registry Notifications:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Notify me" [(ngModel)]="patientImmunization.RegistryNotification">
+            <mat-select placeholder="Notify me" id="notification" [(ngModel)]="patientImmunization.RegistryNotification">
               <mat-option *ngFor="let notify of immRegistryNotifications" [value]="notify">
                 {{notify}}
               </mat-option>
@@ -210,7 +210,7 @@
         <div class="row">
           <mat-label>VFC Financial Class:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Class selection" [(ngModel)]="patientImmunization.VFCClass">
+            <mat-select placeholder="Class selection" id="vfc-financial-class" [(ngModel)]="patientImmunization.VFCClass">
               <mat-option *ngFor="let vfcclass of immVfcClasses" [value]="vfcclass">
                 {{vfcclass}}
               </mat-option>
@@ -245,7 +245,7 @@
             <div class="row">
               <mat-label class="required">Source of Information:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select a source" [(ngModel)]="patientImmunization.SourceOfInformation">
+                <mat-select placeholder="Select a source" id="information-source" [(ngModel)]="patientImmunization.SourceOfInformation">
                   <mat-option *ngFor="let info of immSourceOfInfo" [value]="info">
                     {{info}}
                   </mat-option>
@@ -257,7 +257,7 @@
         <div class="row">
           <mat-label class="required">Administered:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select administered" [(ngModel)]="patientImmunization.LocationId">
+            <mat-select placeholder="Select administered" id="administered-at" [(ngModel)]="patientImmunization.LocationId">
               <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                 {{item.LocationName}}
               </mat-option>
@@ -280,7 +280,7 @@
             <div class="row">
               <mat-label class="required">Reason Refused:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select refusal reason" [(ngModel)]="patientImmunization.ReasonRefused">
+                <mat-select placeholder="Select refusal reason" class="scrollable-panel"  [(ngModel)]="patientImmunization.ReasonRefused">
                   <mat-option *ngFor="let refused of immReasonRefuseds" [value]="refused">
                     {{refused}}
                   </mat-option>
@@ -292,7 +292,7 @@
             <div class="row">
               <mat-label class="required">Reason Refused Code:</mat-label>
               <mat-form-field appearance="outline" class="col-12">
-                <mat-select placeholder="Select refusal code" [(ngModel)]="patientImmunization.ReasonCode">
+                <mat-select placeholder="Select refusal code" id="refusal-code" [(ngModel)]="patientImmunization.ReasonCode">
                   <mat-option *ngFor="let refusedcode of immReasonRefusedsCode" [value]="refusedcode">
                     {{refusedcode}}
                   </mat-option>
@@ -324,7 +324,7 @@
         <div class="row">
           <mat-label class="required">Practice:</mat-label>
           <mat-form-field appearance="outline" class="col-12">
-            <mat-select placeholder="Select a practice" [(ngModel)]="patientImmunization.LocationId">
+            <mat-select placeholder="Select a practice" id="practice-location" [(ngModel)]="patientImmunization.LocationId">
               <mat-option *ngFor="let item of LocationAddress" [value]="item.LocationId">
                 {{item.LocationName}}
               </mat-option>

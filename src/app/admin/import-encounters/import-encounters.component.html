@@ -14,7 +14,8 @@
     <label class="required">Import data for provider :</label>
     <div class="form-group col-lg-12 mt-2">
       <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12">
-        <mat-select class="col-lg-12 col-md-12 col-12" #searchProvider  [(ngModel)]="ProviderId" placeholder="Select Provider">
+        <mat-select class="col-lg-12 col-md-12 col-12" #searchProvider  [(ngModel)]="ProviderId" placeholder="Select Provider"
+        id="import-encounters">
           <mat-select-filter class="for-parent-select" [placeholder]="'Filter Provider by Name'" *ngIf="searchProvider.focused" [displayMember]="'ProviderName'"
           [array]="ProviderList"
             (filteredReturn)="filterredProviders = $event"></mat-select-filter>

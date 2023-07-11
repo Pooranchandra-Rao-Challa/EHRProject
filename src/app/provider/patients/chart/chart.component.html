@@ -46,7 +46,7 @@
                 class="new-search form-control ignore_spinner" placeholder="Search Patients..."
                 style="height: 42px; border: none; top: 1px; margin-top: 1px;" [matAutocomplete]="Patient" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #Patient="matAutocomplete"
-                (optionSelected)="onPatientSelected($event)">
+                (optionSelected)="onPatientSelected($event)" class="scrollable-table">
                 <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                   Enter atleast 1 character, you can only select 1 item
                 </mat-option>

@@ -16,7 +16,7 @@
               <input matInput #searchProcedureCode class="form-control" placeholder="Search Procedure Code" type="text"
                 id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="procedureCode" />
               <mat-autocomplete [displayWith]="displayWith" #procedureCode="matAutocomplete"
-                (optionSelected)="onProcedureSelected($event)">
+                (optionSelected)="onProcedureSelected($event)" class="scrollable-table">
                 <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                   Enter atleast 3 character, you can only select 1 item
                 </mat-option>

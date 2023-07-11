@@ -29,7 +29,8 @@
       <div class="row">
           <b class="col-xl-2 col-md-3 col-12 required mt-3">QUESTION</b>
         <mat-form-field class="col-xl-10 col-md-9 col-12" appearance="outline">
-          <mat-select disableOptionCentering placeholder="Select one question" [(ngModel)]="firstTimeSecurityQuestion.Question">
+          <mat-select disableOptionCentering placeholder="Select one question" [(ngModel)]="firstTimeSecurityQuestion.Question"
+          id="firsttime-security-question">
             <mat-option *ngFor="let question of securityQuestions" [value]="question.key">
               {{question.value}}
             </mat-option>

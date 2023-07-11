@@ -79,7 +79,7 @@
             <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
               type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient" />
             <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-              (optionSelected)="onPatientSelected($event)">
+              (optionSelected)="onPatientSelected($event)" class="scrollable-table">
               <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                 Enter atleast 1 character, you can only select 1 item
               </mat-option>

@@ -24,7 +24,7 @@
             [hidden]="data.PatientAppointment.PatientId != null">
             <input matInput #searchPatient placeholder="Patient Name" [matAutocomplete]="patients">
             <mat-autocomplete [displayWith]="displayWith" #patients="matAutocomplete"
-              (optionSelected)="onPatientSelected($event)">
+              (optionSelected)="onPatientSelected($event)" class="scrollable-table">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of filteredPatients | async" [value]="option" class="medical-code-option">
                 {{option.Name}}

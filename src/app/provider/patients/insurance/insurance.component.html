@@ -23,7 +23,7 @@
                 placeholder="Search Subscriber In Patients" [matAutocomplete]="patients" [(ngModel)]="primaryInsurancePatientSearch"
                 [matAutocompleteConnectedTo]="origin">
               <mat-autocomplete [displayWith]="displayPrimaryInsurancePatient" #patients="matAutocomplete"
-                (optionSelected)="onPrimaryInsurancePatientSelected($event)">
+                (optionSelected)="onPrimaryInsurancePatientSelected($event)" class="scrollable-table">
                 <mat-option *ngIf="isPrimaryInsuranceLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
                   class="medical-code-option">
@@ -287,7 +287,7 @@
                   placeholder="Search Subscriber In Patients" [matAutocomplete]="secondarypatients"
                   [(ngModel)]="secondaryInsurancePatientSearch">
                 <mat-autocomplete [displayWith]="displaySecondaryInsurancePatient" #secondarypatients="matAutocomplete"
-                  (optionSelected)="onSecondaryInsurancePatientSelected($event)">
+                  (optionSelected)="onSecondaryInsurancePatientSelected($event)" class="scrollable-table">
                   <mat-option *ngIf="isSecondaryInsuranceLoading">Loading ...</mat-option>
                   <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
                     class="medical-code-option">
@@ -632,7 +632,7 @@
                     <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                       [formControl]="myControlPrimary" [matAutocomplete]="autoPrimary"
                       [(ngModel)]="insuraceComplanyPlan.PhonePreffix">
-                    <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+                    <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete" class="scrollable-table">
                       <mat-option class="tel-code" *ngFor="let option of filteredAreacodes | async" [value]="option"
                         (click)="onSelectedPrimaryPhoneCode(option)">
                         <h1>{{option}}</h1>

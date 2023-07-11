@@ -18,7 +18,7 @@
                 [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch"
                 [(ngModel)]="this.message.toAddress" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-                (optionSelected)="onToAddressSelected($event)">
+                (optionSelected)="onToAddressSelected($event)" class="scrollable-table">
                 <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                   Enter atleast 1 character, you can only select 1 item
                 </mat-option>

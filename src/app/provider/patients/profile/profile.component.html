@@ -640,7 +640,7 @@
                   type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
                   [(ngModel)]="searchRelationPatient" />
                 <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-                  (optionSelected)="onPatientSelected($event)">
+                  (optionSelected)="onPatientSelected($event)" class="scrollable-table">
                   <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                     Enter atleast 1 character, you can only select 1 item
                   </mat-option>
@@ -820,7 +820,7 @@
               <mat-form-field class="col-md-6 col-12" appearance="outline">
                 <input matInput placeholder="Search Provider" [matAutocomplete]="auto" [formControl]="myControl"
                   class="form-control search-control" [(ngModel)]="careTeamSelectedMember">
-                <mat-autocomplete #auto="matAutocomplete" auto>
+                <mat-autocomplete #auto="matAutocomplete"  class="scrollable-table">
                   <mat-option *ngFor="let item of filteredProviderOptions | async" [value]="item.FullName"
                     (click)="getCareTeamDetails(item.ProviderId)">
                     {{item.FullName}}

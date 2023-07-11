@@ -13,7 +13,7 @@
           <mat-form-field class="medical-form-field" appearance="outline" [ngStyle]="{'width':'100%'}">
             <input matInput #searchMedicationName class="form-control" placeholder="Search Medication Name" type="text"
               id="searchMedicationName" name=" searchMedicationName" [matAutocomplete]="medicationName" />
-            <mat-autocomplete [displayWith]="displayWithMedication" #medicationName="matAutocomplete"
+            <mat-autocomplete [displayWith]="displayWithMedication" class="scrollable-table" #medicationName="matAutocomplete"
               (optionSelected)="onSelectedMedication($event)">
               <mat-option [hidden]="displayMessage == false" [disabled]="true" class="text-wrap lh-1 fs-6">
                 Enter atleast 1 character, you can only select 1 item
@@ -65,7 +65,7 @@
             <input matInput #drugFormInput placeholder="Drug and Form" name="DrugForm:"
               [(ngModel)]="patientMedication.DrugForm" [matAutocomplete]="drugForm" />
           </mat-form-field>
-          <mat-autocomplete #drugForm="matAutocomplete">
+          <mat-autocomplete #drugForm="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDrugForm | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -95,7 +95,7 @@
             <input matInput #actionInput [matAutocomplete]="action" placeholder="Action" name="action:"
               [(ngModel)]="patientMedication.Action" />
           </mat-form-field>
-          <mat-autocomplete #action="matAutocomplete">
+          <mat-autocomplete #action="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredActions | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -108,7 +108,7 @@
             <input matInput #doseInput [matAutocomplete]="dose" placeholder="Dose" name="dose:"
               [(ngModel)]="patientMedication.Dose" />
           </mat-form-field>
-          <mat-autocomplete #dose="matAutocomplete">
+          <mat-autocomplete #dose="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDose | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -121,7 +121,7 @@
             <input matInput #doseunitInput [matAutocomplete]="doseunit" placeholder="Dose Unit" name="doseunit:"
               [(ngModel)]="patientMedication.DoseUnits" />
           </mat-form-field>
-          <mat-autocomplete #doseunit="matAutocomplete">
+          <mat-autocomplete #doseunit="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDoseUnits | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -132,7 +132,7 @@
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #routeInput [matAutocomplete]="route" placeholder="Route" name="route:"
               [(ngModel)]="patientMedication.Route" />
-            <mat-autocomplete #route="matAutocomplete">
+            <mat-autocomplete #route="matAutocomplete" class="scrollable-table">
               <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
                 {{ option }}
               </mat-option>
@@ -145,7 +145,7 @@
             <input matInput #doseTimingInput [matAutocomplete]="doseTiming" placeholder="Dose Timing" name="doseTiming:"
               [(ngModel)]="patientMedication.DoseTiming" />
           </mat-form-field>
-          <mat-autocomplete #doseTiming="matAutocomplete">
+          <mat-autocomplete #doseTiming="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDoseTimings | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -163,7 +163,7 @@
             <input matInput #doseotherInput [matAutocomplete]="doseother" placeholder="Dose Other" name="doseother:"
               [(ngModel)]="patientMedication.DoseOther" />
           </mat-form-field>
-          <mat-autocomplete #doseother="matAutocomplete">
+          <mat-autocomplete #doseother="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDoseOthers | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -181,7 +181,7 @@
             <input matInput #daysSupplyInput [matAutocomplete]="dayssupply" placeholder="Days Supply" name="dayssupply:"
               [(ngModel)]="patientMedication.DaysSupply" />
           </mat-form-field>
-          <mat-autocomplete #dayssupply="matAutocomplete">
+          <mat-autocomplete #dayssupply="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredDaysSupplys | async" [value]="option">
               {{ option }}
             </mat-option>
@@ -199,7 +199,7 @@
             <input matInput #quntityUnitInput [matAutocomplete]="quntityunit" placeholder="Quntity Unit"
               name="quntityunit:" [(ngModel)]="patientMedication.QuantityUnits" />
           </mat-form-field>
-          <mat-autocomplete #quntityunit="matAutocomplete">
+          <mat-autocomplete #quntityunit="matAutocomplete" class="scrollable-table">
             <mat-option *ngFor="let option of filteredQuntityUnits | async" [value]="option">
               {{ option }}
             </mat-option>

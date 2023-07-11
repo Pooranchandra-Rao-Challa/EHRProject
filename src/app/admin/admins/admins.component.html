@@ -131,7 +131,7 @@
                 <mat-form-field class="example-full-width" appearance="outline">
                   <input type="input" placeholder="(    )" aria-label="Number" matInput [formControl]="myControlPrimary"
                     [matAutocomplete]="autoPrimary" [(ngModel)]="newAdminRegistration.PrimaryPhonePreffix">
-                  <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+                  <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete" class="scrollable-table">
                     <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option"
                       (click)="onSelectedPrimaryPhoneCode(option)">
                       <h1>{{option}}</h1>

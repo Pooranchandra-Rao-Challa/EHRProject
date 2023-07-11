@@ -133,7 +133,7 @@
                 <mat-form-field class="phone-full-width  grey-matform" appearance="outline">
                   <input type="input" matInput [formControl]="myControlMobilePhone" [matAutocomplete]="autoCellPhone"
                     [(ngModel)]="PatientProfile.MobilePhonePreffix" placeholder="(area-code)" aria-label="Number">
-                  <mat-autocomplete autoActiveFirstOption #autoCellPhone="matAutocomplete">
+                  <mat-autocomplete autoActiveFirstOption #autoCellPhone="matAutocomplete" class="scrollable-table">
                     <mat-option class="tel-code" *ngFor="let option of filteredOptionsMobilePhone | async"
                       [value]="option" (click)="onSelectedCellPhoneCode(option)">
                       <h1>{{option}}</h1>
@@ -162,7 +162,7 @@
                   <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                     [formControl]="myControlPrimaryPhone" [matAutocomplete]="autoHomePhone"
                     [(ngModel)]="PatientProfile.PrimaryPhonePreffix">
-                  <mat-autocomplete autoActiveFirstOption #autoHomePhone="matAutocomplete">
+                  <mat-autocomplete autoActiveFirstOption #autoHomePhone="matAutocomplete" class="scrollable-table">
                     <mat-option class="tel-code" *ngFor="let option of filteredOptionPrimaryPhone | async"
                       [value]="option" (click)="onSelectedPrimaryPhoneCode(option)">
                       <h1>{{option}}</h1>
@@ -182,7 +182,7 @@
                   <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                     [formControl]="myControlWorkPhone" [matAutocomplete]="autoWorkPhone"
                     [(ngModel)]="PatientProfile.WorkPhonePreffix">
-                  <mat-autocomplete autoActiveFirstOption #autoWorkPhone="matAutocomplete">
+                  <mat-autocomplete autoActiveFirstOption #autoWorkPhone="matAutocomplete" class="scrollable-table">
                     <mat-option class="tel-code" *ngFor="let option of filteredOptionWorkPhone | async" [value]="option"
                       (click)="onSelectedWorkPhone(option)">
                       <h1>{{option}}</h1>
@@ -313,7 +313,7 @@
                   <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                     [formControl]="myControlEmergencyPhone" [matAutocomplete]="autoEmergencyPhone"
                     [(ngModel)]="PatientProfile.EmergencyPhonePreffix">
-                  <mat-autocomplete autoActiveFirstOption #autoEmergencyPhone="matAutocomplete">
+                  <mat-autocomplete autoActiveFirstOption #autoEmergencyPhone="matAutocomplete" class="scrollable-table">
                     <mat-option class="tel-code" *ngFor="let option of filteredOptionEmergencyPhone | async"
                       [value]="option" (click)="onSelectedEmergencyPhone(option)">
                       <h1>{{option}}</h1>

@@ -32,7 +32,7 @@
                   id="searchProcedureCode" name="searchProcedureCode" [matAutocomplete]="docTypeAutoComplete"
                   [(ngModel)]="selectedDocumentType">
                 <mat-autocomplete [displayWith]="displayDocType" #docTypeAutoComplete="matAutocomplete"
-                  (optionSelected)="onDocumentTypeSelected($event)">
+                  (optionSelected)="onDocumentTypeSelected($event)" class="scrollable-table">
                   <mat-option *ngIf="displayMessage" [disabled]="true" class="text-wrap lh-1 fs-6">
                     Enter atleast 3 character, you can only select 1 item
                   </mat-option>

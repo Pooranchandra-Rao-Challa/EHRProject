@@ -1331,22 +1331,28 @@ i {
 
 /* width */
 #providerbody::-webkit-scrollbar ,
-.mat-drawer-inner-container::-webkit-scrollbar,
-.fc-scroller::-webkit-scrollbar,
-.scrollable-table::-webkit-scrollbar,
-.modal-body::-webkit-scrollbar,
-.ehr-cqm-table-container::-webkit-scrollbar {
+#providerbody .mat-drawer-inner-container::-webkit-scrollbar,
+#providerbody .fc-scroller::-webkit-scrollbar,
+#providerbody .scrollable-table::-webkit-scrollbar,
+#providerbody .modal-body::-webkit-scrollbar,
+#providerbody .ehr-cqm-table-container::-webkit-scrollbar,
+#providerbody .autocomplete-test-viewport::-webkit-scrollbar,
+#providerbody .interventions-table::-webkit-scrollbar,
+#providerbody .mat-select-panel::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
 #providerbody::-webkit-scrollbar-track,
-.mat-drawer-inner-container::-webkit-scrollbar-track,
-.fc-scroller::-webkit-scrollbar-track,
-.scrollable-table::-webkit-scrollbar-track,
-.modal-body::-webkit-scrollbar-track,
-.ehr-cqm-table-container::-webkit-scrollbar-track  {
+#providerbody .mat-drawer-inner-container::-webkit-scrollbar-track,
+#providerbody .fc-scroller::-webkit-scrollbar-track,
+#providerbody .scrollable-table::-webkit-scrollbar-track,
+#providerbody .modal-body::-webkit-scrollbar-track,
+#providerbody .ehr-cqm-table-container::-webkit-scrollbar-track,
+#providerbody .interventions-table::-webkit-scrollbar-track,
+#providerbody .mat-select-panel::-webkit-scrollbar-track
+{
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
@@ -1354,11 +1360,13 @@ i {
 
 /* Handle */
 #providerbody::-webkit-scrollbar-thumb,
-.mat-drawer-inner-container::-webkit-scrollbar-thumb,
-.fc-scroller::-webkit-scrollbar-thumb,
-.scrollable-table::-webkit-scrollbar-thumb,
-.modal-body::-webkit-scrollbar-thumb,
-.ehr-cqm-table-container::-webkit-scrollbar-thumb   {
+#providerbody .mat-drawer-inner-container::-webkit-scrollbar-thumb,
+#providerbody .fc-scroller::-webkit-scrollbar-thumb,
+#providerbody .scrollable-table::-webkit-scrollbar-thumb,
+#providerbody .modal-body::-webkit-scrollbar-thumb,
+#providerbody .ehr-cqm-table-container::-webkit-scrollbar-thumb,
+#providerbody .interventions-table::-webkit-scrollbar-thumb,
+#providerbody .mat-select-panel::-webkit-scrollbar-thumb  {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1367,30 +1375,38 @@ i {
 
 /* Handle on hover */
 #providerbody::-webkit-scrollbar-thumb:hover,
-.mat-drawer-inner-container::-webkit-scrollbar-thumb:hover,
-.fc-scroller::-webkit-scrollbar-thumb:hover,
-.scrollable-table::-webkit-scrollbar-thumb:hover,
-.modal-body::-webkit-scrollbar-thumb:hover,
-.ehr-cqm-table-container::-webkit-scrollbar-thumb:hover {
+#providerbody .mat-drawer-inner-container::-webkit-scrollbar-thumb:hover,
+#providerbody .fc-scroller::-webkit-scrollbar-thumb:hover,
+#providerbody .scrollable-table::-webkit-scrollbar-thumb:hover,
+#providerbody .modal-body::-webkit-scrollbar-thumb:hover,
+#providerbody .ehr-cqm-table-container::-webkit-scrollbar-thumb:hover,
+#providerbody .interventions-table::-webkit-scrollbar-thumb:hover,
+#providerbody .mat-select-panel::-webkit-scrollbar-thumb:hover  {
   background: #41b6a6;
 }
 
 
 /* width */
-#adminbody::-webkit-scrollbar {
+#adminbody::-webkit-scrollbar,
+#adminbody .mat-select-panel::-webkit-scrollbar,
+#adminbody .modal-body::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
-#adminbody::-webkit-scrollbar-track {
+#adminbody::-webkit-scrollbar-track,
+#adminbody .mat-select-panel::-webkit-scrollbar-track,
+#adminbody .modal-body::-webkit-scrollbar-track{
   box-shadow: inset 0 0 5px #2a3642;
   border-radius: 10px;
   background: #f1f1f1;
 }
 
 /* Handle */
-#adminbody::-webkit-scrollbar-thumb {
+#adminbody::-webkit-scrollbar-thumb,
+#adminbody .mat-select-panel::-webkit-scrollbar-thumb,
+#adminbody .modal-body::-webkit-scrollbar-thumb {
   background: #2a3642;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1398,7 +1414,9 @@ i {
 }
 
 /* Handle on hover */
-#adminbody::-webkit-scrollbar-thumb:hover {
+#adminbody::-webkit-scrollbar-thumb:hover,
+#adminbody .mat-select-panel::-webkit-scrollbar-thumb:hover,
+#adminbody .modal-body::-webkit-scrollbar-thumb:hover {
   background: #2a3642;
 }
 
@@ -1406,20 +1424,26 @@ i {
 
 
 /* width */
-#patientbody::-webkit-scrollbar {
+#patientbody::-webkit-scrollbar,
+#patientbody .mat-select-panel::-webkit-scrollbar,
+#patientbody .modal-body::-webkit-scrollbar  {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
-#patientbody::-webkit-scrollbar-track {
+#patientbody::-webkit-scrollbar-track,
+#patientbody .mat-select-panel::-webkit-scrollbar-track,
+#patientbody .modal-body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
 }
 
 /* Handle */
-#patientbody::-webkit-scrollbar-thumb {
+#patientbody::-webkit-scrollbar-thumb,
+#patientbody .mat-select-panel::-webkit-scrollbar-thumb,
+#patientbody .modal-body::-webkit-scrollbar-thumb {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1427,7 +1451,9 @@ i {
 }
 
 /* Handle on hover */
-#patientbody::-webkit-scrollbar-thumb:hover {
+#patientbody::-webkit-scrollbar-thumb:hover,
+#patientbody .mat-select-panel::-webkit-scrollbar-thumb:hover,
+#patientbody .modal-body::-webkit-scrollbar-thumb:hover  {
   background: #41b6a6;
 }
 

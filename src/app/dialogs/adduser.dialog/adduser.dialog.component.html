@@ -167,7 +167,7 @@
               <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                 [formControl]="myControlPrimary" [matAutocomplete]="autoPrimary"
                 [(ngModel)]="newUser.PrimaryPhonePreffix">
-              <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete">
+              <mat-autocomplete autoActiveFirstOption #autoPrimary="matAutocomplete" class="scrollable-table">
                 <mat-option class="tel-code" *ngFor="let option of filteredOptionsPrimary | async" [value]="option"
                   (click)="onSelectedPrimaryPhoneCode(option)">
                   <h1>{{option}}</h1>
@@ -193,7 +193,7 @@
               <input type="input" class="areacode" placeholder="(area-code)" aria-label="Number" matInput
                 [formControl]="myControlSecondary" [matAutocomplete]="autoSecondary"
                 [(ngModel)]="newUser.MobilePhonePreffix">
-              <mat-autocomplete autoActiveFirstOption #autoSecondary="matAutocomplete">
+              <mat-autocomplete autoActiveFirstOption #autoSecondary="matAutocomplete" class="scrollable-table">
                 <mat-option class="tel-code" *ngFor="let option of filteredOptionsSecondary | async" [value]="option"
                   (click)="onSelectedMobileCode(option)">
                   <h1>{{option}}</h1>

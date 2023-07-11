@@ -15,7 +15,7 @@
             <input matInput #searchpatient class="form-control" placeholder="Search Patient" type="text"
               id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
               [(ngModel)]="labandImaging.CurrentPatient" />
-            <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
+            <mat-autocomplete [displayWith]="displayWithPatientSearch" class="scrollable-table" #serachpatient="matAutocomplete"
               (optionSelected)="onPatientSelected($event)">
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
               <mat-option *ngFor="let option of filteredPatients | async" [value]="option"

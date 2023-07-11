@@ -21,7 +21,7 @@
                 id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
                 [disabled]="diabledPatientSearch" [readonly]="diabledPatientSearch" />
               <mat-autocomplete [displayWith]="displayWithPatientSearch" #serachpatient="matAutocomplete"
-                (optionSelected)="onPatientSelected($event)">
+                (optionSelected)="onPatientSelected($event)" class="scrollable-table">
                 <mat-option *ngIf="isLoading">Loading ...</mat-option>
                 <mat-option *ngFor="let option of filteredPatients | async" [value]="option"
                   class="patient-serach-option">
