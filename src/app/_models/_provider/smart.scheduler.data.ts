@@ -199,3 +199,14 @@ export class BlockOutDialog{
   Locations?: UserLocations[];
   Blockout?: Blockout;
 }
+
+export class AppointmentDownloadParams
+{
+  ClinicId:string;
+  ProviderId:string;
+  LocationId:string;
+  strCurrentDate:string;
+  CalendarView:string;
+  strCurrentStart:string;
+  strCurrentEnd:string;
+}

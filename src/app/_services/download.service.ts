@@ -220,6 +220,25 @@ export class DownloadService {
         }
       );
   }
+
+  DownloadAppointments<T>(reqObj: any) {
+    const endpointUrl = this.baseUrl + 'DownloadAppointments';
+    this.http
+      .post(endpointUrl, reqObj, { observe: "response", responseType: "text", headers : this.headers  })
+      .subscribe(
+        (resp) => {
+          const data = resp.body;
+          const blob = new Blob([data], {
+            type: resp.headers.get("content-type"),
+          });
+          const document = window.URL.createObjectURL(blob);
+          FileSaver.saveAs(document, "Schedule.csv");
+        },
+        (error) => {
+        }
+      );
+  }
+
   // ImagetoBase64String(reqparams: any){
   //   const endpointUrl = this.baseUrl + 'DownloadImage';
   //   return this._ProcessPostRequest<any>(this._imagetoBase64StringUrl, reqparams);

@@ -1,3 +1,4 @@
+import { DownloadService } from './../../_services/download.service';
 import { MatSelect } from '@angular/material/select';
 import { AvailableTimeSlot, Blockout } from 'src/app/_models/_provider/smart.scheduler.data';
 import { BehaviorSubject } from 'rxjs';
@@ -14,7 +15,7 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import { FullCalendarComponent, EventClickArg } from '@fullcalendar/angular';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import { Actions, AppointmentDialogInfo, BlockOutDialog, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
+import { Actions, AppointmentDialogInfo, AppointmentDownloadParams, BlockOutDialog, CalendarAppointment, NewAppointment, PracticeProviders, Room, User, UserLocations } from 'src/app/_models';
 import { SettingsService } from 'src/app/_services/settings.service';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { LocationSelectService } from 'src/app/_navigations/provider.layout/view.notification.service';
@@ -63,7 +64,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   @ViewChild('fullcalendar') fullcalendar: FullCalendarComponent;
 
   @ViewChildren('locationCheckboxes') private locationCheckboxes: QueryList<any>;
- // @ViewChild('locationsToggle') private locationsToggle: MatCheckbox;
+  // @ViewChild('locationsToggle') private locationsToggle: MatCheckbox;
 
 
   @ViewChildren('roomCheckboxes') private roomCheckboxes: QueryList<any>;
@@ -94,6 +95,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     private locationSelectService: LocationSelectService,
     private alertMessage: AlertMessage,
     private overlayService: OverlayService,
+    private downloadService: DownloadService,
     private datepipe: DatePipe) {
     this.user = authService.userValue;
     //this.selectedDate = new Date();
@@ -141,8 +143,53 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       });
   }
 
+  InsertActions() {
+    if (document.getElementsByClassName("fc-header-toolbar") != null &&
+      document.getElementsByClassName("fc-header-toolbar").length == 1) {
+      let chunks = document.getElementsByClassName("fc-header-toolbar")[0].getElementsByClassName("fc-toolbar-chunk");
+      if (chunks != null && chunks.length == 3) {
+        let select = document.createElement('div');
+        select.setAttribute('aria-label', 'Select option');
+        select.setAttribute('class', 'calendar-actions ');
+        let selectButton = document.createElement('button');
+        selectButton.setAttribute('class', 'calendar-btn btn-green dropdown-toggle');
+        selectButton.setAttribute('type', 'button');
+        selectButton.setAttribute('id', 'actionOptions');
+        selectButton.setAttribute('data-bs-toggle', 'dropdown');
+        selectButton.setAttribute('aria-expanded', 'false');
+        selectButton.innerText = " Actions ";
+        select.append(selectButton);
+        let selectMenu = document.createElement('ul');
+        selectMenu.setAttribute('class', 'dropdown-menu calender-menu');
+        selectMenu.setAttribute('aria-labelledby', 'actionOptions');
+        select.append(selectMenu);
+
+        let opt1 = document.createElement('li');
+        let optitem1 = document.createElement('div');
+        optitem1.setAttribute('class', 'dropdown-item calender-item');
+        optitem1.addEventListener('click', this.PrintAppointments.bind(this), false);
+        optitem1.innerText = "Print";
+        opt1.appendChild(optitem1);
+        selectMenu.appendChild(opt1);
+
+        let opt2 = document.createElement('li');
+        let optitem2 = document.createElement('div');
+        optitem2.setAttribute('class', 'dropdown-item calender-item');
+        optitem2.addEventListener('click', this.downloadCsvAppointments.bind(this), false);
+        optitem2.innerText = "Download CSV";
+        opt2.appendChild(optitem2);
+        selectMenu.appendChild(opt2);
+
+        chunks[2].setAttribute("style", "display: flex");
+        chunks[2].insertBefore(select, chunks[2].firstChild);
+      }
+    }
+  }
+
   ngAfterViewInit(): void {
-    //this.fullcalendar.getApi().
+
+    this.InsertActions();
+
     let timeGridResourceButtons = document.getElementsByClassName('fc-DayButton-button');
     let timeGridWeekButtons = document.getElementsByClassName('fc-WeekButton-button');
 
@@ -179,7 +226,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     if (timeGridWeekButtons != null && timeGridWeekButtons.length == 1) {
       timeGridWeekButtons[0].addEventListener('click', function () {
 
-        if (roomsPanel != null && roomsPanel.length == 1){
+        if (roomsPanel != null && roomsPanel.length == 1) {
           roomsPanel[0].classList.remove('fc-hide-room');
           roomsPanel[0].classList.add('fc-hide-room');
         }
@@ -224,7 +271,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     //this.bindLocation();
   }
 
-  bindLocation(){
+  bindLocation() {
 
     let dcontainer = document.createElement('div');
     dcontainer.classList.add("col-12")
@@ -232,22 +279,22 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     left.classList.add(...["col-6", "pull-left"])
     let lblLocation = document.createElement('span');
     lblLocation.innerText = "Locations";
-    lblLocation.classList.add(...["col-4","fc-calender-label"]);
+    lblLocation.classList.add(...["col-4", "fc-calender-label"]);
     left.append(lblLocation);
     let right = document.createElement('div');
-    right.classList.add(...["col-6","pull-right"])
+    right.classList.add(...["col-6", "pull-right"])
 
     dcontainer.append(left)
     dcontainer.append(right)
-    if(this.fullcalendar.getApi().el.getElementsByClassName("fc-header-toolbar").length == 1){
+    if (this.fullcalendar.getApi().el.getElementsByClassName("fc-header-toolbar").length == 1) {
       this.fullcalendar.getApi().el.getElementsByClassName("fc-header-toolbar")[0].after(dcontainer);
     }
 
     let fieldset = document.createElement('field-set')
-    fieldset.setAttribute("id","custom")
+    fieldset.setAttribute("id", "custom")
     let select = document.createElement('select')
-    select.setAttribute("id","select")
-    select.classList.add(...["col-4","fc-toolbar-select"])
+    select.setAttribute("id", "select")
+    select.classList.add(...["col-4", "fc-toolbar-select"])
 
 
     select.addEventListener("change", (event) => {
@@ -259,13 +306,13 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     );
 
     let selectIndex = -1;
-    this.locations.forEach((location,index)=>{
+    this.locations.forEach((location, index) => {
       let opt = document.createElement('option');
       opt.classList.add("fc-select-option")
       opt.text = location.LocationName
       opt.value = location.LocationId
       select.add(opt);
-      if(location.LocationId == this.SelectedLocationId){
+      if (location.LocationId == this.SelectedLocationId) {
         selectIndex = index;
       }
     })
@@ -287,7 +334,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     });
   }
 
-  clearResource(){
+  clearResource() {
     this.fullcalendar.getApi().getResources().forEach(resource => resource.remove());
   }
 
@@ -512,6 +559,8 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       nodeElement.classList.remove('fc-resource-title-date');
     })
 
+
+
     if (this.fullcalendar.getApi().view.type == 'timeGridWeek') {
       let curdate = this.datepipe.transform(this.selectedDate, "yyyy-MM-dd")
       this.fullcalendar.getApi().el.querySelectorAll("a[data-selected='true']").forEach((nodeElement: HTMLElement) => {
@@ -594,6 +643,50 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.CalendarBlockouts()
   }
 
+  downloadCsvAppointments(event$) {
+    let reqParams: AppointmentDownloadParams = {
+      ClinicId: this.user.ClinicId,
+      ProviderId: this.user.ProviderId,
+      LocationId: this.user.CurrentLocation,
+      strCurrentDate: this.datepipe.transform(this.fullcalendar.getApi().getDate(), "MM/dd/yyyy"),
+      CalendarView: this.fullcalendar.getApi().view.type,
+      strCurrentStart: this.datepipe.transform(this.fullcalendar.getApi().view.currentStart, "MM/dd/yyyy"),
+      strCurrentEnd: this.datepipe.transform(this.fullcalendar.getApi().view.currentEnd, "MM/dd/yyyy"),
+    };
+    console.log(reqParams);
+
+    //resourceTimeGridDay
+    //timeGridWeek
+    this.downloadService.DownloadAppointments(reqParams);
+  }
+
+  PrintAppointments() {
+
+    var winAttr = "location=yes, statusbar=no, menubar=no, titlebar=no, toolbar=no,dependent=no, width=865, height=640, resizable=yes, screenX=200, screenY=200, personalbar=no, scrollbars=yes";
+
+    var linkElements = document.getElementsByTagName('link');
+    var link = '';
+    for(var i = 0, length = linkElements.length; i < length; i++) {
+      link = link + linkElements[i].outerHTML;
+    }
+
+    var styleElements = document.getElementsByTagName('style');
+    var styles = '';
+    for(var i = 0, length = styleElements.length; i < length; i++) {
+      styles = styles + styleElements[i].innerHTML;
+     }
+
+    let popupWin = window.open('', '_blank',winAttr);
+    popupWin.document.open();
+    popupWin.document.write('<html><title>Schedule Preview</title><style>.fc-header-toolbar{display :none !important;} .fc-scroller.fc-scroller-liquid{overflow:visible !important;} .fc-view-harness.fc-view-harness-active{height:auto !important;}</style></head><body">')
+    popupWin.document.write(this.fullcalendar.getApi().el.innerHTML);
+    popupWin.document.write('</html>');
+    popupWin.document.close();
+    popupWin.print();
+    //setTimeout(popupWin.print(), 20000);
+
+  }
+
   get WeekBeginDate(): Date {
     let tdate = this.fullcalendar.getApi().getDate()
     tdate.setDate(tdate.getDate() - tdate.getDay());
@@ -655,7 +748,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       headerToolbar: {
         left: 'DayButton,WeekButton',
         center: 'title',
-        right: 'Previousweek,NextWeek'
+        right: 'Previousweek,NextWeek',
       },
 
 
@@ -774,7 +867,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   resourceTimegridDayClick(arg) {
 
-    this.fullcalendar.getApi().changeView('resourceTimeGridDay',this.selectedDate)
+    this.fullcalendar.getApi().changeView('resourceTimeGridDay', this.selectedDate)
     this.highlightSelectedDate();
     if (this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button").length == 1) {
       this.fullcalendar.getApi().el.getElementsByClassName("fc-WeekButton-button")[0].classList.remove('fc-resource-toolbar-button');
@@ -789,19 +882,19 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       this.fullcalendar.getApi().el.getElementsByClassName("fc-DayButton-button")[0].classList.add('fc-timegrid-switch-2');
     }
   }
-  ResetSelection(){
+  ResetSelection() {
     this.selectedDate = null;
     this.sundayDate = new Date()
     this.sundayDate.setDate(this.sundayDate.getDate() - this.sundayDate.getDay());
     this.highlightSelectedDate();
-    if (this.fullcalendar.getApi().currentData.viewApi.type == "timeGridWeek"){
-      this.fullcalendar.getApi().changeView('timeGridWeek',this.sundayDate)
-    }else{
-      this.fullcalendar.getApi().changeView('resourceTimeGridDay',new Date())
+    if (this.fullcalendar.getApi().currentData.viewApi.type == "timeGridWeek") {
+      this.fullcalendar.getApi().changeView('timeGridWeek', this.sundayDate)
+    } else {
+      this.fullcalendar.getApi().changeView('resourceTimeGridDay', new Date())
     }
   }
   timegridWeekClick(arg) {
-    this.fullcalendar.getApi().changeView('timeGridWeek',this.sundayDate)
+    this.fullcalendar.getApi().changeView('timeGridWeek', this.sundayDate)
 
 
     this.highlightSelectedDate()
@@ -997,7 +1090,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       let localStart = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarFrom, "HH:mm:ss"))
       let localEnd = new Date(this.datepipe.transform(event.start as Date, "MM/dd/yyyy") + " " + this.datepipe.transform(this.CalendarSchedule.CalendarTo, "HH:mm:ss"))
 
-      let weeklyOff = [0,6].indexOf((event.start as Date).getDay())!=-1;
+      let weeklyOff = [0, 6].indexOf((event.start as Date).getDay()) != -1;
       let isTimeInBusinessHours = ((event.start as Date).getTime() > localStart.getTime()
         && (event.start as Date).getTime() < localEnd.getTime())
 
@@ -1005,7 +1098,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         || (isTimeInBusinessHours && !weeklyOff))
         this.openComponentDialog(this.appointmentDialogComponent,
           dialog, Actions.view);
-      else if (weeklyOff){
+      else if (weeklyOff) {
         this.displayMessageDialogForBusinessHours(ERROR_CODES["E2B006"], dialog)
       }
       else if (!isTimeInBusinessHours) {
@@ -1142,9 +1235,9 @@ export class CalendarComponent implements OnInit, AfterViewInit {
 
   LoadAppointmentDefalts() {
     if (this.SelectedProviderId == this.authService.userValue.ProviderId ||
-      this.SelectedProviderId == ""){
-        this.locations = JSON.parse(this.authService.userValue.LocationInfo);
-      }
+      this.SelectedProviderId == "") {
+      this.locations = JSON.parse(this.authService.userValue.LocationInfo);
+    }
     else {
       this.smartSchedulerService.PracticeLocations(this.SelectedProviderId, this.user.ClinicId)
         .subscribe(resp => {
@@ -1157,7 +1250,7 @@ export class CalendarComponent implements OnInit, AfterViewInit {
     this.loadRooms();
   }
 
-  loadRooms(){
+  loadRooms() {
     let lreq = { "LocationId": this.SelectedLocationId };
     this.smartSchedulerService.RoomsForLocation(lreq).subscribe(resp => {
       if (resp.IsSuccess) {

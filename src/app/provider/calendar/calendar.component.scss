@@ -11,6 +11,8 @@
   height: calc(90vh - 97px);
 }
 
+
+
 @media (max-width: 1024px) {
   .calendar-wrapper {
     max-width: 1200px;
@@ -417,6 +419,11 @@ fieldset {
     color: #fff;
   }
 
+  .fc-event-time,
+  .fc-event-title{
+    font-size: .80em !important;
+  }
+
   .fc-timegrid.fc-view table.fc-col-header thead tr th.fc-col-header-cell div.fc-scrollgrid-sync-inner {
     margin: 14px;
   }
@@ -527,3 +534,4 @@ fieldset {
 .fc-toolbar-select{
   height: 25px;
 }
+

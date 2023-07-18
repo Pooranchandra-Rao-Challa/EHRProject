@@ -1558,3 +1558,52 @@ i {
 }
 
 
+
+.calendar-btn{
+  box-shadow: none;
+    font-size: 0.875rem;
+    line-height: 1;
+    font-family: "Times New Roman", sans-serif;
+    outline: 0;
+    outline-offset: 0;
+    --bs-btn-padding-x: 1.375rem;
+    --bs-btn-padding-y: 0.70rem;
+    --bs-btn-font-family: ;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-font-weight: 400;
+    --bs-btn-line-height: 1;
+    --bs-btn-color: #212529;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-width: 1px;
+    --bs-btn-border-color: transparent;
+    --bs-btn-border-radius: 0.1875rem;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+    --bs-btn-disabled-opacity: 0.65;
+    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+    display: inline-block;
+    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+    border:#eeeeee solid 1px;
+    border-radius: 5px;
+    background-color: var(--bs-btn-bg);
+    font-family: inherit;
+    color:#fff;
+}
+
+.calendar-btn:hover{
+  color:#41b6a6;
+  background-color: #fff;
+}
+
+.dropdown-menu.calender-menu{
+  background-color: #41b6a6;
+  color:#fff;
+}
+
+.dropdown-item.calender-item{
+  color:#fff;
+}
+
+.dropdown-item.calender-item:hover{
+  color:#41b6a6;
+}
