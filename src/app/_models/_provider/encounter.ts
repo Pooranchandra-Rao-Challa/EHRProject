@@ -114,7 +114,8 @@ export class EncounterInfo {
   CompletedProcedures: ProceduresInfo[] = [];
   AddendaComments: AddendaComment[] =[]
   AddendaDocs: AddendaDoc[] =[]
-  Vital: VitalInfo = new VitalInfo;
+  Vitals: VitalInfo[] = [];
+  //Vital: VitalInfo = new VitalInfo;
 }
 
 export class AddendaComment{
@@ -254,6 +255,8 @@ export class VitalInfo {
   TempType: string = "unspecified";
   Note?: string;
   strCollectedAt?: string;
+  RowNumber?:number;
+  CanDelete?: boolean = false;
 }
 
 

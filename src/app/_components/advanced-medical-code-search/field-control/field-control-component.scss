@@ -20,6 +20,14 @@
   margin: 0 0.75rem;
 }
 
+.medical-code-wrapper{
+  //max-width: 130px;
+  display: flex;
+  padding-bottom: 6px;
+}
+.input{
+  margin-top: -10px;
+}
 ::ng-deep .medical-code-option .mat-option-text{
   white-space: normal !important;
   line-height: 20px !important;

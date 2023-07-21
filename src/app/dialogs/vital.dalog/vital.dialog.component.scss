@@ -1,6 +1,29 @@
 @import "../../../assets/cstm.material.scss";
 @import"../../../assets/common.scss";
 
+.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: 0 !important;
+  max-width: 95%;
+}
+
+
+
+
+.modal .modal-dialog .modal-content .modal-body {
+  padding: 10px 26px;
+}
+
+.modal-header {
+  margin-right: -1px;
+  margin-left: -1px;
+}
+
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+
 .vital-mat-form-field{
   display: flex;
   flex-direction: row;
@@ -10,17 +33,50 @@
   margin-left: 200px;
   font-size: 12px;
 }
+
 #vital-form.modal-dialog {
-  margin-top: 10px;
-  min-height: 700px;
+
+  min-height: 500px;
 }
 
 #vital-form .modal-content {
-  min-width: 600px;
+  max-width: 90%;
+  margin: auto;
 }
-#vital-form modal-body {
-  max-height: calc(90vh - 180px);
+#vital-form .modal-body {
+  max-height: calc(90vh - 200px);
   overflow-y: auto;
+  padding: 10px 0 0 0;
+}
+
+.vital-label {
+  font-size: 14px;
+  white-space: pre;
 }
 
 
+::ng-deep #vital-form mat-datepicker-toggle.mat-datepicker-toggle button.mat-icon-button span.mat-button-wrapper svg.mat-datepicker-toggle-default-icon>path {
+  fill: #fff;
+  stroke: rgb(224, 220, 220);
+  stroke-linejoin: round;
+  transition: d 0.2s;
+}
+
+::ng-deep #vital-form mat-datepicker-toggle.mat-datepicker-toggle button.mat-focus-indicator.mat-icon-button {
+  background-color: #41b6a6;
+  color: #fff;
+  border-radius: 0%;
+  margin-top: 0px;
+  margin-bottom: -14px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  margin-right: -10px;
+  border: 1px solid #41b6a6;
+  height: 3.1em !important;
+  width: 3.1em !important;
+  top: 0.06em;
+}
+
+#vital-form .modal-body .form-group{
+  margin-bottom: 15px !important;
+}

@@ -1,3 +1,4 @@
+import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
 import { Drug, RxNormAPIService } from './../../../_services/rxnorm.api.service';
 
 import { MatInput } from '@angular/material/input';
@@ -37,7 +38,6 @@ import {
 import { take, debounceTime, tap, switchMap, finalize, distinctUntilChanged, filter, map } from 'rxjs/operators';
 import { UtilityService } from '../../../_services/utiltiy.service'
 import { MedicalCode, CodeSystemGroup } from '../../../_models/codes';
-
 export interface FormFieldValue {
   SearchTerm: any;
   CodeSystem: string;
@@ -166,6 +166,9 @@ export class FieldControlComponent extends _SearchInputMixiBase
   @Input()
   ShowSelectedValue: boolean = true;
 
+  @ViewChild('trigger', { read: MatAutocompleteTrigger })
+  autoComplete: MatAutocompleteTrigger;
+
   constructor(
     private focusMonitor: FocusMonitor,
     @Optional() @Self() public ngControl: NgControl,
@@ -177,6 +180,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
     private rxNormAPIService:RxNormAPIService,
   ) {
     super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
+
 
 
     if (this.ngControl != null) {
@@ -211,8 +215,14 @@ export class FieldControlComponent extends _SearchInputMixiBase
     this.focusMonitor.focusVia(this.input, 'program');
   }
 
-  ngOnInit(): void {
+  scrollEvent = (event: any): void => {
+    if(this.autoComplete.panelOpen)
+      // this.autoComplete.closePanel();
+      this.autoComplete.updatePosition();
+  }
 
+  ngOnInit(): void {
+    window.addEventListener('scroll', this.scrollEvent, true);
     this.focusMonitor.monitor(this.input).subscribe((focused) => {
       this.focused = !!focused;
       this.stateChanges.next();
@@ -317,6 +327,7 @@ export class FieldControlComponent extends _SearchInputMixiBase
   ngOnDestroy() {
     this.focusMonitor.stopMonitoring(this.input);
     this.stateChanges.complete();
+    window.removeEventListener('scroll', this.scrollEvent, true);
   }
 }
 

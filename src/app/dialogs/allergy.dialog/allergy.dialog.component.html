@@ -84,7 +84,8 @@
           <div class="col-md-12 col-12">
             <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}"  autocomplete="off">
               <input matInput #cdkSearchAllergyName class="form-control" placeholder="Select Allergy Name" type="text"
-                [matAutocomplete]="cdkallergyName" autocomplete="off"/>
+                [matAutocomplete]="cdkallergyName" autocomplete="off" #trigger="matAutocompleteTrigger" appAutocompletePosition="trigger" />
+                <!-- <div cdkScrollable> -->
               <mat-autocomplete [displayWith]="displayWithAllergy" class="scrollable-table" #cdkallergyName="matAutocomplete" autocomplete="off"
                 (optionActivated)="handleKeyboardEvent($event)" (optionSelected)="onSelectedAllergy($event)" id="allergen-name">
                 <mat-option [hidden]="!displayMessage && !isLoading" [disabled]="true" class="text-wrap lh-1 fs-6">
@@ -101,6 +102,7 @@
 
                 </cdk-virtual-scroll-viewport>
               </mat-autocomplete>
+            <!-- </div> -->
             </mat-form-field>
 
             <!-- <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}">

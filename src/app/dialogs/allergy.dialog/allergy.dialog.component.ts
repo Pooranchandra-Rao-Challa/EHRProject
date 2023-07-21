@@ -9,6 +9,8 @@ import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete/autocomplete';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete/autocomplete-trigger';
 
 @Component({
   selector: 'app-allergy.dialog',
@@ -35,6 +37,9 @@ export class AllergyDialogComponent implements OnInit {
   minDateForEndDate;
 
   @ViewChild('cdkSearchAllergyName', { static: true }) cdkSearchAllergyName: ElementRef;
+  // @ViewChild('cdkSearchAllergyName', { read: MatAutocompleteTrigger })
+  // autoComplete: MatAutocompleteTrigger;
+
   filteredOptions: AllergyNames[] =[];
   public height: string;
 
@@ -130,7 +135,7 @@ export class AllergyDialogComponent implements OnInit {
         }
 
         if (this.filteredOptions.length < 4) {
-          this.height = this.filteredOptions.length * 50 + "px";
+          this.height = this.filteredOptions.length * 48 + "px";
         } else {
           this.height = "200px";
         }

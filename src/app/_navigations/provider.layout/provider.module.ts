@@ -21,6 +21,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+
+
 //import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
@@ -177,6 +180,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   exports: [
     MatInputModule,
     FullCalendarModule,
+    // AutocompletePositionModule,
     PatientDialogComponent,
     AdvancedDirectivesDialogComponent,
     SmokingStatusDialogComponent,
@@ -334,6 +338,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   imports: [
     FullCalendarModule,
     OverlayModule,
+    ScrollingModule,
+    // AutocompletePositionModule,
     //JsonpInterceptor,
     HttpClientModule,
     HttpClientJsonpModule,

@@ -265,21 +265,28 @@
 
 }
 
-#vitals-table {
-  margin-top: 10px;
-}
+
 
 .green-icon {
   color: #41b6a6;
 }
 
-::ng-deep #vitals-table .mat-icon-no-color {
+::ng-deep #vitals-table .btn-edit .mat-icon-no-color {
   color: #41b6a6 !important;
 }
 
-::ng-deep #vitals-table .mat-icon-no-color:hover {
-  color: white !important;
+::ng-deep #vitals-table .btn-edit .mat-icon-no-color:hover {
+  color: #00d6c6 !important;
 }
+
+::ng-deep #vitals-table .btn-delete .mat-icon-no-color {
+  color: #fe8f00 !important;
+}
+
+::ng-deep #vitals-table .btn-delete .mat-icon-no-color:hover {
+  color: #ffc274 !important;
+}
+
 
 .vital-buttons {
   padding: 0;
@@ -623,4 +630,59 @@
 .encounter-sub-title{
   font-size: 14px;
   font-weight: 600;
+}
+
+#vitals-table {
+  .mat-header-row{
+    padding: 0 5px;
+    min-height: 30px;
+  }
+  .mat-header-cell{
+    font-size: 14px !important;
+    p{
+      font-size: 14px !important;
+    }
+  }
+
+}
+
+#vitals-table {
+  .mat-row{
+    padding: 0 5px;
+  }
+  .mat-cell{
+    font-size: 12px !important;
+    p{
+      font-size: 12px !important;
+    }
+  }
+}
+
+.vitals-div{
+  width: 95%;
+  margin: auto;
+  min-height: 260px;
+}
+
+
+.vital-button {
+  border: 0px solid #41b6a6;
+  background: transparent;
+}
+.vital-button:hover{
+  background-color: #e5f8f6;
+}
+.btn-danger{
+  color:#fe8f00 !important;
+}
+.vital-add-button{
+  float: right;
+  margin-top: 10px;
+  width:10%;
+}
+.vital-edit{
+  &:hover{
+    color:#41b6a6;
+    text-decoration: underline;
+  }
 }

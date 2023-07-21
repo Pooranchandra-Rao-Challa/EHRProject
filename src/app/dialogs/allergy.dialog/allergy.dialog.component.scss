@@ -58,3 +58,8 @@ textarea.form-control:focus,
 textarea.form-control:hover{
 border: 1px solid #41b6a6  !important;
 }
+
+::ng-deep .autocomplete-item .mat-option-text{
+  line-height: 24px;
+  white-space: pre-wrap;
+}

@@ -50,7 +50,7 @@ export class AuthenticationService {
     private http: HttpClient,
     private apiEndPoint: APIEndPoint,
     private encryptDescryptService: EncryptDescryptService,
-    private plaformLocation: PlatformLocation
+    private plaformLocation: PlatformLocation,
   ) {
     if (localStorage.getItem('user')) {
       this.userSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('user') || '{}'));
@@ -331,7 +331,8 @@ export class AuthenticationService {
 
         },
         customClass: {
-          confirmButton: 'confirm-refresh-session'
+          confirmButton: 'confirm-refresh-session',
+          container: 'swal2-container-high-zindex',
         }
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
@@ -348,6 +349,7 @@ export class AuthenticationService {
   }
 
   revokeToken(error: any = '') {
+    //if(this.ref) this.ref.close();
     if (!this.userValue || !this.userValue.JwtToken) {
       this.stopRefreshTokenTimer();
       return;
@@ -367,12 +369,12 @@ export class AuthenticationService {
             localStorage.setItem('message', error);
           this.router.navigate(['/account/home'])
         },
-        error: (error) => {
-          console.log(error);
+        error: (error1) => {
+          console.log(error1);
           this.stopRefreshTokenTimer();
           localStorage.removeItem('user');
-          if (error != '' && error != null)
-            localStorage.setItem('message', JSON.stringify(error.message));
+          // if (error != '' && error != null)
+          //   localStorage.setItem('message', JSON.stringify(error.message));
           this.router.navigate(['/account/home']);
         },
         complete: () => {

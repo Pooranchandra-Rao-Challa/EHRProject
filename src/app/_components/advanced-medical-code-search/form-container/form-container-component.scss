@@ -8,3 +8,7 @@
 ::ng-deep .search-form-field .mat-form-field-wrapper{
   padding-bottom: 0px !important;
 }
+
+::ng-deep .search-form-field.mat-form-field.mat-form-field-appearance-outline{
+  margin-bottom: 0px !important;
+}
