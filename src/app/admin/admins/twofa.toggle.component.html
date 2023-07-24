@@ -1,0 +1,24 @@
+<div id="resetMFAModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content modal-cust-content">
+      <div class="modal-header modal-cust-header">
+        <h5 class="title modal-cust-title" *ngIf="!admin.EnableTwofactor">User Enable</h5>
+        <h5 class="title modal-cust-title" *ngIf="admin.EnableTwofactor">User Disable</h5>
+      </div>
+      <div class="modal-body mb-2 mt-1">
+        <p *ngIf="!admin.EnableTwofactor">Are you sure, you'd like to enable duo for {{admin.FirstName}} {{admin.LastName}}  ?</p>
+        <p *ngIf="admin.EnableTwofactor">Are you sure, you'd like to disable duo for {{admin.FirstName}} {{admin.LastName}}  ?</p>
+
+        <mat-checkbox #chkEnableDisableDuo class="mt" (change)="btnEnableDisableDuo.disabled=!$event.checked">
+          <mat-label *ngIf="admin.EnableTwofactor">Yes, Please Disable.</mat-label>
+          <mat-label *ngIf="!admin.EnableTwofactor">Yes, Please Enable.</mat-label> </mat-checkbox>
+
+      </div>
+      <div class="modal-footer model-cust-footer mt-3">
+        <button id="btnEnableDisableDuo" #btnEnableDisableDuo type="button" disabled="true"
+        class="save-button col-md-4" [class.reset-mfa]="!chkEnableDisableDuo.checked" (click)="resetMFA()">{{buttonText}}</button>
+        <button type="button" class="cancel-button col-md-4" (click)="close()">No, thank you!</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -31,14 +31,15 @@
                   <tr
                     *ngFor="let item of adminDataSource | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
                     <td class="full-name">
-                      {{item.C_title}} {{item.first_name}} {{item.last_name}}
+                      {{item.Title}} {{item.FirstName}} {{item.LastName}}
                     </td>
-                    <td class="user-email">{{item.email}}</td>
+                    <td class="user-email">{{item.Email}}</td>
                     <td class="column"><button class="btn-view table-col-button" data-bs-toggle="modal"
                         data-bs-target="#new-admin-modal" (click)="isView(item)">View</button></td>
                     <td><button type="button" class="Cancelbtn" (click)="DeleteAdmin(item.AdminId)"><i
                           class="fa fa-close icon-close"></i></button></td>
-                    <td><button class="btn-view  table-col-button">Disable Duo</button></td>
+                    <td><button class="btn-view  table-col-button" *ngIf="item.EnableTwofactor" (click)="ToggleDuo(item)">Disable Duo</button>
+                      <button class="btn-view  table-col-button" *ngIf="!item.EnableTwofactor" (click)="ToggleDuo(item)">Enable Duo</button></td>
                   </tr>
                 </tbody>
               </table>

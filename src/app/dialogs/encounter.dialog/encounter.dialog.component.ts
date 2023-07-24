@@ -274,6 +274,7 @@ export class EncounterDialogComponent implements OnInit {
                 vital.CollectedTime = this.datePipe.transform(vital.CollectedAt, "hh:mm a");
 
             });
+          else this.encounterInfo.Vitals =[]
 
           this.encounterInfo.PatientName = this.appointment.PatientName;
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);

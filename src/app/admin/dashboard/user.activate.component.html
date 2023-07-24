@@ -1,0 +1,24 @@
+<div id="resetMFAModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content modal-cust-content">
+      <div class="modal-header modal-cust-header">
+        <h5 class="title modal-cust-title" *ngIf="!provider.Status">User Activation Account</h5>
+        <h5 class="title modal-cust-title" *ngIf="provider.Status">Suspend User Account</h5>
+      </div>
+      <div class="modal-body mb-2 mt-1">
+        <p *ngIf="!provider.Status">Are you sure, you'd like to activate {{provider.ProviderName}}  ?</p>
+        <p *ngIf="provider.Status">Are you sure, you'd like to suspend {{provider.ProviderName}} ?</p>
+
+        <mat-checkbox #chkToggleStatus class="mt" (change)="btnToggleStatus.disabled=!$event.checked">
+          <mat-label *ngIf="provider.Status">Yes, Please Suspend.</mat-label>
+          <mat-label *ngIf="!provider.Status">Yes, Please activate and send activation email.</mat-label> </mat-checkbox>
+
+      </div>
+      <div class="modal-footer model-cust-footer mt-3">
+        <button id="btnToggleStatus" #btnToggleStatus type="button" disabled="true" (click)="toggleUserStatus()"
+        class="save-button col-md-4" [class.reset-mfa]="!chkToggleStatus.checked" >{{buttonText}}</button>
+        <button type="button" class="cancel-button col-md-4" (click)="close()">No, thank you!</button>
+      </div><!--(click)="resetMFA()"-->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+<div id="verify-authenticator">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="margin:-1px">
+        <h4 class="modal-title Helvetica-sans-serif-large">Verify authenticator token</h4>
+        <span type="button" class="cross-mark" (click)="close()">x
+        </span>
+      </div>
+      <div class="modal-body Helvetica-sans-serif-medium">
+        <div class="row">
+          <div class="col-12">
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <mat-form-field appearance="outline">
+                    <mat-label class="control-label">Verification Code</mat-label>
+                    <input matInput #VerificationCode type="number" [(ngModel)]="verficationCode" class="form-control"
+                      autocomplete="off" (keydown)="checkLength2($event,VerificationCode,999999,9999)"/>
+                  </mat-form-field>
+
+                </div>
+                <button class="btn btn-green btn-verify-totp" (click)="verifyToken()" [disabled]="Result.LoginAttempts>2">Verify</button>
+                <div class="text-danger">{{loginAttemptsMessage}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

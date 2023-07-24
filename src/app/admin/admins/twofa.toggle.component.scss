@@ -1,0 +1,135 @@
+@import "../../../assets/admin.common.scss";
+
+#resetMFAModal{
+  margin: auto;
+  width: 50%;
+
+}
+
+::ng-deep #resetMFAModal .checkbox-checked.mat-accent .mat-checkbox-background{
+  background-color: grey;
+}
+::ng-deep #resetMFAModal .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+::ng-deep #resetMFAModal .mat-checkbox-checked.mat-accent .mat-checkbox-background{
+  background-color: grey;
+}
+
+.modal-dialog {
+  overflow-y: initial !important;
+}
+
+.modal-body {
+  max-height: calc(90vh - 180px);
+  overflow-y: auto;
+}
+
+
+.model-cust-heading {
+  background: white !important;
+  border: 0px solid #f2f2f2 !important;
+  width: 1500px !important;
+  border: 1px solid #f2f2f2 !important;
+}
+
+.modal-cust-header {
+  border-bottom: 1px solid #f2f2f2;
+  padding: 10px 10px 0 !important;
+  background: #dedede;
+  font-size: 18px;
+  font-weight: 600;
+  font-family: "Open Sans", sans-serif;
+}
+
+
+.modal-body .form-group {
+  margin-bottom: 25px;
+}
+
+.modal-cust-title {
+  color: #333333;
+  font-size: 15px;
+  font-family: sans-serif;
+  line-height: 10px !important;
+  padding: 5px !important;
+}
+
+@media (min-width:300px) and (max-width:1600px) {
+  .modal-cust-content {
+    border: 1px solid #ebebeb;
+    background-color: #fff;
+  }
+
+  .model-cust-footer {
+
+    border-top: unset;
+  }
+}
+
+@media (min-width:1440px) and (max-width:1600px) {
+  .modal-cust-content {
+
+    border: 1px solid #ebebeb;
+    background-color: #fff;
+  }
+
+
+}
+
+@media (min-width:1601px) and (max-width:4500px) {
+  .modal-cust-content {
+    border: 1px solid #ebebeb;
+    background-color: #fff;
+  }
+  .model-cust-footer {
+    background: white;
+    border: 1px solid #f2f2f2;
+  }
+}
+
+
+
+.cancel-button {
+  font-size: 100% !important;
+  text-align: center !important;
+  width: auto !important;
+  margin-left: 1% !important;
+  background-color: #fff !important;
+  border: 1px solid #ccc !important;
+  padding: 7px 12px !important;
+  border-radius: 5px !important;
+  color: black !important;
+}
+
+.cancel-button:hover {
+  background-color: rgb(234, 232, 232) !important;
+  border: 1px solid rgb(160, 159, 159) !important;
+
+}
+
+.save-button {
+  font-size: 100%;
+  text-align: center;
+  width: auto;
+  line-height: 200%;
+  margin-left: 4%;
+  background-color: #fff;
+  border: 1px solid #3598dc;
+  color: #3598dc;
+  padding: 3px 13px;
+  border-radius: 5px !important;
+  font-family: "Open Sans", sans-serif;
+}
+
+.save-button:hover {
+  background-color: #3598dc;
+  border: 1px solid #3598dc;
+  color: #fff;
+}
+
+
+.save-button.reset-mfa {
+  border-color: #e7505a;
+  color: #e7505a;
+  background: none;
+  cursor:not-allowed;
+}

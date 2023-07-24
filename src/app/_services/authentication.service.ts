@@ -1,4 +1,4 @@
-import { ReferralInfo } from './../_models/_provider/encounter';
+
 import { MessageCounts, ProviderHeader } from './../_navigations/provider.layout/view.notification.service';
 import { SecureCreds } from './../_models/_account/user';
 import { Injectable } from '@angular/core';
@@ -63,13 +63,15 @@ export class AuthenticationService {
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
-      tap(resp => {
+      tap(resp => { console.log(resp);
+
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
-            this.startRefreshTokenTimer();
+            console.log(this.isAdmin);
+            //this.startRefreshTokenTimer();
             if (this.isProvider) {
               if (!this.isProviderVerfied)
                 this.logout(ERROR_CODES["EL006"]);
@@ -84,24 +86,36 @@ export class AuthenticationService {
                 // alert('Provider trial period is closed please do subscribe for accessing application.');
                 this.logout(ERROR_CODES["EL012"]);
               }
-              else {
+              // else if(this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin){
+              //   // Open auth configurator.
+              // }
+              else if (!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin) {
+                this.startRefreshTokenTimer();
                 let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 window.location.replace(url);
               }
+              // else if(this.isEnabledTwofactorAuth && this.otpRequiredWhileLogin){
+              //   console.log('isEnabledTwofactorAuth');
+
+              //   this.openTotpDialog();
+              // }
 
 
             }
-            else if (this.isAdmin)
+            else if (this.isAdmin){
+              console.log(this.isEnabledTwofactorAuth);
+              console.log(this.otpRequiredWhileLogin);
               if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL010"]);
               else if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL011"]);
-              else
+              else if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
                 this.router.navigate(
                   ['admin/dashboard'],
                   { queryParams: { name: 'Providers', key: (new Date()).getTime() } }
                 )
-            //.then(() => window.location.reload());
+              //else this.logout(ERROR_CODES["EL001"]);
+            }
             else if (this.isPatient)
               this.logout(ERROR_CODES["EL001"]);
           } else if (this.isFirstTimeLogin) {
@@ -305,6 +319,7 @@ export class AuthenticationService {
       })
   }
 
+
   //resetSessionMonitor;
   openRefeshDialog() {
     let timerInterval
@@ -409,14 +424,33 @@ export class AuthenticationService {
     const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
     const expires = new Date(jwtToken.exp * 1000);
     const timeout = expires.getTime() - (new Date()).getTime() - 60000;
-    if (this.refreshTokenTimer) clearInterval(this.refreshTokenTimer);
+    if (this.refreshTokenTimer) this.clearTimer();
     this.refreshTokenTimer = setTimeout(() => this.openRefeshDialog(), timeout);
   }
 
   public clearTimer() {
-    clearInterval(this.refreshTokenTimer);
+    clearTimeout(this.refreshTokenTimer);
   }
 
+  Get2FAQrCode(userType,userId, Id): Observable<any> {
+    var url = `${this.baseUrl}Get2FAQrCode/${userType}/${userId}/${Id}`;
+    console.log(url);
+
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": this.userValue.JwtToken
+    });
+    return this.http.get<any>(url, { headers: headers });
+  }
+
+  ValidateTotp(token, userId): Observable<any> {
+    var url = `${this.baseUrl}ValidateTotp/${token}/${userId}`;
+    const headers = new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": this.userValue.JwtToken
+    });
+    return this.http.get<any>(url, { headers: headers });
+  }
 
 
   permissions() {
@@ -545,6 +579,16 @@ export class AuthenticationService {
   get isProviderTrialPeriodClosed(): boolean {
     if (this.userValue == undefined || this.userValue == null) return false;
     return this.userValue.TrialDaysLeft == null;
+  }
+
+  get isEnabledTwofactorAuth(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.EnabledTwofactorAuth;
+  }
+
+  get otpRequiredWhileLogin(): boolean {
+    if (this.userValue == undefined || this.userValue == null) return false;
+    return this.userValue.OtpRequiredWhileLogin;
   }
 
   updateMessageCounts(counts: MessageCounts) {

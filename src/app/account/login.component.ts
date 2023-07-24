@@ -3,9 +3,19 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from '../_services/authentication.service';
+import { Enablge2FAAuthenticatorComponent } from 'src/app/account/enable.2fa.authenticator';
+import { Verify2FATokenComponent } from 'src/app/account/verify2fa.token.component';
 import Swal from 'sweetalert2';
 import { Accountservice } from '../_services/account.service';
 import { PlatformLocation } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import {
+  CdkOverlayOrigin,
+  ScrollStrategy,
+  ScrollStrategyOptions,
+  CdkConnectedOverlay
+} from "@angular/cdk/overlay";
+import { AlertMessage, ERROR_CODES } from '../_alerts/alertMessage';
 
 @Component({
   selector: 'app-login',
@@ -20,13 +30,18 @@ export class LoginComponent implements OnInit {
   showspinner: boolean;
   showPassword: boolean = false;
   url: string;
-  userIP:string;
+  userIP: string;
+  enableAuthenticatorComponent = Enablge2FAAuthenticatorComponent;
+  verify2FATokenComponent = Verify2FATokenComponent
   constructor(private fb: FormBuilder,
+    private readonly sso: ScrollStrategyOptions,
     private authenticationService: AuthenticationService,
     private plaformLocation: PlatformLocation,
-    private accountservice: Accountservice,) {
-      this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
-     }
+    private accountservice: Accountservice,
+    private alertMessage: AlertMessage,
+    private dialog: MatDialog,) {
+    this.url = `${plaformLocation.protocol}//${plaformLocation.hostname}:${plaformLocation.port}/`;
+  }
 
 
   ngOnInit() {
@@ -53,9 +68,11 @@ export class LoginComponent implements OnInit {
     var creds = {
       "EmailId": data.UserName,
       "Password": data.Password,
-      "UserIP":this.userIP
+      "UserIP": this.userIP
     };
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
+      console.log(resp);
+
       if (!resp.IsSuccess) {
         this.showspinner = false;
         this.message = '';
@@ -63,6 +80,42 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = resp.EndUserMessage;
         else
           this.authfailedmessage = "Enter valid Email Id and Password";
+      } else if (
+
+        this.authenticationService.isEnabledTwofactorAuth &&
+        !this.authenticationService.otpRequiredWhileLogin) {
+        document.body.scrollBy(0, -document.body.scrollTop);
+        document.body.style.overflow = "hidden";
+        let dialogRef = this.dialog.open(this.enableAuthenticatorComponent,
+          {
+            hasBackdrop: false,
+            backdropClass: 'backdropClass-2fa',
+            scrollStrategy: this.sso.noop(),
+          });
+
+        dialogRef.afterClosed().subscribe(result => {
+          document.body.style.overflow = "auto"
+
+        });
+      }else if (
+        this.authenticationService.isEnabledTwofactorAuth &&
+        this.authenticationService.otpRequiredWhileLogin) {
+        document.body.scrollBy(0, -document.body.scrollTop);
+        document.body.style.overflow = "hidden";
+        let dialogRef = this.dialog.open(this.verify2FATokenComponent,
+          {
+            hasBackdrop: false,
+            backdropClass: 'backdropClass-2fa',
+            scrollStrategy: this.sso.noop(),
+          });
+
+        dialogRef.afterClosed().subscribe(result => {
+          document.body.style.overflow = "auto"
+
+        });
+      }
+      else if(this.authenticationService.isProvider) {
+        this.openErrorDialog(ERROR_CODES["EL001"]);
       }
     },
       (error) => {
@@ -77,7 +130,7 @@ export class LoginComponent implements OnInit {
   public togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
-  public hidePassword(){
+  public hidePassword() {
     this.showPassword = false;
   }
 
@@ -113,7 +166,7 @@ export class LoginComponent implements OnInit {
 
     });
     if (email) {
-      this.accountservice.RaisePasswordChangeRequest({Email:email,URL:this.url}).subscribe((resp)=>{
+      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url }).subscribe((resp) => {
         this.openErrorDialog(resp.EndUserMessage);
       })
     }
@@ -149,18 +202,19 @@ export class LoginComponent implements OnInit {
     });
 
     if (email) {
-      this.accountservice.ResendValidationMail({Email:email,URL:this.url}).subscribe((resp)=>{
+      this.accountservice.ResendValidationMail({ Email: email, URL: this.url }).subscribe((resp) => {
         this.openErrorDialog(resp.EndUserMessage);
       })
     }
   }
 
-  openErrorDialog( message:string) {
+  openErrorDialog(message: string) {
     Swal.fire({
       title: message,
       padding: '1px !important',
       customClass: {
-        cancelButton: 'login-cancel-button'
+        title: 'swal2-title-error',
+        cancelButton: 'swal2-error'
       },
       background: '#f9f9f9',
       showCancelButton: true,
@@ -170,7 +224,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  private UserIP(){
-    this.authenticationService.UserIp().subscribe((resp:any)=>{this.userIP = resp.ip})
+  private UserIP() {
+    this.authenticationService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
   }
 }

@@ -1,0 +1,66 @@
+<div id="enable-authenticator">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="margin:-1px">
+        <h4 class="modal-title Helvetica-sans-serif-large">Configure authenticator app</h4>
+        <span type="button" class="cross-mark" (click)="close()">x
+        </span>
+      </div>
+      <div class="modal-body Helvetica-sans-serif-medium">
+
+        <div class="row">
+          <div class="col-12">
+            <p>To use an authenticator app go through the following steps:</p>
+            <ol class="list">
+              <li>
+                <p>
+                  Download a two-factor authenticator app like Microsoft Authenticator for
+                  <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> and
+                  <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> or
+                  Google Authenticator for
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a>
+                  and
+                  <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>.
+                </p>
+              </li>
+              <li>
+                <p>Scan the QR Code or enter this key <br><kbd>{{qrCodeProps.SecretKey}}</kbd> into your two factor
+                  authenticator app. Spaces and casing do not matter.</p>
+                <qrcode (qrCodeURL)="onChangeURL($event)" [qrdata]="qrCodeProps.DataUrl" [width]="256"
+                  [errorCorrectionLevel]="'M'" allowEmptyString="true"></qrcode>
+              </li>
+              <li>
+                <p>
+                  Once you have scanned the QR code or input the key above, your two factor authentication app will
+                  provide you
+                  with a unique code. Enter the code in the 'Verification Code' box below.
+                </p>
+                <div class="row">
+                  <div class="col-md-12">
+
+                    <div class="form-group">
+                      <mat-form-field appearance="outline" class="col-lg-8 col-md-12 col-12">
+                        <mat-label class="control-label">Verification Code</mat-label>
+                        <input matInput type="number" [(ngModel)]="verficationCode" class="form-control"
+                          autocomplete="off" />
+                      </mat-form-field>
+                    </div>
+                    <button class="col-lg-8 col-md-12 col-12 btn btn-lg btn-green" (click)="verifyToken()">Verify</button>
+                    <div class="text-danger">{{loginAttemptsMessage}}</div>
+
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn pull-right btn-green mx-3" (click)="close()">Close
+        </button>
+      </div> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+@import "../../assets/cstm.material.scss";
+@import"../../assets/common.scss";
+
+
+#enable-authenticator .modal-dialog {
+  max-width: 800px;
+  max-height: 680px;
+
+  .modal-body {
+    padding: 35px 20px !important;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .modal-footer {
+    padding: 10px 20px !important;
+  }
+
+  .form-group {
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    min-width: 90px;
+  }
+
+  kbd {
+    border-radius: 2px;
+    padding: 2px;
+    border: 1px solid black;
+    background: yellow;
+    color: black;
+    font-weight: 900;
+  }
+}
+
+::ng-deep #enable-authenticator .mat-form-field-label {
+  top: 1.5em !important;
+  margin-top: -.25em;
+}
+
+::ng-deep #loginbody {
+  .mat-dialog-container {
+    padding: unset;
+  }
+  .cdk-overlay-container{
+    backdrop-filter: blur(10px);
+  }
+}
+.backdropClass-2fa{
+  backdrop-filter: blur(10px);
+}

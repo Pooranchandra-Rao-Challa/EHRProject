@@ -22,15 +22,15 @@ export class AlertMessage {
   displayMessageDailogForAdmin(message) {
     Swal.fire({
       title: message,
-      position: 'top',
+      position: 'center',
       background: '#e1dddd',
       showConfirmButton: true,
       confirmButtonText: 'Close',
       width: '600',
       customClass: {
         title: 'swal2-title-admin',
-        container: 'swal2-container-high-zindex',
-        confirmButton: 'admin-cancel-button'
+        container: ['swal2-container-high-zindex'],
+        confirmButton: ['btn','admin-cancel-button']
       }
     });
   }
@@ -38,7 +38,7 @@ export class AlertMessage {
   displayErrorDailogForAdmin(message) {
     Swal.fire({
       title: message,
-      position: 'top',
+      position: 'center',
       background: 'e1dddd',
       color:'red',
       showConfirmButton: true,
@@ -46,8 +46,8 @@ export class AlertMessage {
       width: '600',
       customClass: {
         title: 'swal2-title-error',
-        container: 'swal2-container-high-zindex',
-        confirmButton: 'swal2-error'
+        container: ['swal2-container-high-zindex'],
+        confirmButton: ['btn','admin-cancel-button']
       }
     });
   }

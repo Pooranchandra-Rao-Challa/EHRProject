@@ -156,7 +156,22 @@ video {
 
 }
 
-
+::ng-deep .swal2-title-error{
+  background-color: #d74842 !important;
+  margin-top: 100px;
+  font-family: "Roboto";
+  padding: 10px;
+  color: white;
+}
+::ng-deep .swal2-cancel.swal2-error{
+  background-color: #fff !important;
+  border: 1px solid #d74842  !important;
+  color:#d74842  !important;
+}
+::ng-deep .swal2-cancel.swal2-error:hover{
+  background-color: #d74842 !important;
+  color:#fff  !important;
+}
 ::ng-deep .swal2-title.login-modal-header {
   margin: unset !important;
   border-top-left-radius: 5px;

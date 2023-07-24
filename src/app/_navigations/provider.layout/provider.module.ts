@@ -22,8 +22,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-
-
+import { QRCodeModule } from 'angularx-qrcode';
 //import { MouseOverHintDirective } from 'src/app/_directives/mouseover.hint.directive'
 
 import { ProviderNavbarComponent } from '../provider.navbar/provider.navbar.component';
@@ -160,14 +159,13 @@ import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addend
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/reset.password'
 import { DrFirstDialogComponent } from 'src/app/dialogs/drfirst.dialog/dr-first.dialog.component';
 import { DrfirstService } from 'src/app/_services/drfirst.service'
-import { Observable } from 'rxjs';
 import { DirectmailDialogComponent } from 'src/app/dialogs/directmail.dialog/directmail.dialog.component';
 import { DirectprovidersDialogComponent } from 'src/app/dialogs/directproviders.dialog/directproviders.dialog.component';
 import { RxPrescriptionTableDialogComponent } from 'src/app/dialogs/rx.prescription.table.dialog/rx.prescription.table.dialog.component';
 import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescription.info.dialog/rx.prescription.info.dialog.component';
 import { ImmunizationDialogComponent } from 'src/app/dialogs/immunization.dialog/immunization.dialog.component';
 import { ImmunizationTableDialogComponent } from 'src/app/dialogs/immunization.table.dialog/immunization.table.dialog.component';
-//import { SelectionModel } from '@angular/cdk/collections';
+import { EnableAuthenticatorComponent } from 'src/app/dialogs/user.dialog/enable.authenticator.component';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -233,7 +231,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RxPrescriptionTableDialogComponent,
     RxPrescriptionInfoDialogComponent,
     ImmunizationDialogComponent,
-    ImmunizationTableDialogComponent
+    ImmunizationTableDialogComponent,
+    EnableAuthenticatorComponent,
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -333,7 +332,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RxPrescriptionTableDialogComponent,
     RxPrescriptionInfoDialogComponent,
     ImmunizationDialogComponent,
-    ImmunizationTableDialogComponent
+    ImmunizationTableDialogComponent,
+    EnableAuthenticatorComponent,
   ],
   imports: [
     FullCalendarModule,
@@ -371,6 +371,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     TeethSurfaceModule,
     NgxMatTimepickerModule,
     // MatFileUploadModule,
+    QRCodeModule,
     NgxMaskModule.forRoot(),
 
   ],
@@ -442,7 +443,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RxPrescriptionTableDialogComponent,
     RxPrescriptionInfoDialogComponent,
     ImmunizationDialogComponent,
-    ImmunizationTableDialogComponent
+    ImmunizationTableDialogComponent,
+    EnableAuthenticatorComponent
   ]
 })
 export class ProviderModule {

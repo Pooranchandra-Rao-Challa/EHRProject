@@ -301,3 +301,11 @@ div.ex3 {
   background-color: #41b6a6;
   color: #fff;
 }
+.user-action-buttons{
+    display: block;
+  button{
+    margin: 10px;
+    width: 60%;
+    float: right;
+  }
+}

@@ -207,4 +207,9 @@ export class SettingsService extends APIEndPoint {
   DeleteAlert(alertId){
     return this._ProcessGetRequestWithId<any>(this._deleteAlertURL,alertId);
   }
+
+  ResetMFA(userId){
+    return this._ProcessGetRequestWithId<any>(this._resetMFAURL,userId);
+  }
+
 }

@@ -86,7 +86,7 @@ tbody>tr:last-child>td {
 
 //checkbox
 
-input[type=checkbox] {
+input[type=checkbox] {font-family: sans-serif;
     cursor: pointer;
     border: 1px solid #afa9a9;
     width: 19px;
@@ -215,6 +215,17 @@ div.search-box button:hover {
 ::ng-deep .swal2-title-admin{
   background: #35414f !important;
   color: #fff !important;
+  margin-top: 100px;
+  font-family: sans-serif;
+  padding:.8em 1em .8em !important;
+}
+
+::ng-deep .swal2-title-error{
+  background: #d74842 !important;
+  color: #fff !important;
+  margin-top: 100px;
+  font-family: sans-serif;
+  padding:.8em 1em .8em !important;
 }
 ::ng-deep .admin-cancel-button{
   background: #35414f !important;
@@ -249,4 +260,7 @@ div.search-box button:hover {
 
 ::ng-deep .mat-progress-bar {
   border-radius: 2px;
+}
+.swal2-container-admin{
+  top:250px;
 }

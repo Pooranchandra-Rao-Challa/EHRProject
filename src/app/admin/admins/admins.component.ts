@@ -1,5 +1,5 @@
 import { PlatformLocation } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -10,8 +10,12 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
+import { TwoFAToggleComponent } from './twofa.toggle.component';
 import { I } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
+import { ComponentType } from '@angular/cdk/portal';
+import { Actions } from 'src/app/_models';
+import { OverlayService } from 'src/app/overlay.service';
 
 @Component({
   selector: 'app-admins',
@@ -46,7 +50,9 @@ export class AdminsComponent implements OnInit {
   alertMsgTitle: string;
   alertTextEmail: string;
   dialogIsLoading:boolean = false;
-  constructor(private adminservice: AdminService,
+  twoFAToggleComponent = TwoFAToggleComponent;
+  constructor(private overlayService: OverlayService,
+    private adminservice: AdminService,
     private utilityService: UtilityService,
     private accountservice: Accountservice,
     private plaformLocation: PlatformLocation,
@@ -115,33 +121,33 @@ export class AdminsComponent implements OnInit {
     return _areaCodes.map(value => value.AreaCode);
   }
 
-  isView(item) {
+  isView(item: Admins) {
     this.isSave = true;
     this.isAddAdmin = false;
     this.newAdminRegistration.AdminId = item.AdminId;
-    this.newAdminRegistration.Role = item.C_role;
-    this.newAdminRegistration.Title = item.C_title && (item.C_title[0].toUpperCase() + item.C_title.slice(1));
-    this.newAdminRegistration.AltEmail = item.alt_email;
-    this.newAdminRegistration.Email = item.email;
-    this.newAdminRegistration.FirstName = item.first_name;
-    this.newAdminRegistration.LastName = item.last_name;
-    this.newAdminRegistration.MiddleName = item.middle_name;
+    this.newAdminRegistration.Role = item.Role;
+    this.newAdminRegistration.Title = item.Title && (item.Title[0].toUpperCase() + item.Title.slice(1));
+    this.newAdminRegistration.AltEmail = item.AltEmail;
+    this.newAdminRegistration.Email = item.Email;
+    this.newAdminRegistration.FirstName = item.FirstName;
+    this.newAdminRegistration.LastName = item.LastName;
+    this.newAdminRegistration.MiddleName = item.MiddleName;
     this.newAdminRegistration.UserId = item.UserId;
-    if (item.primary_phone == null) {
+    if (item.PrimaryPhone == null) {
       this.newAdminRegistration.PrimaryPhonePreffix = '';
       this.newAdminRegistration.PrimaryPhoneSuffix = '';
     }
     else {
-      let list = item.primary_phone.split('+1');
+      let list = item.PrimaryPhone.split('+1');
       this.newAdminRegistration.PrimaryPhonePreffix = list[1].slice(0, 3);
       this.newAdminRegistration.PrimaryPhoneSuffix = list[1].slice(3, 10);
     }
-    if (item.mobile_phone == null) {
+    if (item.MobilePhone == null) {
       this.newAdminRegistration.MobilePhonePreffix = '';
       this.newAdminRegistration.MobilePhoneSuffix = '';
     }
     else {
-      let secondarylist = item.mobile_phone.split('+1');
+      let secondarylist = item.MobilePhone.split('+1');
       this.newAdminRegistration.MobilePhonePreffix = secondarylist[1].slice(0, 3);
       this.newAdminRegistration.MobilePhoneSuffix = secondarylist[1].slice(3, 10);
     }
@@ -267,4 +273,25 @@ export class AdminsComponent implements OnInit {
       }
     })
   }
+
+  ToggleDuo(admindata){
+    console.log(admindata);
+    this.openComponentDialog(this.twoFAToggleComponent,admindata,Actions.edit)
+  }
+
+
+  openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string, dialogData, action: Actions = Actions.add) {
+    let reqdata: any;
+    if (action == Actions.edit && content === this.twoFAToggleComponent) {
+      reqdata = dialogData;
+    }
+    const ref = this.overlayService.open(content, reqdata);
+    ref.afterClosed$.subscribe(res => {
+      if (content === this.twoFAToggleComponent) {
+        this.getAdminList();
+      }
+
+    });
+  }
+
 }

@@ -12,7 +12,7 @@
 
 
       <div class="encounter-tab-content">
-        <div class="encounter-tab-pane" id="encounter_diagnoses_tab" style="margin:0 10%">
+        <div class="encounter-tab-pane" id="encounter_diagnoses_tab" style="margin:0 5%">
 
           <!-- <div class="row vitals-heading">
             <p class="text-center fw-bolder fs-5 Helvetica-sans-serif-medium mt-2">Associate vitals to an
@@ -23,7 +23,7 @@
               <div class="row">
                 <div class="form-group col-lg-12 col-md-12 col-12" style="display: inline;">
                   <label class="col-12 vital-label" [class.required]="collectAtRequired()"
-                    [class.required]="Vital.CollectedTime">Collected date:</label>
+                    [class.required]="Vital.CollectedTime || showRequired()">Collected date:</label>
                   <mat-form-field appearance="outline" class="col-lg-12 col-12">
                     <input matInput class="pointer" autocomplete="off" [matDatepicker]="collectedDate"
                       [(ngModel)]="Vital.CollectedAt" (click)="collectedDate.open()" readonly
@@ -32,7 +32,7 @@
                     <mat-datepicker #collectedDate></mat-datepicker>
                   </mat-form-field>
                   <label class="col-12 vital-label" [class.required]="collectAtRequired()"
-                    [class.required]="Vital.CollectedAt">Time:</label>
+                    [class.required]="Vital.CollectedAt || showRequired()">Time:</label>
                   <mat-form-field appearance="outline" class="col-lg-12 col-12">
                     <input matInput type="text" hint="12 hours format" [(ngModel)]="Vital.CollectedTime"
                       appTimeMask>
@@ -57,21 +57,21 @@
               <div class="row">
                 <div class="form-group col-md-4" style="display: flex;">
                   <mat-label class="col-4 vital-label" [class.required]="this.Vital.Height != null ||
-                    this.Vital.Weight != null">Height(in):
+                    this.Vital.Weight != null">Height(in)(6-160):
                   </mat-label>
                   <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-                    <input matInput type="number" #heightField [(ngModel)]="Vital.Height" min="0"
-                      max="140">
+                    <input matInput type="number" #heightField [(ngModel)]="Vital.Height" min="6"
+                      max="160" (keydown)="checkLength2($event,heightField,6,160)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4">
                   <mat-label class="col-4 vital-label" [class.required]="this.Vital.Height != null ||
-                    this.Vital.Weight  != null">Weight(lb):
+                    this.Vital.Weight  != null">Weight(lb)(5-1000):
                   </mat-label>
                   <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-                    <input matInput type="number" #weightField [(ngModel)]="Vital.Weight" min="0"
-                      max="900">
+                    <input matInput type="number" #weightField [(ngModel)]="Vital.Weight" min="5"
+                      max="1000" (keydown)="checkLength2($event,weightField,5,1000)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
@@ -90,18 +90,20 @@
                 <div class="form-group col-md-4" >
                   <mat-label class="col-4 vital-label" style="white-space:nowrap" [class.required]="this.Vital.BPSystolic != null ||
                     this.Vital.BPDiastolic  != null">
-                    BP:Systolic(mmHg)</mat-label>
+                    BP:Systolic(mmHg)(60-120)</mat-label>
                   <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
-                    <input matInput type="number" [(ngModel)]="Vital.BPSystolic" min="60" max="120">
+                    <input matInput type="number" #BPSystolicField [(ngModel)]="Vital.BPSystolic" min="60" max="120"
+                    (keydown)="checkLength2($event,BPSystolicField,60,120)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4">
                   <mat-label class="col-4 vital-label" style="white-space:nowrap" [class.required]="this.Vital.BPSystolic != null ||
                     this.Vital.BPDiastolic  != null">
-                    BP:Diastolic(mmHg)</mat-label>
+                    BP:Diastolic(mmHg)(60-240)</mat-label>
                   <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
-                    <input matInput type="number" [(ngModel)]="Vital.BPDiastolic" min="60" max="190">
+                    <input matInput type="number" #BPDiastolicField [(ngModel)]="Vital.BPDiastolic" min="60" max="240"
+                    (keydown)="checkLength2($event,BPDiastolicField,10,240)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
@@ -110,48 +112,54 @@
               <div class="row">
 
                 <div class="form-group col-md-4">
-                  <mat-label class="col-4 vital-label">Temperature(F):</mat-label>
+                  <mat-label class="col-4 vital-label">Temperature(F)(95-112):</mat-label>
                   <mat-form-field appearance="outline" class=" col-12 vital-mat-form-field">
 
-                    <input matInput type="number" [(ngModel)]="Vital.Temperature" min="95" max="112">
+                    <input matInput type="number" #TemperatureField [(ngModel)]="Vital.Temperature" min="95" max="112"
+                    (keydown)="checkLength2($event,TemperatureField,95,112)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
                 <div class="form-group col-md-4">
-                  <mat-label class="col-4 vital-label" style="white-space: nowrap;">O2 Saturation(%):</mat-label>
+                  <mat-label class="col-4 vital-label" style="white-space: nowrap;">O2 Saturation(%)(60-100):</mat-label>
                   <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                    <input matInput type="number" [(ngModel)]="Vital.O2Saturation" min="60" max="100">
+                    <input matInput type="number" #O2SaturationField [(ngModel)]="Vital.O2Saturation" min="60" max="100"
+                    (keydown)="checkLength2($event,O2SaturationField,60,100)">
                     <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
-                <div class="form-group col-md-4">
-                  <mat-label class="col-4 vital-label">Pulse(beats per minute):</mat-label>
-                  <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                    <input matInput type="number" [(ngModel)]="Vital.Pulse" min="60" max="120">
-                    <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <mat-label class="col-4 vital-label" style="white-space: nowrap;">Respiratory rate(breaths per minute):</mat-label>
-                  <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
-                    <input matInput type="number" [(ngModel)]="Vital.RespiratoryRate" min="11" max="25">
-                    <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
-                  </mat-form-field>
-                </div>
                 <div class="form-group col-md-4">
                   <mat-label class="col-4 vital-label" style="white-space: nowrap;">Blood Type:</mat-label>
                   <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
 
                     <mat-select class="col-4" placeholder="Select Blood Type" id="practiceProviders"
                       [(ngModel)]="Vital.BloodType">
-                      <mat-option *ngFor="let type of BloodTypes" [value]="type.BloodType">
+                      <mat-option *ngFor="let type of BloodTypes" [value]="type.Id">
                         {{type.BloodType}}</mat-option>
                     </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-group col-md-4">
+                  <mat-label class="col-4 vital-label" style="white-space: nowrap;">Respiratory rate(breaths per min)(11-40):</mat-label>
+                  <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
+
+                    <input matInput type="number" #RespiratoryRateField [(ngModel)]="Vital.RespiratoryRate" min="11" max="40"
+                    (keydown)="checkLength2($event,RespiratoryRateField,11,40)">
+                    <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="form-group col-md-4">
+                  <mat-label class="col-4 vital-label">Pulse(beats per min)(60-120):</mat-label>
+                  <mat-form-field appearance="outline" class="col-12 vital-mat-form-field">
+
+                    <input matInput type="number" #PulseField [(ngModel)]="Vital.Pulse" min="60" max="120"
+                    (keydown)="checkLength2($event,PulseField,60,120)">
+                    <mat-hint class="vital-mat-form-field-unit-label"></mat-hint>
                   </mat-form-field>
                 </div>
               </div>

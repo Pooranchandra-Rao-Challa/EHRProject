@@ -41,6 +41,10 @@ import { SectionNewComponent } from 'src/app/admin/section-new/section-new.compo
 import { ListImportedDataComponent } from 'src/app/admin/list-imported-data/list-imported-data.component';
 import { ImportPatientsComponent } from 'src/app/admin/import-patients/import-patients.component';
 import { ImportEncountersComponent } from 'src/app/admin/import-encounters/import-encounters.component';
+import { Reset2FAComponent} from 'src/app/admin/dashboard/reset.2fa.component';
+import { TwoFAToggleComponent} from 'src/app/admin/admins/twofa.toggle.component';
+import { UserStatusToggleComponent} from 'src/app/admin/dashboard/user.activate.component';
+
 
 import { CKEditorModule } from 'ckeditor4-angular';
 import { OverlayService } from 'src/app/overlay.service';
@@ -85,6 +89,9 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     ImportEncountersComponent,
     DefaultMessagesComponent,
     CommunicationsettingsComponent,
+    Reset2FAComponent,
+    TwoFAToggleComponent,
+    UserStatusToggleComponent,
     AdminPaginatorDirective,
     ActivePipe
   ],
@@ -109,6 +116,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     MatTableExporterModule,
     Ng2OrderModule,
     MatAutocompleteModule,
+
     // ScheduleModule,
     // DateTimePickerModule,
     CKEditorModule,

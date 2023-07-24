@@ -263,9 +263,12 @@
                 <label class="settings-label mt-2">Active</label>
               </mat-checkbox>
             </div>
-            <div class="col-lg-4 mt-lg-4 mt-2">
+            <div class="col-lg-4 mt-lg-4 mt-2 user-action-buttons">
               <button type="button" class="btn btn-primary btn btn-success" (click)="openChangePasswordDialog()">
                 Change Password
+              </button>
+              <button type="button" class="btn btn-primary btn btn-success" *ngIf="IsSelfUser" (click)="openEnableAuthenticator()">
+                Configure Authenticator
               </button>
             </div>
           </div>
@@ -281,7 +284,7 @@
                 <input type="text" placeholder="Login Phone" class="inputclass" [(ngModel)]="EditProvider.PrimaryPhone">
               </div>
             </div>
-            <div class="col-lg-4 mt-lg-4 mt-2">
+            <div class="col-lg-4 mt-lg-4 mt-2 user-action-buttons">
               <button type="submit" class="btn btn-success">Resend Invitation Email</button>
             </div>
             <div class="col-lg-4"><label class="settings-label">Recovery Email</label>

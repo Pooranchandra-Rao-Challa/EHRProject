@@ -136,15 +136,23 @@
                           <div [ngClass]="!item.Paid?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
                       </td>
-                      <td class="text-center"><input class="form-check-input Status" type="checkbox"
+                      <td class="text-center">
+                        <button class="btn-activate" (click)="toggleProviderStatus(item)"
+                        [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
+                          [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Status ? "Suspend"
+                          : "Activate"}}</button>
+                        <!-- <input class="form-check-input Status" type="checkbox"
                           [disabled]="item.EmailVerifyStatus=='Unverified'" [checked]="item.Status" id="checkbox"
-                          (click)='deactivateUser($event, item)'></td>
+                          (click)='deactivateUser($event, item)'> -->
+
+                        </td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button" [class.table-col-button]="item.EmailVerifyStatus!='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'"
                           (click)="openComponentDialog(UserDialogComponent,item,ActionTypes.view)">View</button></td>
-                      <td class="td-col-width"><button type="button"  [class.table-col-button]="item.EmailVerifyStatus!='Unverified'" data-bs-toggle="modal"
-                          data-bs-target="#exampleModal" [disabled]="item.EmailVerifyStatus=='Unverified'">Reset
+                      <td class="td-col-width"><button type="button"  [class.table-col-button]="item.EmailVerifyStatus!='Unverified'"
+                          (click)="resetMFA(item)"
+                          [disabled]="item.EmailVerifyStatus=='Unverified' || !item.ResetTwofactor" >Reset
                           MFA</button></td>
                       <td><button class="btn-lock" (click)="updateUserlock(item)" [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Locked ? "Unlock"
@@ -180,7 +188,7 @@
 
 
 <!-- User Disable Modal -->
-<div class="modal fade " id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade " id="resetMFAModal" tabindex="-1" role="dialog" aria-labelledby="resetMFAModalLabel"
   aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -189,15 +197,16 @@
       </div>
       <hr class="modal-hr">
       <div class="modal-body mb-2 mt-1">
-        <p>Are you sure, you'd like to disable Multi Factor Authentication UsabilityTest Doctor ?</p>
+        <p>Are you sure, you'd like to disable Multi Factor Authentication Usability Test Doctor ?</p>
 
-        <input class="form-check-input mt" type="checkbox" />
+        <input matCheckbox #chkresetMFA  class="form-check-input mt" type="checkbox" data-toggle='btnResetMFA'/>
         <label class="form-check-label" for="Active">Yes, Please Disable.</label>
 
       </div>
       <div class="modal-footer model-cust-footer mt-3">
-        <button type="button" class="save-button col-md-4">Disable MFA</button>
-        <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" data-bs-dismiss="modal"
+        <button id="btnResetMFA" type="button"
+        class="save-button col-md-4" (click)="resetMFA(this)">Disable MFA</button>
+        <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
           aria-label="Close">No, thank you!</button>
       </div>
     </div>

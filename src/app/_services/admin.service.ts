@@ -91,4 +91,13 @@ export class AdminService extends APIEndPoint {
     return this._ProcessPostRequest<any>(this._updateCommunicationSettingURL,reqparams);
   }
 
+  ResetMFA(userId){
+    return this._ProcessGetRequestWithId<any>(this._resetMFAURL,userId);
+  }
+  EnableMFA(userId){
+    return this._ProcessGetRequestWithId<any>(this._enableMFAURL,userId);
+  }
+  DisableMFA(userId){
+    return this._ProcessGetRequestWithId<any>(this._disableMFAURL,userId);
+  }
 }

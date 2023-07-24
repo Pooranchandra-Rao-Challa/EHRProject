@@ -39,14 +39,15 @@ export class VitalDialogComponent implements OnInit {
       this.Vital.CollectedTime = this.datePipe.transform(this.Vital.CollectedAt, "hh:mm a");
   }
   BloodTypes = [
-    { Id: 1, BloodType: 'Group A +ve' },
-    { Id: 2, BloodType: 'Group B +ve' },
-    { Id: 3, BloodType: 'Group AB +ve' },
-    { Id: 4, BloodType: 'Group O +ve' },
-    { Id: 5, BloodType: 'Group A -ve' },
-    { Id: 6, BloodType: 'Group B -ve' },
-    { Id: 7, BloodType: 'Group AB -ve' },
-    { Id: 8, BloodType: 'Group O -ve' }
+    { Id: null, BloodType: 'Remove Selection' },
+    { Id: 'Group A +ve', BloodType: 'Group A +ve' },
+    { Id: 'Group B +ve', BloodType: 'Group B +ve' },
+    { Id: 'Group AB +ve', BloodType: 'Group AB +ve' },
+    { Id: 'Group O +ve', BloodType: 'Group O +ve' },
+    { Id: 'Group A -ve', BloodType: 'Group A -ve' },
+    { Id: 'Group B -ve', BloodType: 'Group B -ve' },
+    { Id: 'Group AB -ve', BloodType: 'Group AB -ve' },
+    { Id: 'Group O -ve', BloodType: 'Group O -ve' }
   ]
 
   ngOnInit(): void {
@@ -79,6 +80,20 @@ export class VitalDialogComponent implements OnInit {
     else
       this.Vital.BMI = Number(bmi.toFixed(2));
     return Number(bmi.toFixed(2));
+  }
+
+  showRequired():boolean{
+    let noBMI = !this.Vital.Height && !this.Vital.Weight;
+    let noBP = !this.Vital.BPDiastolic && !this.Vital.BPSystolic;
+    let noTemp = !this.Vital.Temperature;
+    let noBloodType = !this.Vital.BloodType;
+    let noO2 = !this.Vital.O2Saturation;
+    let noPulse = !this.Vital.Pulse;
+    let norr = !this.Vital.RespiratoryRate;
+    let noCollectionDate = !this.Vital.CollectedAt
+    let noCollectionTime = !this.Vital.CollectedTime
+
+    if((!noBMI || !noBP || !noTemp || !noBloodType || !noO2 || !noPulse || !norr)) return true;
   }
 
   enableSaveButton() {
@@ -136,5 +151,42 @@ export class VitalDialogComponent implements OnInit {
       }
 
     );
+  }
+
+  checkLength2(e, input,min,max) {
+    const functionalKeys = ['Backspace', 'ArrowRight','ArrowUp','ArrowDown', 'ArrowLeft','Tab','Delete'];
+
+    console.log(e.key);
+
+    if (functionalKeys.indexOf(e.key) !== -1) {
+      return;
+    }
+
+    const keyValue = +e.key;
+    if (isNaN(keyValue)) {
+      e.preventDefault();
+      return;
+    }
+
+    const hasSelection = input.selectionStart !== input.selectionEnd && input.selectionStart !== null;
+    let newValue;
+    if (hasSelection) {
+      newValue = this.replaceSelection(input, e.key,min)
+    } else {
+      newValue = input.value + keyValue.toString();
+    }
+
+
+
+    if (+newValue > max || newValue.length > 4) {
+      e.preventDefault();
+    }
+  }
+
+  private replaceSelection(input, key,min) {
+    const inputValue = input.value;
+    const start = input.selectionStart;
+    const end = input.selectionEnd || input.selectionStart;
+    return inputValue.substring(0, start) + key + inputValue.substring(end + 1);
   }
 }

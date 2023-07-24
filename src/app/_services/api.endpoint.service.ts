@@ -1117,6 +1117,17 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DeleteAlert";
   }
 
+  get _resetMFAURL() {
+    return this._baseUrl + "ResetMFA";
+  }
+
+  get _enableMFAURL() {
+    return this._baseUrl + "EnableMFA";
+  }
+
+  get _disableMFAURL() {
+    return this._baseUrl + "DisableMFA";
+  }
 
   constructor(public http: HttpClient) {
     super();

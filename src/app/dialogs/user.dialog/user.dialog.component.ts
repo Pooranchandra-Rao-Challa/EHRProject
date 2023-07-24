@@ -15,6 +15,7 @@ import { LocationDialog, NewUser } from '../../_models/_provider/_settings/setti
 import { UtilityService } from 'src/app/_services/utiltiy.service';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { ChangePasswordDialogComponent } from 'src/app/dialogs/user.dialog/changepassword.dialog.component';
+import { EnableAuthenticatorComponent } from 'src/app/dialogs/user.dialog/enable.authenticator.component';
 import { OverlayService } from '../../overlay.service';
 import { Actions, Location } from 'src/app/_models/';
 import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/location.dialog.component';
@@ -41,6 +42,7 @@ export class UserDialogComponent implements OnInit {
   scrWidth: any;
   dynamicheight: {};
   locationDialogComponent = LocationDialogComponent;
+  enableAuthenticatorComponent = EnableAuthenticatorComponent;
   locationDialogResponse: any;
   ActionsType = Actions;
   dialogIsLoading: boolean = false;
@@ -232,6 +234,10 @@ export class UserDialogComponent implements OnInit {
 
   }
 
+  openEnableAuthenticator(){
+    this.openComponentDialog(this.enableAuthenticatorComponent,null,Actions.create);
+  }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions) {
     let dialogData: any;
@@ -302,7 +308,9 @@ export class UserDialogComponent implements OnInit {
     }
   }
 
-
+  get IsSelfUser():boolean{
+    return this.EditProvider.UserId == this.authService.userValue.UserId;
+  }
 
   ValidateFileThenUpload(file: any, emitProperties: EventEmitter<PhotoFileProperties>) {
     let fileName = file.name;

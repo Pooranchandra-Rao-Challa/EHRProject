@@ -1,0 +1,20 @@
+<div id="resetMFAModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content modal-cust-content">
+      <div class="modal-header modal-cust-header">
+        <h5 class="title modal-cust-title">User Disable</h5>
+      </div>
+      <div class="modal-body mb-2 mt-1">
+        <p>Are you sure, you'd like to disable Multi Factor Authentication for {{provider.ProviderName}} ?</p>
+
+        <mat-checkbox #chkResetMFA class="mt" (change)="btnResetMFA.disabled=!$event.checked"><mat-label>Yes, Please Disable.</mat-label> </mat-checkbox>
+
+      </div>
+      <div class="modal-footer model-cust-footer mt-3">
+        <button id="btnResetMFA" #btnResetMFA type="button" disabled="true"
+        class="save-button col-md-4" [class.reset-mfa]="!chkResetMFA.checked" (click)="resetMFA()">Disable MFA</button>
+        <button type="button" class="cancel-button col-md-4" (click)="close()">No, thank you!</button>
+      </div>
+    </div>
+  </div>
+</div>

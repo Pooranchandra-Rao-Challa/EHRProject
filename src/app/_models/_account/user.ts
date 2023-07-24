@@ -43,6 +43,8 @@ export interface User {
   Permissions?: string;
   DrFirstAttributes?: string;
   RefreshToken?: string;
+  EnabledTwofactorAuth?:boolean;
+  OtpRequiredWhileLogin?: boolean;
 }
 export class UserLocations {
   LocationId: string;
@@ -86,4 +88,14 @@ export class PhotoFileProperties {
   Size: number;
   File: any;
   Message: string;
+}
+
+export class QrCodeProps{
+  DataUrl?:string = "";
+  SecretKey?:string = "";
+}
+
+export class TwofactorAuthParams {
+  LoginAttempts?:number;
+  Verified?: boolean;
 }

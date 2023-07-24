@@ -1,13 +1,16 @@
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { SettingsService } from 'src/app/_services/settings.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { BehaviorSubject, } from 'rxjs';
-import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
+import { BehaviorSubject, fromEvent, } from 'rxjs';
+import { Component, ElementRef, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { AdminService } from 'src/app/_services/admin.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { AddUserDialogComponent } from 'src/app/dialogs/adduser.dialog/adduser.dialog.component';
+import { Reset2FAComponent } from './reset.2fa.component';
+import { UserStatusToggleComponent } from './user.activate.component';
+
 import { ProviderList } from 'src/app/_models/_admin/providerList';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
@@ -31,10 +34,12 @@ export class DashboardComponent implements OnInit {
   providers: ProviderList[] = [{}];
   filterQueryParams: FilterQueryParams = new FilterQueryParams();
   filterSubject = new BehaviorSubject<FilterQueryParams>(this.filterQueryParams);
-  providerListBehaviour: BehaviorSubject<boolean>  = new BehaviorSubject<boolean>(false);
+  providerListBehaviour: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   filtededProviders: ProviderList[];
   TotalItems: number;
   UserDialogComponent = AddUserDialogComponent;
+  reset2FAComponent = Reset2FAComponent;
+  userStatusToggleComponent = UserStatusToggleComponent;
   DialogResponse = null;
   SelectedProvider: ProviderList = {};
   displayAccess: string;
@@ -48,9 +53,9 @@ export class DashboardComponent implements OnInit {
   message: string;
   ActionTypes = Actions;
   search?: string;
-  userIP:string;
-  dialogIsLoading:boolean = false;
-
+  userIP: string;
+  dialogIsLoading: boolean = false;
+  @ViewChild("chkresetMFA", { static: true }) chkresetMFA: ElementRef;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private adminservice: AdminService,
@@ -61,6 +66,32 @@ export class DashboardComponent implements OnInit {
     private accountservice: Accountservice) { }
 
   ngOnInit(): void {
+
+
+    fromEvent(this.chkresetMFA.nativeElement, 'change').pipe(
+      map((event: any) => {
+        return event.target.checked;
+      }),
+
+
+    ).subscribe((value) => {
+      console.log(value);
+      console.log(this.document.getElementById('btnResetMFA'));
+
+      if (value){
+        this.document.getElementById('btnResetMFA').removeAttribute('disabled');
+        this.document.getElementById('btnResetMFA').classList.add('remove-btn')
+        //this.document.getElementById('btnResetMFA').removeAttribute('style');
+      }
+
+      else{
+        this.document.getElementById('btnResetMFA').setAttribute('disabled', 'true');
+        this.document.getElementById('btnResetMFA').classList.remove('remove-btn')
+        //this.document.getElementById('btnResetMFA').setAttribute('style', 'display:none');
+      }
+
+    })
+
     this.dialogIsLoading = true;
     this.GetProivderList();
     this.filterSubject.subscribe(value => {
@@ -99,7 +130,7 @@ export class DashboardComponent implements OnInit {
         this.filtededProviders = this._filterProviders(value);
         this.providerListBehaviour.next(this.filtededProviders == null ||
           (this.filtededProviders != null && this.filtededProviders.length == 0));
-      } else{
+      } else {
         this.providerListBehaviour.next(true);
         this.providers = [];
       }
@@ -226,6 +257,10 @@ export class DashboardComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.UserDialogComponent) {
       reqdata = dialogData;
+    }else if (action == Actions.edit && content === this.reset2FAComponent) {
+      reqdata = dialogData;
+    }else if (action == Actions.edit && content === this.userStatusToggleComponent) {
+      reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
@@ -235,6 +270,9 @@ export class DashboardComponent implements OnInit {
       }
       else if (content === this.UserDialogComponent) {
         this.DialogResponse = res.data;
+      }else if (content === this.reset2FAComponent
+        || content === this.userStatusToggleComponent) {
+        this.GetProivderList(this.filterQueryParams);
       }
       if (res.data != null) {
         this.UpdateView(res.data);
@@ -256,7 +294,7 @@ export class DashboardComponent implements OnInit {
     this.adminservice.SwitchUserKey(provider).subscribe(resp => {
       if (resp.IsSuccess) {
         let encKey = resp.Result;
-        this.authService.SwitchUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey,UserIP:this.userIP }).subscribe(logresp => {
+        this.authService.SwitchUser({ SwitchUserKey: switchKey, SwitchUserEncKey: encKey, UserIP: this.userIP }).subscribe(logresp => {
           if (!logresp.IsSuccess) {
           }
         })
@@ -264,7 +302,19 @@ export class DashboardComponent implements OnInit {
       }
     })
   }
-  private UserIP(){
-    this.authService.UserIp().subscribe((resp:any)=>{this.userIP = resp.ip})
+
+  resetMFA(provider: ProviderList) {
+    console.log(provider);
+    this.openComponentDialog(this.reset2FAComponent,provider,Actions.edit);
+  }
+
+  toggleProviderStatus(provider: ProviderList) {
+    console.log(provider);
+    this.openComponentDialog(this.userStatusToggleComponent,provider,Actions.edit);
+  }
+
+
+  private UserIP() {
+    this.authService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
   }
 }

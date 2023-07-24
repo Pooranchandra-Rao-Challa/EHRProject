@@ -1,15 +1,17 @@
 export interface Admins {
     id?:string,
-    C_title?:string,
-    first_name?: string,
-    last_name?: string,
-    middle_name?: string,
-    primary_phone?:string,
-    mobile_phone?:string,
-    email?: string,
-    C_role?:string,
-    alt_email?:string,
+    Title?:string,
+    FirstName?: string,
+    LastName?: string,
+    MiddleName?: string,
+    PrimaryPhone?:string,
+    MobilePhone?:string,
+    Email?: string,
+    Role?:string,
+    AltEmail?:string,
     UserId?: string;
+    AdminId?:string;
+    EnableTwofactor?:boolean;
   }
 
 export class AdminRegistration {

@@ -1,4 +1,4 @@
-import { MatButtonModule } from '@angular/material/button';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -23,6 +23,11 @@ import { SecurityQuestion } from 'src/app/account/firsttimepatientlogin/security
 import { ResetPassword } from 'src/app/account/firsttimepatientlogin/reset.password.component';
 import { PatientRelationsComponent } from 'src/app/account/firsttimepatientlogin/patient.relations.component';
 import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.login.options/patient.reset.password.component';
+import { Enablge2FAAuthenticatorComponent } from 'src/app/account/enable.2fa.authenticator';
+import { Verify2FATokenComponent } from 'src/app/account/verify2fa.token.component';
+
+
+import { QRCodeModule } from 'angularx-qrcode';
 @NgModule({
   imports: [
     CommonModule,
@@ -30,6 +35,8 @@ import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.login.opt
     FormsModule,
     LoginRoutingModule,
     SharedModule,
+    QRCodeModule,
+    OverlayModule,
     NgxMaskModule.forRoot(),
 
   ],
@@ -47,7 +54,9 @@ import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.login.opt
     SecurityQuestion,
     ResetPassword,
     PatientRelationsComponent,
-    ResetPatientPasswordComponent
+    ResetPatientPasswordComponent,
+    Enablge2FAAuthenticatorComponent,
+    Verify2FATokenComponent
   ],
   providers:[
     OverlayService,

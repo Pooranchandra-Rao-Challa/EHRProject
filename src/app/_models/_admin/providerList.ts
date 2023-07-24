@@ -21,4 +21,6 @@ export class ProviderList {
     PracticeName?: string;
     IsPrimaryProvider?: boolean;
     PrimaryProvider?: string;
+    EnableTwofactor?: boolean;
+    ResetTwofactor?: boolean;
   }

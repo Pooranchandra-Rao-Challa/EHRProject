@@ -35,7 +35,7 @@ export enum DrFirstSSOConstants {
 
 }
 
-export enum DrFirstStartUpScreens{
+export enum DrFirstStartUpScreens {
   Patient = 'patient',
   ManageMedication = 'manage_medications',
   ManageAllergies = 'manage_allergies',
@@ -43,6 +43,7 @@ export enum DrFirstStartUpScreens{
   Report = 'report',
   Message = 'message'
 }
+export const ISSUER = 'http://ehr1.pro';
 
 export const RX_DRUG_URI = (term: string) => `${environment.RX_END_POINT}REST/drugs.json?name=${term}`;
 
@@ -83,7 +84,7 @@ export const DR_FIRST_PATINET_URL = (
 
 export const DR_FIRST_SSO_URL = (urlParams: string) => `${DR_FIRST_ENDPOINT}://${DR_FIRST_SERVER}/${DR_FIRST_URI}?${urlParams}`
 
-export const DR_FIRST_PROVIDER_URL= (
+export const DR_FIRST_PROVIDER_URL = (
   vendor_username: string,
   rcopia_practice_name: string,
   rcopia_provider_name: string,

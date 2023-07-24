@@ -980,6 +980,9 @@ i {
   padding: 0px !important;
 }
 
+.swal2-login-container{
+  backdrop-filter: blur(10px);
+}
 // .swal-input {
 //   border: 1px solid #e9e9e9 !important;
 // }
@@ -1460,20 +1463,23 @@ i {
 
 
 /* width */
-#loginbody::-webkit-scrollbar {
+#loginbody::-webkit-scrollbar,
+#loginbody .modal-body::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
 
 /* Track */
-#loginbody::-webkit-scrollbar-track {
+#loginbody::-webkit-scrollbar-track,
+#loginbody .modal-body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
 }
 
 /* Handle */
-#loginbody::-webkit-scrollbar-thumb {
+#loginbody::-webkit-scrollbar-thumb,
+#loginbody .modal-body::-webkit-scrollbar-thumb {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1481,7 +1487,8 @@ i {
 }
 
 /* Handle on hover */
-#loginbody::-webkit-scrollbar-thumb:hover {
+#loginbody::-webkit-scrollbar-thumb:hover,
+#loginbody .modal-body::-webkit-scrollbar-thumb:hover {
   background: #41b6a6;
 }
 
