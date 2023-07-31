@@ -152,7 +152,7 @@ export class Medication {
   DoseRoute?: string;
   Quantity?: number;
   QuantityUnits?: string;
-  Route?: string;
+  //Route?: string;
   Action?: string;
   DoseTiming?: string;
   Refills?: string;

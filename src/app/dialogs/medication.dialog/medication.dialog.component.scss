@@ -6,22 +6,27 @@
   // max-width: inherit !important;
   // margin: 0 !important;
 }
+
 .modal-body {
   max-height: calc(90vh - 180px);
   overflow-y: auto;
 }
+
 // medication popup
 .modal-dialog {
   max-width: 900px;
 }
+
 .btn {
   height: 45px;
 }
+
 .title-field {
   font-size: 14px;
 }
+
 textarea.form-control {
- min-height: 119px !important;
+  min-height: 119px !important;
   resize: both;
   font-size: 15px;
   padding-top: 10px !important;
@@ -31,10 +36,12 @@ textarea.form-control {
   border: 1px solid #dedede;
   border-radius: 4px;
 }
+
 textarea.form-control:focus,
-textarea.form-control:hover{
-border: 1px solid #41b6a6  !important;
+textarea.form-control:hover {
+  border: 1px solid #41b6a6 !important;
 }
+
 .links-item {
   background-color: #41b6a6;
   color: #fff;
@@ -50,17 +57,48 @@ border: 1px solid #41b6a6  !important;
   font-size: 16px;
   padding: 9px 0 12px 9px;
 }
-.links-item a:hover{
+
+.links-item a:hover {
   color: #fe8f00;
   cursor: pointer !important;
   text-decoration: underline;
 }
-.underlined{
+
+.underlined {
   text-decoration: underline;
 }
+
 .medication-modal .modal-footer {
   padding: 10px 35px !important;
 }
-.medication-modal .disabled input{
+
+.medication-modal .disabled input {
   cursor: not-allowed;
+}
+
+
+.long-value-input {
+  width: 100px;
+  height: 30px;
+  padding: 0 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.long-value-input:hover {
+  width: auto;
+  overflow: visible;
+  z-index: 11;
+}
+
+.ndc-readonly {
+  background-color: #f5f5f5;
+  border: #e6e6e6 1px solid;
+  border-radius: 5px;
+  color: #b5b5b5;
+  padding: 5px;
+  z-index: 120;
+  min-height: 45px;
+  margin-top: 3px;
 }

@@ -43,14 +43,14 @@
         <span class="messages-count" style="margin-left: 10px !important;
         margin-right: 2px !important;"></span><!--{{unreadMails}}-->
       </li>
-      <li class="eRx-nav-item" *ngIf="drfirstProviderUrl==null">
+      <!-- <li class="eRx-nav-item" *ngIf="drfirstProviderUrl==null">
         <a href="javascript:void(0)" class="nav-link item-erx disabled"
           (click)="onChangeBreadCrum('/provider/erx','eRx')">eRx
         </a>
-      </li>
-      <li *ngIf="drfirstProviderUrl!=null" class="eRx-nav-item"
+      </li> -->
+      <li class="eRx-nav-item"
         [class]="viewModel.View !== 'eRx' ? 'nav-item': 'active nav-item'">
-        <a href="javascript:void(0)" class="nav-link item-erx" target="_blank" [href]="drfirstProviderUrl">eRx
+        <a href="javascript:void(0)" class="nav-link item-erx" (click)="OpenProviderIPrescribe()">eRx
         </a>
       </li>
       <li [class]="viewModel.View !== 'Labs&Imaging' ? 'nav-item': 'active nav-item'">

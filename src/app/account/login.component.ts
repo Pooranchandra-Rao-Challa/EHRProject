@@ -90,6 +90,7 @@ export class LoginComponent implements OnInit {
           {
             hasBackdrop: false,
             backdropClass: 'backdropClass-2fa',
+            panelClass: 'container-mfa',
             scrollStrategy: this.sso.noop(),
           });
 
@@ -106,7 +107,9 @@ export class LoginComponent implements OnInit {
           {
             hasBackdrop: false,
             backdropClass: 'backdropClass-2fa',
+            panelClass: 'container-mfa',
             scrollStrategy: this.sso.noop(),
+
           });
 
         dialogRef.afterClosed().subscribe(result => {

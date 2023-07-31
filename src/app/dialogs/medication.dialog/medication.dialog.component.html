@@ -27,8 +27,8 @@
               <mat-option *ngIf="noRecords">No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <span class="selected-allergen" id="allergenName" *ngIf="patientMedication.DrugName != null">
-            <p>{{patientMedication.DrugName}}</p>
+          <span class="selected-allergen" id="allergenName" *ngIf="patientMedication.DisplayName != null">
+            <p>{{patientMedication.DisplayName}}</p>
             <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
               (click)="deleteMedicationName()"></a>
           </span>
@@ -43,13 +43,21 @@
         </div>
         <div class="form-group col-md-6 ">
           <label class="title-field">NDC ID:</label>
-          <mat-form-field class="grey-matform" appearance="outline">
-            <mat-select placeholder="NDC Id" [(ngModel)]="patientMedication.NDC">
+          <div class="ndc-readonly">
+            {{NDCIDs}}
+          </div>
+          <!-- <div [matTooltip]="patientMedication.NDC"> -->
+          <!-- <mat-form-field class="grey-matform col-12" appearance="outline">
+            <input matInput placeholder="Rx Norm ID" name="rxnormid:" [(ngModel)]="patientMedication.NDC" disabled
+            /> -->
+            <!-- <mat-select placeholder="NDC Id" [(ngModel)]="patientMedication.NDC">
               <mat-option *ngFor="let ndc of ndcList" [value]="ndc">
                 {{ndc}}
               </mat-option>
-            </mat-select>
-          </mat-form-field>
+            </mat-select> -->
+
+          <!-- </mat-form-field> -->
+        <!-- </div> -->
         </div>
       </div>
       <div class="row mt-2">
@@ -86,7 +94,7 @@
       </div>
       <div class="row mt-2" style="display:inline-flex">
         <div class="form-group col-md-12">Patient Direction: <b>{{patientMedication.Action}} {{patientMedication.Dose}}
-            {{patientMedication.DoseUnits}} {{patientMedication.Route}} {{patientMedication.DoseTiming}}
+            {{patientMedication.DoseUnits}} {{patientMedication.DoseRoute}} {{patientMedication.DoseTiming}}
             {{patientMedication.DoseOther}}</b></div>
       </div>
       <div class="row mt-2">
@@ -132,7 +140,7 @@
           <label class="title-field">Route:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #routeInput [matAutocomplete]="route" placeholder="Route" name="route:"
-              [(ngModel)]="patientMedication.Route" />
+              [(ngModel)]="patientMedication.DoseRoute" />
             <mat-autocomplete #route="matAutocomplete" class="scrollable-table">
               <mat-option *ngFor="let option of filteredRoutes | async" [value]="option">
                 {{ option }}

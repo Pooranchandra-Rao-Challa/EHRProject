@@ -14,7 +14,7 @@
           </div>
           <div class="col-md-10 col-12">
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select allergy type" [(ngModel)]="patientAllergy.AllergenType">
+              <mat-select placeholder="Select allergy type" class="allergy-viewonly" [(ngModel)]="patientAllergy.AllergenType"  disabled="true">
                 <mat-option *ngFor="let allergy of allergyType" [value]="allergy">
                   {{allergy}}
                 </mat-option>
@@ -27,7 +27,8 @@
           </div>
           <div class="col-md-10 col-12">
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select severity level" id="severity-level" [(ngModel)]="patientAllergy.SeverityLevel">
+              <mat-select placeholder="Select severity level" class="allergy-viewonly"  id="severity-level" [(ngModel)]="patientAllergy.SeverityLevel"
+              disabled="true">
                 <mat-option *ngFor="let severity of severityLevel" [value]="severity">
                   {{severity}}
                 </mat-option>
@@ -39,7 +40,7 @@
           </div>
           <div class="col-md-10 col-12">
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select onsetAt" [(ngModel)]="patientAllergy.OnSetAt">
+              <mat-select placeholder="Select onsetAt"  class="allergy-viewonly" [(ngModel)]="patientAllergy.OnSetAt" disabled="true">
                 <mat-option *ngFor="let onset of onsetAt" [value]="onset">
                   {{onset}}
                 </mat-option>
@@ -51,14 +52,14 @@
           <div class="col-md-4">
             <label class="title-bold required">Start Date: </label>
           </div>
-          <div class="col-md-10 col-12">
-            <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8 col-12">
-              <input class="pointer" matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
+          <div class="col-md-10 col-12 allergy-viewonly">
+            <mat-form-field appearance="outline" class="grey-matform green-calendar allergy-viewonly cstm-calendar col-md-8 col-12">
+              <input class="pointer allergy-viewonly" matInput [matDatepicker]="StartAt" placeholder="Start Date" name="startDate"
                 (click)="StartAt.open()" readonly [(ngModel)]="patientAllergy.StartAt"
-                (dateChange)="dateChange($event)" />
-              <mat-datepicker-toggle matSuffix [for]="StartAt">
+                (dateChange)="dateChange($event)" disabled="true"  />
+              <mat-datepicker-toggle matSuffix [for]="StartAt" disabled="true" class="allergy-viewonly" >
               </mat-datepicker-toggle>
-              <mat-datepicker #StartAt disabled="false"></mat-datepicker>
+              <mat-datepicker #StartAt disabled="false" class="allergy-viewonly" ></mat-datepicker>
             </mat-form-field>
           </div>
 
@@ -69,8 +70,8 @@
             <mat-form-field appearance="outline" class="grey-matform green-calendar cstm-calendar col-md-8 col-12">
               <input class="pointer" matInput [matDatepicker]="EndAt" placeholder="End Date" name="endDate"
                 (click)="EndAt.open()" readonly [(ngModel)]="patientAllergy.EndAt" [min]="minDateForEndDate"
-                [disabled]="patientAllergy.StartAt == null" />
-              <mat-datepicker-toggle matSuffix [for]="EndAt" [disabled]="patientAllergy.StartAt == null">
+                [disabled]="patientAllergy.StartAt == null" disabled="true" />
+              <mat-datepicker-toggle matSuffix [for]="EndAt" [disabled]="patientAllergy.StartAt == null || true">
               </mat-datepicker-toggle>
               <mat-datepicker #EndAt disabled="false"></mat-datepicker>
             </mat-form-field>
@@ -84,10 +85,11 @@
           <div class="col-md-12 col-12">
             <mat-form-field class="allergy-form-field col-12" appearance="outline" [ngStyle]="{'width':'100%'}"  autocomplete="off">
               <input matInput #cdkSearchAllergyName class="form-control" placeholder="Select Allergy Name" type="text"
-                [matAutocomplete]="cdkallergyName" autocomplete="off" #trigger="matAutocompleteTrigger" appAutocompletePosition="trigger" />
+                [matAutocomplete]="cdkallergyName" autocomplete="off" #trigger="matAutocompleteTrigger"  disabled="true" appAutocompletePosition="trigger" />
                 <!-- <div cdkScrollable> -->
               <mat-autocomplete [displayWith]="displayWithAllergy" class="scrollable-table" #cdkallergyName="matAutocomplete" autocomplete="off"
-                (optionActivated)="handleKeyboardEvent($event)" (optionSelected)="onSelectedAllergy($event)" id="allergen-name">
+                (optionActivated)="handleKeyboardEvent($event)" (optionSelected)="onSelectedAllergy($event)" id="allergen-name"
+                [ariaDisabled]="true">
                 <mat-option [hidden]="!displayMessage && !isLoading" [disabled]="true" class="text-wrap lh-1 fs-6">
                   Enter atleast 3 character, you can only select 1 item
                 </mat-option>
@@ -131,7 +133,7 @@
           <div class=" form-group col-md-12 col-12">
             <label class="title-bold required">Reaction(s): </label>
             <mat-form-field appearance="outline" class="col-12">
-              <mat-select placeholder="Select allergy reaction" #reaction id="reaction-name">
+              <mat-select placeholder="Select allergy reaction" #reaction id="reaction-name"  disabled="true">
                 <mat-select-filter [displayMember]="'ReactionName'" [array]="allergyReactionFilter"
                   (filteredReturn)="allergyReaction = $event" *ngIf="reaction.focused"></mat-select-filter>
                 <mat-option *ngFor="let allergy of allergyReaction" [value]="allergy.ReactionName"
@@ -156,7 +158,7 @@
         </div>
       </div>
     </div>
-    <div class="modal-footer">
+    <div class="modal-footer" style="visibility: hidden;">
       <div class="w-100">
         <button type="button" class="btn btn-danger mx-2 pull-left" (click)="deleteAllergy()" *ngIf="canDeleteAllergy">
           Delete

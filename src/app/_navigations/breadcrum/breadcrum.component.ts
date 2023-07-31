@@ -35,10 +35,15 @@ export class BreadcrumComponent implements OnInit {
   ngOnInit(): void {
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Message)
-        this.drfirstProviderMessageUrl = data.url
-      else if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Report)
-        this.drfirstProviderReportUrl = data.url
+      if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Message){
+        //this.drfirstProviderMessageUrl = data.url
+        window.open(data.url,'mozillaTab');
+      }
+      else if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Report){
+        //this.drfirstProviderReportUrl = data.url
+        window.open(data.url,'mozillaTab');
+      }
+
     });
     this.settingsService.DrFirstNotifications(this.user.ProviderId).subscribe(resp => {
       if (resp.IsSuccess) {
@@ -57,10 +62,17 @@ export class BreadcrumComponent implements OnInit {
         this.notifications.RxPending = '0';
       };
     })
-    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Message);
-    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
+
+
   }
 
+  openMessageiPrescribe(){
+    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Message);
+  }
+
+  openReportiPresribe(){
+    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
+  }
 
   onHome() {
     this.viewChangeService.sendData('Smart Schedule');

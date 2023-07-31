@@ -69,25 +69,39 @@
       <div class="card card-border">
         <div class="card-body">
           <div class="row">
-            <div class="col-xl-8 col-lg-5 col-md-5 col-5 col-sm-5 mt-3">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-4 col-sm-5 mt-3">
               <h1 class="card-title text-uppercase"><b class="fw-bol fs-6">Users</b></h1>
             </div>
-            <div class="col-xl-4 col-lg-7 col-md-7 col-12 ">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-8 ">
               <div class="row pt-0 ">
-                <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn ">
-                  <button type="button" class="common-button-style button-style text-nowrap btn pull-right ml-3"
-                    (click)="openComponentDialog(UserDialogComponent,null,ActionTypes.add)">Add New User</button>
+                <div class="col-xl-1 col-lg-1 col-md-12 col-12  mb-3 col-btn " style="display: flex;
+                padding-right: 70px;">
+                  <div style="margin-right: 30px;margin-top: 8px;">Practices:</div>
+                </div><div class="col-xl-4 col-lg-4 col-md-12 col-12  mb-3 col-btn ">
+                  <select placeholder="Select one clinic" id="clinics" name="clinics" class="form-select sel-clinics"
+                    [(ngModel)]="ClinicId" #clinic="ngModel" (change)="FilterProviders()" >
+                    <option value="reset" class="reset-option" >Reset Filter</option>
+                    <option *ngFor="let clinic of Clinics" [value]="clinic.ClinicId">
+                      {{clinic.ClinicName}}
+                    </option>
+                  </select>
                 </div>
-                <div class="search-box col-xl-11 col-lg-10 col-md-12 col-12">
-                  <input type="text" placeholder="Search Providers Or Practices" matInput
+                <div class="col-xl-2 col-lg-2 col-md-12 col-12  mb-3 col-btn">
+                  <button type="button" class="common-button-style button-style text-nowrap btn pull-right ml-3"
+                    (click)="openComponentDialog(UserDialogComponent,null,ActionTypes.add)" style="height: 36px;
+                    border: 1px solid #dbdcde;">Add New User</button>
+                </div>
+                <div class="search-box col-xl-4 col-lg-4 col-md-12 col-12">
+                  <input type="text" placeholder="Search Providers Or Practices" matInput style="height: 36px;
+                  border: 1px solid #dbdcde;"
                     [(ngModel)]="filterQueryParams.SearchTerm" (keyup)="StateChange($event)">
-
                 </div>
               </div>
             </div>
 
 
-            <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="dialogIsLoading || disableSwitchUser"></mat-progress-bar>
+            <mat-progress-bar mode="indeterminate" bufferValue="20" value=100
+              *ngIf="dialogIsLoading || disableSwitchUser"></mat-progress-bar>
             <div class="col-lg-12 col-md-12 col-12 col-sm-12 ">
               <hr>
             </div>
@@ -115,9 +129,10 @@
                       <td class="tbl-col" [disabled]="item.EmailVerifyStatus=='Unverified'">
                         <span class="my-2"> {{item.ProviderName}}, {{item.Degree}}</span>
                         <div class="d-flex justify-content-start my-2">
-                          <button  (click)="switchUser(item)" [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
+                          <button (click)="switchUser(item)" [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                             [disabled]="item.EmailVerifyStatus=='Unverified' || disableSwitchUser">Login</button>
-                          <button class="mx-2" (click)="primaryProviderId(item)"  [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
+                          <button class="mx-2" (click)="primaryProviderId(item)"
+                            [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                             [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.PrimaryProvider}}</button>
                         </div>
                       </td>
@@ -138,23 +153,28 @@
                       </td>
                       <td class="text-center">
                         <button class="btn-activate" (click)="toggleProviderStatus(item)"
-                        [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
+                          [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Status ? "Suspend"
                           : "Activate"}}</button>
                         <!-- <input class="form-check-input Status" type="checkbox"
                           [disabled]="item.EmailVerifyStatus=='Unverified'" [checked]="item.Status" id="checkbox"
-                          (click)='deactivateUser($event, item)'> -->
+                          (click)='deactivateUser($event, item)'> [class.prov-button-normal]="item.EmailVerifyStatus =='Unverified' && item.ResetTwofactor" -->
 
-                        </td>
+                      </td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
-                      <td class="td-col-width"><button type="button" [class.table-col-button]="item.EmailVerifyStatus!='Unverified'"
+                      <td class="td-col-width"><button type="button"
+                          [class.prov-button-normal]="item.EmailVerifyStatus!='Unverified'"
+                          [class.prov-button]="item.EmailVerifyStatus =='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'"
                           (click)="openComponentDialog(UserDialogComponent,item,ActionTypes.view)">View</button></td>
-                      <td class="td-col-width"><button type="button"  [class.table-col-button]="item.EmailVerifyStatus!='Unverified'"
+                      <td class="td-col-width"><button type="button"
+                          [class.prov-button-normal]="item.EmailVerifyStatus !='Unverified' && item.ResetTwofactor"
                           (click)="resetMFA(item)"
-                          [disabled]="item.EmailVerifyStatus=='Unverified' || !item.ResetTwofactor" >Reset
+                          [class.prov-button]="item.EmailVerifyStatus=='Unverified' || !item.ResetTwofactor"
+                          [disabled]="item.EmailVerifyStatus=='Unverified' || !item.ResetTwofactor">Reset
                           MFA</button></td>
-                      <td><button class="btn-lock" (click)="updateUserlock(item)" [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
+                      <td><button class="btn-lock" (click)="updateUserlock(item)"
+                          [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Locked ? "Unlock"
                           : "Lock"}}</button></td>
                     </tr>
@@ -199,15 +219,15 @@
       <div class="modal-body mb-2 mt-1">
         <p>Are you sure, you'd like to disable Multi Factor Authentication Usability Test Doctor ?</p>
 
-        <input matCheckbox #chkresetMFA  class="form-check-input mt" type="checkbox" data-toggle='btnResetMFA'/>
+        <input matCheckbox #chkresetMFA class="form-check-input mt" type="checkbox" data-toggle='btnResetMFA' />
         <label class="form-check-label" for="Active">Yes, Please Disable.</label>
 
       </div>
       <div class="modal-footer model-cust-footer mt-3">
-        <button id="btnResetMFA" type="button"
-        class="save-button col-md-4" (click)="resetMFA(this)">Disable MFA</button>
-        <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4"
-          aria-label="Close">No, thank you!</button>
+        <button id="btnResetMFA" type="button" class="save-button col-md-4" (click)="resetMFA(this)">Disable
+          MFA</button>
+        <button type="button" data-bs-dismiss="modal" class="cancel-button col-md-4" aria-label="Close">No, thank
+          you!</button>
       </div>
     </div>
   </div>

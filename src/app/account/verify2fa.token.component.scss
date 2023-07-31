@@ -56,3 +56,7 @@
 .backdropClass-2fa{
   backdrop-filter: blur(10px);
 }
+
+::ng-deep .container-mfa .mat-dialog-container{
+  overflow :hidden !important;
+}

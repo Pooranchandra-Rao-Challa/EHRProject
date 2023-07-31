@@ -4,7 +4,7 @@
 
 #enable-authenticator .modal-dialog {
   max-width: 800px;
-  max-height: 680px;
+  //max-height: 680px;
 
   .modal-body {
     padding: 35px 20px !important;
@@ -50,4 +50,7 @@
 }
 .backdropClass-2fa{
   backdrop-filter: blur(10px);
+}
+::ng-deep .container-mfa .mat-dialog-container{
+  overflow :hidden !important;
 }

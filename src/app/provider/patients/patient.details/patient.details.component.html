@@ -12,7 +12,8 @@
     <img class="avatar avatar-empty" src="assets/images/avatar-empty.svg" alt="Avatar empty" style="margin-top:10px">
     <ul class="patient-main-info" style="display: inline-flex;
     padding-right: 10px;">
-      <li>{{patient?.FirstName}} {{patient?.LastName}}</li>
+      <li [class.text-truncate]="(patient?.FirstName+patient?.LastName).length > 14">{{patient?.FirstName}}
+        {{patient?.LastName}}</li>
       <li>{{patient?.Age}} yrs {{patient?.Gender}}</li>
       <li *ngIf="patient?.Dob != null">
         <b>DOB:</b>
@@ -90,15 +91,16 @@
       </ul>
     </div>
     <button class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
-      (click)="openComponentDialog(drFirstDialogComponent,null,ActionTypes.new)" *ngIf="!IsPatientRegisteredWithDrFirst">
+      (click)="openComponentDialog(drFirstDialogComponent,null,ActionTypes.new)"
+      *ngIf="!IsPatientRegisteredWithDrFirst">
       Open eRX
     </button>
-    <a class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
-    *ngIf="IsPatientRegisteredWithDrFirst" [href]="drfirstPatientUrl" href="javascript:void(0)" target="_blank">
+    <div class="btn btn-orange font-family" type="button" style="margin-top:10px;margin-left: 10px"
+      *ngIf="IsPatientRegisteredWithDrFirst" (click)="openPatientIPrescribe()">
       Open eRX
-    </a>
+    </div>
 
-</div>
+  </div>
 </div>
 <div class="show-patient" role="tabpanel" style="    clear: both;
 display: list-item;">
@@ -117,8 +119,8 @@ display: list-item;">
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
         type="button" role="tab" aria-controls="pills-profile"
-        [class.active]="viewModel.PatientView == 'Profile' ? true :false"
-        (click)="UpdatePatientView('Profile')" *ngIf="CanViewProfile">Profile</button>
+        [class.active]="viewModel.PatientView == 'Profile' ? true :false" (click)="UpdatePatientView('Profile')"
+        *ngIf="CanViewProfile">Profile</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-insurance-tab" data-bs-toggle="pill" data-bs-target="#pills-insurance"

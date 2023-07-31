@@ -16,10 +16,13 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { Accountservice } from 'src/app/_services/account.service';
 import { Actions, NewUser } from 'src/app/_models';
 import { DOCUMENT } from '@angular/common';
+import { Clinic } from 'src/app/_models/_admin/admins';
+import { UtilityService } from 'src/app/_services/utiltiy.service';
 export class FilterQueryParams {
   Active: boolean = true;
   Paid?: boolean = null;
   SearchTerm?: string = "";
+  ClinicId?:string;
 }
 
 @Component({
@@ -55,6 +58,8 @@ export class DashboardComponent implements OnInit {
   search?: string;
   userIP: string;
   dialogIsLoading: boolean = false;
+  Clinics?: Clinic[];
+  ClinicId?:string;
   @ViewChild("chkresetMFA", { static: true }) chkresetMFA: ElementRef;
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -62,11 +67,17 @@ export class DashboardComponent implements OnInit {
     private overlayService: OverlayService,
     private authService: AuthenticationService,
     private alertmsg: AlertMessage,
+    private utilityService: UtilityService,
     private settingsService: SettingsService,
     private accountservice: Accountservice) { }
 
   ngOnInit(): void {
 
+    this.utilityService.ClinicsForAdmin().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.Clinics = resp.ListResult as Clinic[];
+      }
+    });
 
     fromEvent(this.chkresetMFA.nativeElement, 'change').pipe(
       map((event: any) => {
@@ -96,8 +107,9 @@ export class DashboardComponent implements OnInit {
     this.GetProivderList();
     this.filterSubject.subscribe(value => {
       this.filtededProviders = this.providers.filter(x =>
-        (value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
-          x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
+        ((value.SearchTerm == "" || x.ProviderName?.toLowerCase().match(value.SearchTerm?.toLowerCase()) ||
+          x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase())) &&
+          (value.ClinicId == x.ClinicId || value.ClinicId == null))
         && x.Status == value.Active
         && (x.Paid == value.Paid || value.Paid == null)
       );
@@ -105,6 +117,15 @@ export class DashboardComponent implements OnInit {
     this.UserIP();
     this.providerListBehaviour.subscribe(value => {
     })
+  }
+
+  FilterProviders(){
+    if(this.ClinicId == "reset"){
+      this.filterQueryParams.ClinicId = null
+    }else{
+      this.filterQueryParams.ClinicId = this.ClinicId;
+    }
+    this.filtededProviders = this._filterProviders(this.filterQueryParams);
   }
 
   StateChange(event) {
@@ -140,8 +161,9 @@ export class DashboardComponent implements OnInit {
   _filterProviders(value: FilterQueryParams = null): ProviderList[] {
     let val = value == null ? new FilterQueryParams() : value;
     return this.providers.filter(x =>
-      (val.SearchTerm == "" || (x.ProviderName?.toLowerCase().match(val.SearchTerm?.toLowerCase())) ||
-        x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase()))
+      ((val.SearchTerm == "" || (x.ProviderName?.toLowerCase().match(val.SearchTerm?.toLowerCase())) ||
+        x.PracticeName?.toLowerCase().match(value.SearchTerm?.toLowerCase())) &&
+        (val.ClinicId == x.ClinicId || val.ClinicId == null))
       && x.Status == val.Active
       && (x.Paid == val.Paid || val.Paid == null)
     );

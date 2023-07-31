@@ -207,11 +207,18 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.initCDSAlert();
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageMedication) {
-        this.drFirstMedicationUrl = data.url
+        window.open(data.url,'mozillaTab')
+      }else if(data.urlfor == 'Patient' && data.purpose == DrFirstStartUpScreens.ManageAllergies){
+        window.open(data.url,'mozillaTab')
       }
     });
-    this.MedicationURL();
+    //this.MedicationURL();
     //this.dataRefreshing = false;
+  }
+
+  openDrFirstForAllergies(){
+
+    this.drfirstService.PatientUrl(DrFirstStartUpScreens.ManageAllergies)
   }
 
   onMedicineSelected(selected) {
@@ -485,7 +492,7 @@ export class ChartComponent implements OnInit, AfterViewInit {
   GetString(medication) { return JSON.stringify(medication) }
 
   GetDisplayName(medication: Medication) {
-    return medication.DrugName == null || medication.DrugName == "" ? medication.DisplayName : medication.DrugName;
+    return medication.DisplayName == null || medication.DisplayName == "" ? medication.DrugName : `${medication.DisplayName}`;
   }
 
   // Get encounters info
@@ -763,7 +770,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
     return this.datepipe.transform(date, "MM/dd/yyyy");
   }
 
+  disableSyncButton: boolean = false;
   SyncPatientChart() {
+    this.disableSyncButton = true;
     this.patientService.SyncChart({ ProviderId: this.user.ProviderId, PatientId: this.currentPatient.PatientId }).subscribe(
       {
         next: (resp) => {
@@ -773,6 +782,9 @@ export class ChartComponent implements OnInit, AfterViewInit {
         },
         error: (error) => {
 
+        },
+        complete: () =>{
+          this.disableSyncButton = false;
         }
       }
     )

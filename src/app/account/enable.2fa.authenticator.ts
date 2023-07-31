@@ -55,13 +55,46 @@ export class Enablge2FAAuthenticatorComponent {
         }
       })
   }
+  checkLength2(e, input, max, min) {
+    const functionalKeys = ['Backspace', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'Tab', 'Delete','Enter'];
+    console.log(e.key);
 
+    if(e.key == 'Enter') this.verifyToken();
+
+    if (functionalKeys.indexOf(e.key) !== -1) {
+      return;
+    }
+
+
+
+    const keyValue = +e.key;
+    if (isNaN(keyValue)) {
+      e.preventDefault();
+      return;
+    }
+
+    const hasSelection = input.selectionStart !== input.selectionEnd && input.selectionStart !== null;
+    let newValue;
+    if (hasSelection) {
+      newValue = this.replaceSelection(input, e.key, min)
+    } else {
+      newValue = input.value + keyValue.toString();
+    }
+    if (+newValue > max || newValue.length > 6) {
+      e.preventDefault();
+    }
+  }
+
+  private replaceSelection(input, key, min) {
+    const inputValue = input.value;
+    const start = input.selectionStart;
+    const end = input.selectionEnd || input.selectionStart;
+    return inputValue.substring(0, start) + key + inputValue.substring(end + 1);
+  }
   onChangeURL(url: SafeUrl) {
     this.qrCodeDownloadLink = url;
   }
   verifyToken(){
-    console.log(this.verficationCode);
-
     this.authService.ValidateTotp(this.verficationCode,this.authService.userValue.UserId).subscribe(resp=>{
       console.log(resp);
       this.Result = resp.Result as TwofactorAuthParams;
@@ -78,7 +111,7 @@ export class Enablge2FAAuthenticatorComponent {
           )
           this.close();
         }
-      }
+      }else this.verficationCode = null
     })
   }
   close() {

@@ -93,11 +93,16 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
         });
       }
     })
-    this.drfirstService.ProviderUrl();
+
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Provider")
-        this.drfirstProviderUrl = data.url
+      window.open(data.url,'mozillaTab');
+        //this.drfirstProviderUrl = data.url
     });
+  }
+
+  OpenProviderIPrescribe(){
+    this.drfirstService.ProviderUrl();
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth + (this.user.EmergencyAccess ? 30 : 8));

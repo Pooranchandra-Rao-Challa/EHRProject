@@ -10,6 +10,29 @@ div.patients-navigation{
   font-size: inherit;
 }
 
+.text-truncate {
+  display: inline-block;
+  max-width: 255px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overflow {
+  display: inline-block;
+  width: 540px;
+  white-space: nowrap;
+  overflow: hidden auto !important;
+  text-overflow: ellipsis;
+}
+.show-overflow{
+  // z-index: 10000;
+  width: 540px;
+  position: absolute;
+  display: inline-block;
+
+}
+
 
 .patients-navigation-info {
   min-height: 58px;

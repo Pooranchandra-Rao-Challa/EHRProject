@@ -132,6 +132,17 @@ export class VitalDialogComponent implements OnInit {
       if (noCollectionTime) return true;
       if (noCollectionDate) return true
     }
+
+    console.log(this.Vital.Temperature);
+
+    if(this.Vital.BPDiastolic && this.Vital.BPDiastolic < 60) return true;
+    if(this.Vital.BPSystolic && this.Vital.BPSystolic < 60) return true;
+    if(this.Vital.Height && this.Vital.Height < 6) return true;
+    if(this.Vital.Weight && this.Vital.Weight < 5) return true;
+    if(this.Vital.Temperature && this.Vital.Temperature < 95) return true;
+    if(this.Vital.O2Saturation && this.Vital.O2Saturation < 60) return true;
+    if(this.Vital.RespiratoryRate && this.Vital.RespiratoryRate < 11) return true;
+    if(this.Vital.Pulse < 60 && this.Vital.Pulse < 60) return true;
   }
 
   closePopup() {
@@ -156,7 +167,7 @@ export class VitalDialogComponent implements OnInit {
   checkLength2(e, input,min,max) {
     const functionalKeys = ['Backspace', 'ArrowRight','ArrowUp','ArrowDown', 'ArrowLeft','Tab','Delete'];
 
-    console.log(e.key);
+
 
     if (functionalKeys.indexOf(e.key) !== -1) {
       return;

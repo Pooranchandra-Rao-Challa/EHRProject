@@ -63,7 +63,7 @@
       </div>
       <div class="col-xl-6 col-lg-7 col-md-12 col-12">
         <div class="row float-end mt-2 mt-lg-0 g-0">
-          <a class="btn btn-green mb-2 mb-md-0" (click)="SyncPatientChart()">Sync Chart</a>
+          <a class="btn btn-green mb-2 mb-md-0" (click)="SyncPatientChart()" *ngIf="!disableSyncButton">Sync Chart</a>
           <a class="btn btn-green mb-2 mb-md-0" data-bs-toggle="modal" data-bs-target="#ccda-alerts-modal">Check CDS
             Alerts</a>
           <!-- <a class="btn btn-green mb-2 mb-md-0">Refresh Chart</a> -->
@@ -306,8 +306,9 @@
                       Allergies</p>
                   </div>
                   <div class="col-md-4 col-6">
+                     <!-- (click)="openComponentDialog(allergyDialogComponent,null,ActionTypes.add)"> -->
                     <div class="col-12 plusicon pull-right"
-                      (click)="openComponentDialog(allergyDialogComponent,null,ActionTypes.add)">
+                      (click)=openDrFirstForAllergies()>
                       <span><i class="fa fa-plus"></i></span>
                     </div>
                   </div>
@@ -370,14 +371,14 @@
                           - {{GetDisplayName(medication)}}
                         </span>
                       </a>
-                      <a [href]="drFirstMedicationUrl" *ngIf="medication.IsElectronicPrescription" target="_blank">
+                      <div (click)="MedicationURL()" *ngIf="medication.IsElectronicPrescription">
                         <span>
                           - {{GetDisplayName(medication)}}
                         </span>
-                      </a>
+                      </div>
                       <p>
                         - Patient Direction: <b>{{medication.Action}} {{medication.Dose}}
-                          {{medication.DoseUnits}} {{medication.Route}} {{medication.DoseTiming}}
+                          {{medication.DoseUnits}} {{medication.DoseRoute}} {{medication.DoseTiming}}
                           {{medication.DoseOther}}</b>
                           <span *ngIf="medication?.StartAt != null && medication?.StartAt !=''">
                             - {{medication?.StartAt | date: 'MM/dd/yyyy'}}
@@ -386,7 +387,7 @@
                              - {{medication?.StopAt | date: 'MM/dd/yyyy'}}
                            </span>
                            <span *ngIf="medication?.CQMStatus != null && medication?.CQMStatus !=''">
-                             - {{medication?.CQMStatus}}
+                             - {{medication?.CQMStatus}} ({{medication?.Quantity}} {{medication?.QuantityUnits}})
                            </span>
                         </p>
                       <div *ngIf="medication.HasPrescriptions"

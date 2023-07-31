@@ -65,6 +65,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   confirmPatientDeletion: boolean = false;
   communicationSetting: CommunicationSetting = {};
   drfirstPatientUrl: string;
+  showName:boolean = true;
 
   constructor(private authService: AuthenticationService,
     private cfr: ComponentFactoryResolver,
@@ -160,8 +161,11 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       });
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient)
-        this.drfirstPatientUrl = data.url
+      if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient){
+        //this.drfirstPatientUrl = data.url
+        window.open(data.url,'mozillaTab')
+      }
+
       this.loadingURLSubject.next(false);
     });
 
@@ -171,6 +175,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       else
         this.router.navigate(["provider/patients"]);
     });
+  }
+
+  openPatientIPrescribe(){
+    this.drfirstService.PatientUrl();
   }
 
   loadDependents() {
@@ -387,7 +395,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadDependents();
           this.loadingBreadcrumb = false;
           // When navigated from links or from patient list the call to url should be here.
-          this.drfirstService.PatientUrl();
+          //this.drfirstService.PatientUrl();
         }
       })
   }
@@ -453,7 +461,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
           this.loadDependents();
           this.loadingBreadcrumb = false;
           // When navigated from links or from patient list the call to url should be here.
-          this.drfirstService.PatientUrl();
+          //this.drfirstService.PatientUrl();
         }
       })
   }
@@ -514,6 +522,10 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   openDrfirstUrlOrCreatePatientDrfirstAccount() {
 
 
+  }
+
+  showNameToggle() {
+    this.showName = !this.showName;
   }
 
   openLabDialogs(procedureType: string, viewfor: string) {

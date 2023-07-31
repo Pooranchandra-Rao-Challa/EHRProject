@@ -50,6 +50,8 @@ export class RxNormAPIService {
           drugs.drugGroup.conceptGroup != null &&
           drugs.drugGroup.conceptGroup.length > 0) {
           drugs.drugGroup.conceptGroup.forEach((value) => {
+            console.log(value);
+
             if (value != null && value.conceptProperties != null
               && value.conceptProperties.length > 0) {
               value.conceptProperties.forEach((props) => {
@@ -96,6 +98,8 @@ export class RxNormAPIService {
     if(!rxcui) return  of([])
     return this.http.get<string[]>(this._ndcsUrl(rxcui)).pipe(
       map((result) => {
+        console.log(result);
+
         let returnNDCS: string[] = [];
         var ndclist = result as NDCS;
         if (ndclist != null

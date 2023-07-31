@@ -1,3 +1,4 @@
+
 import { MEDLINE_PLUS_URL,MEDLINE_PLUS_RXNORM, MEDLINE_PLUS_SNOMED } from 'src/environments/environment';
 import { Drug, RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
@@ -227,17 +228,21 @@ export class MedicationDialogComponent implements OnInit {
   }
 
   onSelectedMedication(selected) {
+    console.log(selected.option.value);
+
     this.patientMedication.DrugName = selected.option.value.Name;
+    this.patientMedication.DisplayName = selected.option.value.Name;
     this.patientMedication.Rxcui = selected.option.value.rxcui;
     this.NDCList();
     this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
 
   NDCList() {
+
     this.rxnormService.ndclist(this.patientMedication.Rxcui).subscribe((resp) => {
       if (resp.length > 0) {
         this.ndcList = resp;
-        this.patientMedication.NDC = this.patientMedication.NDC == undefined ? resp[0] : this.patientMedication.NDC;
+        this.patientMedication.NDC = this.ndcList.join(',')  //this.patientMedication.NDC == undefined ? resp[0] : this.patientMedication.NDC;
       }
       else {
         this.patientMedication.NDC = '';
@@ -249,6 +254,8 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
+    console.log(this.patientMedication);
+
     if(this.patientMedication.Rxcui)
       this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
@@ -261,6 +268,9 @@ export class MedicationDialogComponent implements OnInit {
         "UpdatedModal": PatientChart.Medications
       });
     }
+  }
+  get NDCIDs():string{
+    return this.patientMedication.NDC?.replace(/,/g,", ")
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,

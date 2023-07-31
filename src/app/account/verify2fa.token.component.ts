@@ -1,7 +1,7 @@
 
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TwofactorAuthParams } from 'src/app/_models';
 import { PlatformLocation } from '@angular/common';
@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 export class Verify2FATokenComponent {
   verficationCode: number;
   Result: TwofactorAuthParams = {};
+  @ViewChild('VerificationCode',{static:true})  VerificationCode: ElementRef
+
   constructor(private dialogRef: MatDialogRef<Verify2FATokenComponent>,
     @Inject(MAT_DIALOG_DATA) reqdata,
     private authService: AuthenticationService,
@@ -42,6 +44,9 @@ export class Verify2FATokenComponent {
           )
           this.close();
         }
+      }else {
+        this.VerificationCode.nativeElement.value = '';
+        this.VerificationCode.nativeElement.focus();
       }
     })
   }
@@ -55,11 +60,16 @@ export class Verify2FATokenComponent {
   }
 
   checkLength2(e, input, max, min) {
-    const functionalKeys = ['Backspace', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'Tab', 'Delete'];
+    const functionalKeys = ['Backspace', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'Tab', 'Delete','Enter'];
+    console.log(e.key);
+
+    if(e.key == 'Enter') this.verifyToken();
 
     if (functionalKeys.indexOf(e.key) !== -1) {
       return;
     }
+
+
 
     const keyValue = +e.key;
     if (isNaN(keyValue)) {

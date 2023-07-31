@@ -34,7 +34,7 @@
                 <p>
                   Once you have scanned the QR code or input the key above, your two factor authentication app will
                   provide you
-                  with a unique code. Enter the code in the 'Verification Code' box below.
+                  with a unique code. Enter the code in the 'Verification Code' box below then click 'Verify' button.
                 </p>
                 <div class="row">
                   <div class="col-md-12">
@@ -42,8 +42,8 @@
                     <div class="form-group">
                       <mat-form-field appearance="outline" class="col-lg-8 col-md-12 col-12">
                         <mat-label class="control-label">Verification Code</mat-label>
-                        <input matInput type="number" [(ngModel)]="verficationCode" class="form-control"
-                          autocomplete="off" />
+                        <input matInput type="number" #VerificationCode [(ngModel)]="verficationCode" class="form-control"
+                          autocomplete="off" (keydown)="checkLength2($event,VerificationCode,999999,9999)" />
                       </mat-form-field>
                     </div>
                     <button class="col-lg-8 col-md-12 col-12 btn btn-lg btn-green" (click)="verifyToken()">Verify</button>
