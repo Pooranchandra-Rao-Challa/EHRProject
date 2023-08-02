@@ -80,46 +80,48 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = resp.EndUserMessage;
         else
           this.authfailedmessage = "Enter valid Email Id and Password";
-      } else if (
-
-        this.authenticationService.isEnabledTwofactorAuth &&
-        !this.authenticationService.otpRequiredWhileLogin) {
-        document.body.scrollBy(0, -document.body.scrollTop);
-        document.body.style.overflow = "hidden";
-        let dialogRef = this.dialog.open(this.enableAuthenticatorComponent,
-          {
-            hasBackdrop: false,
-            backdropClass: 'backdropClass-2fa',
-            panelClass: 'container-mfa',
-            scrollStrategy: this.sso.noop(),
-          });
-
-        dialogRef.afterClosed().subscribe(result => {
-          document.body.style.overflow = "auto"
-
-        });
-      }else if (
-        this.authenticationService.isEnabledTwofactorAuth &&
-        this.authenticationService.otpRequiredWhileLogin) {
-        document.body.scrollBy(0, -document.body.scrollTop);
-        document.body.style.overflow = "hidden";
-        let dialogRef = this.dialog.open(this.verify2FATokenComponent,
-          {
-            hasBackdrop: false,
-            backdropClass: 'backdropClass-2fa',
-            panelClass: 'container-mfa',
-            scrollStrategy: this.sso.noop(),
-
-          });
-
-        dialogRef.afterClosed().subscribe(result => {
-          document.body.style.overflow = "auto"
-
-        });
       }
-      else if(this.authenticationService.isProvider) {
-        this.openErrorDialog(ERROR_CODES["EL001"]);
-      }
+      // TFA is commented out here
+      // else if (
+
+      //   this.authenticationService.isEnabledTwofactorAuth &&
+      //   !this.authenticationService.otpRequiredWhileLogin) {
+      //   document.body.scrollBy(0, -document.body.scrollTop);
+      //   document.body.style.overflow = "hidden";
+      //   let dialogRef = this.dialog.open(this.enableAuthenticatorComponent,
+      //     {
+      //       hasBackdrop: false,
+      //       backdropClass: 'backdropClass-2fa',
+      //       panelClass: 'container-mfa',
+      //       scrollStrategy: this.sso.noop(),
+      //     });
+
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     document.body.style.overflow = "auto"
+
+      //   });
+      // }else if (
+      //   this.authenticationService.isEnabledTwofactorAuth &&
+      //   this.authenticationService.otpRequiredWhileLogin) {
+      //   document.body.scrollBy(0, -document.body.scrollTop);
+      //   document.body.style.overflow = "hidden";
+      //   let dialogRef = this.dialog.open(this.verify2FATokenComponent,
+      //     {
+      //       hasBackdrop: false,
+      //       backdropClass: 'backdropClass-2fa',
+      //       panelClass: 'container-mfa',
+      //       scrollStrategy: this.sso.noop(),
+
+      //     });
+
+      //   dialogRef.afterClosed().subscribe(result => {
+      //     document.body.style.overflow = "auto"
+
+      //   });
+      // }
+      // else if(this.authenticationService.isProvider) {
+      //   this.openErrorDialog(ERROR_CODES["EL001"]);
+      // }
     },
       (error) => {
         this.showspinner = false;

@@ -14,6 +14,7 @@ import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.com
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 import { DrfirstUrlChanged } from 'src/app/_navigations/provider.layout/view.notification.service'
 import { I } from '@angular/cdk/keycodes';
+import { DrFirstStartUpScreens } from 'src/environments/environment';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -95,14 +96,14 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     })
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if (data.urlfor == "Provider")
+      if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose)
       window.open(data.url,'mozillaTab');
         //this.drfirstProviderUrl = data.url
     });
   }
 
   OpenProviderIPrescribe(){
-    this.drfirstService.ProviderUrl();
+    this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
   }
   ngAfterViewInit(): void {
     this.menuwidth = (document.getElementById('UserDropdown').clientWidth + (this.user.EmergencyAccess ? 30 : 8));

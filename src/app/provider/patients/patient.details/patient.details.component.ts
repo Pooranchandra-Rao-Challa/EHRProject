@@ -92,7 +92,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.chartSubject.next(this.viewModel.PatientView);
+    //this.chartSubject.next(this.viewModel.PatientView);
     const changeDetectorRef = this.chartviewcontainerref.injector.get(ChangeDetectorRef);
     changeDetectorRef.detectChanges();
   }
@@ -410,7 +410,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
       this.patient = this.authService.viewModel.Patient;
       this.loadDependents();
       // When navigated from links or from patient list the call to url should be here.
-      this.drfirstService.PatientUrl();
+      //this.drfirstService.PatientUrl();
     }
 
     this.patientService.LatestUpdatedPatientsUrl({

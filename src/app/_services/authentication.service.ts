@@ -89,7 +89,9 @@ export class AuthenticationService {
               // else if(this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin){
               //   // Open auth configurator.
               // }
-              else if (!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin) {
+              else
+              //if (!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              {
                 this.startRefreshTokenTimer();
                 let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 window.location.replace(url);
@@ -109,11 +111,15 @@ export class AuthenticationService {
                 this.logout(ERROR_CODES["EL010"]);
               else if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL011"]);
-              else if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              else
+              //if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              {
                 this.router.navigate(
                   ['admin/dashboard'],
                   { queryParams: { name: 'Providers', key: (new Date()).getTime() } }
                 )
+              }
+
               //else this.logout(ERROR_CODES["EL001"]);
             }
             else if (this.isPatient)
