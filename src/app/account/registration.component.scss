@@ -2,13 +2,14 @@
 
 body {
   margin: 0px;
+  background-color: #efedee;
 }
 
 .authorization-signup-wrapper {
   height: auto;
   color: #4a4a4a;
-  // background-color: #ebe9e9;
-  background: url(../../assets/images/pro-reg-bg.png);
+  background-color: #efedee;
+  //background: url(../../assets/images/pro-reg-bg.png);// repeat-y repeat-x;
 }
 
 .one-ehr-images {
@@ -54,7 +55,7 @@ authorization-signup-wrapper .mat-select-panel {
 
 h3 {
   font-size: 24px;
-  text-transform: uppercase;
+  //text-transform: uppercase;
 }
 
 .button-info {
@@ -263,6 +264,11 @@ a:hover {
   min-width: calc(100% + 22px) !important;
 }
 
+::ng-deep .authorization-signup-wrapper .mat-select-value{
+  background-color: #ffffff;
+}
+
+
 .mat-option.mat-selected:not(.mat-option-disabled) {
   color: black;
   text-shadow: black;
@@ -313,9 +319,31 @@ a:hover {
   background: red;
 }
 
-.modal-lg,
-.modal-xl {
-  max-width: 50%;
+
+
+@media (max-width: 730px) {
+  .modal-lg,
+  .modal-xl {
+    max-width: 100%;
+
+  }
+  .example-full-width{
+    width:100%;
+  }
+  .validaddresspointer{
+    position: absolute;
+    top:40px;
+  }
+}
+
+@media (max-width: 2050px) and (min-width: 730px)  {
+  .modal-lg,
+  .modal-xl {
+    max-width: 40%;
+  }
+  .example-full-width{
+    width:700px;
+  }
 }
 
 .modal .modal-dialog {
@@ -329,8 +357,8 @@ a:hover {
 .btn.btn-sm,
 .btn-group-sm>.btn {
   font-size: 0.875rem;
-  border: 1px solid white;
-  background: #48a948;
+  border: 0px solid white;
+  background: #5BB85C;
 }
 
 .link {
@@ -358,10 +386,11 @@ a:hover {
   color: red;
 }
 
-.erroclose {
+.btn-close-error {
   font-size: 0.875rem;
-  border: 1px solid white;
+  border: 0px solid white;
   background: #ff0000 !important;
+  padding: 10px;
 }
 
 
@@ -390,6 +419,14 @@ form.pt-4 p.category-title {
   margin: 0;
 
 }
+
+::ng-deep #registration-form .mat-select-placeholder,
+::ng-deep #registration-form .mat-select-value-text {
+  font-size: 15px;
+  font-weight: 400;
+}
+
+
 
 .white-light.select2-selection {
   background-color: #fff;
@@ -469,6 +506,16 @@ mat-form-field {
   pointer-events: all !important;
 
   .modal-content {
-    border-width: 1px !important;
+    border-width: 0px !important;
+
+    .modal-header {
+      padding: 30px 10px 25px 15px;
+    }
   }
 }
+#registration-form #v-pills-tabContent{
+  padding-bottom: unset;
+  padding-top: unset;
+  margin: 10px 0;
+}
+

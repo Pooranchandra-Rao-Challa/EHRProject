@@ -71,7 +71,7 @@ export class AuthenticationService {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
             console.log(this.isAdmin);
-            //this.startRefreshTokenTimer();
+            this.startRefreshTokenTimer();
             if (this.isProvider) {
               if (!this.isProviderVerfied)
                 this.logout(ERROR_CODES["EL006"]);
