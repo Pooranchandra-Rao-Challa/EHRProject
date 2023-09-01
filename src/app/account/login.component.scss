@@ -158,9 +158,8 @@ video {
 
 ::ng-deep .swal2-title-error{
   background-color: #d74842 !important;
-  margin-top: 100px;
+  margin-top: 130px !important;
   font-family: "Roboto";
-  padding: 10px;
   color: white;
 }
 ::ng-deep .swal2-cancel.swal2-error{
@@ -172,6 +171,31 @@ video {
   background-color: #d74842 !important;
   color:#fff  !important;
 }
+
+
+::ng-deep .swal2-title-success{
+  background-color: #41b6a6 !important;
+  margin-top: 130px !important;
+  font-family: "Roboto";
+  color: white;
+}
+::ng-deep .swal2-cancel.swal2-success{
+  background-color: #fff !important;
+  border: 1px solid #41b6a6  !important;
+  color:#41b6a6  !important;
+}
+::ng-deep .swal2-cancel.swal2-success:hover{
+  background-color: #41b6a6 !important;
+  color:#fff  !important;
+}
+
+::ng-deep .swal2-popup.swal2-success-popup{
+  width: 55em;
+  height: 25em;
+}
+
+
+
 ::ng-deep .swal2-title.login-modal-header {
   margin: unset !important;
   border-top-left-radius: 5px;

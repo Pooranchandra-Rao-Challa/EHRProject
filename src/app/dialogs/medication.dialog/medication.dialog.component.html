@@ -29,7 +29,7 @@
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientMedication.DisplayName != null">
             <p>{{patientMedication.DisplayName}}</p>
-            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete"
+            <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete" *ngIf="this.patientMedication.MedicationId == null"
               (click)="deleteMedicationName()"></a>
           </span>
         </div>
@@ -64,14 +64,14 @@
         <div class="form-group col-md-3">
           <label class="title-field">Drug Strength:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput placeholder="Drug Strength" name="doseandform:"
+            <input matInput placeholder="Drug Strength" name="doseandform:" readonly style="cursor: not-allowed"
               [(ngModel)]="patientMedication.DrugStrength" />
           </mat-form-field>
         </div>
         <div class="form-group col-md-3">
           <label class="title-field">Drug Form:</label>
           <mat-form-field class="grey-matform" appearance="outline">
-            <input matInput #drugFormInput placeholder="Drug and Form" name="DrugForm:"
+            <input matInput #drugFormInput placeholder="Drug and Form" name="DrugForm:" readonly style="cursor: not-allowed"
               [(ngModel)]="patientMedication.DrugForm" [matAutocomplete]="drugForm" />
           </mat-form-field>
           <mat-autocomplete #drugForm="matAutocomplete" class="scrollable-table">
@@ -93,7 +93,7 @@
 
       </div>
       <div class="row mt-2" style="display:inline-flex">
-        <div class="form-group col-md-12">Patient Direction: <b>{{patientMedication.Action}} {{patientMedication.Dose}}
+        <div class="form-group col-md-12">Patient Sig: <b>{{patientMedication.Action}} {{patientMedication.Dose}}
             {{patientMedication.DoseUnits}} {{patientMedication.DoseRoute}} {{patientMedication.DoseTiming}}
             {{patientMedication.DoseOther}}</b></div>
       </div>
@@ -296,12 +296,16 @@
       <div class="w-100">
         <button class="btn btn-danger mx-3 pull-left" *ngIf="patientMedication.MedicationId != undefined"
           (click)="DeleteMedication()">Delete</button>
-
         <button type="button" class="btn btn-green pull-right" (click)="cancel(true)">
           Cancel
         </button>
+        <p *ngIf="saveButtonClicked" class="pull-right" style="padding: 5px 10px; width: 40px;align-items: center; margin-right: 40px;margin-bottom: 0px;">
+          <svg class='fontawesomesvg fa-spin fa-2x' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+            <path d="M0 32C0 14.3 14.3 0 32 0H64 320h32c17.7 0 32 14.3 32 32s-14.3 32-32 32V75c0 42.4-16.9 83.1-46.9 113.1L237.3 256l67.9 67.9c30 30 46.9 70.7 46.9 113.1v11c17.7 0 32 14.3 32 32s-14.3 32-32 32H320 64 32c-17.7 0-32-14.3-32-32s14.3-32 32-32V437c0-42.4 16.9-83.1 46.9-113.1L146.7 256 78.9 188.1C48.9 158.1 32 117.4 32 75V64C14.3 64 0 49.7 0 32zM96 64V75c0 25.5 10.1 49.9 28.1 67.9L192 210.7l67.9-67.9c18-18 28.1-42.4 28.1-67.9V64H96zm0 384H288V437c0-25.5-10.1-49.9-28.1-67.9L192 301.3l-67.9 67.9c-18 18-28.1 42.4-28.1 67.9v11z"/>
+          </svg>
+        </p>
         <button type="button" class="btn btn-green  mx-3 pull-right" [disabled]="disableMedication()"
-          (click)="CreateMedication()">
+          (click)="CreateMedication()" *ngIf="!saveButtonClicked">
           Save
         </button>
       </div>

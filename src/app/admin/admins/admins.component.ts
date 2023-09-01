@@ -275,7 +275,7 @@ export class AdminsComponent implements OnInit {
   }
 
   ToggleDuo(admindata){
-    console.log(admindata);
+    //console.log(admindata);
     this.openComponentDialog(this.twoFAToggleComponent,admindata,Actions.edit)
   }
 

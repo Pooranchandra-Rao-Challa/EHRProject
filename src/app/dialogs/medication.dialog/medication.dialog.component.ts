@@ -15,6 +15,7 @@ import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { filter, map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PatientEducationMaterialDialogComponent } from '../patient.education.material.dialog/patient.education.material.dialog.component';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -65,6 +66,7 @@ export class MedicationDialogComponent implements OnInit {
   @ViewChild('drugFormInput', { static: true }) drugFormInput: ElementRef;
   @ViewChild('doseInput', { static: true }) doseInput: ElementRef;
   patientDirection: string;
+  saveButtonClicked: boolean = false;
 
   constructor(public overlayService: OverlayService,
     private ref: EHROverlayRef,
@@ -73,20 +75,70 @@ export class MedicationDialogComponent implements OnInit {
     private rxnormService: RxNormAPIService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
+      // let drugs = ['Dapagliflozin',
+      // 'Darzalex',
+      // 'Dayvigo',
+      // 'Decadron',
+      // 'Degarelix',
+      // 'Delzicol',
+      // 'Denosumab',
+      // 'Depakote',
+      // 'Depo-Provera',
+      // 'Descovy',
+      // 'Desloratadine',
+      // 'Desmopressin',
+      // 'Desvenlafaxine',
+      // 'Desyrel',
+      // 'Detrol',
+      // 'Dexamethasone',
+      // 'Dexilant',
+      // 'Dextroamphetamine',
+      // 'Dextromethorphan',
+      // 'Diacomit',
+      // 'Diastat',
+      // 'Diazepam',
+      // 'Diclofenac',
+      // 'Dicyclomine',
+      // 'Diflucan',
+      // 'Digoxin',
+      // 'Dilantin',
+      // 'Dilaudid',
+      // 'Diltiazem',
+      // 'Dimenhydrinate',
+      // 'Diovan',
+      // 'Dipentum',
+      // 'Diphenhydramine',
+      // 'Diprolene',
+      // 'Divalproex',
+      // 'Divalproex sodium',
+      // 'Docusate Sodium',
+      // 'Donepezil',
+      // 'Dopamine',
+      // 'Doxazosin',
+      // 'Doxepin',
+      // 'Doxycycline',
+      // 'Doxycycline Hyclate',
+      // 'Dulaglutide',
+      // 'Dulcolax',
+      // 'Duloxetine',
+      // 'Duopa',
+      // 'Dupixent',
+      // 'Dutasteride']
+      // drugs.forEach(drug =>{
+      //   this.rxnormService.Drugs(drug)
+      // .subscribe(resp => {
 
-
-
-
-    if (this.patientMedication.StartAt) {
-      this.minDateForEndDate = new Date(this.patientMedication.StartAt);
-    }
-    this.minDateToAllergy.subscribe(minDate => {
-      this.minDateForEndDate = new Date(minDate);
-    })
+      //   if (resp.length > 0) {
+      //     (resp as Drug[]).forEach( name =>{
+      //       console.log(`Synonym: ${name.Synonym}, Name: ${name.Name}`)
+      //     })
+      //   }
+      // });
+      // })
   }
 
   dateChange(e) {
-    this.minDateToAllergy.next(e.value.toString());
+    this.minDateForEndDate = e.value;
   }
 
   ngOnInit(): void {
@@ -166,6 +218,9 @@ export class MedicationDialogComponent implements OnInit {
     ).subscribe(value => this._filterMedicationNames(value));
     this.NDCList();
     this.updateLocalModel(this.ref.RequestData);
+    if (this.patientMedication.StartAt) {
+      this.minDateForEndDate = new Date(this.patientMedication.StartAt);
+    }
   }
 
   _filterRoutes(value){
@@ -227,12 +282,45 @@ export class MedicationDialogComponent implements OnInit {
     return "";
   }
 
+  parseString(regex,text,groupname){
+    let textArray = regex.exec(text);
+    let returnvalue ="";
+    if(textArray && textArray.groups){
+      return textArray.groups[groupname];
+    }
+    else if(textArray) {
+      textArray.forEach(element => {
+        if(element !== undefined){
+          element = element.replace(/^\s+|\s+$/g, '')
+          if(element != '') {
+            if(returnvalue != '')returnvalue+='/ ';
+            returnvalue += element
+          }
+        }
+      });
+      if(returnvalue == undefined || returnvalue == null) returnvalue = '';
+      return returnvalue
+    }
+    else return "";
+  }
+
   onSelectedMedication(selected) {
-    console.log(selected.option.value);
+
+    let drugname = selected.option.value.Synonym.replace(/^\s+|\s+$/g, '') == '' ? selected.option.value.Name : selected.option.value.Synonym;
+    var strength = this.parseString(/(?<strength>\d+\/*\.*\s*\/*\.*\d*\s*(MG|ML|-|\/|HR|UNT|mg|\d*\s*|\s*per\s*\d*\s)+)+\b/,drugname,'strength').replace(/^\s+|\s+$/g, '').replace(/(\/)+$/g, '');
+    var brand = this.parseString(/(?<brand>\[\w*\])/,selected.option.value.Name,'brand').replace(/^\s+|\s+$/g, '').replace('[','').replace(']','');
+    var drugform = this.parseString(/(?<drugform>Tablet|Tablets|Capsule|Capsules|Suspension|Suspensions|Lotion|Foam|Ointment|Cream|Injection|Lancet|Solution|Powder|Spray|Gel|Pack|Packet)/gi,selected.option.value.Name,'drugform').replace(/^\s+|\s+$/g, '');
+
 
     this.patientMedication.DrugName = selected.option.value.Name;
-    this.patientMedication.DisplayName = selected.option.value.Name;
+    this.patientMedication.DisplayName = selected.option.value.Synonym;
     this.patientMedication.Rxcui = selected.option.value.rxcui;
+    this.patientMedication.BrandName = brand.replace('[','').replace(']','');
+    this.patientMedication.DrugStrength = strength;
+    this.patientMedication.DrugForm = drugform;
+    console.log(this.patientMedication);
+
+
     this.NDCList();
     this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
@@ -254,7 +342,6 @@ export class MedicationDialogComponent implements OnInit {
     this.patientMedication = {};
     if (data == null) return;
     this.patientMedication = data;
-    console.log(this.patientMedication);
 
     if(this.patientMedication.Rxcui)
       this.CheckEducationMatieal(this.patientMedication.Rxcui);
@@ -263,7 +350,36 @@ export class MedicationDialogComponent implements OnInit {
   cancel(doCanel:boolean=false) {
     if(this.disContinueReasonUpdated && !doCanel){
       this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM004"]);
-    }else{
+    }
+    else if(this.disContinueReasonUpdated && doCanel){
+      this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM004"]);
+
+      Swal.fire({
+        title: 'The Discontinued reason is active !!!',
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: 'Save Discontinued reason & Close',
+        cancelButtonText :'',
+        denyButtonText: 'Ignore Discontined reason & Close',
+        customClass: {
+          container: 'swal2-container-high-zindex',
+          title: 'login-modal-header login-header-font',
+          input: 'swal-input',
+          denyButton: 'medication-deny-button-sweetalert',
+          confirmButton: 'medication-confirm-button-sweetalert'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.CreateMedication();
+        } else if (result.isDenied) {
+          this.ref.close({
+            "UpdatedModal": PatientChart.Medications
+          });
+        }
+      })
+
+    }
+    else{
       this.ref.close({
         "UpdatedModal": PatientChart.Medications
       });
@@ -284,7 +400,9 @@ export class MedicationDialogComponent implements OnInit {
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
       if( res.data.reason){
-        this.patientMedication.ReasonDescription = res.data.reason.ReasonDescription;
+        this.patientMedication.StopAt = res.data.reason.StopAt;
+        this.patientMedication.ReasonCode =  res.data.reason.Code;
+        this.patientMedication.ReasonDescription = res.data.reason.Description;
         this.disContinueReasonUpdated = true;
       }
     });
@@ -320,13 +438,6 @@ export class MedicationDialogComponent implements OnInit {
     else return '#';
   }
 
-  // DrugNames(searchTerm: any) {
-  //   this.rxnormService.Drugs().subscribe((resp) => {
-  //     if (resp.IsSuccess) {
-
-  //     }
-  //   })
-  // }
 
   CreateMedication() {
     let isAdd = this.patientMedication.MedicationId == undefined;
@@ -341,7 +452,11 @@ export class MedicationDialogComponent implements OnInit {
       this.patientMedication.IsElectronicPrescription = false;
       this.patientMedication.PrescriptionStatus = "recorded";
     }
+
+
+    this.saveButtonClicked = true;
     this.patientService.CreateMedication(this.patientMedication).subscribe((resp) => {
+      this.saveButtonClicked = false;
       if (resp.IsSuccess) {
         this.ref.close({
           "UpdatedModal": PatientChart.Medications
@@ -361,8 +476,11 @@ export class MedicationDialogComponent implements OnInit {
 
   deleteMedicationName() {
     this.patientMedication.DrugName = null;
+    this.patientMedication.DisplayName = null;
     this.patientMedication.Rxcui = '';
-    this.patientMedication.NDC = '';
+    this.patientMedication.BrandName = '';
+    this.patientMedication.DrugStrength = null;
+    this.patientMedication.DrugForm = null;
     this.ndcList = [];
   }
 

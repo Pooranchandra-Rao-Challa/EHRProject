@@ -1,7 +1,7 @@
-import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Medication, GlobalConstants, PatientChart } from 'src/app/_models';
+import {  GlobalConstants } from 'src/app/_models';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-discontinue.dialog',
@@ -9,12 +9,12 @@ import { Medication, GlobalConstants, PatientChart } from 'src/app/_models';
   styleUrls: ['./discontinue.dialog.component.scss']
 })
 export class DiscontinueDialogComponent implements OnInit {
-  patientMedication: Medication = new Medication();
-  reasonCodes: GlobalConstants;
-  reasonCodesFilter: GlobalConstants;
 
+  reasonCodes: GlobalConstants;
+  reasonCode:any = {};
+  reasonCodesFilter: GlobalConstants;
   constructor(private ref: EHROverlayRef) {
-    this.patientMedication = new Medication;
+    this.reasonCode.StopAt = new Date()
   }
 
   ngOnInit(): void {
@@ -27,12 +27,12 @@ export class DiscontinueDialogComponent implements OnInit {
   }
 
   selectReason(reason: any) {
-    this.patientMedication.ReasonCode = reason.Code;
-    this.patientMedication.ReasonDescription = reason.Description;
+    this.reasonCode.Code = reason.Code;
+    this.reasonCode.Description = reason.Description;
   }
 
-  saveReason(reason) {
-    this.ref.close({ reason: reason });
+  saveReason() {
+    this.ref.close({ reason: this.reasonCode });
   }
 
 }

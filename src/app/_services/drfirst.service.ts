@@ -82,7 +82,7 @@ export class DrfirstService {
           urlparams = DR_FIRST_PROVIDER_URL(
             this.drFirstAttributes.VendorUserName,
             this.drFirstAttributes.RcopiaPracticeUserName,
-            this.drFirstAttributes.ProviderUserName,
+            this.drFirstAttributes.RcopiaPracticeUserId,
             this.drFirstAttributes.RcopiaUserExternalId == null || this.drFirstAttributes.RcopiaUserExternalId == undefined
               ? "" : this.drFirstAttributes.RcopiaUserExternalId, startup) + this.gmtTime();
           var hashvalue = Md5.init(`${urlparams}${this.drFirstAttributes.VendorPassword}`).toUpperCase()
@@ -95,7 +95,7 @@ export class DrfirstService {
           urlparams = DR_FIRST_PATINET_URL(
             this.drFirstAttributes.VendorUserName,
             this.drFirstAttributes.RcopiaPracticeUserName,
-            this.drFirstAttributes.ProviderUserName,
+            this.drFirstAttributes.RcopiaPracticeUserId,
             this.drFirstAttributes.RcopiaUserExternalId == null || this.drFirstAttributes.RcopiaUserExternalId == undefined
               ? "" : this.drFirstAttributes.RcopiaUserExternalId,
             this.drFirstAttributes.DrFirstPatientId + '', startup) + this.gmtTime();

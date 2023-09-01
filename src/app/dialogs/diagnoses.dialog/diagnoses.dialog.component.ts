@@ -35,12 +35,7 @@ export class AddDiagnosesDialogComponent implements OnInit {
     public datepipe: DatePipe,
     public overlayService: OverlayService) {
 
-    if (this.patientDiagnoses.StartAt) {
-      this.endDateForDiagnosis = new Date(this.patientDiagnoses.StartAt);
-    }
-    if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
-      this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
-    }
+
     this.minDateToFinish.subscribe(minDate => {
       this.endDateForDiagnosis = new Date(minDate);
     })
@@ -59,8 +54,17 @@ export class AddDiagnosesDialogComponent implements OnInit {
       return;
     }
     this.patientDiagnoses = data;
+    //console.log(this.patientDiagnoses);
+
     if (this.patientDiagnoses.Code)
       this.CheckEducationMatieal(this.patientDiagnoses.Code);
+
+      if (this.patientDiagnoses.StartAt) {
+        this.endDateForDiagnosis = new Date(this.patientDiagnoses.StartAt);
+      }
+      if (this.patientDiagnoses.StopAt != (null || '' || undefined)) {
+        this.patientDiagnoses.StopAt = this.datepipe.transform(this.patientDiagnoses.StopAt, "yyyy-MM-dd");
+      }
   }
 
   cancel() {

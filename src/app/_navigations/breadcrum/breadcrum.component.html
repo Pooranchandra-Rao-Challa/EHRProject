@@ -1,11 +1,11 @@
 <div class="eRX-notice-wrapper">
-  <p class="text-center mb-0">eRX Notice: You currently have <span>{{notifications.Error}}</span> Transmission Errors, <span>{{notifications.Refill}}</span> Refill
+  <p class="text-center mb-0">eRX Notice: You currently have <span>{{notifications.RxNeedSigning}}</span> Rx Need Signing, <span>{{notifications.Rxchange}}</span> Rx-change, <span>{{notifications.Refill}}</span> Refill
     Notices and <span>{{notifications.RxPending}}</span>
     Pending Prescriptions.
     <button mat-button [matMenuTriggerFor]="openeRX" class="mat-button">Open eRX</button>
     <mat-menu #openeRX="matMenu" xPosition="after" class="mat-elevation-z8">
-      <li mat-menu-item class="mat-menu-item"><a (click)="openMessageiPrescribe()" href="javascript:void(0)" target="_blank">eRX Messages</a></li>
-      <li mat-menu-item class="mat-menu-item"><a (click)="openReportiPresribe()" href="javascript:void(0)" target="_blank">eRX Reports</a></li>
+      <li mat-menu-item class="mat-menu-item"><a (click)="openMessageiPrescribe()"  target="_blank">eRX Messages</a></li>
+      <li mat-menu-item class="mat-menu-item"><a (click)="openReportiPresribe()" target="_blank">eRX Reports</a></li>
     </mat-menu>
     to resolve.
   </p>

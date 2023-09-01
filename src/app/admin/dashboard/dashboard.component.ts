@@ -86,8 +86,8 @@ export class DashboardComponent implements OnInit {
 
 
     ).subscribe((value) => {
-      console.log(value);
-      console.log(this.document.getElementById('btnResetMFA'));
+      //console.log(value);
+      //console.log(this.document.getElementById('btnResetMFA'));
 
       if (value){
         this.document.getElementById('btnResetMFA').removeAttribute('disabled');
@@ -326,12 +326,12 @@ export class DashboardComponent implements OnInit {
   }
 
   resetMFA(provider: ProviderList) {
-    console.log(provider);
+    //console.log(provider);
     this.openComponentDialog(this.reset2FAComponent,provider,Actions.edit);
   }
 
   toggleProviderStatus(provider: ProviderList) {
-    console.log(provider);
+    //console.log(provider);
     this.openComponentDialog(this.userStatusToggleComponent,provider,Actions.edit);
   }
 

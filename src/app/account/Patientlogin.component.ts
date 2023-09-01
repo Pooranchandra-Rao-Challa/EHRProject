@@ -163,7 +163,7 @@ export class PatientLoginComponent implements OnInit {
 
     });
     if (email) {
-      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url }).subscribe((resp) => {
+      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url, RequestedBy: 2 }).subscribe((resp) => {
         this.openErrorDialog(resp.EndUserMessage);
       })
     }
@@ -203,8 +203,31 @@ export class PatientLoginComponent implements OnInit {
     Swal.fire({
       title: message,
       padding: '1px !important',
+      width: '600',
       customClass: {
-        cancelButton: 'login-cancel-button'
+        title: 'swal2-title-error',
+        cancelButton: 'swal2-error',
+        popup:'swal2-success-popup',
+        container: ['swal2-container-high-zindex'],
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      backdrop: true,
+      showConfirmButton: false,
+    });
+  }
+
+  openSuccessDialog(message: string) {
+    Swal.fire({
+      title: message,
+      padding: '1px !important',
+      width: '600',
+      customClass: {
+        title: 'swal2-title-success',
+        cancelButton: 'swal2-success',
+        popup:'swal2-success-popup',
+        container: ['swal2-container-high-zindex'],
       },
       background: '#f9f9f9',
       showCancelButton: true,

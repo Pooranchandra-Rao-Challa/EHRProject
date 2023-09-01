@@ -142,6 +142,7 @@ export class Medication {
   DrugName?: string;
   DrugForm?: string;
   DisplayName?: string;
+  BrandName?: string;
   Rxcui?: string;
   NDC?: string;
   DoesspotMedicationId?: string;

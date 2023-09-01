@@ -133,7 +133,7 @@ export class VitalDialogComponent implements OnInit {
       if (noCollectionDate) return true
     }
 
-    console.log(this.Vital.Temperature);
+    //console.log(this.Vital.Temperature);
 
     if(this.Vital.BPDiastolic && this.Vital.BPDiastolic < 60) return true;
     if(this.Vital.BPSystolic && this.Vital.BPSystolic < 60) return true;

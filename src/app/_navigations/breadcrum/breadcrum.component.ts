@@ -36,11 +36,11 @@ export class BreadcrumComponent implements OnInit {
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Message){
-        //this.drfirstProviderMessageUrl = data.url
+        this.drfirstProviderMessageUrl = data.url
         window.open(data.url,'mozillaTab');
       }
       else if (data.urlfor == "Provider" && data.purpose == DrFirstStartUpScreens.Report){
-        //this.drfirstProviderReportUrl = data.url
+        this.drfirstProviderReportUrl = data.url
         window.open(data.url,'mozillaTab');
       }
 
@@ -51,13 +51,15 @@ export class BreadcrumComponent implements OnInit {
           this.notifications = resp.Result as DrFirstNotificationsData;
         else {
           this.notifications = {};
-          this.notifications.Error = '0';
+          this.notifications.RxNeedSigning = '0';
+          this.notifications.Rxchange = '0';
           this.notifications.Refill = '0';
           this.notifications.RxPending = '0';
         }
       } else {
         this.notifications = {};
-        this.notifications.Error = '0';
+        this.notifications.RxNeedSigning = '0';
+          this.notifications.Rxchange = '0';
         this.notifications.Refill = '0';
         this.notifications.RxPending = '0';
       };

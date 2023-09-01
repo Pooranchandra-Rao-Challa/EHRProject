@@ -63,14 +63,15 @@ export class AuthenticationService {
   loginWithFormCredentials(creds: any): Observable<ResponseData> {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
-      tap(resp => { console.log(resp);
+      tap(resp => {
+        //console.log(resp);
 
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
-            console.log(this.isAdmin);
+            //console.log(this.isAdmin);
             this.startRefreshTokenTimer();
             if (this.isProvider) {
               if (!this.isProviderVerfied)
@@ -105,8 +106,8 @@ export class AuthenticationService {
 
             }
             else if (this.isAdmin){
-              console.log(this.isEnabledTwofactorAuth);
-              console.log(this.otpRequiredWhileLogin);
+              //console.log(this.isEnabledTwofactorAuth);
+              //console.log(this.otpRequiredWhileLogin);
               if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL010"]);
               else if (this.isUserLocked)

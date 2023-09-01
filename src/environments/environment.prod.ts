@@ -59,9 +59,10 @@ export const MEDLINE_PLUS_SNOMED = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.
 export const MEDLINE_PLUS_LOINC = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.1'
 export const MEDLINE_PLUS_RXNORM = 'mainSearchCriteria.v.cs=2.16.840.1.113883.6.88'
 export const MEDLINE_PLUS_CODE_PARAM = 'mainSearchCriteria.v.c'
-export const DR_FIRST_SERVER = 'web.staging.drfirst.com'
+export const DR_FIRST_SERVER = 'web3.drfirst.com'
 export const DR_FIRST_ENDPOINT = 'https'
 export const DR_FIRST_URI = 'sso/portalServices'
+//https://web3.drfirst.com/sso/portalServices
 
 export const MEDLINE_PLUS_URL = (code: string, codesystem: string) => `${MEDLINE_PLUS_SERVER}?${codesystem}&${MEDLINE_PLUS_CODE_PARAM}=${code}`
 

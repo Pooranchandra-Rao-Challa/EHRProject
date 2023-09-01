@@ -96,13 +96,17 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     })
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose)
-      window.open(data.url,'mozillaTab');
-        //this.drfirstProviderUrl = data.url
+      if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose){
+        console.log(data.url);
+        window.open(data.url, 'mozillaTab');
+      }
+
+
+
     });
   }
 
-  OpenProviderIPrescribe(){
+  OpenProviderIPrescribe() {
     this.drfirstService.ProviderUrl(DrFirstStartUpScreens.Report);
   }
   ngAfterViewInit(): void {
@@ -136,7 +140,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
   onChangeBreadCrum(url: string, name: string, view?: string,) {
     this.authenticationService.SetViewParam("View", name)
     if (view != null) {
-      if(!this.CanViewPractice) this.authenticationService.SetViewParam("SubView", 'accesspermission')
+      if (!this.CanViewPractice) this.authenticationService.SetViewParam("SubView", 'accesspermission')
       else this.authenticationService.SetViewParam("SubView", view)
     }
     this.viewModel = this.authenticationService.viewModel;
@@ -238,13 +242,13 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     return temp[0].Allowed;
   }
 
-  get CanViewPractice(): boolean{
+  get CanViewPractice(): boolean {
     var permissions = this.authenticationService.permissions();
-    if(!permissions) return false;
+    if (!permissions) return false;
     var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
-    if(providerpermissions && providerpermissions.length == 1) return true;
+    if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == "PracticePolicy" && fn.MethodName == "show")
-    if(temp.length == 0) return false;
+    if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
 

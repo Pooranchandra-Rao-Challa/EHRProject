@@ -71,7 +71,7 @@ export class LoginComponent implements OnInit {
       "UserIP": this.userIP
     };
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
-      console.log(resp);
+      //console.log(resp);
 
       if (!resp.IsSuccess) {
         this.showspinner = false;
@@ -138,7 +138,7 @@ export class LoginComponent implements OnInit {
   public hidePassword() {
     this.showPassword = false;
   }
-
+  passwordChangeRequestAction:boolean = false;
   async openResetPassword() {
     const { value: email } = await Swal.fire({
       title: 'Reset Your Password',
@@ -171,8 +171,15 @@ export class LoginComponent implements OnInit {
 
     });
     if (email) {
-      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url }).subscribe((resp) => {
-        this.openErrorDialog(resp.EndUserMessage);
+      this.passwordChangeRequestAction = true;
+      this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url, RequestedBy: 1 }).subscribe((resp) => {
+        this.passwordChangeRequestAction = false;
+        if(resp.IsSuccess){
+          this.openSuccessDialog(resp.EndUserMessage);
+        }else{
+          this.openErrorDialog(resp.EndUserMessage);
+        }
+
       })
     }
   }
@@ -217,9 +224,31 @@ export class LoginComponent implements OnInit {
     Swal.fire({
       title: message,
       padding: '1px !important',
+      width: '600',
       customClass: {
         title: 'swal2-title-error',
-        cancelButton: 'swal2-error'
+        cancelButton: 'swal2-error',
+        popup:'swal2-success-popup',
+        container: ['swal2-container-high-zindex'],
+      },
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      backdrop: true,
+      showConfirmButton: false,
+    });
+  }
+
+  openSuccessDialog(message: string) {
+    Swal.fire({
+      title: message,
+      padding: '1px !important',
+      width: '600',
+      customClass: {
+        title: 'swal2-title-success',
+        cancelButton: 'swal2-success',
+        popup:'swal2-success-popup',
+        container: ['swal2-container-high-zindex'],
       },
       background: '#f9f9f9',
       showCancelButton: true,

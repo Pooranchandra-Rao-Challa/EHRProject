@@ -19,8 +19,8 @@ export class DrFirstAttributes {
   SystemName?: string;
   RcopiaPracticeUserName?: string;
   RcopiaPracticeUserNamePassword?: string;
-  ProviderUserName?: string;
-  ProviderUserNamePassword?: string;
+  RcopiaPracticeUserId?: string;
+  RcopiaPracticeUserIdPassword?: string;
   RcopiaUserExternalId?: string;
   EprescribeFrom?: string;
   DrFirstPatientId?: number;

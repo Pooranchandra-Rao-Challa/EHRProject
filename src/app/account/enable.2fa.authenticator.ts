@@ -27,7 +27,7 @@ export class Enablge2FAAuthenticatorComponent {
     private router: Router,
     private fb: FormBuilder) {
 
-      console.log(this.qrCodeProps);
+      //console.log(this.qrCodeProps);
       let userType = '';
       let id = '';
       if(authService.isAdmin) {
@@ -44,12 +44,12 @@ export class Enablge2FAAuthenticatorComponent {
       }
       authService.Get2FAQrCode(userType,authService.userValue.UserId,id).subscribe(resp =>
       {
-        console.log(resp);
+        //console.log(resp);
         if(resp.IsSuccess)
         {
           this.qrCodeProps = resp.Result as QrCodeProps;
           this.qrCodeUrl.next(this.qrCodeProps.DataUrl);
-          console.log(this.qrCodeProps.SecretKey.match(/[\s\S]{6}/g) || []);
+          //console.log(this.qrCodeProps.SecretKey.match(/[\s\S]{6}/g) || []);
 
           this.qrCodeProps.SecretKey = (this.qrCodeProps.SecretKey.match(/[\s\S]{6}/g) || []).join(' ');
         }
@@ -57,7 +57,7 @@ export class Enablge2FAAuthenticatorComponent {
   }
   checkLength2(e, input, max, min) {
     const functionalKeys = ['Backspace', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'Tab', 'Delete','Enter'];
-    console.log(e.key);
+    //console.log(e.key);
 
     if(e.key == 'Enter') this.verifyToken();
 
@@ -96,7 +96,7 @@ export class Enablge2FAAuthenticatorComponent {
   }
   verifyToken(){
     this.authService.ValidateTotp(this.verficationCode,this.authService.userValue.UserId).subscribe(resp=>{
-      console.log(resp);
+      //console.log(resp);
       this.Result = resp.Result as TwofactorAuthParams;
       if(resp.IsSuccess && this.Result.Verified){
         this.authService.startRefreshTokenTimer();

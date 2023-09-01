@@ -61,7 +61,7 @@ export class Verify2FATokenComponent {
 
   checkLength2(e, input, max, min) {
     const functionalKeys = ['Backspace', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'Tab', 'Delete','Enter'];
-    console.log(e.key);
+    //console.log(e.key);
 
     if(e.key == 'Enter') this.verifyToken();
 

@@ -43,6 +43,8 @@ export class RxNormAPIService {
   Drugs(term: string): Observable<Drug[]> {
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
+        //console.log(result);
+
         let returnDrugs: Drug[] = [];
         var drugs = result as Drugs;
         if (drugs != null &&
@@ -50,14 +52,14 @@ export class RxNormAPIService {
           drugs.drugGroup.conceptGroup != null &&
           drugs.drugGroup.conceptGroup.length > 0) {
           drugs.drugGroup.conceptGroup.forEach((value) => {
-            console.log(value);
+            //console.log(value);
 
             if (value != null && value.conceptProperties != null
               && value.conceptProperties.length > 0) {
               value.conceptProperties.forEach((props) => {
                 returnDrugs.push(
                   {
-                    Name: props.synonym ? props.synonym : props.name,
+                    Name: props.name,
                     Synonym: props.synonym,
                     rxcui: props.rxcui
                   }
@@ -98,7 +100,7 @@ export class RxNormAPIService {
     if(!rxcui) return  of([])
     return this.http.get<string[]>(this._ndcsUrl(rxcui)).pipe(
       map((result) => {
-        console.log(result);
+        //console.log(result);
 
         let returnNDCS: string[] = [];
         var ndclist = result as NDCS;

@@ -980,9 +980,10 @@ i {
   padding: 0px !important;
 }
 
-.swal2-login-container{
+.swal2-login-container {
   backdrop-filter: blur(10px);
 }
+
 // .swal-input {
 //   border: 1px solid #e9e9e9 !important;
 // }
@@ -1333,7 +1334,7 @@ i {
 
 
 /* width */
-#providerbody::-webkit-scrollbar ,
+#providerbody::-webkit-scrollbar,
 #providerbody .mat-drawer-inner-container::-webkit-scrollbar,
 #providerbody .fc-scroller::-webkit-scrollbar,
 #providerbody .scrollable-table::-webkit-scrollbar,
@@ -1354,8 +1355,7 @@ i {
 #providerbody .modal-body::-webkit-scrollbar-track,
 #providerbody .ehr-cqm-table-container::-webkit-scrollbar-track,
 #providerbody .interventions-table::-webkit-scrollbar-track,
-#providerbody .mat-select-panel::-webkit-scrollbar-track
-{
+#providerbody .mat-select-panel::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #41b6a6;
   border-radius: 10px;
   background: #f1f1f1;
@@ -1369,7 +1369,7 @@ i {
 #providerbody .modal-body::-webkit-scrollbar-thumb,
 #providerbody .ehr-cqm-table-container::-webkit-scrollbar-thumb,
 #providerbody .interventions-table::-webkit-scrollbar-thumb,
-#providerbody .mat-select-panel::-webkit-scrollbar-thumb  {
+#providerbody .mat-select-panel::-webkit-scrollbar-thumb {
   background: #41b6a6;
   border-radius: 10px;
   background-clip: padding-box;
@@ -1384,7 +1384,7 @@ i {
 #providerbody .modal-body::-webkit-scrollbar-thumb:hover,
 #providerbody .ehr-cqm-table-container::-webkit-scrollbar-thumb:hover,
 #providerbody .interventions-table::-webkit-scrollbar-thumb:hover,
-#providerbody .mat-select-panel::-webkit-scrollbar-thumb:hover  {
+#providerbody .mat-select-panel::-webkit-scrollbar-thumb:hover {
   background: #41b6a6;
 }
 
@@ -1400,7 +1400,7 @@ i {
 /* Track */
 #adminbody::-webkit-scrollbar-track,
 #adminbody .mat-select-panel::-webkit-scrollbar-track,
-#adminbody .modal-body::-webkit-scrollbar-track{
+#adminbody .modal-body::-webkit-scrollbar-track {
   box-shadow: inset 0 0 5px #2a3642;
   border-radius: 10px;
   background: #f1f1f1;
@@ -1429,7 +1429,7 @@ i {
 /* width */
 #patientbody::-webkit-scrollbar,
 #patientbody .mat-select-panel::-webkit-scrollbar,
-#patientbody .modal-body::-webkit-scrollbar  {
+#patientbody .modal-body::-webkit-scrollbar {
   width: 15px;
   padding-right: 5px;
 }
@@ -1456,7 +1456,7 @@ i {
 /* Handle on hover */
 #patientbody::-webkit-scrollbar-thumb:hover,
 #patientbody .mat-select-panel::-webkit-scrollbar-thumb:hover,
-#patientbody .modal-body::-webkit-scrollbar-thumb:hover  {
+#patientbody .modal-body::-webkit-scrollbar-thumb:hover {
   background: #41b6a6;
 }
 
@@ -1537,84 +1537,115 @@ i {
   font-weight: 400;
   margin-bottom: 40px !important;
 }
-.fc-toolbar-select{
+
+.fc-toolbar-select {
   height: 30px;
   margin: 0 10px 1.5em;
   border-color: #41b6a6;
   border-radius: 5px;
 }
-.fc-calender-label{
+
+.fc-calender-label {
   height: 30px;
   font-size: 1em;
   font-weight: 400;
   vertical-align: middle;
   margin: 0 10px 1.5em 10px;
 }
-.fc-select-option{
+
+.fc-select-option {
   height: 25px;
   border: unset;
   border-radius: unset;
 }
 
-.fc-select-option:hover{
+.fc-select-option:hover {
   background: #41b6a6;
 }
 
-.confirm-refresh-session{
-  background-color:#41b6a6 !important;
+.confirm-refresh-session {
+  background-color: #41b6a6 !important;
 }
 
 
 
-.calendar-btn{
+.calendar-btn {
   box-shadow: none;
-    font-size: 0.875rem;
-    line-height: 1;
-    font-family: "Times New Roman", sans-serif;
-    outline: 0;
-    outline-offset: 0;
-    --bs-btn-padding-x: 1.375rem;
-    --bs-btn-padding-y: 0.70rem;
-    --bs-btn-font-family: ;
-    --bs-btn-font-size: 0.875rem;
-    --bs-btn-font-weight: 400;
-    --bs-btn-line-height: 1;
-    --bs-btn-color: #212529;
-    --bs-btn-bg: transparent;
-    --bs-btn-border-width: 1px;
-    --bs-btn-border-color: transparent;
-    --bs-btn-border-radius: 0.1875rem;
-    --bs-btn-hover-border-color: transparent;
-    --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
-    --bs-btn-disabled-opacity: 0.65;
-    --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
-    display: inline-block;
-    padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-    border:#eeeeee solid 1px;
-    border-radius: 5px;
-    background-color: var(--bs-btn-bg);
-    font-family: inherit;
-    color:#fff;
+  font-size: 0.875rem;
+  line-height: 1;
+  font-family: "Times New Roman", sans-serif;
+  outline: 0;
+  outline-offset: 0;
+  --bs-btn-padding-x: 1.375rem;
+  --bs-btn-padding-y: 0.70rem;
+  --bs-btn-font-family: ;
+  --bs-btn-font-size: 0.875rem;
+  --bs-btn-font-weight: 400;
+  --bs-btn-line-height: 1;
+  --bs-btn-color: #212529;
+  --bs-btn-bg: transparent;
+  --bs-btn-border-width: 1px;
+  --bs-btn-border-color: transparent;
+  --bs-btn-border-radius: 0.1875rem;
+  --bs-btn-hover-border-color: transparent;
+  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+  --bs-btn-disabled-opacity: 0.65;
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(var(--bs-btn-focus-shadow-rgb), .5);
+  display: inline-block;
+  padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+  border: #eeeeee solid 1px;
+  border-radius: 5px;
+  background-color: var(--bs-btn-bg);
+  font-family: inherit;
+  color: #fff;
 }
 
-.calendar-btn:hover{
-  color:#41b6a6;
+.calendar-btn:hover {
+  color: #41b6a6;
   background-color: #fff;
 }
 
-.dropdown-menu.calender-menu{
+.dropdown-menu.calender-menu {
   background-color: #41b6a6;
-  color:#fff;
+  color: #fff;
 }
 
-.dropdown-item.calender-item{
-  color:#fff;
+.dropdown-item.calender-item {
+  color: #fff;
 }
 
-.dropdown-item.calender-item:hover{
-  color:#41b6a6;
+.dropdown-item.calender-item:hover {
+  color: #41b6a6;
 }
 
-#loginbody{
+#loginbody {
   background-color: #efedee;
+}
+
+.medication-confirm-button-sweetalert {
+  margin: 5px !important;
+  padding: 10px !important;
+  width: 163px !important;
+  height: 70px !important;
+  color: #41b6b6 !important;
+  background: #f9f9f9 !important;
+  border: 1px solid #41b6b6 !important;
+  border-radius: 6px !important;
+
+}
+.medication-deny-button-sweetalert{
+  padding: 10px 0 !important;
+  height: 70px !important;
+  border: 1px solid #dc3741 !important;
+  background-color: #f9f9f9 !important;
+  color: #dc3741 !important;
+}
+.medication-confirm-button-sweetalert:hover {
+  background-color: #41b6b6 !important;
+  color: #f9f9f9 !important;
+}
+
+.medication-deny-button-sweetalert:hover {
+  background-color: #dc3741 !important;
+  color: #f9f9f9 !important;
 }

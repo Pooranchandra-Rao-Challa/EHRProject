@@ -34,6 +34,7 @@
       <div class="container pt-2 pb-4" id="flexbox">
         <!-- Top header -->
         <div class="row top-header">
+          <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="passwordChangeRequestAction"></mat-progress-bar>
           <div class="col-lg-4 col-md-6 col-sm-12">
             <div class="Login-form">
               <mat-card-content>
@@ -67,7 +68,6 @@
             <div style="text-align: left;">
               <button class="btn btn-green signin" type="submit" mat-raised-button (click)="OnFormSubmit()">Sign
                 in</button>
-                <!-- <button class="btn btn-green signin" type="submit" mat-raised-button ><a routerLink="/account/security-question">SecurityQuestion</a></button> -->
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12 px-lg-5 px-0">
@@ -79,10 +79,6 @@
               <div class="col-xl-4 col-lg-4 col-md-4 col-4 text-logo">
                 <span>(Ask us how to join)</span>
               </div>
-              <!-- <div class="col-lg-6 heading ">
-                <p>(Ask us how to join)</p>
-              </div> -->
-
               <div class="video">
                 <video controls #videoPlayer controlsList="nodownload">
                   <source src="assets/iPrescribe-short.mp4" type="video/mp4" />
