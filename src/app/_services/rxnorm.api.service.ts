@@ -40,11 +40,69 @@ export class RxNormAPIService {
   private _ndcPropertiesUrl(ndc:string):string{
     return RX_URI_NDC_PROPERTIES(ndc);
   }
-  Drugs(term: string): Observable<Drug[]> {
+
+  drugRegex = /(!?\w*\s?[-.\[\]]?)*/gi;
+  drugSplitter: RegExp = /(\s+\/\s+)/;
+
+  parseString(regex,text,groupname){
+
+    let textArray = regex.exec(text);
+    let returnvalue ="";
+    if(textArray && textArray.groups){
+      return textArray.groups[groupname];
+    }
+    else if(textArray) {
+      textArray.forEach(element => {
+        if(element !== undefined){
+          element = element.replace(/^\s+|\s+$/g, '')
+          if(element != '') {
+            if(returnvalue != '')returnvalue+='/ ';
+            returnvalue += element
+          }
+        }
+      });
+      if(returnvalue == undefined || returnvalue == null) returnvalue = '';
+      return returnvalue
+    }
+    else return "";
+  }
+
+/**clinical drug (SCD), clinical pack (GPCK), branded drug (SBD), branded pack (BPCK) */
+
+  ParseDrugs(drugObj:any): Drug[]{
+    let returnDrugs: Drug[] = [];
+    let brand = this.parseString(/(?<brand>\[\w*(!?[\s\w*_-]*)\])/,drugObj.name,'brand').replace(/^\s+|\s+$/g, '');
+
+
+    if(drugObj.tty == 'GPCK' || drugObj.tty == 'BPCK') return returnDrugs;
+    let nameArr = drugObj.name.split(this.drugSplitter).filter((_, i) => i % 2 === 0) as string[];
+    let drugform = this.parseString(/(?<drugform>Tablet|Tablets|Capsule|Capsules|Suspension|Suspensions|Lotion|Foam|Ointment|Cream|Injection|Lancet|Solution|Powder|Spray|Gel|Pack|Packet|Prefilled Syringe|Rectal Suppository|Auto-Injector|Sublingual Film|Pen Injector|Granules|Lozenge|Transdermal System|Medicated Pad|Vaginal Insert|Buccal Film|Sublingual Tablet|Implant|Suspension Powder)/gi,drugObj.synonym,'drugform').replace(/^\s+|\s+$/g, '');
+
+    if(drugform == '')
+      drugform = this.parseString(/(?<drugform>Tablet|Tablets|Capsule|Capsules|Suspension|Suspensions|Lotion|Foam|Ointment|Cream|Injection|Lancet|Solution|Powder|Spray|Gel|Pack|Packet|Prefilled Syringe|Rectal Suppository|Auto-Injector|Sublingual Film|Pen Injector|Granules|Lozenge|Transdermal System|Medicated Pad|Vaginal Insert|Buccal Film|Sublingual Tablet|Implant|Suspension Powder)/gi,drugObj.name,'drugform').replace(/^\s+|\s+$/g, '');
+    nameArr = nameArr.map((value,index)=>{
+      if(value.indexOf("(")>-1)
+        return value.substring(value.indexOf("(")+1).replace(drugform,"").replace(brand,"").replace(/(\s{2,})/,"").replace(/^\w/, (c) => c.toUpperCase())+" "+drugform + " " + brand
+      else if(value.indexOf(")")>-1)
+        return value.substring(0,value.indexOf(")")).replace(drugform,"").replace(brand,"").replace(/(\s{2,})/,"").replace(/^\w/, (c) => c.toUpperCase())+" "+drugform + " " + brand
+      else
+        return value.replace(drugform,"").replace(brand,"").replace(/(\s{2,})/,"").replace(/^\w/, (c) => c.toUpperCase())+ " "+ drugform  + " " + brand
+    })
+    if(nameArr.length > 0){
+      nameArr.forEach((name,i) => {
+        returnDrugs.push({
+          Name: name,
+          Synonym : name,
+          rxcui: drugObj.rxcui,
+          TermType: drugObj.tty
+        })
+      });
+    }
+    return returnDrugs;
+  }
+  Drugs(term: string): Observable<DrugGroup[]> {
     return this.http.get<Drug[]>(this._drugUrl(term)).pipe(
       map((result) => {
-        //console.log(result);
-
         let returnDrugs: Drug[] = [];
         var drugs = result as Drugs;
         if (drugs != null &&
@@ -52,23 +110,15 @@ export class RxNormAPIService {
           drugs.drugGroup.conceptGroup != null &&
           drugs.drugGroup.conceptGroup.length > 0) {
           drugs.drugGroup.conceptGroup.forEach((value) => {
-            //console.log(value);
-
             if (value != null && value.conceptProperties != null
               && value.conceptProperties.length > 0) {
               value.conceptProperties.forEach((props) => {
-                returnDrugs.push(
-                  {
-                    Name: props.name,
-                    Synonym: props.synonym,
-                    rxcui: props.rxcui
-                  }
-                )
+                returnDrugs.push(...this.ParseDrugs(props))
               })
             }
           })
         }
-        return returnDrugs;
+        return groupByTermType(returnDrugs,durg=>durg.TermType);
       }),
       catchError(this._handleError)
     );
@@ -100,7 +150,6 @@ export class RxNormAPIService {
     if(!rxcui) return  of([])
     return this.http.get<string[]>(this._ndcsUrl(rxcui)).pipe(
       map((result) => {
-        //console.log(result);
 
         let returnNDCS: string[] = [];
         var ndclist = result as NDCS;
@@ -178,9 +227,9 @@ export class RxNormAPIService {
     if (error.error instanceof ErrorEvent) {
       console.error("An error occurred:", error.error.message);
     } else {
-      console.error("serverside error", error.error);
+      console.error( error.error ? `Server Side Error ${error.error.Message}` : `Server Side Error ${error}`);
     }
-    return throwError(error.error.Message);
+    return throwError(error.error ? error.error.Message : error);
   }
 
 }
@@ -189,6 +238,12 @@ export interface Drug {
   Name: string;
   Synonym:string;
   rxcui: string;
+  TermType?:TermTypes;
+}
+
+export interface DrugGroup{
+  TermType?:TermTypes;
+  Drugs: Drug[];
 }
 
 export class Drugs {
@@ -217,7 +272,14 @@ export class conceptProperty {
   public suppress?: string;
   public umlscui?: string;
 }
-
+/**clinical drug (SCD), clinical pack (GPCK), branded drug (SBD), branded pack (BPCK) */
+export enum TermTypes{
+  SCD = "Clinical Drug",
+  SBD = "Branded Drug",
+  GPCK = "Clinical Pack",
+  BPCK = "Branded Pack",
+  NOTDEF = "not defined"
+}
 
 export class NDCS {
   ndcGroup?: ndcGroupObj;
@@ -282,4 +344,23 @@ export class ndcSourceObj {
   ndcRxcuiConcept?: string;
   ndcConceptName?: string;
   ndcConceptStatus?: string;
+}
+
+
+function groupByTermType<_string, _MedicalCode>(array: Drug[], grouper: (item: Drug) => string) {
+  let rtnValue = array.reduce((store, item) => {
+    var key = grouper(item)
+    if (!store.has(key)) {
+      store.set(key, [item])
+    } else {
+      store.get(key).push(item)
+    }
+    return store;
+  }, new Map<string, Drug[]>())
+
+  let durgs: DrugGroup[] = [];
+  rtnValue.forEach((values: Drug[], mykey: TermTypes) => {
+    durgs.push({ TermType: mykey, Drugs: values })
+  });
+  return durgs;
 }

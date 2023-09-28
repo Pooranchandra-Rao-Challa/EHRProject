@@ -102,3 +102,13 @@ textarea.form-control:hover {
   min-height: 45px;
   margin-top: 3px;
 }
+
+::ng-deep .mat-advance-drug-group label{
+  background: #41b6a6;
+  color:#fff;
+  border: 1px solid #41b6a6;
+}
+
+::ng-deep  .mat-advance-drug-group .mat-option{
+  padding:unset;
+}

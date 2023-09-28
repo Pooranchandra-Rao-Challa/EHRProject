@@ -152,7 +152,7 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "EHRProject:build",
-            "proxyConfig": "proxy.conf.js"
+            "port": 4200
           },
           "configurations": {
             "production": {
@@ -164,11 +164,11 @@
             "testlocal": {
               "browserTarget": "EHRProject:build:testlocal"
             },
-            "devlopment": {
+            "development": {
               "browserTarget": "EHRProject:build:devlopment"
             }
           },
-          "defaultConfiguration":"devlopment"
+          "defaultConfiguration":"development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",

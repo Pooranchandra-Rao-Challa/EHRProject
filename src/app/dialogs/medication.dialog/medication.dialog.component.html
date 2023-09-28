@@ -20,15 +20,19 @@
                 Enter atleast 1 character, you can only select 1 item
               </mat-option>
               <mat-option *ngIf="isLoading">Loading ...</mat-option>
-              <mat-option ngClass="option-white-space" *ngFor="let drug of medications | async" [value]="drug"
-                class="medical-code-option">
-                {{drug.Name}}
+               <mat-optgroup *ngFor="let druggroup of medications | async" [label]="DrugTermType(druggroup.TermType)"  class="mat-advance-drug-group">
+                <mat-option *ngFor="let drug of druggroup.Drugs" [value]="drug"
+                class="medical-code-option option-white-space">
+                {{drug.rxcui}} - {{drug.Name}}
               </mat-option>
+               </mat-optgroup>
               <mat-option *ngIf="noRecords">No Records Found</mat-option>
             </mat-autocomplete>
           </mat-form-field>
           <span class="selected-allergen" id="allergenName" *ngIf="patientMedication.DisplayName != null">
-            <p>{{patientMedication.DisplayName}}</p>
+            <p style="font-weight: 600;
+            font-size: 12pt;
+            color: #41b6a6;">{{patientMedication.DisplayName}}</p>
             <a class="icon icon-sm icon-circle icon-ic-delete pull-right" id="icon-delete" *ngIf="this.patientMedication.MedicationId == null"
               (click)="deleteMedicationName()"></a>
           </span>
@@ -98,7 +102,7 @@
             {{patientMedication.DoseOther}}</b></div>
       </div>
       <div class="row mt-2">
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label class="title-field">Action:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #actionInput [matAutocomplete]="action" placeholder="Action" name="action:"
@@ -111,7 +115,7 @@
           </mat-autocomplete>
         </div>
 
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label class="title-field">Dose:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #doseInput [matAutocomplete]="dose" placeholder="Dose" name="dose:"
@@ -124,7 +128,7 @@
           </mat-autocomplete>
         </div>
 
-        <div class="form-group col-md-2">
+        <div class="form-group col-md-3">
           <label class="title-field">Dose Unit:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #doseunitInput [matAutocomplete]="doseunit" placeholder="Dose Unit" name="doseunit:"
@@ -148,7 +152,13 @@
             </mat-autocomplete>
           </mat-form-field>
         </div>
-        <div class="form-group col-md-3 ">
+
+
+      </div>
+
+
+      <div class="row mt-2">
+        <div class="form-group col-md-6 ">
           <label class="title-field">Dose Timing:</label>
           <mat-form-field class="grey-matform" appearance="outline">
             <input matInput #doseTimingInput [matAutocomplete]="doseTiming" placeholder="Dose Timing" name="doseTiming:"
@@ -160,12 +170,6 @@
             </mat-option>
           </mat-autocomplete>
         </div>
-
-      </div>
-
-
-      <div class="row mt-2">
-
         <div class="form-group col-md-6">
           <label class="title-field">Dose Other:</label>
           <mat-form-field class="grey-matform" appearance="outline">

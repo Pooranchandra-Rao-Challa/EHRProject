@@ -11,7 +11,6 @@ import { UtilityService } from 'src/app/_services/utiltiy.service';
 import Swal from 'sweetalert2';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { TwoFAToggleComponent } from './twofa.toggle.component';
-import { I } from '@angular/cdk/keycodes';
 import { Router } from '@angular/router';
 import { ComponentType } from '@angular/cdk/portal';
 import { Actions } from 'src/app/_models';
@@ -275,7 +274,6 @@ export class AdminsComponent implements OnInit {
   }
 
   ToggleDuo(admindata){
-    //console.log(admindata);
     this.openComponentDialog(this.twoFAToggleComponent,admindata,Actions.edit)
   }
 

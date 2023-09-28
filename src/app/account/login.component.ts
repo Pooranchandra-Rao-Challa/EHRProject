@@ -71,7 +71,6 @@ export class LoginComponent implements OnInit {
       "UserIP": this.userIP
     };
     this.authenticationService.loginWithFormCredentials(creds).subscribe(resp => {
-      //console.log(resp);
 
       if (!resp.IsSuccess) {
         this.showspinner = false;
@@ -82,43 +81,42 @@ export class LoginComponent implements OnInit {
           this.authfailedmessage = "Enter valid Email Id and Password";
       }
       // TFA is commented out here
-      // else if (
+      else if (
+        this.authenticationService.isEnabledTwofactorAuth &&
+        !this.authenticationService.otpRequiredWhileLogin) {
+        document.body.scrollBy(0, -document.body.scrollTop);
+        document.body.style.overflow = "hidden";
+        let dialogRef = this.dialog.open(this.enableAuthenticatorComponent,
+          {
+            hasBackdrop: false,
+            backdropClass: 'backdropClass-2fa',
+            panelClass: 'container-mfa',
+            scrollStrategy: this.sso.noop(),
+          });
 
-      //   this.authenticationService.isEnabledTwofactorAuth &&
-      //   !this.authenticationService.otpRequiredWhileLogin) {
-      //   document.body.scrollBy(0, -document.body.scrollTop);
-      //   document.body.style.overflow = "hidden";
-      //   let dialogRef = this.dialog.open(this.enableAuthenticatorComponent,
-      //     {
-      //       hasBackdrop: false,
-      //       backdropClass: 'backdropClass-2fa',
-      //       panelClass: 'container-mfa',
-      //       scrollStrategy: this.sso.noop(),
-      //     });
+        dialogRef.afterClosed().subscribe(result => {
+          document.body.style.overflow = "auto"
 
-      //   dialogRef.afterClosed().subscribe(result => {
-      //     document.body.style.overflow = "auto"
+        });
+      }else if (
+        this.authenticationService.isEnabledTwofactorAuth &&
+        this.authenticationService.otpRequiredWhileLogin) {
+        document.body.scrollBy(0, -document.body.scrollTop);
+        document.body.style.overflow = "hidden";
+        let dialogRef = this.dialog.open(this.verify2FATokenComponent,
+          {
+            hasBackdrop: false,
+            backdropClass: 'backdropClass-2fa',
+            panelClass: 'container-mfa',
+            scrollStrategy: this.sso.noop(),
 
-      //   });
-      // }else if (
-      //   this.authenticationService.isEnabledTwofactorAuth &&
-      //   this.authenticationService.otpRequiredWhileLogin) {
-      //   document.body.scrollBy(0, -document.body.scrollTop);
-      //   document.body.style.overflow = "hidden";
-      //   let dialogRef = this.dialog.open(this.verify2FATokenComponent,
-      //     {
-      //       hasBackdrop: false,
-      //       backdropClass: 'backdropClass-2fa',
-      //       panelClass: 'container-mfa',
-      //       scrollStrategy: this.sso.noop(),
+          });
 
-      //     });
+        dialogRef.afterClosed().subscribe(result => {
+          document.body.style.overflow = "auto"
 
-      //   dialogRef.afterClosed().subscribe(result => {
-      //     document.body.style.overflow = "auto"
-
-      //   });
-      // }
+        });
+      }
       // else if(this.authenticationService.isProvider) {
       //   this.openErrorDialog(ERROR_CODES["EL001"]);
       // }
@@ -172,6 +170,7 @@ export class LoginComponent implements OnInit {
     });
     if (email) {
       this.passwordChangeRequestAction = true;
+
       this.accountservice.RaisePasswordChangeRequest({ Email: email, URL: this.url, RequestedBy: 1 }).subscribe((resp) => {
         this.passwordChangeRequestAction = false;
         if(resp.IsSuccess){

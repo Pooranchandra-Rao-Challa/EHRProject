@@ -1,17 +1,17 @@
-export interface Admins {
+export interface Admins extends IUser {
     id?:string,
     Title?:string,
-    FirstName?: string,
-    LastName?: string,
+    //FirstName?: string,
+    //LastName?: string,
     MiddleName?: string,
     PrimaryPhone?:string,
     MobilePhone?:string,
     Email?: string,
     Role?:string,
     AltEmail?:string,
-    UserId?: string;
+   // UserId?: string;
     AdminId?:string;
-    EnableTwofactor?:boolean;
+   // EnableTwofactor?:boolean;
   }
 
 export class AdminRegistration {
@@ -47,4 +47,12 @@ export class  AreaCode{
 export class Clinic{
   ClinicId?: string;
   ClinicName?: string;
+}
+
+
+export interface IUser{
+  UserId?: string;
+ EnableTwofactor?:boolean;
+ FirstName?: string,
+ LastName?: string,
 }

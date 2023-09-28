@@ -89,7 +89,7 @@ export class ChartInfo {
   TobaccoUseInterventions?: TobaccoUseScreening[] = []
   TobaccoUseScreenings?: TobaccoUseIntervention[] = []
   Interventions?: Intervention[] = []
-  TobaccoUse?: TobaccoUse[] =[];
+  TobaccoUse?: TobaccoUse[] = [];
 }
 
 export class Immunization {
@@ -198,15 +198,15 @@ export class TobaccoUseIntervention {
   InterventionCode?: string;
   InterventionDescription?: string;
   Reason?: string;
-	ReasonCode?: string;
-	ReasonDescription?: string;
+  ReasonCode?: string;
+  ReasonDescription?: string;
   NotPerformed?: boolean;
 }
 
 export class TobaccoUse {
   TobaccoUseId?: string;
   PatientId?: string;
-  strScreenings?:string;
+  strScreenings?: string;
   strInterventions?: string;
   Screenings?: TobaccoUseScreening[]
   Interventions?: TobaccoUseIntervention[]
@@ -333,14 +333,14 @@ export enum SeverityLevel {
   Mild = 'Mild',
   MildWithqualifiervalue = 'Mild (qualifier value)',
   MildtoModerate = 'Mild to Moderate',
-  MildtoModerateWithqualifiervalue ='Mild to Moderate (qualifier value)',
+  MildtoModerateWithqualifiervalue = 'Mild to Moderate (qualifier value)',
   Midgrade = 'Midgrade',
   Moderate = 'Moderate',
   ModerateWithseveritymodifier = 'Moderate (severity modifier)',
   ModerateWithBothseveritymodifierandqualifiervalue = 'Moderate (severity modifier) (qualifier value)',
-  Moderatetosevere ='Moderate to severe',
+  Moderatetosevere = 'Moderate to severe',
   ModeratetosevereWithqualifiervalue = 'Moderate to severe (qualifier value)',
-  Gravis ='Gravis',
+  Gravis = 'Gravis',
   Highgrade = 'High grade',
   Severe = 'Severe',
   SevereWithseveritymodifier = 'Severe (severity modifier)',
@@ -625,6 +625,111 @@ export class GlobalConstants {
   public static QuntityUnit = GlobalConstants.MedPickList.QuntityUnit
   public static Route = GlobalConstants.MedPickList.Route
   public static Dose = GlobalConstants.MedPickList.Dose
+  public static DaysToSupply = {
+    "single dose": 1,
+    "once a day": 1,
+    "twice a day": 2,
+    "three times a day": 3,
+    "four times a day": 4,
+    "five times a day": 5,
+    "six times a day": 6,
+    "every morning": 1,
+    "every evening": 1,
+    "every night": 1,
+    "at bedtime": 1,
+    "every other day": 1 / 2,
+    "every three days": 1 / 3,
+    "every hour": 1,
+    "every two hours": 1 / 2,
+    "every two hours while awake": 1 / 2,
+    "every three hours": 1 / 3,
+    "every three hours while awake": 1 / 3,
+    "every four hours": 1 / 4,
+    "every four hours while awake": 1 / 4,
+    "every six hours": 1 / 6,
+    "every six to eight hours": 1 / 8,
+    "every eight hours": 1 / 8,
+    "every twelve hours": 1 / 12,
+    "every 24 hours": 1,
+    "every 48 hours": 1,
+    "every 72 hours": 1,
+    "every three to four hours": 1,
+    "every three to four hours while awake": 1,
+    "every four to six hours": 1,
+    "every four to six hours while awake": 1,
+    "every eight to twelve hours": 1,
+    "once a week": 1,
+    "twice a week": 2,
+    "three times a week": 3,
+    "once every two weeks": 1,
+    "every two weeks": 1,
+    "every four weeks": 1,
+    "once a month": 1,
+    "every three months": 1,
+    "as directed": 1,
+  }
+
+  public static States = [
+    { 'name': 'Alabama', 'abbr': 'AL' },
+    { 'name': 'Alaska', 'abbr': 'AK' },
+    { 'name': 'Arizona', 'abbr': 'AZ' },
+    { 'name': 'Arkansas', 'abbr': 'AR' },
+    { 'name': 'American Samoa', 'abbr': 'AS' },
+    { 'name': 'California', 'abbr': 'CA' },
+    { 'name': 'Colorado', 'abbr': 'CO' },
+    { 'name': 'Connecticut', 'abbr': 'CT' },
+    { 'name': 'Delaware', 'abbr': 'DE' },
+    { 'name': 'District of Columbia', 'abbr': 'DC' },
+    { 'name': 'Florida', 'abbr': 'FL' },
+    { 'name': 'Georgia', 'abbr': 'GA' },
+    { 'name': 'Guam', 'abbr': 'GU' },
+    { 'name': 'Hawaii', 'abbr': 'HI' },
+    { 'name': 'Idaho', 'abbr': 'ID' },
+    { 'name': 'Illinois', 'abbr': 'IL' },
+    { 'name': 'Indiana', 'abbr': 'IN' },
+    { 'name': 'Iowa', 'abbr': 'IA' },
+    { 'name': 'Kansas', 'abbr': 'KS' },
+    { 'name': 'Kentucky', 'abbr': 'KY' },
+    { 'name': 'Louisiana', 'abbr': 'LA' },
+    { 'name': 'Maine', 'abbr': 'ME' },
+    { 'name': 'Maryland', 'abbr': 'MD' },
+    { 'name': 'Massachusetts', 'abbr': 'MA' },
+    { 'name': 'Michigan', 'abbr': 'MI' },
+    { 'name': 'Minnesota', 'abbr': 'MN' },
+    { 'name': 'Mississippi', 'abbr': 'MS' },
+    { 'name': 'Missouri', 'abbr': 'MO' },
+    { 'name': 'Montana', 'abbr': 'MT' },
+    { 'name': 'Nebraska', 'abbr': 'NE' },
+    { 'name': 'Nevada', 'abbr': 'NV' },
+    { 'name': 'New Hampshire', 'abbr': 'NH' },
+    { 'name': 'New Jersey', 'abbr': 'NJ' },
+    { 'name': 'New Mexico', 'abbr': 'NM' },
+    { 'name': 'New York', 'abbr': 'NY' },
+    { 'name': 'North Carolina', 'abbr': 'NC' },
+    { 'name': 'North Dakota', 'abbr': 'ND' },
+    { 'name': 'Northern Mariana Islands', 'abbr':'MP'},
+    { 'name': 'Ohio', 'abbr': 'OH' },
+    { 'name': 'Oklahoma', 'abbr': 'OK' },
+    { 'name': 'Oregon', 'abbr': 'OR' },
+    { 'name': 'Pennsylvania', 'abbr': 'PA' },
+    { 'name': 'Puerto Rico', 'abbr': 'PR' },
+    { 'name': 'Rhode Island', 'abbr': 'RI' },
+    { 'name': 'South Carolina', 'abbr': 'SC' },
+    { 'name': 'South Dakota', 'abbr': 'SD' },
+    { 'name': 'Tennessee', 'abbr': 'TN' },
+    { 'name': 'Texas', 'abbr': 'TX' },
+    { 'name': 'Trust Territories', 'abbr': 'TT' },
+    { 'name': 'Utah', 'abbr': 'UT' },
+    { 'name': 'Vermont', 'abbr': 'VT' },
+    { 'name': 'Virginia', 'abbr': 'VA' },
+    { 'name': 'Virgin Islands', 'abbr': 'VI' },
+    { 'name': 'Washington', 'abbr': 'WA' },
+    { 'name': 'West Virginia', 'abbr': 'WV' },
+    { 'name': 'Wisconsin', 'abbr': 'WI' },
+    { 'name': 'Wyoming', 'abbr': 'WY' }
+  ];
+
+
 }
 
 // export const PROCEDURE_REASON_CODES = [

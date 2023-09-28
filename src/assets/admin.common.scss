@@ -22,7 +22,7 @@ thead,tbody,tfoot,tr,td,th {
 }
 
 .table>:not(caption)>*>* {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans", roboto;
   padding: 0.5rem 0.5rem;
   background-color: var(--bs-table-bg);
   border-bottom-width: 1px;
@@ -46,7 +46,7 @@ tbody>tr:last-child>td {
   background: white;
   border: 1px solid #dbdcde;
   text-align: center;
-  font-family: sans-serif;
+  font-family: roboto;
   border-radius: 4px;
 }
 
@@ -59,7 +59,7 @@ tbody>tr:last-child>td {
 .td-btn-style {
   background: white;
   border: 1px solid #b1a7a7;
-  font-family: sans-serif;
+  font-family: roboto;
 }
 
 .td-btn-style:hover {
@@ -86,7 +86,7 @@ tbody>tr:last-child>td {
 
 //checkbox
 
-input[type=checkbox] {font-family: sans-serif;
+input[type=checkbox] {font-family: roboto;
     cursor: pointer;
     border: 1px solid #afa9a9;
     width: 19px;
@@ -121,7 +121,7 @@ input[type=checkbox] {font-family: sans-serif;
 input::-webkit-input-placeholder {
   color: #999898 !important;
   font-size: 100%;
-  font-family: sans-serif;
+  font-family: roboto;
 }
 hr {
   color: #8d8c8c;
@@ -216,7 +216,7 @@ div.search-box button:hover {
   background: #35414f !important;
   color: #fff !important;
   margin-top: 100px;
-  font-family: sans-serif;
+  font-family: roboto;
   padding:.8em 1em .8em !important;
 }
 
@@ -224,12 +224,13 @@ div.search-box button:hover {
   background: #d74842 !important;
   color: #fff !important;
   margin-top: 100px;
-  font-family: sans-serif;
+  font-family: roboto;
   padding:.8em 1em .8em !important;
 }
 ::ng-deep .admin-cancel-button{
   background: #35414f !important;
   color: #fff !important;
+  font-family: roboto !important;
 }
 ::ng-deep .admin-cancel-button:hover{
   background: #fff !important;

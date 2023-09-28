@@ -791,3 +791,8 @@ input.mat-input-element {
   overflow-x: hidden;
 }
 
+::ng-deep .profile-contact-info .mat-form-field-appearance-legacy .mat-form-field-underline,
+::ng-deep .profile-contact-info .mat-form-field.mat-focused .mat-form-field-ripple
+{
+  background-color: unset;
+}

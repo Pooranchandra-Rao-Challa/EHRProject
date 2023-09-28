@@ -20,6 +20,7 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
 import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 import { AutocompletePositionModule } from 'src/app/_directives/autocomplete-position.module';
+
 @NgModule({
   imports: [
     QuickAppProMaterialModule,

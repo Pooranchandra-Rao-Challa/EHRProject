@@ -1129,6 +1129,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "DisableMFA";
   }
 
+  get _PDFToBase64StringURL() {
+    return this._baseUrl + "PDFToBase64String";
+  }
+
+
   constructor(public http: HttpClient) {
     super();
   }
@@ -1163,6 +1168,7 @@ export class APIEndPoint extends EndpointBase {
 
 
   _ProcessGetRequest<T>(apiurl: string): Observable<T> {
+
     return this.http.get<T>(apiurl,this.requestHeaders).pipe(
       tap((data) => {
         return data;

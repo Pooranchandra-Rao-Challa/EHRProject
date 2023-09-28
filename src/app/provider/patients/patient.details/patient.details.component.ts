@@ -162,7 +162,7 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient){
-        //this.drfirstPatientUrl = data.url
+
         console.log(data.url);
 
         window.open(data.url,'mozillaTab')

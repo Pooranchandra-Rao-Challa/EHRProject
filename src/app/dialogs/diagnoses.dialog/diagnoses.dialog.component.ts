@@ -54,7 +54,6 @@ export class AddDiagnosesDialogComponent implements OnInit {
       return;
     }
     this.patientDiagnoses = data;
-    //console.log(this.patientDiagnoses);
 
     if (this.patientDiagnoses.Code)
       this.CheckEducationMatieal(this.patientDiagnoses.Code);

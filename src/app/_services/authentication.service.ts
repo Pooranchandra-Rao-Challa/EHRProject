@@ -64,15 +64,13 @@ export class AuthenticationService {
     const endpointUrl = this.baseUrl + "Authenticate/";
     let observable = this.http.post<ResponseData>(endpointUrl, creds).pipe<ResponseData>(
       tap(resp => {
-        //console.log(resp);
 
         if (resp.IsSuccess) {
           this.userSubject = new BehaviorSubject<User>(resp.Result as User);
           if (this.userValue.IsSuccess) {
             localStorage.setItem('user', JSON.stringify(resp.Result as User));
             this.updateViewModel();
-            //console.log(this.isAdmin);
-            this.startRefreshTokenTimer();
+            //this.startRefreshTokenTimer();
             if (this.isProvider) {
               if (!this.isProviderVerfied)
                 this.logout(ERROR_CODES["EL006"]);
@@ -87,18 +85,17 @@ export class AuthenticationService {
                 // alert('Provider trial period is closed please do subscribe for accessing application.');
                 this.logout(ERROR_CODES["EL012"]);
               }
-              // else if(this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin){
-              //   // Open auth configurator.
-              // }
+              else if(this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin){
+                // Open auth configurator.
+              }
               else
-              //if (!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              if (!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
               {
                 this.startRefreshTokenTimer();
                 let url = `${this.plaformLocation.protocol}//${this.plaformLocation.hostname}:${this.plaformLocation.port}${environment.VirtualHost}/provider/smartschedule?name=${encodeURIComponent('Smart Schedule')}&key=${(new Date()).getTime()}`;
                 window.location.replace(url);
               }
               // else if(this.isEnabledTwofactorAuth && this.otpRequiredWhileLogin){
-              //   console.log('isEnabledTwofactorAuth');
 
               //   this.openTotpDialog();
               // }
@@ -106,15 +103,14 @@ export class AuthenticationService {
 
             }
             else if (this.isAdmin){
-              //console.log(this.isEnabledTwofactorAuth);
-              //console.log(this.otpRequiredWhileLogin);
               if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL010"]);
               else if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL011"]);
               else
-              //if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
               {
+                this.startRefreshTokenTimer();
                 this.router.navigate(
                   ['admin/dashboard'],
                   { queryParams: { name: 'Providers', key: (new Date()).getTime() } }
@@ -441,7 +437,6 @@ export class AuthenticationService {
 
   Get2FAQrCode(userType,userId, Id): Observable<any> {
     var url = `${this.baseUrl}Get2FAQrCode/${userType}/${userId}/${Id}`;
-    console.log(url);
 
     const headers = new HttpHeaders({
       "Content-Type": "application/json",

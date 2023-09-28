@@ -22,6 +22,7 @@ import { ResetPatientPasswordComponent } from 'src/app/dialogs/patient.dialog/re
 import { OverlayService } from 'src/app/overlay.service';
 import { DatePipe } from '@angular/common';
 import { DrFirstValidFields, USAPhoneFormat } from 'src/app/_services/drfirst.service';
+import { GlobalConstants } from 'src/app/_models/_provider/chart'
 import Swal from 'sweetalert2';
 
 export class PatientRelationShip {
@@ -72,7 +73,8 @@ export class ProfileComponent implements OnInit {
     { Id: '13', value: 'Cousin' },
     { Id: '14', value: 'Other' },
     { Id: '15', value: 'UnKnown' },
-  ]
+  ];
+  States = GlobalConstants.States;
   CareTeamList: any = [];
   careTeamName: any;
   primaryLanguages: any = [];
@@ -117,7 +119,6 @@ export class ProfileComponent implements OnInit {
     this.user = authService.userValue;
     //this.currentPatient = this.authService.viewModel.Patient;
     this.selectedPatient = this.authService.viewModel.Patient;
-
 
     this.patientMyProfile = {} as PatientProfile;
     this.PhonePattern = {

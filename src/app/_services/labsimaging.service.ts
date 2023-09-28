@@ -42,5 +42,7 @@ export class LabsImagingService extends APIEndPoint {
   ImagetoBase64String(reqparams: any){
     return this._ProcessPostRequest<any>(this._imagetoBase64StringUrl, reqparams);
   }
-
+  PDFToBase64StringURL(reqparams: any){
+    return this._ProcessPostRequest<any>(this._PDFToBase64StringURL, reqparams);
+  }
 }

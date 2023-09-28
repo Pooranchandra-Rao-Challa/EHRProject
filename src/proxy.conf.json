@@ -1,0 +1,18 @@
+{
+  "/ehrdevapi/*": {
+    "target": "http://localhost:4345",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/ehrdevapi": ""
+    }
+  },
+  "/ehrlocalapi/*": {
+    "target": "http://localhost:3500",
+    "secure": false,
+    "logLevel": "debug",
+    "pathRewrite": {
+      "^/ehrlocalapi": ""
+    }
+  }
+}

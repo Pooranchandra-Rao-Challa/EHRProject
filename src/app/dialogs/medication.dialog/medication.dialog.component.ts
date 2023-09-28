@@ -1,12 +1,12 @@
 
-import { MEDLINE_PLUS_URL,MEDLINE_PLUS_RXNORM, MEDLINE_PLUS_SNOMED } from 'src/environments/environment';
-import { Drug, RxNormAPIService } from 'src/app/_services/rxnorm.api.service';
+import { MEDLINE_PLUS_URL, MEDLINE_PLUS_RXNORM, MEDLINE_PLUS_SNOMED } from 'src/environments/environment';
+import { Drug, DrugGroup, RxNormAPIService, TermTypes } from 'src/app/_services/rxnorm.api.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { OverlayService } from 'src/app/overlay.service';
 import { DiscontinueDialogComponent } from '../discontinue.dialog/discontinue.dialog.component';
 import { ComponentType } from '@angular/cdk/portal';
 import { EHROverlayRef } from '../../ehr-overlay-ref';
-import { Actions, Medication, PatientChart,GlobalConstants, EducationMaterial } from 'src/app/_models';
+import { Actions, Medication, PatientChart, GlobalConstants, EducationMaterial } from 'src/app/_models';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -33,7 +33,7 @@ export class MedicationDialogComponent implements OnInit {
   displayMessage: boolean = true;
   noRecords: boolean = false;
   @ViewChild('searchMedicationName', { static: true }) searchMedicationName: ElementRef;
-  medications: Observable<Drug[]>;
+  medications: Observable<DrugGroup[]>;
   ndcList: string[] = [];
   minDateToAllergy = new Subject<string>();
   minDateForEndDate;
@@ -75,66 +75,7 @@ export class MedicationDialogComponent implements OnInit {
     private rxnormService: RxNormAPIService,
     private alertmsg: AlertMessage,
     public datepipe: DatePipe) {
-      // let drugs = ['Dapagliflozin',
-      // 'Darzalex',
-      // 'Dayvigo',
-      // 'Decadron',
-      // 'Degarelix',
-      // 'Delzicol',
-      // 'Denosumab',
-      // 'Depakote',
-      // 'Depo-Provera',
-      // 'Descovy',
-      // 'Desloratadine',
-      // 'Desmopressin',
-      // 'Desvenlafaxine',
-      // 'Desyrel',
-      // 'Detrol',
-      // 'Dexamethasone',
-      // 'Dexilant',
-      // 'Dextroamphetamine',
-      // 'Dextromethorphan',
-      // 'Diacomit',
-      // 'Diastat',
-      // 'Diazepam',
-      // 'Diclofenac',
-      // 'Dicyclomine',
-      // 'Diflucan',
-      // 'Digoxin',
-      // 'Dilantin',
-      // 'Dilaudid',
-      // 'Diltiazem',
-      // 'Dimenhydrinate',
-      // 'Diovan',
-      // 'Dipentum',
-      // 'Diphenhydramine',
-      // 'Diprolene',
-      // 'Divalproex',
-      // 'Divalproex sodium',
-      // 'Docusate Sodium',
-      // 'Donepezil',
-      // 'Dopamine',
-      // 'Doxazosin',
-      // 'Doxepin',
-      // 'Doxycycline',
-      // 'Doxycycline Hyclate',
-      // 'Dulaglutide',
-      // 'Dulcolax',
-      // 'Duloxetine',
-      // 'Duopa',
-      // 'Dupixent',
-      // 'Dutasteride']
-      // drugs.forEach(drug =>{
-      //   this.rxnormService.Drugs(drug)
-      // .subscribe(resp => {
 
-      //   if (resp.length > 0) {
-      //     (resp as Drug[]).forEach( name =>{
-      //       console.log(`Synonym: ${name.Synonym}, Name: ${name.Name}`)
-      //     })
-      //   }
-      // });
-      // })
   }
 
   dateChange(e) {
@@ -149,51 +90,51 @@ export class MedicationDialogComponent implements OnInit {
     this.DaysSupply = GlobalConstants.DaysSupply;
     this.QuntityUnit = GlobalConstants.QuntityUnit;
     this.Route = GlobalConstants.Route;
-    this.Dose =  GlobalConstants.Dose;
+    this.Dose = GlobalConstants.Dose;
     fromEvent(this.routeInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.routeInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.routeInput.nativeElement.value })
     ).subscribe(value => this._filterRoutes(value));
 
     fromEvent(this.doseunitInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.doseunitInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.doseunitInput.nativeElement.value })
     ).subscribe(value => this._filterDoseUnits(value));
 
     fromEvent(this.actionInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.actionInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.actionInput.nativeElement.value })
     ).subscribe(value => this._filterActions(value));
 
     fromEvent(this.doseTimingInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.doseTimingInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.doseTimingInput.nativeElement.value })
     ).subscribe(value => this._filterDoseTimings(value));
 
     fromEvent(this.quntityUnitInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.quntityUnitInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.quntityUnitInput.nativeElement.value })
     ).subscribe(value => this._filterQuntityUnits(value));
 
     fromEvent(this.daysSupplyInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.daysSupplyInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.daysSupplyInput.nativeElement.value })
     ).subscribe(value => this._filterDaysSupplies(value));
 
 
     fromEvent(this.doseotherInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.doseotherInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.doseotherInput.nativeElement.value })
     ).subscribe(value => this._filterDoseOthers(value));
 
     fromEvent(this.drugFormInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.drugFormInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.drugFormInput.nativeElement.value })
     ).subscribe(value => this._filterDrugForm(value));
 
     fromEvent(this.doseInput.nativeElement, 'keyup').pipe(
       startWith(''),
-      map((val:KeyboardEvent) => {return this.doseInput.nativeElement.value })
+      map((val: KeyboardEvent) => { return this.doseInput.nativeElement.value })
     ).subscribe(value => this._filterDose(value));
 
 
@@ -223,44 +164,64 @@ export class MedicationDialogComponent implements OnInit {
     }
   }
 
-  _filterRoutes(value){
-    this.filteredRoutes = of(this.Route.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterRoutes(value) {
+    this.filteredRoutes = of(this.Route.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
 
-  _filterDoseUnits(value){
-    this.filteredDoseUnits = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterDoseUnits(value) {
+    this.filteredDoseUnits = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
-  _filterActions(value){
-    this.filteredActions = of(this.Action.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterActions(value) {
+    this.filteredActions = of(this.Action.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
-  _filterDoseTimings(value){
+  _filterDoseTimings(value) {
     this.filteredDoseTimings = of(this.DoseTiming.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
   }
 
-  _filterQuntityUnits(value){
-    this.filteredQuntityUnits = of(this.QuntityUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterQuntityUnits(value) {
+    this.filteredQuntityUnits = of(this.QuntityUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
-  _filterDaysSupplies(value){
-    this.filteredDaysSupplys = of(this.DaysSupply.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterDaysSupplies(value) {
+    this.filteredDaysSupplys = of(this.DaysSupply.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> parseInt(a.replace('days','').replace('day','')) > parseInt(b.replace('days','').replace('day','')) ? 1 : -1  ));
   }
 
-  _filterDoseOthers(value){
-    this.filteredDoseOthers = of(this.DoseOther.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterDoseOthers(value) {
+    this.filteredDoseOthers = of(this.DoseOther.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
-  _filterDrugForm(value){
-    this.filteredDrugForm = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterDrugForm(value) {
+    this.filteredDrugForm = of(this.DoseUnit.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> a.localeCompare(b)));
   }
 
-  _filterDose(value){
-    this.filteredDose = of(this.Dose.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null));
+  _filterDose(value) {
+    this.filteredDose = of(this.Dose.filter(option => option.toLowerCase().match(value.toLowerCase()) !== null).sort((a,b)=> {
+      let anums = a.split(' ');
+      let bnums = b.split(' ')
+      let anum = anums.length == 1 ? Number(this.stringfractions[a]) : Number(anums[0]) + Number(this.stringfractions[anums[1]]);
+      let bnum = bnums.length == 1 ? Number(this.stringfractions[b]) : Number(bnums[0]) + Number(this.stringfractions[bnums[1]]);
+      return anum > bnum ? 1 : -1;
+    }));
+  }
+
+  stringfractions = {
+    '1' : 1,
+    '1/2' : 0.5,
+    '1/4' : 0.25,
+    '3/4' : 0.75,
+    '2' : 2,
+    '3' : 3,
+    '4' : 4,
+    '5' : 5,
+    '10' : 10,
+    '15' : 15
   }
 
   _filterMedicationNames(term) {
+
     this.isLoading = true;
     this.rxnormService.Drugs(term)
       .subscribe(resp => {
@@ -268,7 +229,7 @@ export class MedicationDialogComponent implements OnInit {
         this.displayMessage = false;
         if (resp.length > 0) {
           this.medications = of(
-            resp as Drug[]);
+            (resp as DrugGroup[]));
         } else {
           this.medications = of([]);
           this.noRecords = true;
@@ -276,49 +237,76 @@ export class MedicationDialogComponent implements OnInit {
       });
   }
 
-  updatePatientDirection(){}
+
+
+  evalQuantity() {
+    if(this.patientMedication.DaysSupply && this.patientMedication.Dose
+      && this.patientMedication.DoseTiming ){
+        let daysToSupply = parseInt(this.patientMedication.DaysSupply.replace('Days','').replace('Day',''))
+        let dose = this.patientMedication.Dose
+      }
+//       DaysSupply : "10 days"
+// DisplayName : "Clavulanate 25 MG Chewable Tablet [Clavamox]"
+// Dose : "2"
+// DoseOther: "as directed"
+// DoseRoute: "by mouth"
+// DoseTiming: "twice a day"
+// DoseUnits: "tablet"
+// DrugForm: "Tablet"
+// DrugName: "Clavulanate 25 MG Chewable Tablet [Clavamox]"
+// DrugStrength: "25 MG"
+
+
+  }
   displayWithMedication(value: Drug): string {
     if (!value) return "";
     return "";
   }
 
-  parseString(regex,text,groupname){
+  parseString(regex, text, groupname, startWithReg = null) {
+    let startwith = false;
     let textArray = regex.exec(text);
-    let returnvalue ="";
-    if(textArray && textArray.groups){
+    if (startWithReg != null && startWithReg.test(text)) {
+      textArray = regex.exec(text.replace(startWithReg, ""));
+    }
+
+    let returnvalue = "";
+    if (textArray && textArray.groups) {
       return textArray.groups[groupname];
     }
-    else if(textArray) {
+    else if (textArray) {
       textArray.forEach(element => {
-        if(element !== undefined){
+        if (element !== undefined) {
           element = element.replace(/^\s+|\s+$/g, '')
-          if(element != '') {
-            if(returnvalue != '')returnvalue+='/ ';
+          if (element != '') {
+            if (returnvalue != '') returnvalue += '/ ';
             returnvalue += element
           }
         }
       });
-      if(returnvalue == undefined || returnvalue == null) returnvalue = '';
+      if (returnvalue == undefined || returnvalue == null) returnvalue = '';
       return returnvalue
     }
     else return "";
   }
 
+  DrugTermType(termtype: string): string {
+    return TermTypes[termtype]
+  }
   onSelectedMedication(selected) {
 
     let drugname = selected.option.value.Synonym.replace(/^\s+|\s+$/g, '') == '' ? selected.option.value.Name : selected.option.value.Synonym;
-    var strength = this.parseString(/(?<strength>\d+\/*\.*\s*\/*\.*\d*\s*(MG|ML|-|\/|HR|UNT|mg|\d*\s*|\s*per\s*\d*\s)+)+\b/,drugname,'strength').replace(/^\s+|\s+$/g, '').replace(/(\/)+$/g, '');
-    var brand = this.parseString(/(?<brand>\[\w*\])/,selected.option.value.Name,'brand').replace(/^\s+|\s+$/g, '').replace('[','').replace(']','');
-    var drugform = this.parseString(/(?<drugform>Tablet|Tablets|Capsule|Capsules|Suspension|Suspensions|Lotion|Foam|Ointment|Cream|Injection|Lancet|Solution|Powder|Spray|Gel|Pack|Packet)/gi,selected.option.value.Name,'drugform').replace(/^\s+|\s+$/g, '');
+    var strength = this.parseString(/(?=\.*)(?<strength>\d+(\.?\d*)\s?(MG|ML|\/|UNT|mg|\s?))/, drugname, 'strength', /^(24 HR)/).replace(/^\s+|\s+$/g, '').replace(/(\/)+$/g, '');
+    var brand = this.parseString(/(?<brand>\[\w*(!?[\s\w*_-]*)\])/, selected.option.value.Name, 'brand').replace(/^\s+|\s+$/g, '').replace('[', '').replace(']', '');
+    var drugform = this.parseString(/(?<drugform>Tablet|Tablets|Capsule|Capsules|Suspension|Suspensions|Lotion|Foam|Ointment|Cream|Injection|Lancet|Solution|Powder|Spray|Gel|Pack|Packet|Prefilled Syringe|Rectal Suppository|Auto-Injector|Sublingual Film|Pen Injector|Granules|Lozenge|Transdermal System|Medicated Pad|Vaginal Insert|Buccal Film|Sublingual Tablet|Implant|Suspension Powder)/gi, selected.option.value.Name, 'drugform').replace(/^\s+|\s+$/g, '');
 
 
     this.patientMedication.DrugName = selected.option.value.Name;
     this.patientMedication.DisplayName = selected.option.value.Synonym;
     this.patientMedication.Rxcui = selected.option.value.rxcui;
-    this.patientMedication.BrandName = brand.replace('[','').replace(']','');
+    this.patientMedication.BrandName = brand.replace('[', '').replace(']', '');
     this.patientMedication.DrugStrength = strength;
     this.patientMedication.DrugForm = drugform;
-    console.log(this.patientMedication);
 
 
     this.NDCList();
@@ -343,15 +331,15 @@ export class MedicationDialogComponent implements OnInit {
     if (data == null) return;
     this.patientMedication = data;
 
-    if(this.patientMedication.Rxcui)
+    if (this.patientMedication.Rxcui)
       this.CheckEducationMatieal(this.patientMedication.Rxcui);
   }
 
-  cancel(doCanel:boolean=false) {
-    if(this.disContinueReasonUpdated && !doCanel){
+  cancel(doCanel: boolean = false) {
+    if (this.disContinueReasonUpdated && !doCanel) {
       this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM004"]);
     }
-    else if(this.disContinueReasonUpdated && doCanel){
+    else if (this.disContinueReasonUpdated && doCanel) {
       this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM004"]);
 
       Swal.fire({
@@ -359,7 +347,7 @@ export class MedicationDialogComponent implements OnInit {
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Save Discontinued reason & Close',
-        cancelButtonText :'',
+        cancelButtonText: '',
         denyButtonText: 'Ignore Discontined reason & Close',
         customClass: {
           container: 'swal2-container-high-zindex',
@@ -379,14 +367,14 @@ export class MedicationDialogComponent implements OnInit {
       })
 
     }
-    else{
+    else {
       this.ref.close({
         "UpdatedModal": PatientChart.Medications
       });
     }
   }
-  get NDCIDs():string{
-    return this.patientMedication.NDC?.replace(/,/g,", ")
+  get NDCIDs(): string {
+    return this.patientMedication.NDC?.replace(/,/g, ", ")
   }
 
   openComponentDialog(content: any | ComponentType<any> | string,
@@ -394,14 +382,14 @@ export class MedicationDialogComponent implements OnInit {
     let reqdata: any;
     if (action == Actions.view && content === this.discontinueDialogComponent) {
       reqdata = dialogData;
-    }else if(action == Actions.view && content === this.patientEducationMaterialDialogComponent){
+    } else if (action == Actions.view && content === this.patientEducationMaterialDialogComponent) {
       reqdata = this.educationMaterial;
     }
     const ref = this.overlayService.open(content, reqdata, true);
     ref.afterClosed$.subscribe(res => {
-      if( res.data.reason){
+      if (res.data.reason) {
         this.patientMedication.StopAt = res.data.reason.StopAt;
-        this.patientMedication.ReasonCode =  res.data.reason.Code;
+        this.patientMedication.ReasonCode = res.data.reason.Code;
         this.patientMedication.ReasonDescription = res.data.reason.Description;
         this.disContinueReasonUpdated = true;
       }
@@ -432,7 +420,7 @@ export class MedicationDialogComponent implements OnInit {
       })
   }
 
-  MedLinePlusUrl():string {
+  MedLinePlusUrl(): string {
     if (this.patientMedication.Rxcui)
       return MEDLINE_PLUS_URL(this.patientMedication.Rxcui, MEDLINE_PLUS_RXNORM);
     else return '#';
@@ -448,7 +436,7 @@ export class MedicationDialogComponent implements OnInit {
       this.patientMedication.strStopAt = this.datepipe.transform(this.patientMedication.StopAt, "MM/dd/yyyy hh:mm:ss a");
     }
 
-    if(isAdd) {
+    if (isAdd) {
       this.patientMedication.IsElectronicPrescription = false;
       this.patientMedication.PrescriptionStatus = "recorded";
     }
@@ -488,32 +476,34 @@ export class MedicationDialogComponent implements OnInit {
   //   return this.patientMedication.MedicationId == undefined;
   // }
 
-  DeleteMedication(){
+  DeleteMedication() {
     this.patientService.DeleteMedication(
-      {MedicationId: this.patientMedication.MedicationId,
-      PatientId: this.patientMedication.PatientId,
-      ProviderId: this.authService.userValue.ProviderId}).subscribe(
+      {
+        MedicationId: this.patientMedication.MedicationId,
+        PatientId: this.patientMedication.PatientId,
+        ProviderId: this.authService.userValue.ProviderId
+      }).subscribe(
         {
-          next: (resp)=>{
-            if(resp.IsSuccess){
-              if(resp.SpecificMessage){
+          next: (resp) => {
+            if (resp.IsSuccess) {
+              if (resp.SpecificMessage) {
                 this.alertmsg.displayMessageDailog(resp.SpecificMessage);
-              }else{
+              } else {
                 this.alertmsg.displayMessageDailog(ERROR_CODES["M2CM003"]);
               }
               this.ref.close({
                 "UpdatedModal": PatientChart.Medications
               });
-            }else{
+            } else {
               this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM002"]);
               this.cancel();
             }
           },
-          error: (error)=>{
+          error: (error) => {
             this.alertmsg.displayErrorDailog(ERROR_CODES["E2CM002"]);
             this.cancel();
           },
-          complete: () =>{
+          complete: () => {
 
           }
 

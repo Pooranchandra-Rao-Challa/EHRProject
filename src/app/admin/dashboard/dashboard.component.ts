@@ -18,6 +18,7 @@ import { Actions, NewUser } from 'src/app/_models';
 import { DOCUMENT } from '@angular/common';
 import { Clinic } from 'src/app/_models/_admin/admins';
 import { UtilityService } from 'src/app/_services/utiltiy.service';
+import { TwoFAToggleComponent } from 'src/app/admin/admins/twofa.toggle.component';
 export class FilterQueryParams {
   Active: boolean = true;
   Paid?: boolean = null;
@@ -61,6 +62,7 @@ export class DashboardComponent implements OnInit {
   Clinics?: Clinic[];
   ClinicId?:string;
   @ViewChild("chkresetMFA", { static: true }) chkresetMFA: ElementRef;
+  twoFAToggleComponent = TwoFAToggleComponent;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private adminservice: AdminService,
@@ -86,19 +88,14 @@ export class DashboardComponent implements OnInit {
 
 
     ).subscribe((value) => {
-      //console.log(value);
-      //console.log(this.document.getElementById('btnResetMFA'));
-
       if (value){
         this.document.getElementById('btnResetMFA').removeAttribute('disabled');
         this.document.getElementById('btnResetMFA').classList.add('remove-btn')
-        //this.document.getElementById('btnResetMFA').removeAttribute('style');
       }
 
       else{
         this.document.getElementById('btnResetMFA').setAttribute('disabled', 'true');
         this.document.getElementById('btnResetMFA').classList.remove('remove-btn')
-        //this.document.getElementById('btnResetMFA').setAttribute('style', 'display:none');
       }
 
     })
@@ -283,6 +280,8 @@ export class DashboardComponent implements OnInit {
       reqdata = dialogData;
     }else if (action == Actions.edit && content === this.userStatusToggleComponent) {
       reqdata = dialogData;
+    }else if (action == Actions.edit && content === this.twoFAToggleComponent) {
+      reqdata = dialogData;
     }
     const ref = this.overlayService.open(content, reqdata);
     ref.afterClosed$.subscribe(res => {
@@ -295,8 +294,10 @@ export class DashboardComponent implements OnInit {
       }else if (content === this.reset2FAComponent
         || content === this.userStatusToggleComponent) {
         this.GetProivderList(this.filterQueryParams);
+      }else if (content === this.twoFAToggleComponent) {
+        this.GetProivderList(this.filterQueryParams);
       }
-      if (res.data != null) {
+      else if (res.data != null) {
         this.UpdateView(res.data);
       }
     });
@@ -326,17 +327,19 @@ export class DashboardComponent implements OnInit {
   }
 
   resetMFA(provider: ProviderList) {
-    //console.log(provider);
     this.openComponentDialog(this.reset2FAComponent,provider,Actions.edit);
   }
 
   toggleProviderStatus(provider: ProviderList) {
-    //console.log(provider);
     this.openComponentDialog(this.userStatusToggleComponent,provider,Actions.edit);
   }
 
 
   private UserIP() {
     this.authService.UserIp().subscribe((resp: any) => { this.userIP = resp.ip })
+  }
+
+  ToggleDuo(providerdata){
+    this.openComponentDialog(this.twoFAToggleComponent,providerdata,Actions.edit)
   }
 }

@@ -119,6 +119,10 @@
 
   .cqm-mat-table {
 
+    .mat-cell{
+      padding: 10px;
+      font-size: 12pt !important;
+    }
     .mat-cell:last-child {
       border-right: #41b6a6 1px solid;
     }
@@ -566,10 +570,10 @@
   }
 
 
-  .qc {
-    border-left: 1px solid #41b6a6;
-    padding-left: 10px !important;
-  }
+  // .qc {
+  //   //border-left: 1px solid #41b6a6;
+  //   padding-left: 5px !important;
+  // }
 
   .cstm-widthgd {
     flex: 0 0 20%;

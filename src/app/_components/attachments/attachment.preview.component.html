@@ -34,11 +34,11 @@
         </div>
         <div>
           <div class="col-lg-12 col-md-12 col-12 col-sm-12">
-            <file-upload-queue #fileUploadQueue [fileAlias]="EntityId" [httpRequestParams]="httpRequestParams"
+            <file-upload-queue #fileUploadQueue [fileAlias]="EntityName" [httpRequestParams]="httpRequestParams"
               [httpUrl]="httpUrl">
               <file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"
-                [httpRequestParams]="httpRequestParams" [fileAlias]="uploadTo" (onUpload)="UploadCompleted($event)"
-                (onItemRemove)="ItemRemoved($event)">
+                [httpRequestParams]="httpRequestParams" [fileAlias]="EntityName" (onUpload)="UploadCompleted($event)"
+                (onItemRemove)="ItemRemoved($event)" [httpUrl] = "httpUrl">
               </file-upload>
             </file-upload-queue>
           </div>

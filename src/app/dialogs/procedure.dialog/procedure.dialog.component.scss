@@ -49,7 +49,9 @@ label.control-label{display: block;width: 100%;}
   border-radius: 5px;
 }
 
-
+::ng-deep #new-procedure-dialog .procedure-form-field .mat-form-field-appearance-outline .mat-form-field-infix{
+  padding: 0 0 .89em 0 !important;
+}
 // ::ng-deep #new-procedure-dialog .mat-datepicker-toggle-default-icon {
 //   color: #41b6a6 !important;
 // }

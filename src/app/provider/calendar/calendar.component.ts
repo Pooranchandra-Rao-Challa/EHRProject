@@ -653,7 +653,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
       strCurrentStart: this.datepipe.transform(this.fullcalendar.getApi().view.currentStart, "MM/dd/yyyy"),
       strCurrentEnd: this.datepipe.transform(this.fullcalendar.getApi().view.currentEnd, "MM/dd/yyyy"),
     };
-    //console.log(reqParams);
 
     //resourceTimeGridDay
     //timeGridWeek

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router,ActivatedRoute } from '@angular/router';
-import { AlertMessage, ERROR_CODES} from 'src/app/_alerts/alertMessage'
+import { Router, ActivatedRoute } from '@angular/router';
+import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { PatientService } from '../_services/patient.service';
 @Component({
   selector: 'app-home',
@@ -11,24 +11,24 @@ import { PatientService } from '../_services/patient.service';
 export class HomeComponent implements OnInit {
   providerType = "block";
   patientType = "none";
-  providerFooterVersion:any[]
+  providerFooterVersion: any[]
   constructor(private router: Router,
-    private activatedRoute:ActivatedRoute,
-    private alertMessage: AlertMessage,private patientservice:PatientService) {
+    private activatedRoute: ActivatedRoute,
+    private alertMessage: AlertMessage, private patientservice: PatientService) {
 
 
-    }
+  }
 
   ngOnInit() {
     let message1 = localStorage.getItem("message")
     //localStorage.removeItem("message");
-    if(message1 != null && message1 !=''){
+    if (message1 != null && message1 != '') {
       this.alertMessage.displayErrorDailog(message1);
     }
-    setTimeout(() => {localStorage.removeItem("message");}, 3000 )
+    setTimeout(() => { localStorage.removeItem("message"); }, 3000)
     this.activatedRoute.queryParams.subscribe(params => {
       const message = params['message'];
-      if(message != null && message !=''){
+      if (message != null && message != '') {
         this.alertMessage.displayErrorDailog(message);
       }
     });
@@ -42,14 +42,11 @@ export class HomeComponent implements OnInit {
     this.patientType = "block";
     this.providerType = "none";
   }
-  GetAdminSettingVersion()
-  {
-   this.patientservice.ChangeFooterVersion().subscribe(resp=>
-  {
-    if(resp.IsSuccess)
-    {
-      this.providerFooterVersion = resp.ListResult;
-    }
-  })
+  GetAdminSettingVersion() {
+    this.patientservice.ChangeFooterVersion().subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.providerFooterVersion = resp.ListResult;
+      }
+    })
   }
 }

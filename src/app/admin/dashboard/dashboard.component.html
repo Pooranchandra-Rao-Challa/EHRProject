@@ -115,7 +115,8 @@
                       <th class="th-col">Practice Name</th>
                       <th>Phone</th>
                       <th scope="row" width="20%">Address</th>
-                      <th colspan="3" class="text-center th-col-width">Trial/Paid Days</th>
+                      <th class="text-center th-col-width">Trial/Paid Days</th>
+                      <th>Toggle Duo Auth</th>
                       <th>Active/Inactive</th>
                       <th></th>
                       <th></th>
@@ -140,7 +141,7 @@
                       <td [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.ClinicName}}</td>
                       <td [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.PrimaryPhone}}</td>
                       <td [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Address}}</td>
-                      <td class="td-col-width" colspan="3">
+                      <td class="td-col-width">
                         <div class="d-flex justify-content-between">
                           <div [ngClass]="!item.Paid?'text-mute':'text-black'">Trial ({{item.TrailDays}} d left)</div>
                           <div class="form-check form-switch mx-3 ">
@@ -151,15 +152,21 @@
                           <div [ngClass]="!item.Paid?'text-black':'text-mute'" class="mr-3">{{item.Trial}}</div>
                         </div>
                       </td>
+                      <td><button type="button" *ngIf="item.EnableTwofactor" (click)="ToggleDuo(item)"
+                        [disabled]="item.EmailVerifyStatus=='Unverified'"
+                        [class.prov-button-normal]="item.EmailVerifyStatus!='Unverified'"
+                          [class.prov-button]="item.EmailVerifyStatus =='Unverified'"
+                          >Disable Duo</button>
+                        <button type="button" *ngIf="!item.EnableTwofactor" (click)="ToggleDuo(item)"
+                        [disabled]="item.EmailVerifyStatus=='Unverified'"
+                        [class.prov-button-normal]="item.EmailVerifyStatus!='Unverified'"
+                          [class.prov-button]="item.EmailVerifyStatus =='Unverified'"
+                          >Enable Duo</button></td>
                       <td class="text-center">
                         <button class="btn-activate" (click)="toggleProviderStatus(item)"
                           [class.td-btn-style]="item.EmailVerifyStatus!='Unverified'"
                           [disabled]="item.EmailVerifyStatus=='Unverified'">{{item.Status ? "Suspend"
                           : "Activate"}}</button>
-                        <!-- <input class="form-check-input Status" type="checkbox"
-                          [disabled]="item.EmailVerifyStatus=='Unverified'" [checked]="item.Status" id="checkbox"
-                          (click)='deactivateUser($event, item)'> [class.prov-button-normal]="item.EmailVerifyStatus =='Unverified' && item.ResetTwofactor" -->
-
                       </td>
                       <td class="td-width text-success">{{item.EmailVerifyStatus}}</td>
                       <td class="td-col-width"><button type="button"

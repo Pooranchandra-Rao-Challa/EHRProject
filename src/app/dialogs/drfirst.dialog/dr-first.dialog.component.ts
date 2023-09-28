@@ -40,11 +40,15 @@ export class DrFirstDialogComponent implements OnInit {
     let providerId = this.authenticationService.userValue.ProviderId;
     this.utilityService.DrfirstPatient(providerId, patientId).subscribe((resp) => {
       if (resp.IsSuccess) {
-        if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
-          this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
+        let drfirstPatient = resp.Result as DrFirstPatient;
+        if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(drfirstPatient)))
+          this.utilityService.SendDrfirstPatient(drfirstPatient)
           .subscribe(resp=>{
             if(resp.IsSuccess){
-              this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+              let patientName = `${drfirstPatient.FirstName} ${drfirstPatient.LastName}`
+              let message = ERROR_CODES["M2PE001"];
+              message = message.replace("PATIENT_NAME",patientName)
+              this.alertmsg.displayMessageDailog(message);
               this.cancel();
             }
             else{
@@ -57,7 +61,31 @@ export class DrFirstDialogComponent implements OnInit {
   validateDrfirstPatientSyncInfo(data: DrFirstPatient): string[] {
     data.MobilePhone = USAPhoneFormat(data.MobilePhone);
     let messages: string[]=[];
-    let address = ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'DC', 'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
+    let stateAbbr = data.State;
+    let address = ['AL', 'AK', 'AZ', 'AR', 'AS', 'CA', 'CO', 'CT', 'DE', 'DC', 
+                   'FL', 'GA', 'GU', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 
+                   'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 
+                   'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'MP', 'OH', 'OK', 
+                   'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX', 'TT', 'UT', 
+                   'VT', 'VA', 'VI', 'WA', 'WV', 'WI', 'WY']
+    let states = {
+      'Alabama':'AL',       'Alaska':'AK',        'Arizona':'AZ',                   'Arkansas':'AR',          'American Samoa':'AS',
+      'California':'CA',    'Colorado':'CO',      'Connecticut':'CT',               'Delaware':'DE',          'District of Columbia':'DC',  
+      'Florida':'FL',       'Georgia':'GA',       'Guam':'GU',                      'Hawaii':'HI',            'Idaho':'ID',                 
+      'Illinois':'IL',      'Indiana':'IN',       'Iowa':'IA',                      'Kansas':'KS',            'Kentucky':'KY',           
+      'Louisiana':'LA',     'Maine':'ME',         'Maryland':'MD',                  'Massachusetts':'MA',     'Michigan':'MI',              
+      'Minnesota':'MN',     'Mississippi':'MS',   'Missouri':'MO',                  'Montana':'MT',           'Nebraska':'NE',              
+      'Nevada':'NV',        'New Hampshire':'NH', 'New Jersey':'NJ',                'New Mexico':'NM',        'New York':'NY',              
+      'North Carolina':'NC','North Dakota':'ND',  'Northern Mariana Islands': 'MP', 'Ohio':'OH',              'Oklahoma':'OK',              
+      'Oregon':'OR',        'Pennsylvania':'PA',  'Puerto Rico':'PR',               'Rhode Island':'RI',      'South Carolina':'SC',        
+      'South Dakota':'SD',  'Tennessee':'TN',     'Texas':'TX',                     'Trust Territories':'TT', 'Utah':'UT',                  
+      'Vermont':'VT',       'Virginia':'VA',      'Virgin Islands':'VI',            'Washington':'WA',        'West Virginia':'WV',         
+      'Wisconsin':'WI',     'Wyoming':'WY',
+      
+    }
+
+    if(address.indexOf(data.State) == -1)
+      stateAbbr = states[data.State];
 
     if(!data.FirstName && this.validDrFirstField.FirstName.required){
       messages.push("First Name can not be blank")
@@ -85,7 +113,7 @@ export class DrFirstDialogComponent implements OnInit {
     if(!data.State && this.validDrFirstField.State.required){
       messages.push("State can not be blank")
     }
-    else if(data.State && address.indexOf(data.State) == -1){
+    else if(data.State && address.indexOf(stateAbbr) == -1){
       messages.push(`State must be a valid US State`)
     }
 

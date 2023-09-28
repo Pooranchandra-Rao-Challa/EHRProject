@@ -31,7 +31,6 @@ export class UserStatusToggleComponent implements OnInit {
     this.provider = {};
     if (data == null) return;
     else this.provider = data;
-    //console.log(this.provider);
 
   }
   toggleService(): Observable<any>{
@@ -51,12 +50,7 @@ export class UserStatusToggleComponent implements OnInit {
       fieldToUpdate: fieldToUpdate,
       user: user
     }
-    //console.log(user);
-
     this.settingsService.ToggleUserFieldValues(reqparams).subscribe(resp => {
-
-      //console.log(resp);
-
       if (resp.IsSuccess) {
         //User, #{@user.provider.full_name} - Has been activated!
 

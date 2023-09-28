@@ -1,5 +1,5 @@
 import { MatAutocompleteModule, MatAutocompleteTrigger } from '@angular/material/autocomplete';
-import { Drug, RxNormAPIService } from './../../../_services/rxnorm.api.service';
+import { Drug, DrugGroup, RxNormAPIService } from './../../../_services/rxnorm.api.service';
 
 import { MatInput } from '@angular/material/input';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -261,13 +261,15 @@ export class FieldControlComponent extends _SearchInputMixiBase
   updateSearchResults(term: FormFieldValue) {
     if (term.SearchTerm.length >= this.MinTermLength && term.CodeSystem != "") {
       if(term.CodeSystem == 'RxNorm'){
-        let drugs: Drug[]
+        let drugs: DrugGroup[]
         let medicalCodes: MedicalCode[] =[];
         let cdg: CodeSystemGroup[] = [];
         this.rxNormAPIService.Drugs(term.SearchTerm).subscribe(resp =>{
-          drugs = resp as Drug[];
-          drugs.forEach(durg =>{
-            medicalCodes.push({Code:durg.rxcui,Description:durg.Name,CodeSystem:term.CodeSystem})
+          drugs = resp as DrugGroup[];
+          drugs.forEach(durgterm =>{
+            durgterm.Drugs.forEach(drug => {
+              medicalCodes.push({Code:drug.rxcui,Description:drug.Name,CodeSystem:term.CodeSystem})
+            })
           })
           cdg.push({name:term.CodeSystem,codes:medicalCodes })
           this.filteredOptions = of(cdg);

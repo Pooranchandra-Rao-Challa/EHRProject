@@ -1,8 +1,10 @@
+import { DownloadService } from './../../_services/download.service';
 import { BehaviorSubject } from 'rxjs';
 import { Attachment } from 'src/app/_models/_provider/LabandImage';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { HttpParams } from '@angular/common/http';
+
 
 
 @Component({
@@ -13,7 +15,8 @@ import { HttpParams } from '@angular/common/http';
 export class AttachmentPreviewComponent implements OnInit {
 
   constructor(
-    private labsImagingService: LabsImagingService) {
+    private labsImagingService: LabsImagingService,
+    private downloadService: DownloadService) {
   }
 
   private _entityId: string;
@@ -29,6 +32,7 @@ export class AttachmentPreviewComponent implements OnInit {
   }
   set EntityId(entityId: string) {
     this._entityId = entityId;
+    if(entityId)
     this.httpRequestParams = this.httpRequestParams.append("EntityId", entityId);
   }
 
@@ -43,7 +47,7 @@ export class AttachmentPreviewComponent implements OnInit {
 
   @Input()
   set Attachments(attachments: Attachment[]) {
-    this._attachments = attachments;
+    this._attachments = attachments || [];
     this.attachmentSubject.next(this._attachments);
   }
   get Attachments(): Attachment[] {
@@ -56,8 +60,15 @@ export class AttachmentPreviewComponent implements OnInit {
   @Input() fileSize: number = 20;
 
   @Output() onItemsModify = new EventEmitter<Attachment[]>();
-  @Input() httpUrl: string;
+  _url: string;
 
+  @Input()
+  set httpUrl(_url : string){
+    this._url = _url;
+  }
+  get httpUrl():string{
+    return this._url
+  }
 
   ngOnInit(): void {
     this.attachmentSubject.subscribe(attachments => {
@@ -72,6 +83,7 @@ export class AttachmentPreviewComponent implements OnInit {
       let attachment:Attachment = {
         EntityId : temp.EntityId,
         EntityName : temp.EntityName,
+        IsDeleted : temp.IsDeleted,
         AttachmentId : temp.AttachmentId,
         FileName : temp.FileName
       };
@@ -125,22 +137,29 @@ export class AttachmentPreviewComponent implements OnInit {
     }
   }
   showImage: boolean = false;
+  showPdf: boolean = false;
   Imagedata: string;
+  pdfdata: string;
   viewId: string;
   showDocument(attachmentId) {
     this.Attachments.forEach((value) => {
       if (value.AttachmentId == attachmentId) {
-        if (value.FileName.endsWith(".pdf"))
-          return;
-        this.labsImagingService.ImagetoBase64String(value).subscribe(resp => {
-          this.viewId = attachmentId;
-          if (resp.IsSuccess) {
-            this.showImage = true;
-            this.Imagedata = resp.Result;
-          } else {
-            this.showImage = false;
-          }
-        });
+        if (value.FileName.endsWith(".pdf")){
+          this.downloadService.ViewAttachment(value);
+        }
+        else{
+
+          this.labsImagingService.ImagetoBase64String(value).subscribe(resp => {
+            this.viewId = attachmentId;
+            if (resp.IsSuccess) {
+              this.showImage = true;
+              this.showPdf = false;
+              this.Imagedata = resp.Result;
+            } else {
+              this.showImage = false;
+            }
+          });
+        }
       }
     });
   }

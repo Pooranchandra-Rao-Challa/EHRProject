@@ -135,15 +135,18 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-12">
-                    <p class="card-title">
-                      <span class="pointer"
+                    <p class="card-title" style="width: calc(100vw);">
+                      <span class="pointer" style="float: left;
+                      width: calc(13vw + 32px);
+                      display: flex;"
                         (click)="openComponentDialog(smokingStatusDialogComponent, null, ActionTypes.add)">Smoking
-                        Status <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i
+                        Status <div class="plusicon" style="display: table-cell; margin-left: 10px;"><i
                             class="fa fa-plus"></i></div> </span>
-                      <span> and </span>
-                      <span class="pointer"
+                      <span> / </span>
+                      <span class="pointer"  style="float: right;
+                      display: flex;"
                         (click)="openComponentDialog(tobaccoUseDialogComponent,null,ActionTypes.add)">Tobacco
-                        Use <div class="plusicon" style="display: table-cell; width: 35px;  padding-top: 4px;"><i
+                        Use <div class="plusicon" style="display: table-cell; margin-left: 10px;"><i
                             class="fa fa-plus"></i></div></span>
                     </p>
                   </div>

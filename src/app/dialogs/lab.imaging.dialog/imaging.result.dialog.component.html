@@ -83,7 +83,6 @@
                 cdkAutosizeMinRows="2" cdkAutosizeMaxRows="15"
                 [(ngModel)]="labandimaging.TestResultsOfImages.Comparison"></textarea>
             </div>
-
           </div>
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
@@ -102,7 +101,7 @@
           </div>
           <div class="row">
             <app-attachment-preview [EntityName]="EntityName" [EntityId]="labandimaging.ImageResultId"
-              [Attachments]="labandimaging.ImageAttachments || []" (onItemsModify)="ItemsModified($event)" [acceptPdf]="true"
+              [Attachments]="labandimaging.ImageAttachments" (onItemsModify)="ItemsModified($event)" [acceptPdf]="true"
               [fileSize]="10" [httpUrl]="fileUploadUrl"></app-attachment-preview>
           </div>
         </div>

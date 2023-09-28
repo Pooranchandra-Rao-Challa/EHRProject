@@ -4,12 +4,11 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost/EHR/API/',
+  baseUrl: "/API/",
+  apiUrl: 'http://localhost:3500/EHR/API/',
   DR_FIRST_ONSTAGE: true,
   RX_END_POINT: 'https://rxnav.nlm.nih.gov/',
-  VirtualHost: '',
-  RX_URI_NDC_PROPERTIES:'REST/rxcui/{0}/properties.json',
-
+  VirtualHost: ''
 };
 
 export enum DrFristParamNames {

@@ -4,7 +4,7 @@ import { AdminService } from 'src/app/_services/admin.service';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { AlertMessage } from 'src/app/_alerts/alertMessage';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
-import { Admins } from 'src/app/_models/_admin/admins';
+import { Admins, IUser } from 'src/app/_models/_admin/admins';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { Admins } from 'src/app/_models/_admin/admins';
   styleUrls: ['./twofa.toggle.component.scss']
 })
 export class TwoFAToggleComponent implements OnInit {
-  admin: Admins
+  admin: IUser
   constructor(
     private adminservice: AdminService,
     private ref: EHROverlayRef,
@@ -24,30 +24,30 @@ export class TwoFAToggleComponent implements OnInit {
   ngOnInit(): void {
     this.updateLocalModel(this.ref.RequestData);
   }
-  updateLocalModel(data: Admins) {
+  updateLocalModel(data: IUser) {
     this.admin = {};
     if (data == null) return;
     else this.admin = data;
   }
-  toggleService(): Observable<any>{
-    if(this.admin.EnableTwofactor) return this.adminservice.DisableMFA(this.admin.UserId);
+  toggleService(): Observable<any> {
+    if (this.admin.EnableTwofactor) return this.adminservice.DisableMFA(this.admin.UserId);
     else return this.adminservice.EnableMFA(this.admin.UserId);
   }
   resetMFA() {
     this.toggleService().subscribe(resp => {
       this.close();
       if (resp.IsSuccess) {
-        this.alertmsg.displayMessageDailogForAdmin(`Successfully ${this.admin.EnableTwofactor ? "Disabled" : "Enabled"} for ${this.admin.FirstName} ${this.admin.LastName}.`)
+        this.alertmsg.displayMessageDailogForAdmin(`Duo authentication successfully ${this.admin.EnableTwofactor ? "disabled" : "enabled"} for '${this.admin.FirstName} ${this.admin.LastName}' user.`)
       } else {
-        this.alertmsg.displayErrorDailogForAdmin(`Error while ${this.admin.EnableTwofactor ? "disabling" : "enabling"} MFA for ${this.admin.FirstName} ${this.admin.LastName}.`)
+        this.alertmsg.displayErrorDailogForAdmin(`Error while ${this.admin.EnableTwofactor ? "disabling" : "enabling"} duo authentication for '${this.admin.FirstName} ${this.admin.LastName}' user.`)
       }
     })
   }
-  close(){
+  close() {
     this.ref.close();
   }
 
-  get buttonText():string{
+  get buttonText(): string {
     return this.admin.EnableTwofactor ? "Disable Duo" : "Enable Duo";
   }
 }

@@ -1,11 +1,12 @@
 import { ImageResultInfo, Attachment } from './../../_models/_provider/LabandImage';
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EHROverlayRef } from 'src/app/ehr-overlay-ref';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { LabProcedureWithOrder } from 'src/app/_models/_provider/LabandImage';
 import { LabsImagingService } from 'src/app/_services/labsimaging.service';
 import { UPLOAD_URL } from 'src/environments/environment'
+import { AttachmentPreviewComponent } from 'src/app/_components/attachments/attachment.preview.component';
 
 @Component({
   selector: 'app-addimagingresultdialog',
@@ -17,6 +18,8 @@ export class ImagingResultDialogComponent implements OnInit {
   labandimaging: LabProcedureWithOrder = {};
   EntityName: string = "imageresult";
   fileUploadUrl: string;
+
+
   constructor(
     private ref: EHROverlayRef,
     private labsImagingService: LabsImagingService,
@@ -31,7 +34,6 @@ export class ImagingResultDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.labandimaging.ImageResultId
   }
   cancel() {
     this.ref.close(null);
@@ -44,12 +46,15 @@ export class ImagingResultDialogComponent implements OnInit {
   loadImageResults() {
     this.labsImagingService.ImageResult(this.labandimaging).subscribe(resp => {
       if (resp.IsSuccess) {
-        this.labandimaging.TestResultsOfImages = resp.Result;
+
+        this.labandimaging.TestResultsOfImages = resp.Result as ImageResultInfo;
+        this.labandimaging.ImageResultId = this.labandimaging.TestResultsOfImages.ImageResultId
         if (this.labandimaging.TestResultsOfImages.StrAttachments != null
           && this.labandimaging.TestResultsOfImages.StrAttachments != "")
           this.labandimaging.ImageAttachments =
             JSON.parse(this.labandimaging.TestResultsOfImages.StrAttachments);
         else  this.labandimaging.ImageAttachments = [];
+
       } else {
         this.labandimaging.TestResultsOfImages = new ImageResultInfo();
         this.labandimaging.ImageAttachments = [];
