@@ -24,6 +24,7 @@ import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators'
 import { ViewChangeService } from 'src/app/_navigations/provider.layout/view.notification.service';
 import { Router } from '@angular/router';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
+import { GlobalConstants } from 'src/app/_models/_provider/chart'
 import { Moment } from 'moment-timezone';
 import * as moment from 'moment';
 
@@ -50,6 +51,7 @@ export class PatientDialogComponent {
   PhonePattern: {};
   todayDate: Date;
   url: string;
+  States: any;
 
   constructor(private dialogRef: EHROverlayRef,
     private authService: AuthenticationService,
@@ -70,6 +72,7 @@ export class PatientDialogComponent {
       },
     };
     this.todayDate = new Date();
+    this.States = GlobalConstants.States;
   }
 
   dateofbirthFilter = (m: Moment | null): boolean => {
@@ -158,12 +161,13 @@ export class PatientDialogComponent {
       && this.PatientData.Gender != null && this.PatientData.Gender != ""
     )
   }
-
+  showAddress: boolean = false;
   VerifyPatientAddress() {
     this.showHourglass = true;
     this.utilityService.VerifyAddress(this.PatientData.Address).subscribe(resp => {
       let av = new AddressValidation();
       this.showHourglass = false;
+      this.showAddress = true;
       if (resp.IsSuccess) {
         av.IsValid = true;
         av.Address = resp.Result["delivery_line_1"] + ", " + resp.Result["last_line"]
@@ -171,6 +175,13 @@ export class PatientDialogComponent {
       }
       else {
         av.IsValid = false;
+        console.log(resp.Result);
+        console.log(this.States);
+
+        this.PatientData.City = resp.Result.City;
+        this.PatientData.State =  resp.Result.State;
+        this.PatientData.StreetAddress = resp.Result.StreetAddress;
+        this.PatientData.Zipcode =  resp.Result.ZipCode;
       }
       this.openComponentDialog(this.addressVerificationDialogComponent, av, Actions.view);
     });
@@ -197,6 +208,7 @@ export class PatientDialogComponent {
     this.PatientData.ProviderId = this.authService.userValue.ProviderId;
     this.PatientData.ClinicId = this.authService.userValue.ClinicId;
     this.PatientData.strDateofBirth = this.datePipe.transform(this.PatientData.DateofBirth, "MM/dd/yyyy");
+
     this.utilityService.CreatePatient(this.PatientData).subscribe(resp => {
       this.saveInvoked = false;
       if (resp.IsSuccess) {
@@ -229,7 +241,7 @@ export class PatientDialogComponent {
     } else if (content === this.addressVerificationDialogComponent && action == Actions.view) {
       dialogData = data;
     }
-    const ref = this.overlayService.open(content, dialogData);
+    const ref = this.overlayService.open(content, dialogData,true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.patientPortalAccountComponent) {
         if (res.data != null) {
@@ -247,15 +259,18 @@ export class PatientDialogComponent {
       else if (content === this.patientHealthPortalComponent) {
         this.cancel();
       }
-
       else if (content === this.addressVerificationDialogComponent) {
         if (res.data && res.data.useThis.UseAddress) {
           this.PatientData.AddressResult = res.data.useThis.ValidatedAddress;
           this.PatientData.ValidatedAddress = res.data.useThis.Address;
           this.addressIsVarified = true;
           this.UseValidatedAddress();
-        } else if (res.data && !res.data.UseAddress) {
-
+        } else if (res.data && !res.data.useThis.UseAddress) {
+          this.PatientData.City = res.data.useThis.ValidatedAddress.components.city_name;
+          this.PatientData.State = res.data.useThis.ValidatedAddress.components.state_abbreviation;
+          this.PatientData.StreetAddress = res.data.useThis.ValidatedAddress.delivery_line_1;
+          this.PatientData.Zipcode = res.data.useThis.ValidatedAddress.components.zipcode;
+          //this.PatientData.Address = this.PatientData.ValidatedAddress;
         }
       }
     });

@@ -245,6 +245,9 @@ export class ProfileComponent implements OnInit {
               this.PatientDetails.Gender = this.patientMyProfile.Gender;
               this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
               this.authService.SetViewParam("Patient", this.PatientDetails);
+              if(this.IsDataUpdated){
+                this.syncPatientProfileToIprecribe();
+              }
             }
 
 
@@ -658,11 +661,16 @@ export class ProfileComponent implements OnInit {
         this.patientMyProfile.IsUpdatedProfileInfo = false;
         this.PatientDetails.IsUpdatedProfileInfo = this.patientMyProfile.IsUpdatedProfileInfo;
         this.authService.SetViewParam("Patient", this.PatientDetails);
-        if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(resp.Result as DrFirstPatient)))
-          this.utilityService.SendDrfirstPatient(resp.Result as DrFirstPatient)
+        let drfirstPatient = resp.Result as DrFirstPatient;
+        if (this.openErrorDialog(this.validateDrfirstPatientSyncInfo(drfirstPatient)))
+
+          this.utilityService.SendDrfirstPatient(drfirstPatient)
             .subscribe(resp => {
               if (resp.IsSuccess) {
-                this.alertmsg.displayMessageDailog(ERROR_CODES["M2PE001"]);
+                let patientName = `${drfirstPatient.FirstName} ${drfirstPatient.LastName}`
+                let message = ERROR_CODES["M2PE001"];
+                message = message.replace("PATIENT_NAME", patientName)
+                this.alertmsg.displayMessageDailog(message);
                 this.cancel();
               }
               else {

@@ -40,7 +40,7 @@ export class AdminsComponent implements OnInit {
   PhonePattern: any;
   AreaCodes: AreaCode[];
   phonePattern = /^[0-9]{10}/;
-  emailPattern = /^[A-Za-z0-9._-]+@[A-Za-z0-9._-]+\.[A-Za-z]{2,4}$/;
+  emailPattern = /^[A-Za-z0-9._-]+[@][A-Za-z0-9._-]+[\.][A-Za-z]{2,4}$/;
   emailVerfied?: boolean = null;
   emailVerficationMessage?: string;
   pageSize: number = 10;
@@ -119,7 +119,7 @@ export class AdminsComponent implements OnInit {
     }
     return _areaCodes.map(value => value.AreaCode);
   }
-
+  phoneReg = /(?<begin>^[+]\d{1})?(?<left>\d{3})(?<middle>\d{3})(?<right>\d{4})/;
   isView(item: Admins) {
     this.isSave = true;
     this.isAddAdmin = false;
@@ -132,23 +132,21 @@ export class AdminsComponent implements OnInit {
     this.newAdminRegistration.LastName = item.LastName;
     this.newAdminRegistration.MiddleName = item.MiddleName;
     this.newAdminRegistration.UserId = item.UserId;
-    if (item.PrimaryPhone == null) {
+    if(this.phoneReg.test(item.PrimaryPhone)){
+      let result = this.phoneReg.exec(item.PrimaryPhone);
+      this.newAdminRegistration.PrimaryPhonePreffix = result.groups["left"];
+      this.newAdminRegistration.PrimaryPhoneSuffix = `${result.groups["middle"]}${result.groups["right"]}`;
+    }else{
       this.newAdminRegistration.PrimaryPhonePreffix = '';
       this.newAdminRegistration.PrimaryPhoneSuffix = '';
     }
-    else {
-      let list = item.PrimaryPhone.split('+1');
-      this.newAdminRegistration.PrimaryPhonePreffix = list[1].slice(0, 3);
-      this.newAdminRegistration.PrimaryPhoneSuffix = list[1].slice(3, 10);
-    }
-    if (item.MobilePhone == null) {
+    if(this.phoneReg.test(item.MobilePhone)){
+      let result = this.phoneReg.exec(item.MobilePhone);
+      this.newAdminRegistration.MobilePhonePreffix = result.groups["left"];
+      this.newAdminRegistration.MobilePhoneSuffix = `${result.groups["middle"]}${result.groups["right"]}`;
+    }else{
       this.newAdminRegistration.MobilePhonePreffix = '';
       this.newAdminRegistration.MobilePhoneSuffix = '';
-    }
-    else {
-      let secondarylist = item.MobilePhone.split('+1');
-      this.newAdminRegistration.MobilePhonePreffix = secondarylist[1].slice(0, 3);
-      this.newAdminRegistration.MobilePhoneSuffix = secondarylist[1].slice(3, 10);
     }
     this.checkEmailExistance();
   }
@@ -269,6 +267,35 @@ export class AdminsComponent implements OnInit {
       }
       else {
         this.alertmsg.displayErrorDailog(ERROR_CODES["E1A001"]);
+      }
+    })
+  }
+
+  async DeleteConfirmation(item){
+    Swal.fire({
+      title: 'Delete admin user confirmation',
+      html: `<p class='swal-admin-message'>Are you sure to delete <span class='swal-admin-message2'>${item.Title} ${item.FirstName} ${item.LastName}</span><p>`,
+
+      padding: '1px !important',
+      customClass: {
+        title: 'swal-admin-modal-header swal-admin-header-font',
+        cancelButton: 'swal-admin-cancel-button swal-admin-cancel-button1',
+        confirmButton: 'swal-admin-confirm-button swal-admin-confirm-button1'
+      },
+      reverseButtons: true,
+      background: '#f9f9f9',
+      showCancelButton: true,
+      cancelButtonText: 'Close',
+      confirmButtonText: 'Okay-Delete!',
+      backdrop: true,
+
+
+
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+        this. DeleteAdmin(item.AdminId)
       }
     })
   }

@@ -108,7 +108,7 @@ export class AuthenticationService {
               else if (this.isUserLocked)
                 this.logout(ERROR_CODES["EL011"]);
               else
-              if(!this.isEnabledTwofactorAuth && !this.otpRequiredWhileLogin)
+              if(!this.isEnabledTwofactorAuth)
               {
                 this.startRefreshTokenTimer();
                 this.router.navigate(

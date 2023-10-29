@@ -308,3 +308,17 @@ button#dob.btn-outline-secondary.calendar {
     text-decoration: underline;
   }
 }
+
+.newpatient-address{
+  display: grid;
+  padding-bottom: 20px;
+  span{
+    font-weight: 400;
+    display: flex;
+    p{
+      font-weight: 600;
+      padding-left: 10px;
+      margin:unset;
+    }
+  }
+}

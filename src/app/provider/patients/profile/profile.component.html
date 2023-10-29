@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-end flex-sm-row flex-column" style="float: right;
     padding-right: unset;">
      <!-- to update patient data to IPrescribe-->
-      <div class="p-2"><button type="button" class="btn btn-lg btn-styles" *ngIf="IsDataUpdated" (click)="syncPatientProfileToIprecribe()"
+      <div class="p-2" *ngIf="false"><button type="button" class="btn btn-lg btn-styles"  (click)="syncPatientProfileToIprecribe()"
       >Sync Patient To IPrescribe</button></div>
       <!-- Button trigger modal -->
       <div class="p-2"><button type="button" class="btn btn-lg btn-styles" (click)="resetPassword()"
@@ -529,24 +529,22 @@
               </div>
 
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label class="form-label label-design">ENABLE EMAIL NOTIFICATIONS FOR THIS PATIENT</label>
-                <div>
-                  <label class="switch">
+                <label class="form-label label-design slider-text">Enable Email Notifications for this patient</label>
+                <div style="display: flex;">
+                  <label class="switch slider-text">
                     <input type="checkbox" id="togBtn" [(ngModel)]="patientMyProfile.EmailReminder">
                     <div class="slider round"></div>
                   </label>
-                  <label class="label-design" style="margin-left: 9px;">SEND APPOINTMENT REMINDERS FOR THIS
-                    PATIENT</label>
+                  <label class="label-design">Send appointment reminders for this patient</label>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-6 col-12 my-2">
-                <label class="form-label label-design">ENABLE SMS NOTIFICATIONS FOR THIS PATIENT</label>
-                <div>
-                  <label class="switch">
+                <label class="form-label label-design slider-text">Enable SMS Notifications for this patient</label>
+                <div style="display: flex;">
+                  <label class="switch slider-text">
                     <input type="checkbox" id="togBtn" [(ngModel)]="patientMyProfile.SMSReminder">
                     <div class="slider round"></div>
-                  </label> <label class="label-design" style="margin-left: 9px;">SEND APPOINTMENT REMINDERS FOR THIS
-                    PATIENT</label>
+                  </label> <label class="label-design">Send appointment reminders for this patient</label>
                 </div>
               </div>
               <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
@@ -741,14 +739,14 @@
                   placeholder="Sexual Orientation" type="text" id="Sexual">
               </div>
               <div class="col-lg-12 col-md-12 col-12 my-2">
-                <label for="Race*" class="form-label label-design">Race (Select All That Apply)</label>
+                <label for="Race*" class="form-label label-design slider-text">Race (select all that apply)</label>
                 <div class="row">
                   <div class="col-lg-12 col-md-12 col-xl-7 col-sm-12">
                     <div class="form-group">
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="AMERICAN" name="AMERICAN" type="checkbox"
                           [(ngModel)]="patientMyProfile.AmericanRace">
-                        <label class="label-design check-label check-label-mrg">AMERICAN INDIAN OR ALASKA NATIVE</label>
+                        <label class="label-design check-label check-label-mrg slider-text">American Indian or Alaska Native</label>
                       </div>
                     </div>
                   </div>
@@ -757,7 +755,7 @@
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="INDIAN" name="INDIAN" type="checkbox"
                           [(ngModel)]="patientMyProfile.AsianRace">
-                        <label class="label-design check-label">ASIAN</label>
+                        <label class="label-design check-label check-label-mrg slider-text">Asian</label>
                       </div>
                     </div>
                   </div>
@@ -766,7 +764,7 @@
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="BLACKAFRICAN" name="BLACKAFRICAN" type="checkbox"
                           [(ngModel)]="patientMyProfile.AfricanRace">
-                        <label class="label-design check-label check-label-mrg">BLACK OR AFRICAN AMERICAN</label>
+                        <label class="label-design check-label check-label-mrg slider-text">Black or African American</label>
                       </div>
                     </div>
                   </div>
@@ -775,7 +773,7 @@
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="WHITE" name="WHITE" type="checkbox"
                           [(ngModel)]="patientMyProfile.WhiteRace">
-                        <label class="label-design check-label">WHITE</label>
+                        <label class="label-design check-label check-label-mrg slider-text">White</label>
                       </div>
                     </div>
                   </div>
@@ -784,8 +782,8 @@
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="NATIVE" name="NATIVE" type="checkbox"
                           [(ngModel)]="patientMyProfile.HawaiianRace">
-                        <label class="label-design check-label check-label-mrg">NATIVE HAWAIIAN OR OTHER PACIFIC
-                          ISLANDER</label>
+                        <label class="label-design check-label check-label-mrg slider-text">Native Hawaiian or Other Pacific
+                          islander</label>
                       </div>
                     </div>
                   </div>
@@ -794,7 +792,7 @@
                       <div class="input-group">
                         <input class="checkbox form-check-input" id="DECLINED" name="DECLINED" type="checkbox"
                           [(ngModel)]="patientMyProfile.UndeterminedRace">
-                        <label class="label-design check-label check-label-mrg">DECLINED TO SPECIFY/UNDETERMINED</label>
+                        <label class="label-design check-label check-label-mrg slider-text">Declined to specify/undetermined</label>
                       </div>
                     </div>
                   </div>
@@ -804,7 +802,7 @@
                       <div class="text-nowrap">
                         <input class="checkbox form-check-input" id="ETHNICITIES" name="ETHNICITIES" type="checkbox"
                           [(ngModel)]="patientMyProfile.MultipleRthnicity">
-                        <label class="label-design check-label ">MULTIPLE ETHNICITIES</label>
+                        <label class="label-design check-label slider-text">Multiple Ethnicities</label>
                       </div>
                     </div>
                   </div>

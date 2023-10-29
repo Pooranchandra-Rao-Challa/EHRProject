@@ -1649,3 +1649,80 @@ i {
   background-color: #dc3741 !important;
   color: #f9f9f9 !important;
 }
+
+.drfirst-patinet-registration-errors{
+  list-style-type: disclosure-closed;
+    color: orangered;
+    font-size: px;
+    font-stretch: expanded;
+}
+
+
+.swal-admin-cancel-button,
+.swal-admin-cancel-button {
+  color: #e74f5b !important;
+  background: #f9f9f9 !important;
+  border: 1px solid #e74f5b !important;
+  border-radius: 6px !important;
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  padding: 10px !important;
+}
+.swal-admin-cancel-button1 {
+  margin-right: 90px !important;
+}
+
+.swal-admin-confirm-button1 {
+  margin-left: 90px !important;
+}
+
+.swal-admin-cancel-button:hover {
+  background-color: #e74f5b !important;
+  color: #f9f9f9 !important;
+}
+.swal-admin-confirm-button{
+  background-image:none !important;
+}
+.swal-admin-confirm-button:hover {
+  background-color: #fffff9 !important;
+  color: #7066e0 !important;
+  background-image:none !important;
+  border: #7066e0 1px solid !important;
+}
+
+
+
+.swal-admin-close-button {
+  color: #35414f !important;
+  background-color: white !important;
+}
+
+.swal-admin-close-button:hover {
+  color: white !important;
+  background-color: #35414f !important;
+}
+
+
+
+.swal-admin-modal-header {
+  margin: unset !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 20px !important;
+  background-color: #35414f !important;
+  color: #fff !important;
+  font-size: 24px;
+  font-family: "Roboto";
+  font-weight: 400;
+  margin-bottom: 40px !important;
+}
+
+.swal-admin-message{
+  font-family: roboto;
+    font-size: 16pt;
+
+  .swal-admin-message2{
+    font-weight: 600;
+
+  }
+}

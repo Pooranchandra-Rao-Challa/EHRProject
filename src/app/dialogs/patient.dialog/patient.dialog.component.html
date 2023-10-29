@@ -159,8 +159,13 @@
             <input matInput placeholder="Enter full address here (including suite number)"
               [(ngModel)]="PatientData.Address" [class.address-verfied]="addressIsVarified"
               [disabled]="addressIsVarified" />
-
           </mat-form-field>
+          <div class="newpatient-address" style="display: grid;" *ngIf="showAddress">
+            <span>Street Address: <p>{{this.PatientData.StreetAddress}}</p></span>
+            <span>City: <p>{{this.PatientData.City}}</p></span>
+            <span>State: <p>{{this.PatientData.State}}</p></span>
+            <span>Zip: <p>{{this.PatientData.Zipcode}}</p></span>
+          </div>
           <div style="display: flex;">
           <button class="btn btn-green col-lg-2 col-md-2 col-5" (click)="VerifyPatientAddress()"
             [disabled]="addressIsVarified || PatientData.Address == null" [class.address-verfied]="addressIsVarified">
