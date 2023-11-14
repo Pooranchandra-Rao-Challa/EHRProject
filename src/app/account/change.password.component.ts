@@ -44,11 +44,11 @@ export class ChangePasswordComponent implements OnInit {
     let formValues = this.createPasswordForm.value;
     formValues.PasswordToken = this.token;
     this.authService.UpdatePasswordOnRequest(formValues).subscribe(resp => {
-      this.verifyMail(resp.IsSuccess);
+      this.verifyMail(resp.IsSuccess, resp.ErrorMessage);
     })
   }
 
-  verifyMail(req) {
+  verifyMail(req,message = null) {
     if (req == true) {
       Swal.fire({
         title: 'Password is updated successfully',
@@ -69,11 +69,18 @@ export class ChangePasswordComponent implements OnInit {
       });
     }
     else {
+      message = message ?? "Password is not updated";
       Swal.fire({
         title: 'Password is not updated',
+        text: message,
         width: '700',
+        showClass: {
+          icon: 'swal2-icon-show'
+        },
         customClass: {
-          cancelButton: 'login-cancel-button'
+          cancelButton: 'password-change-cancel',
+          htmlContainer: 'password-change-error-message',
+          title: 'password-change-title-error'
         },
         background: '#f9f9f9',
         showCancelButton: true,

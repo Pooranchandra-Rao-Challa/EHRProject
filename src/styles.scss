@@ -1726,3 +1726,28 @@ i {
 
   }
 }
+
+.password-change-error-message{
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  font-family: Roboto,  Helvetica, Arial, sans-serif;
+
+}
+
+.password-change-title-error{
+  background-color: #d74842 !important;
+  margin-top: 130px !important;
+  font-family: "Roboto";
+  color: white;
+}
+
+
+.password-change-cancel{
+  background-color: #fff !important;
+  border: 1px solid #d74842  !important;
+  color:#d74842  !important;
+}
+.password-change-cancel:hover{
+  background-color: #d74842 !important;
+  color:#fff  !important;
+}
