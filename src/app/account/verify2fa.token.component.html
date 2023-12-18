@@ -12,10 +12,10 @@
 
             <div class="row">
               <div class="col-md-12">
-                <div class="form-group">
+                <div class="form-group auth-token">
                   <mat-form-field appearance="outline">
                     <mat-label class="control-label">Verification Code</mat-label>
-                    <input matInput #VerificationCode type="number" [(ngModel)]="verficationCode" class="form-control"
+                    <input matInput #VerificationCode type="number" [(ngModel)]="verficationCode" class="form-control auth-token-input"
                       autocomplete="off" (keydown)="checkLength2($event,VerificationCode,999999,9999)"/>
                   </mat-form-field>
 

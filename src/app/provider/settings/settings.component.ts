@@ -43,6 +43,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((viewname) => {
         this.loadingSubject.next(true);
+        //console.log(viewname);
+
         if (viewname == 'practice')
           this.loadPracticeComponent();
         else if (viewname == 'schedule')
@@ -57,6 +59,8 @@ export class SettingsComponent implements OnInit, AfterViewInit {
           this.loadPatientEdnMaterialComponent();
         else if (viewname == 'auditlog')
           this.loadAuditLogComponent();
+        else if (viewname == 'ehiexport')
+          this.loadEHIExportComponent();
         this.loadingSubject.next(false)
       });
   }
@@ -139,6 +143,18 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  async loadEHIExportComponent() {
+    if (this.viewModel.SubView != 'ehiexport')
+      this.settingsviewcontainerref.clear();
+    else {
+      this.settingsviewcontainerref.clear();
+      const { EHIExportComponent } = await import('./ehi.export.component');
+      let viewcomp = this.settingsviewcontainerref.createComponent(
+        this.cfr.resolveComponentFactory(EHIExportComponent)
+      );
+    }
+  }
+
   async loadAuditLogComponent() {
     if (this.viewModel.SubView != 'auditlog')
       this.settingsviewcontainerref.clear();
@@ -173,4 +189,13 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     return temp[0].Allowed;
   }
 
+  get CanViewEHIExport():boolean{
+    var permissions = this.authService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter((fn: { RoleName: string; }) => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter((fn: { PolicyName: string; MethodName: string; }) => fn.PolicyName == "EHI" && fn.MethodName == "export")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
 }

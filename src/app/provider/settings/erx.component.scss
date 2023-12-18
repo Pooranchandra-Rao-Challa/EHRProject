@@ -82,3 +82,81 @@
 .form-control::placeholder {
   color: #6d6e71;
 }
+
+
+.ehi-export .input-group-text {
+  border-top-right-radius: 2;
+  border-bottom-right-radius: 0;
+  width: 155px;
+  background-color: #41b6a6;
+  color: #fff;
+  // font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-family: Roboto;
+}
+
+.ehi-export .input-group {
+
+  width: 100%;
+  height: 45px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  background-color: #f5f5f5 !important;
+}
+
+.ehi-export .form-control {
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 0px;
+  background-color: #f5f5f5;
+  opacity: 0.5;
+}
+
+.ehi-export .btn-green{
+  font-size: 16pt;
+}
+
+.ehi-export .input-group-text {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.selected-patient{
+  background-color: #eeeeee;
+  margin: 20px 0;
+  legend {
+    background-color: #41b6a6;
+    color: white;
+    padding: 5px 10px;
+
+    .close-button {
+      float : right;
+      //display:inline-block;
+      border: #41b6a6;
+      border-radius: 5px;
+      background: transparent;
+      color: white;
+
+      &:hover{
+        background:white;
+        color:#41b6a6;
+      }
+    }
+  }
+  .view{
+    display:inline-flex;
+    padding: 5px  0;
+  }
+  .row-view{
+    padding: 5px  10px;
+    display: grid;
+    font-size: 1.1rem;
+    label{
+      padding:0 10px;
+
+    }
+    span{
+      padding:0 10px;
+      color: #41b6a6;
+    }
+  }
+}

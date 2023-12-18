@@ -7,6 +7,7 @@ import { AuditLogComponent } from './auditlog.component';
 import { AccessPermissionComponent } from './access.permission.component';
 import { PatientEdnMaterialComponent } from './patientednmaterial.component';
 import { ClinicDecisionComponent } from './clinicdecision.component';
+import { EHIExportComponent } from './ehi.export.component';
 import { SharedModule } from '../../_common/shared';
 import { CommonModule } from '@angular/common';
 import { IConfig, NgxMaskModule } from 'ngx-mask';
@@ -18,11 +19,11 @@ import { AdvancedMedicalCodeModule } from 'src/app/_components/advanced-medical-
 @NgModule({
   imports: [SharedModule, CommonModule, NgxMaskModule.forRoot(), ColorPickerModule,AdvancedMedicalCodeModule],
   exports: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
-    AccessPermissionComponent,
+    AccessPermissionComponent,EHIExportComponent,
     PatientEdnMaterialComponent,
     ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective],
   declarations: [PracticeComponent, ScheduleComponent, ErxComponent, AuditLogComponent,
-    AccessPermissionComponent,
+    AccessPermissionComponent,EHIExportComponent,
     PatientEdnMaterialComponent,
     ClinicDecisionComponent,WeekdayFormatPipe,ToggleFullscreenDirective],
   providers: [],

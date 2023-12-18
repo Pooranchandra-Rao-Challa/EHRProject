@@ -97,7 +97,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose){
-        console.log(data.url);
+        //console.log(data.url);
         window.open(data.url, 'mozillaTab');
       }
 

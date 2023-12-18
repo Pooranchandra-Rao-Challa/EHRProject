@@ -212,3 +212,8 @@ export class DrFirstNotificationsData {
   Rxchange?: string;
   Share?: string;
 }
+
+export class ExportSearchParams{
+  PatientId?:string;
+  ClinicId?:string;
+}

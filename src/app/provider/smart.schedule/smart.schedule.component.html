@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-md-1 col-1 " *ngIf="appointment.IsCurrent">
                       <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)"
-                      *ngIf="!CanViewEncounter">
+                      *ngIf="CanViewEncounter">
                         Record Encounter
                       </button>
                     </div>

@@ -25,6 +25,10 @@
               href="javascript:void(0)">Patient Education
               Materials</a>
           </li>
+          <li [class]="viewModel.SubView !== 'ehiexport' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanViewEHIExport">
+            <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('ehiexport')" href="javascript:void(0)">EHI
+              Export</a>
+          </li>
           <li [class]="viewModel.SubView !== 'auditlog' ? 'panel-heading2': 'active panel-heading2'">
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('auditlog')" href="javascript:void(0)">Audit
               Log</a>

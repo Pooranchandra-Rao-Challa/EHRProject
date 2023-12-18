@@ -9,6 +9,8 @@ import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
 import { DatePipe } from '@angular/common';
 import { FormFieldValue } from 'src/app/_components/advanced-medical-code-search/field-control/field-control-component';
 import { FamilyRecordNotifier } from 'src/app/_navigations/provider.layout/view.notification.service';
+import Swal from 'sweetalert2'
+import { ThrowStmt } from '@angular/compiler';
 @Component({
   selector: 'app-family.health.history.dialog',
   templateUrl: './family.health.history.dialog.component.html',
@@ -16,7 +18,7 @@ import { FamilyRecordNotifier } from 'src/app/_navigations/provider.layout/view.
 })
 export class FamilyHealthHistoryDialogComponent implements OnInit {
   //patientFamilyHealthHistory: PastMedicalHistory = new PastMedicalHistory;
-  familyMedicalHistory: FamilyMedicalHistory = {Diagnoses: []};
+  familyMedicalHistory: FamilyMedicalHistory = { Diagnoses: [] };
   patientRelationShip: GlobalConstants;
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
   selectedCodeSystemValue: FormFieldValue = { CodeSystem: 'SNOMED/ICD10', SearchTerm: '' }
@@ -35,7 +37,7 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     private alertmsg: AlertMessage,
     public datepipe: DatePipe,
     private patientService: PatientService,
-    private familyRecordNotifier: FamilyRecordNotifier ) {
+    private familyRecordNotifier: FamilyRecordNotifier) {
     this.currentPatient = this.authService.viewModel.Patient;
     this.updateLocalModel(ref.RequestData);
     this.minDateToFinish.subscribe(d => {
@@ -56,27 +58,27 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   }
 
   updateLocalModel(data: FamilyMedicalHistory) {
-    this.familyMedicalHistory = {Diagnoses:[]};
+    this.familyMedicalHistory = { Diagnoses: [] };
     if (data == null) return;
     this.familyMedicalHistory = data;
-
   }
 
   cancel() {
     this.ref.close({
       UpdatedModal: PatientChart.FamilyMedicalHistory,
-      SaveRecord:false
+      SaveRecord: false
     });
   }
 
   optionChangedForDiagnosis(value: Diagnosis) {
     this.selectedDiagnosis = value;
     this.disableAddDxbtn = false;
+
   }
 
   bindDiagnosesCode() {
     let diagnosis: Diagnosis = {};
-    diagnosis.Acute =true;
+    diagnosis.Acute = true;
     diagnosis.Code = this.selectedDiagnosis.Code;
     diagnosis.CodeSystem = this.selectedDiagnosis.CodeSystem;
     diagnosis.Description = this.selectedDiagnosis.Description;
@@ -87,13 +89,16 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
     diagnosis.Referral = false;
     diagnosis.Terminal = false;
 
-    if(!this.familyMedicalHistory.Diagnoses) this.familyMedicalHistory.Diagnoses = [];
+    if (!this.familyMedicalHistory.Diagnoses) this.familyMedicalHistory.Diagnoses = [];
     this.familyMedicalHistory.Diagnoses.push(diagnosis);
+    //console.log(this.familyMedicalHistory);
+
     this.clearDiagnosisFields();
     this.disableAddDxbtn = true;
+    this.ToggleDiagnosis(true);
   }
 
-  clearDiagnosisFields(){
+  clearDiagnosisFields() {
     this.selectedDiagnosis = undefined;
     this.diagnosesStartDate = undefined;
     this.diagnosesStopDate = undefined;
@@ -120,7 +125,11 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
       });
     }
   }
+  diagnosisOptionEnabled: boolean = false;
+  ToggleDiagnosis(flag: boolean) {
+    this.diagnosisOptionEnabled = flag;
 
+  }
   ageCalculator() {
     if (this.familyMedicalHistory.BirthAt) {
       let timeDiff = Math.abs(Date.now() - new Date(this.familyMedicalHistory.BirthAt).getTime());
@@ -134,25 +143,85 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
   }
 
   Create() {
-    this.familyRecordNotifier.sendData(this.familyMedicalHistory,false);
+    //this.bindDiagnosesCode();
+    this.familyRecordNotifier.sendData(this.familyMedicalHistory, false);
     this.ref.close({
       UpdatedModal: PatientChart.FamilyMedicalHistory,
-      SaveRecord:true
+      SaveRecord: true
     });
   }
 
   disableFamilyHealthHistory() {
-    return !(this.familyMedicalHistory.FirstName && this.familyMedicalHistory.LastName
-      && this.familyMedicalHistory.Relationship && this.familyMedicalHistory.BirthAt
-      && this.familyMedicalHistory.Age > 0)
+
+    let flag = false;
+    if (this.familyMedicalHistory.Diagnoses) flag = this.familyMedicalHistory.Diagnoses.length > 0;
+    if (!this.diagnosisOptionEnabled)
+      return !(this.familyMedicalHistory.FirstName && this.familyMedicalHistory.LastName
+        && this.familyMedicalHistory.Relationship && this.familyMedicalHistory.BirthAt
+        && this.familyMedicalHistory.Age > 0)
+    else
+      return !(this.familyMedicalHistory.FirstName && this.familyMedicalHistory.LastName
+        && this.familyMedicalHistory.Relationship && this.familyMedicalHistory.BirthAt
+        && this.familyMedicalHistory.Age > 0 && flag)
   }
 
-  DeleteFamilyHealthRecord(){
-    this.familyRecordNotifier.sendData(this.familyMedicalHistory,true);
+  DeleteFamilyHealthRecord() {
+
+    this.familyRecordNotifier.sendData(this.familyMedicalHistory, true);
     this.ref.close({
       UpdatedModal: PatientChart.FamilyMedicalHistory,
-      SaveRecord:true
+      SaveRecord: true
     });
   }
+
+  SaveConfirmation() {
+
+    let cnfmTitle = 'Are you sure to save family health history?'
+
+    let cnfmBtnText = 'Save Family History!'
+    let denyBtnText = 'Close'
+    let cnfmText = `Then click "${cnfmBtnText}" else Click "${denyBtnText}"`
+    if (this.diagnosisOptionEnabled) {
+      cnfmBtnText = "Save with Diagnoses!"
+      denyBtnText = "Save without Diagnoses!"
+      cnfmTitle = 'Are you sure to save family health history  with Diagnoses information?'
+      cnfmText = `Then click "${cnfmBtnText}" else Click "${denyBtnText}", for changes click "Close"`
+    }
+    Swal.fire({
+      title: cnfmTitle,
+      text: cnfmText,
+      position: 'top',
+      width: '700',
+      showCancelButton: true,
+      showDenyButton: this.diagnosisOptionEnabled,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: cnfmBtnText,
+      cancelButtonText: "Close",
+      denyButtonText: denyBtnText,
+      customClass: {
+        container: 'swal2-container-high-zindex',
+        confirmButton: 'swal2-messaage'
+      }
+    }).then((result) => {
+      //console.log(result);
+
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Save with diagnoses!",
+          text: "Save with diagnoses.",
+          icon: "success"
+        });
+      } else if (result.isDenied) {
+        Swal.fire({
+          title: "Save without diagnoses!",
+          text: "Save without diagnoses.",
+          icon: "success"
+        });
+      }
+    });
+
+  }
+
 
 }

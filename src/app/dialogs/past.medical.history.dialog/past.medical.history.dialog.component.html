@@ -33,9 +33,7 @@
           *ngFor="let familyhealthdetails of patientPastMedicalHistory?.FamilyMedicalHistories;">
           <li>
             <a (click)="openComponentDialog(familyHealthHistoryDialogComponent, familyhealthdetails, ActionTypes.view)">
-              <b>{{familyhealthdetails.FirstName}} {{familyhealthdetails.LastName}}
-                <span>, </span>
-              </b>
+              <b>{{familyhealthdetails.FirstName}} {{familyhealthdetails.LastName}}, {{familyhealthdetails.BirthAt | date:'MMM yyyy'}}, </b>
               <span>{{familyhealthdetails.Relationship}}</span>
               <span>{{familyhealthdetails.CodeSystem}}</span>
             </a>

@@ -105,13 +105,13 @@
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CHARTID" class="form-label label-design">Chart Id</label>
-                <input class="input-group form-control" [(ngModel)]="patientMyProfile.ChartId" placeholder="Chart Id"
-                  type="text" id="CHARTID">
+                <input class="input-group form-control patient-id" [(ngModel)]="patientMyProfile.ChartId" placeholder="Chart Id"
+                  type="text" id="CHARTID" readonly>
               </div>
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="PATIENTID" class="form-label label-design">Patient Id</label>
                 <input class="input-group form-control patient-id" [(ngModel)]="patientMyProfile.PatientId"
-                  placeholder="PATIENT ID" type="text" id="PATIENT ID" readonly>
+                  placeholder="PATIENT ID" type="text" id="PATIENTID" readonly>
               </div>
 
               <div class="col-lg-4 col-xl-4 col-md-6 col-12 my-2">
@@ -139,7 +139,7 @@
                 <div class="input-group">
                   <input class="checkbox form-check-input" id="Active" name="Active" type="checkbox"
                     [(ngModel)]="patientMyProfile.Active">
-                  <label class="label-design check-label check-label-mrg">ACTIVE PATIENT
+                  <label class="label-design check-label">ACTIVE PATIENT
                   </label>
                 </div>
               </div>
@@ -159,7 +159,7 @@
                 <div class="input-group">
                   <input class="checkbox form-check-input" id="VisionImpared" name="VisionImpared" type="checkbox"
                     [(ngModel)]="patientMyProfile.VisionImpared">
-                  <label class="label-design check-label check-label-mrg">PATIENT IS VISION IMPARED</label>
+                  <label class="label-design check-label">PATIENT IS VISION IMPARED</label>
 
                 </div>
               </div>

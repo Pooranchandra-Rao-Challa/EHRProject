@@ -1,9 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpEventType, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 
 import * as FileSaver from "file-saver";
 import { User } from "../_models/_account/user";
+import { ExportSearchParams } from "../_models/_provider/_settings/settings";
 
 @Injectable()
 export class DownloadService {
@@ -237,6 +238,40 @@ export class DownloadService {
         (error) => {
         }
       );
+  }
+
+  DownloadPatientsCDA<T>(reqObj: ExportSearchParams){
+    const endpointUrl = this.baseUrl +'PatientCDAExport';
+    let fileName = reqObj.PatientId != null ? reqObj.PatientId : reqObj.ClinicId;
+    let localheaders = this.headers;
+    localheaders = localheaders.append("FileName",fileName)
+    return this.http
+      .post(endpointUrl, reqObj, { observe: "events", reportProgress: true,   responseType:"arraybuffer", headers : localheaders  })
+      // .subscribe(
+      //   (resp) => {
+      //     if (resp.type === HttpEventType.DownloadProgress) {
+      //       const percentDone = Math.round(100 * resp.loaded / resp.total);
+      //       console.log(percentDone);
+      //     }
+      //     if (resp.type === HttpEventType.Response) {
+      //       this.generateDownload(result.body);
+      //     }
+
+      //     const data = resp.body;
+      //     const FileName = resp.headers.get("FileName");
+      //     console.log(FileName);
+      //     console.log(resp.headers);
+      //     console.log(resp);
+      //     console.log(resp.type );
+      //     const blob = new Blob([data], {
+      //       type: resp.headers.get("content-type"),
+      //     });
+      //     const document = window.URL.createObjectURL(blob);
+      //     FileSaver.saveAs(document, fileName+".zip");
+      //   },
+      //   (error) => {
+      //   }
+      // );
   }
 
   // ImagetoBase64String(reqparams: any){

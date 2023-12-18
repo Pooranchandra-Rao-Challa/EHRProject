@@ -14,7 +14,7 @@ export class PatientProfile {
   HomePhone?: string;
   CellPhone?: string;
   WorkPhone?: string;
-  ChartId?: string;
+  ChartId?: number;
   DeclinedPortalAccess?: boolean;
   VisionImpared?: boolean;
   Active?:boolean;

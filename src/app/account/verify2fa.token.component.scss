@@ -60,3 +60,12 @@
 ::ng-deep .container-mfa .mat-dialog-container{
   overflow :hidden !important;
 }
+
+::ng-deep #verify-authenticator .auth-token .mat-form-field-infix{
+  padding-top: 0px !important;
+}
+
+input.auth-token-input{
+  border: 0px !important;
+  padding-top: 8px !important
+}

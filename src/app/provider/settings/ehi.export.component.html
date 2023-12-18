@@ -1,0 +1,63 @@
+<div class="card erx-wrapper">
+  <div class="card-header">
+    <h5 class="Helvetica-sans-serif-medium mt-2">EHI Export</h5>
+  </div>
+  <div class="card-body ehi-export">
+    <div class="cstm-height">
+
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon1">Patient Search<b>:</b></span>
+        <input class="form-control new-search" [matAutocomplete]="patientSerarch" id="patientSerarch"
+          placeholder="Search Patient ( Enter a patient's name or phone number )" type="text"
+          [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
+        <mat-autocomplete #patientSerarch="matAutocomplete" [displayWith]="displayPatient"
+          (optionSelected)="onPatientSelected($event)" class="scrollable-table">
+          <mat-option *ngIf="noSearchResults">No patient found. add <a class="new-patient-link"
+              (click)="openComponentDialog(patientDialogComponent)">a new patient</a> and/or retry you
+            search</mat-option>
+          <mat-option *ngFor="let patient of patients" [value]="patient"
+            class="patient-search-option patient-search-option-menu-item">
+            {{patient.Name}},
+            {{patient.DateofBirth | date: 'MM/dd/yyyy'}}, {{patient.Age +' Year(s)'}}{{patient.PrimaryPhone ? ', ' :
+            ''}}
+            {{patient.PrimaryPhone ? 'P:'+patient.PrimaryPhone : ''}}{{patient.MobilePhone ? ', ' : ''}}
+            {{patient.MobilePhone ? 'H:'+patient.MobilePhone : ''}}
+          </mat-option>
+        </mat-autocomplete>
+      </div>
+
+      <fieldset *ngIf="this.selectedPatient != null" class="selected-patient">
+        <legend>Export Patient
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close
+            (click)="clearPatientSelection()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </legend>
+        <div class="view">
+          <div class="row-view">
+            <label for="Name" class="form-label label-design">Name:</label>
+            <label for="Birth" class="form-label label-design">Birth:</label>
+            <label for="Gender" class="form-label label-design">Gender:</label>
+            <label for="Phone" class="form-label label-design">Phone:</label>
+          </div>
+          <div class="row-view">
+            <span> {{this.selectedPatient.Name}}</span>
+            <span> {{this.selectedPatient.DateofBirth}}</span>
+            <span> {{this.selectedPatient.Gender}}</span>
+            <span> {{this.selectedPatient.PrimaryPhone}},{{this.selectedPatient.MobilePhone}}</span>
+          </div>
+        </div>
+      </fieldset>
+      <div class="input-group">
+        <span class="input-group-text" id="basic-addon3">Export All Patients<b>:</b></span>
+        <mat-checkbox class="form-control" [(ngModel)]="allPatients"
+          (ngModelChange)="updateAllComplete()"></mat-checkbox>
+      </div>
+      <mat-progress-bar [color]="color"
+      [mode]="mode"
+      [value]="value"
+      [bufferValue]="bufferValue" *ngIf="downloadinginprogress"></mat-progress-bar>
+    </div>
+    <button type="submit" class="btn btn-green btn-lg pull-right" (click)="ExportEHI()">Export</button>
+  </div>
+</div>

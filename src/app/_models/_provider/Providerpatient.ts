@@ -25,6 +25,7 @@ export class ProviderPatient{
   UserId?: string;
   RelationShip?: string = 'Parent-Mother';
   IsUpdatedProfileInfo?: boolean;
+  ChartId?:number;
 }
 
 

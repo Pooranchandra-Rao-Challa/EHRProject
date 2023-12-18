@@ -75,6 +75,8 @@ export class PastMedicalHistoryDialogComponent implements OnInit {
   CreatePastMedicalHistories(close:boolean = true) {
     let isAdd = this.patientPastMedicalHistory.PastMedicalHistoryId == undefined;
     this.patientPastMedicalHistory.PatientId = this.currentPatient.PatientId;
+    //console.log(this.patientPastMedicalHistory);
+
     this.patientService.CreatePastMedicalHistories(this.patientPastMedicalHistory).subscribe((resp) => {
       if (resp.IsSuccess) {
         if(close){
