@@ -71,13 +71,13 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     private overlayService: OverlayService) {
     this.data = ref.RequestData;
     this.PatientAppointment = {} as NewAppointment;
-    this.PatientAppointment = this.data.PatientAppointment;
+    this.PatientAppointment = this.data.PatientAppointment || {};
     this.appointmentTitle = this.data.Title;
     this.AppointmentTypes = this.data.AppointmentTypes;
     this.PracticeProviders = this.data.PracticeProviders;
     this.Locations = this.data.Locations;
     this.Rooms = this.data.Rooms;
-    if (this.Rooms && this.Rooms.length > 0
+    if (this.Rooms && this.Rooms.length > 0 && this.PatientAppointment != null
       && this.PatientAppointment.RoomId == null)
       this.PatientAppointment.RoomId = this.Rooms[0].RoomId;
 
@@ -289,6 +289,7 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
       this.datePipe.transform(this.PatientAppointment.TimeSlot.StartDateTime, "MM/dd/yyyy HH:mm")
     let isAdd = this.PatientAppointment.AppointmentId == null;
     this.SaveInputDisable = true;
+    this.PatientAppointment.ClinicId = this.authService.userValue.ClinicId
     this.smartSchedulerService.CreateAppointment(this.PatientAppointment).subscribe(resp => {
       if (resp.IsSuccess) {
         this.onError = false;
@@ -297,8 +298,6 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
           'UpdatedModal': PatientChart.Appointment
         });
         this.OperationMessage = resp.EndUserMessage;
-        //this.openComponentDialog(this.messageDialogComponent,null,Actions.view);
-        //if (this.data.NavigationFrom = )
         this.alert.displayMessageDailog(ERROR_CODES[isAdd ? "M2AA001" : "M2AA002"]);
       }
       else {
@@ -347,4 +346,23 @@ export class NewAppointmentDialogComponent implements OnInit, AfterViewInit {
     });
   }
 
+  get CanUpdateAppointments(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "AppointmentPolicy" && fn.MethodName == "update")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanCreateAppointments(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "AppointmentPolicy" && fn.MethodName == "create")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
 }

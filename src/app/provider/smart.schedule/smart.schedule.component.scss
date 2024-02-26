@@ -151,6 +151,27 @@ input::placeholder {
   color: #333;
 }
 
+.schedule-bottom .switchbtn.appointmentbtn:not(:last-child),
+.schedule-bottom .patientbtn.appointmentbtn:not(:last-child) {
+  padding: 0 10px !important;
+  margin: 0 4px !important;
+  float: right;
+}
+
+.schedule-bottom .switchbtn.appointmentbtn:last-of-type,
+.schedule-bottom .patientbtn.appointmentbtn:last-of-type {
+  padding: 0 13px !important;
+  margin: 0 0 0 4px !important;
+  float: right;
+}
+
+.schedule-bottom .search-button-container{
+  display: flex;
+}
+.schedule-bottom .buttons{
+  float: right;
+}
+
 .schedule-bottom .btn {
   margin-top: 2px;
   height: 40px;

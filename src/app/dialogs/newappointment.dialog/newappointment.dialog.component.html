@@ -131,7 +131,7 @@
             (click)="cancelAppointment()">Cancel</button>
         </div>
         <div style="float:right;">
-          <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()"
+          <button class="btn btn-green px-lg-5 px-3" [disabled]="DiabledAppointmentSave()" *ngIf="CanUpdateAppointments || CanCreateAppointments"
             (click)="onAppointmentSave()">Save
             Appointment</button>
           <button id="appointmentClose" class="btn btn-green px-lg-3 px-2 mx-3" (click)="close()">

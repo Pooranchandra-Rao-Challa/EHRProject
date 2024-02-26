@@ -1,7 +1,7 @@
 
       <div class="row">
         <div class="schedule-bottom">
-          <div class="row">
+          <div class="search-button-container">
             <div class="col-lg-8 col-md-6 col-12">
               <div class="form-group">
                 <div class="input-group smartview-patient-search-result" appearance="outline" class="new-search col-12">
@@ -10,7 +10,10 @@
                     [(ngModel)]="patientNameOrCellNumber" (keyup)="searchPatient(patientNameOrCellNumber)" />
                     <mat-autocomplete  #patientSerarch="matAutocomplete"  [displayWith]="displayPatient"
                     (optionSelected)="onPatientSelected($event)" class="scrollable-table">
-                    <mat-option *ngIf="noSearchResults">No patient found. add <a class="new-patient-link" (click)="openComponentDialog(patientDialogComponent)">a new patient</a> and/or retry you search</mat-option>
+                    <mat-option *ngIf="noSearchResults && CanCreateAppointment">No patient found. add <a class="new-patient-link"
+                      (click)="openComponentDialog(patientDialogComponent)" *ngIf="CanCreateAppointment">a new patient</a> and/or retry you search</mat-option>
+                      <mat-option *ngIf="!CanCreateAppointment">Not having enough permissions to create patient.</mat-option>
+
                   <mat-option *ngFor="let patient of patients" [value]="patient" class="patient-search-option patient-search-option-menu-item">
                     {{patient.Name}},
                     {{patient.DateofBirth | date: 'MM/dd/yyyy'}} , {{patient.Age +' Year(s)'}} ,
@@ -22,19 +25,21 @@
                 </div>
               </div>
             </div>
-            <div class="col-lg-2 col-md-3 col-12 my-2 my-md-0">
-              <button mat-button class="btn patientbtn col-12" type="button"
-                (click)="openComponentDialog(patientDialogComponent)">
+            <div class="col-lg-4 col-md-2 col-12 my-2 my-md-0 buttons">
+              <button mat-button class="btn patientbtn appointmentbtn" (click)="SwitchView()" *ngIf="CanCreateAppointment">
+                Upcoming Appointments
+              </button>
+              <button mat-button class="btn patientbtn appointmentbtn" (click)="addAppointment()" *ngIf="CanCreateAppointment">
+                Add Appointment
+              </button>
+              <button mat-button class="btn switchbtn appointmentbtn" (click)="SwitchView()">
+                Switch View
+              </button>
+              <button mat-button class="btn patientbtn appointmentbtn" type="button" (click)="openComponentDialog(patientDialogComponent)" *ngIf="CanCreatePatient">
                 Add New Patient
               </button>
             </div>
-            <div class="col-lg-2 col-md-3 col-12">
-              <!-- <a [routerLink]="SwitchUrl"> -->
-                <button mat-button class="btn switchbtn col-12" (click)="SwitchView()">
-                  Switch View
-                </button>
-              <!-- </a> -->
-            </div>
+
           </div>
         </div>
       </div>

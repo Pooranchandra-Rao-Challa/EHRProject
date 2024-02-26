@@ -250,6 +250,8 @@ export class ProcedureDatasource implements DataSource<ProceduresInfo>{
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(resp => {
       if (resp.IsSuccess){
+        console.log(resp.ListResult);
+
         this.proceduresSubject.next(resp.ListResult as ProceduresInfo[]);
         this.dentalChartNotifier.sendData(true);
       }

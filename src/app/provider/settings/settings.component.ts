@@ -198,4 +198,34 @@ export class SettingsComponent implements OnInit, AfterViewInit {
     if (temp.length == 0) return false;
     return temp[0].Allowed;
   }
+
+  get CanViewAccessPermissions(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "AccessPermissionsPolicy" && fn.MethodName == "view")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanUpdateAccessPermissions(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "AccessPermissionsPolicy" && fn.MethodName == "update")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanScheduleSettingPolicy(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "SettingPolicy" && fn.MethodName == "schedule")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
 }

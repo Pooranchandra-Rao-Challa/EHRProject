@@ -1,0 +1,207 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+#superbill-dialog.modal-dialog {
+  overflow-y: initial !important;
+  max-width: inherit !important;
+  margin: unset !important;
+  width: calc(100vw - 35px);
+}
+
+#superbill-dialog {
+
+  .modal-body {
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+
+  .modal-content {
+    max-width: 90%;
+    margin: auto;
+    height: calc(100vh - 180px);
+  }
+
+  .modal .modal-dialog .modal-content .modal-body {
+    padding: 10px 26px;
+  }
+
+  .modal-header {
+    margin-right: -1px;
+    margin-left: -1px;
+  }
+
+  .modal-body .form-group {
+    margin-bottom: 25px;
+  }
+
+  .superbill-content-header {
+    padding: 15px 20px;
+    width: 100%;
+    border-bottom: 1px solid #41b6a6;
+
+
+    .left-pull {
+      float: left;
+      width: 50%;
+    }
+  }
+
+  .title {
+    font-size: 24px;
+    display: grid;
+    color: #41b6a6;
+    width: 100%;
+
+    div {
+      padding: 10px 0;
+    }
+  }
+
+  .buttons {
+    margin-bottom: 70px;
+
+    button {
+      float: right;
+      margin: 30px 0 10px 10px;
+    }
+  }
+
+  .superbill-body-header {
+    //display: inline-block;
+    height: 50px;
+    margin-top: 15px;
+    padding: 0 20px;
+    line-height: 50px;
+    background-color: #41b6a6;
+    color: #fff;
+    font-size: 20px;
+
+
+  }
+  .subscriber-data, .other-coverage {
+   // padding-left: 40px;
+    display: flex;
+    .first-element{
+      padding-right:2px;
+    }
+  }
+
+  .subscriber-data2 {
+    padding-left: 30px;
+    display: flex;
+    .first-element{
+      padding-right:2px;
+    }
+  }
+
+  .corresponding-encounter {
+    margin: 15px 0;
+  }
+
+  .mat-table {
+
+    .mat-header-cell,
+    .mat-cell {
+      font-size: 12pt !important;
+    }
+
+    .mat-row {
+      padding: unset;
+
+      .mat-cell {
+        width: 10%;
+      }
+
+      .mat-cell:first-of-type {
+        padding-left: 5px !important;
+      }
+
+      .mat-cell:nth-child(9) {
+        width: 200px;
+      }
+    }
+  }
+
+  .superbill-sub-header {
+    padding-top: 6px;
+
+    // .header {
+    //   display: inline-block;
+    //   // height: 50px;
+    //   margin-top: 15px;
+    //   padding: 0 20px;
+    //   line-height: 50px;
+    //   // background-color: #41b6a6;
+    //   // color: #fff;
+    //   //font-size: 20px;
+
+    // }
+
+    .diagnosis{
+      padding: 20px;
+      .code{
+        font-size: 14pt;
+      }
+      .code{
+        font-size: 16pt;
+      }
+    }
+    &>details {
+      padding: 5px 10px;
+      font-size: 12pt;
+      margin-left: 20px !important;
+
+      &>summary {
+        padding: 10px !important;
+        font-size: 12pt;
+      }
+
+      &>p {
+        margin-left: 35px !important;
+        font-size: 12pt !important;
+        margin-bottom: unset;
+      }
+    }
+  }
+
+  .operator {
+    text-align: center;
+    padding-top: 15px;
+  }
+
+  .all-fee {
+    display: flex;
+    //margin-left: 20px;
+  }
+
+  .payer,
+  .subscriber {
+    div {
+      padding: 10px;
+    }
+  }
+
+  .mat-radio-button {
+    margin-left: 20px;
+  }
+
+  .def-bor {
+    border: 1px solid #41b6a6;
+    border-radius: 3px;
+    padding: 10px 25px;
+  }
+  .bill-treatment-information{
+    margin:20px 0 20px -10px;
+  }
+  .treatment-information{
+    padding-left: unset;
+    padding-right: unset;
+  }
+
+
+}
+::ng-deep #superbill-dialog .mat-expansion-panel-body p{
+  line-height: 25px !important;
+  font-size: 14pt !important;
+  padding-top: 1.2rem;
+}

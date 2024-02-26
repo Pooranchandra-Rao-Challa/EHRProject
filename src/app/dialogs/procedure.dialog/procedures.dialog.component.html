@@ -1,0 +1,67 @@
+<div class="modal-dialog" id="procedures-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Patient Procedures
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closeProcedures()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div class="bill-details">
+        <table mat-table [dataSource]="procedures" #table id="biilview">
+          <ng-container matColumnDef="Proc Date">
+            <th mat-header-cell *matHeaderCellDef> Proc Date </th>
+            <td mat-cell *matCellDef="let element"> {{element?.Date | date:'MM/dd/yyyy'}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Status">
+            <th mat-header-cell *matHeaderCellDef> Patient </th>
+            <td mat-cell *matCellDef="let element"> {{element?.Status }} </td>
+          </ng-container>
+          <ng-container matColumnDef="Code">
+            <th mat-header-cell *matHeaderCellDef> Code </th>
+            <td mat-cell *matCellDef="let element"> {{element?.Code}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> {{element?.Description}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Surface">
+            <th mat-header-cell *matHeaderCellDef> Provider </th>
+            <td mat-cell *matCellDef="let element"> {{element?.Surface}} </td>
+          </ng-container>
+          <ng-container matColumnDef="ToothNo">
+            <th mat-header-cell *matHeaderCellDef> Provider </th>
+            <td mat-cell *matCellDef="let element"> {{element?.ToothNo}} </td>
+          </ng-container>
+          <ng-container matColumnDef="Amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let element">
+              <input #matInput id="bill" [(ngModel)]="element.Fee"></td>
+          </ng-container>
+          <ng-container matColumnDef="Billed">
+            <th mat-header-cell *matHeaderCellDef> Billing Status </th>
+            <td mat-cell *matCellDef="let element">
+              <mat-checkbox [(ngModel)]="element.BillPrepared" [disabled]="element.EncounterId != null" [class.notallowed]="element.EncounterId != null">
+              <span>{{ element.BillPrepared ? "Billed" : "Not Billed" }}</span>
+            </mat-checkbox>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green" (click)="updateBillProcedurs()" >
+        Update Bill Procedures
+      </button>
+      <button type="button" class="btn btn-green" (click)="closeProcedures()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

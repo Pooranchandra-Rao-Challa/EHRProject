@@ -62,7 +62,7 @@
               <mat-form-field appearance="outline" class="grey-matform grey-calendar">
                 <input class="pointer" matInput [matDatepicker]="dp" placeholder="Date of Birth" [(ngModel)]="PatientData.DateofBirth"
                   #dateofBirth="ngModel" name="DateofBirth" (click)="dp.open()" required
-                  pattern="(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.]((19|20)\d\d)" [max]="todayDate"
+                  pattern="(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.]((19|20)\d\d))" [max]="todayDate"
                   (dateChange)="_filterPatient()">
                 <mat-datepicker-toggle matSuffix [for]="dp">
                 </mat-datepicker-toggle>
@@ -84,10 +84,10 @@
               <label class="gender-right-space required"
                 style="margin-bottom:10px;font-size:15px;color:#74757e;">Gender:</label>
               <mat-radio-group [(ngModel)]="PatientData.Gender" [ngModelOptions]="{standalone: true}">
-                <mat-radio-button value="male"></mat-radio-button>Male
-                <mat-radio-button value="female"></mat-radio-button>Female
-                <mat-radio-button value="other"></mat-radio-button>Other
-                <mat-radio-button value="unknown"></mat-radio-button>Unknown
+                <mat-radio-button value="male">Male</mat-radio-button>
+                <mat-radio-button value="female">Female</mat-radio-button>
+                <mat-radio-button value="other">Other</mat-radio-button>
+                <mat-radio-button value="unknown">Unknown</mat-radio-button>
               </mat-radio-group>
             </div>
           </div>

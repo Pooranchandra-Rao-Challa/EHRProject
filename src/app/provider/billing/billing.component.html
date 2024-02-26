@@ -1,82 +1,100 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-8 col-lg-8 col-12">
+    <div class="col-md-12 col-lg-12 col-12">
       <div class="row">
-        <mat-form-field appearance="outline" class="col-md-4 col-12">
-          <mat-label>Search patient</mat-label>
-          <mat-select ngModel name="search" #search="ngModel">
-            <mat-option>-Select-</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <label class="col-md-1 col-12 col-lg-1 py-lg-3 px-lg-1 pull-right d-flex justify-content-end flex-sm-row flex-column">Proc Date &nbsp;:&nbsp;from</label>
-        <mat-form-field appearance="outline" class="green-calendar col-md-3">
-          <input matInput [matDatepicker]="dp"  placeholder="Start Date" name="startDate"
-          [(ngModel)]="startDate"(click)="dp.open()" readonly class="pointer">
-          <mat-datepicker-toggle matSuffix [for]="dp">
-          </mat-datepicker-toggle>
-          <mat-datepicker #dp disabled="false"></mat-datepicker>
-         </mat-form-field>
-         <label class="col-md-1 col-12 px-3 px-lg-3 toalignment pt-0 pt-lg-3">to</label>
-        <mat-form-field appearance="outline" class="green-calendar col-md-3">
-          <input matInput [matDatepicker]="dp1" placeholder="Stop Date"  name="enddate"
-          [(ngModel)]="enddate" readonly (click)="dp1.open()" class="pointer">
-          <mat-datepicker-toggle matSuffix [for]="dp1">
-          </mat-datepicker-toggle>
-          <mat-datepicker #dp1 disabled="false"></mat-datepicker>
-        </mat-form-field>
-  </div>
-</div>
-      <div class="col-md-2 mt-lg-3 d-grid d-sm-inline">
-        <button mat-raised-button type="submit" (click)="getBillings()" class="btn btn-green btn-reports runreport">Run Report</button>
-      </div>
-      <div class="col-md-2 mt-lg-3 d-grid d-sm-inline mt-3 mt-sm-0">
-        <button mat-raised-button class="btn btn-green btn-reports pull-right" (click)="resetpage()">Reset</button>
-      </div>
-  </div>
-</div>
-<!-- <div class="row">
-  <div class="col-md-6">
-    <p class="col-md-3 pull-right">Filter by status:</p>
-  </div>
-  <mat-form-field appearance="outline" class="col-md-4 statusFilter">
-    <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
-      <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
-        {{fs.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+        <div class="col-lg-3">
+          <div>Search patient</div>
+          <mat-form-field appearance="outline" class="col-md-12col-sm-12 col-12">
+            <mat-label>Search patient</mat-label>
 
-  <div class="col-md-1">
-    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToCsv()">Export CSV</button>
-  </div>
-  <div class="col-md-1">
-    <button mat-raised-button class="btn btn-green btn-reports" (click)="exportToPdf()">Export PDF</button>
-  </div>
-</div> -->
-<div class="row mb-2">
-  <div class="col-md-5 col-12 mt-lg-3 px-4">
-    <label class="float-lg-end mt-lg-3">Filter by status:</label>
-  </div>
-  <mat-form-field appearance="outline" class="col-md-4 mt-lg-3  pull-right statusFilter px-4">
-    <mat-select id="statusFilter" #select multiple placeholder="Select all to include">
-      <mat-option (click)="optionClick()" *ngFor="let fs of filterstatus" [value]="fs.value">
-        {{fs.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div class="col-md-3 col-12 ps-4">
-    <button mat-raised-button class="btn btn-green btn-reports mt-lg-3 me-4" (click)="exportToCsv()">Export&nbsp;CSV</button>
-    <button mat-raised-button class="btn btn-green btn-reports mt-lg-3" (click)="exportToPdf()">Export PDF</button>
-  </div>
-  <!-- <div class="col-md-1 col-6 pr-4">
+            <mat-select ngModel name="search" [(ngModel)]="filterData.patientId">
+              <input matInput placeholder="filter.." #filterpatients class="select-filter-input">
+              <div  *ngFor="let opt of filteredPatients | async">
+              <mat-option [value]="opt.PatientId">
+                {{opt.FirstName}}{{opt.MiddleName ? " "+opt.MiddleName : ""}} {{opt.LastName}}
+              </mat-option>
+                </div>
 
-  </div> -->
+              <mat-option>-Select-</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+
+          <div>Progress Note: From:</div>
+
+          <mat-form-field appearance="outline" class="green-calendar col-md-12">
+
+            <input matInput [matDatepicker]="dp" placeholder="Search From Date" name="startDate" [(ngModel)]="filterData.FormDate"
+              (click)="dp.open()" readonly class="pointer">
+            <mat-datepicker-toggle matSuffix [for]="dp">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div class="col-lg-6" style="padding-top:22px">
+          <div class="col-md-2 mt-lg-3 d-grid d-sm-inline">
+            <button mat-raised-button type="submit" (click)="getBills()" class="btn btn-green btn-reports runreport">Run
+              Report</button>
+          </div>
+          <div class="col-md-2 mt-lg-3 d-grid d-sm-inline mt-3 mt-sm-0">
+            <button mat-raised-button class="btn btn-green btn-reports pull-right" (click)="resetFilter()">Reset</button>
+          </div>
+        </div>
+        <div class="col-md-3 col-3 col-lg-3" style="display: grid;">
+          <label>Filter by status:</label>
+          <mat-form-field appearance="outline" class="col-md-8 col-lg-12 statusFilter">
+            <mat-select id="statusFilter" #select multiple placeholder="Select all to include" [(ngModel)]="filterData.Status">
+              <mat-option *ngFor="let fs of filterstatus" [value]="fs.value">
+                {{fs.Text}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-lg-3">
+          <div>To:</div>
+          <mat-form-field appearance="outline" class="green-calendar col-md-12">
+            <!-- <label>To</label> -->
+            <input matInput [matDatepicker]="dp1" placeholder="To Date" name="enddate" [(ngModel)]="filterData.ToDate" readonly
+              (click)="dp1.open()" class="pointer">
+            <mat-datepicker-toggle matSuffix [for]="dp1">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp1 disabled="false"></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 col-4 col-lg-4 ">
+
+        </div>
+        <div class="col-md-2 col-2 col-lg-2 " style="padding-top:22px">
+          <button mat-raised-button class="btn btn-green btn-reports col-5 pull-left pr-4"
+            (click)="exportToCsv()">Export&nbsp;CSV</button>
+          <button mat-raised-button class="btn btn-green btn-reports col-5 pull-right" (click)="exportToPdf()">Export PDF</button>
+        </div>
+      </div>
+
+
+      <div class="row">
+
+
+      </div>
+    </div>
+
+  </div>
+
 </div>
+
+
 <div class="table-responsive billing mb-5" #TABLE>
-  <table mat-table [dataSource]="sampledata" #table id="my-table">
+  <table mat-table [dataSource]="bills" #table id="my-table">
+    <ng-container matColumnDef="BillId">
+      <th mat-header-cell *matHeaderCellDef>#</th>
+      <td mat-cell *matCellDef="let element"><a
+          [routerLink]="['/provider/billview', element.BillId, element.PatientId]">{{element.BillId}}</a> </td>
+    </ng-container>
     <ng-container matColumnDef="ProcDate">
-      <th mat-header-cell *matHeaderCellDef>Proc Date </th>
-      <td mat-cell *matCellDef="let element"> {{element.ProcDate | date:'MM/dd/yyyy'}} </td>
+      <th mat-header-cell *matHeaderCellDef>Progress Note Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.ProgressNoteDate | date:'MM/dd/yyyy'}} </td>
     </ng-container>
     <ng-container matColumnDef="PatientName">
       <th mat-header-cell *matHeaderCellDef> Patient Name </th>
@@ -86,46 +104,27 @@
       <th mat-header-cell *matHeaderCellDef> Birth Date </th>
       <td mat-cell *matCellDef="let element"> {{element.Dob | date:'dd/MM/yyyy'}} </td>
     </ng-container>
-    <ng-container matColumnDef="PrimSubscriberID">
-      <th mat-header-cell *matHeaderCellDef> Prim Subscriber ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.PrimSubID}} </td>
-    </ng-container>
     <ng-container matColumnDef="ProviderName">
       <th mat-header-cell *matHeaderCellDef> Provider Name </th>
       <td mat-cell *matCellDef="let element"> {{element.ProviderName}} </td>
     </ng-container>
-    <ng-container matColumnDef="ProcCode">
-      <th mat-header-cell *matHeaderCellDef> Proc Code </th>
-      <td mat-cell *matCellDef="let element"> {{element.Code}} </td>
+    <ng-container matColumnDef="SubscriberID">
+      <th mat-header-cell *matHeaderCellDef> Subscriber ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.SubscriberId}} </td>
     </ng-container>
-    <ng-container matColumnDef="Description">
-      <th mat-header-cell *matHeaderCellDef> Description </th>
-      <td mat-cell *matCellDef="let element"> {{element.Description}} </td>
+    <ng-container matColumnDef="CompanyName">
+      <th mat-header-cell *matHeaderCellDef>Company Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.CompanyName}} </td>
     </ng-container>
-    <ng-container matColumnDef="Tooth">
-      <th mat-header-cell *matHeaderCellDef>Tooth </th>
-      <td mat-cell *matCellDef="let element"> {{element.Tooth}} </td>
+    <ng-container matColumnDef="Total Fee">
+      <th mat-header-cell *matHeaderCellDef> Total Fee </th>
+      <td mat-cell *matCellDef="let element"> {{element.TotalFee}} </td>
     </ng-container>
-    <ng-container matColumnDef="Surface">
-      <th mat-header-cell *matHeaderCellDef>Surface </th>
-      <td mat-cell *matCellDef="let element"> {{element.Surface}} </td>
-    </ng-container>
-    <ng-container matColumnDef="Procfees">
-      <th mat-header-cell *matHeaderCellDef>Proc Fees </th>
-      <td mat-cell *matCellDef="let element"> {{element.ProcFees}} </td>
-    </ng-container>
-    <ng-container matColumnDef="PrimInsCompanyName">
-      <th mat-header-cell *matHeaderCellDef>Prim Ins Company Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.PrymaryCompanyName}} </td>
-    </ng-container>
-    <ng-container matColumnDef="SecInsCompanyName">
-      <th mat-header-cell *matHeaderCellDef>Sec Ins Company Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.SecondaryCompanyName}} </td>
-    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <div class=" table-NoRecord text-center text-danger py-2 col-12" *ngIf="sampledata.length == 0">
+  <div class=" table-NoRecord text-center text-danger py-2 col-12" *ngIf="bills.length == 0">
     No records found.
- </div>
+  </div>
 </div>

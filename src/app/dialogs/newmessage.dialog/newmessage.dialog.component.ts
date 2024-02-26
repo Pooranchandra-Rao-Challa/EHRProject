@@ -174,12 +174,14 @@ export class NewMessageDialogComponent implements OnInit {
       this.message.ProviderName = this.user.FirstName;
       this.message.Draft = saveasdraft;
       this.message.Sent = sent
+      this.message.New = saveasdraft ? false : true;
     }
     else if(!this.message.Isccda){
       this.message.FromId = this.user.UserId;
       this.message.ProviderName = this.user.FirstName;
       this.message.Draft = saveasdraft;
       this.message.Sent = sent;
+      this.message.New = saveasdraft ? false : true;
       this.message.ToId = this.messageDialogData.Messages ?
       this.messageDialogData.Messages.toAddress.UserId : this.message.ToId;
     }

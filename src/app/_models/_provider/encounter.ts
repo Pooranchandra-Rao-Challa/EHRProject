@@ -1,4 +1,5 @@
-import { JsonPipe } from "@angular/common";
+
+import { InsuranceDto } from "./insurance";
 import { PracticeProviders } from "./practiceProviders";
 
 
@@ -65,27 +66,27 @@ export class EncounterInfo {
   strServicedAt?: string;
   strServiceEndAt?: string;
   Medication?: string = "yes";
-  ClinicalSummary: boolean = false;
-  Signed: boolean = false;
-  cqmData: boolean = false;
-  cqmExcelData: boolean = false;
-  DirectImport: boolean = false;
-  EnableNewEncounterData: boolean = false;
+  ClinicalSummary?: boolean = false;
+  Signed?: boolean = false;
+  cqmData?: boolean = false;
+  cqmExcelData?: boolean = false;
+  DirectImport?: boolean = false;
+  EnableNewEncounterData?: boolean = false;
 
   //MU2
   VisitReason?: string;
   ClinicalInstructions?: string;
   EncounterType?: string = "Office Visit (1853490003)";
-  NewPatientEncounter: boolean;
-  PatientHealthData: string = "";
-  PatientEducation: boolean;
-  DischargeStatus: string = "";
-  DischargeStatusCode: string = "";
-  DischargeStatusCodeSystem: string = "";
+  NewPatientEncounter?: boolean;
+  PatientHealthData?: string = "";
+  PatientEducation?: boolean;
+  DischargeStatus?: string = "";
+  DischargeStatusCode?: string = "";
+  DischargeStatusCodeSystem?: string = "";
   // Need to Know DataBase Columns
-  EncounterCode: string = "99213";
-  EncounterCodeSystem: string = "SNOMED";
-  EncounterDescription: string = "Office or Other Outpatient Visit";
+  EncounterCode?: string = "99213";
+  EncounterCodeSystem?: string = "SNOMED";
+  EncounterDescription?: string = "Office or Other Outpatient Visit";
   // End of Need to Know
   SummaryCareRecordRefIn?: boolean;
   SummaryCareRecordRefOut?: boolean;
@@ -95,7 +96,7 @@ export class EncounterInfo {
   DiagnosisReconciliationCompleted?: boolean;
   medCompleted?: boolean;
   HealthInfoExchange?: boolean;
-  CurrentMedicationDocumented: number = 1
+  CurrentMedicationDocumented?: number = 1
   MedicationReconciliation?: boolean;
   MedicalReconcillation?: boolean;
 
@@ -103,21 +104,102 @@ export class EncounterInfo {
   ReferralReason?: string
   ReferralFrom?: string;
   ReferralTo?: string;
-  ReferredFrom: boolean = false;
-  ReferredTo: boolean = false;
+  ReferredFrom?: boolean = false;
+  ReferredTo?: boolean = false;
   CongnitiveStatus?: string;
   FunctionalStatus?: string;
 
 
-  Diagnoses: EncounterDiagnosis[] = [];
-  RecommendedProcedures: ProceduresInfo[] = [];
-  CompletedProcedures: ProceduresInfo[] = [];
-  AddendaComments: AddendaComment[] =[]
-  AddendaDocs: AddendaDoc[] =[]
-  Vitals: VitalInfo[] = [];
+  Diagnoses?: EncounterDiagnosis[] = [];
+  RecommendedProcedures?: ProceduresInfo[] = [];
+  CompletedProcedures?: ProceduresInfo[] = [];
+  AddendaComments?: AddendaComment[] =[]
+  AddendaDocs?: AddendaDoc[] =[]
+  Vitals?: VitalInfo[] = [];
   //Vital: VitalInfo = new VitalInfo;
 }
 
+export class SuperBill{
+  Id?: string;
+  BillDate?: Date;
+  strBillDate?:string;
+  FirstFee?: number;
+  SecondFee?: number;
+  Place?: string;
+  TotalFee?: number;
+  Orthodontic?: boolean = true;
+  AppliancedAt?: Date;
+  strAppliancedAt?: string;
+  Months?: number = 1;
+  TreatmentReason?: string;
+  AccidentedAt?: Date;
+  strAccidentedAt?: string;
+  State?: string ="";
+  EncounterInfo?: EncounterInfo = {};
+  ToothInfo?: ToothState[];
+  Insurance?: InsuranceDto = {};
+  Payer?: Payer = {}
+  Coverage?: Coverage = {};
+  Procedures?: ProceduresInfo[];
+}
+
+export class Payer{
+  CompanyName?:string;
+  PlanName?:string;
+  Address?:string;
+  City?: string;
+  State?: string;
+  ZIP?: string;
+}
+
+export class Coverage{
+  CoverageId?:string;
+  CoverageType?: string;
+  FirstName?: string;
+  LastName?: string;
+  MiddleInitials?: string;
+  Suffix?: string;
+  DateofBirth?: Date;
+  Gender?: string;
+  SSN?: string;
+  PlansandGroup?: string;
+  Relationship?: string;
+  CompanyName?: string;
+  PlanName?: string;
+  Address?: string;
+  City?: string;
+  State?: string;
+  ZIP?: string;
+}
+export class ToothState{
+  BillId?: string;
+  ToothNumber?: number;
+  Available?: boolean = true;
+}
+
+export class BillView{
+  BillId?: string;
+  PatientName?: string;
+  BillDate?: Date;
+  DateOfBirth?: Date;
+  Age?: number;
+  Gender?: string;
+  ChartId?: string;
+  strPhones?: string;
+  Phones?: { Phone?: string}[];
+  ProviderName?: string;
+  NoPatientRelations?: number;
+  EncounterId?: string;
+  AppointmentId?: string;
+  ProviderId?: string;
+  FirstFee?: number;
+  SecondFee?: number;
+  TotalFee?: number;
+  strProcedures?: string;
+  strPayments?: string;
+  Payments?: BillPayment[];
+  Procedures?: { ProcedureId?: string, PatientName?: string, Code?: string, Description?: string, StartDate?: Date, ProviderName?: string, Fee?: number, }[]
+}
 export class AddendaComment{
   AddendaCommentId?: string;
   Comment?: string;
@@ -153,7 +235,16 @@ export class AddendaDocType{
   ClinicId?: string;
 }
 
-
+export class BillPayment{
+  BillId?: string;
+  PaymentId?:string;
+  PaymentMethod?: string;
+  TransactionType?:string;
+  Amount?: number;
+  TransactionDate?: Date;
+  Note?: string;
+  strTransactionDate?: string;
+}
 export class ReferralInfo {
   Reason?: string
   ReferralFrom?: string;

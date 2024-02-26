@@ -48,7 +48,7 @@ export class ImportPatientsComponent {
         let pros: Provider[] = resp.ListResult as Provider[]
         this.ProviderList = pros.filter((fn) =>
           fn.Status == true && fn.ClinicName != null && fn.ClinicName != ''
-          && fn.Paid == true);
+          && (fn.Paid == true || (fn.Paid == false && fn.TrailDays > 0)));
         this.filterredProviders = this.ProviderList.slice();
       }
     });
@@ -136,6 +136,7 @@ class Provider {
   ClinicName?: string;
   Status?: boolean;
   Paid?: boolean;
+  TrailDays?: number
 }
 
 

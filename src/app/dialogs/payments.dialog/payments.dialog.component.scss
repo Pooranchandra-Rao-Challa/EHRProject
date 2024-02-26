@@ -1,0 +1,17 @@
+@import "../../../assets/cstm.material.scss";
+@import "../../../assets/common.scss";
+
+#procedures-dialog.modal-dialog {
+  overflow-y: initial !important;
+  max-width: 50% !important;
+  .modal-body {
+    max-height: calc(90vh - 200px);
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  .notallowed{
+    cursor:not-allowed;
+    color:#ACACAC;
+  }
+}

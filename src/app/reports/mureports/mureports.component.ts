@@ -1971,28 +1971,14 @@ export class MureportsComponent implements OnInit {
 
   }
 
-  // getProviderList(Providersdata: any) {
-  //   this.LocationName = Providersdata.Location_Name;
-  //   this.LocationPhone = Providersdata.Location_Phone;
-  //   this.LocationStreetAddress = Providersdata.Location_Street_Address;
-  //   this.LocationCity = Providersdata.Location_City == undefined ? '' : Providersdata.Location_City;
-  //   this.LocationState = Providersdata.Location_State == undefined ? '' : Providersdata.Location_State;
-  //   this.LocationName == undefined ? 0 : this.LocationName;
-  //   this.LocationZip = Providersdata.Location_Zip == undefined ? '' : Providersdata.Location_Zip;
-
-  //   let locationid = localStorage.getItem('providerlocation');
-
-  //   var req = {
-  //     "LocationId": locationid,
-  //   }
-  //   this.service.getProviderList(req).subscribe(data => {
-  //     if (data.IsSuccess) {
-  //       this.providerlist = data.ListResult;
-  //       this.filteredproviderList = this.providerlist.slice();
-  //     }
-  //   });
-  // }
-
+  getProviderList() {
+    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
+    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
+      if (resp.IsSuccess) {
+        this.PracticeProviders = resp.ListResult as PracticeProviders[];
+      }
+    });
+  }
   onProviderSelected(Provider: any) {
     this.smartSchedulerService.ProviderPracticeLocations({"ProviderId":Provider.ProviderId}).subscribe(data => {
       if (data.IsSuccess) {
@@ -3315,8 +3301,8 @@ export class MureportsComponent implements OnInit {
   onSubmitPatientList(req) {
     this.customizedspinner = true; $('body').addClass('loadactive').scrollTop(0);
     var Patientreport = {
-      "startDate": this.muReportForm.value.strSDate,
-      "endDate": this.muReportForm.value.strEDate,
+      "startDate": this.datepipe.transform(this.muReportForm.value.strSDate,"MM/dd/yyyy"),
+      "endDate": this.datepipe.transform(this.muReportForm.value.strEDate,"MM/dd/yyyy"),
       "ProviderId": this.muReportForm.value.ProviderId,
       "TypeName": req,
     };
@@ -3533,14 +3519,7 @@ export class MureportsComponent implements OnInit {
     this.sortArr25('Numerator');
   }
 
-  getProviderList() {
-    let req = { "ClinicId": this.authenticationService.userValue.ClinicId };
-    this.smartSchedulerService.PracticeProviders(req).subscribe(resp => {
-      if (resp.IsSuccess) {
-        this.PracticeProviders = resp.ListResult as PracticeProviders[];
-      }
-    });
-  }
+
 
   sortArr25(colName: any) {
     this.Stage2PatientList.sort((a, b) => {

@@ -1,0 +1,79 @@
+<div class="modal-dialog" id="procedures-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        {{paymentType}}
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closeProcedures()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div class="payment-details">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="col-lg-12">Transaction Date:</div>
+            <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+              <input class="pointer" matInput [matDatepicker]="billTransactionDP" placeholder="Transaction Date"
+                [(ngModel)]="billPayment.TransactionDate" #coverageDoB="ngModel" name="DateofBirth"
+                (click)="billTransactionDP.open()" required [max]="today"
+                pattern="(0[1-9]|1[012])[-\/\.](0[1-9]|[12][0-9]|3[01])[-\/\.]((19|20)\d\d)">
+              <mat-datepicker-toggle matSuffix [for]="billTransactionDP">
+              </mat-datepicker-toggle>
+              <mat-datepicker #billTransactionDP></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-lg-6" *ngIf="billPayment.TransactionType =='payment'">
+            <div class="col-lg-12">Payment Method:</div>
+            <mat-form-field class="col-md-12" appearance="outline">
+              <mat-select disableOptionCentering [(ngModel)]="billPayment.PaymentMethod">
+                <mat-option value="">Select Payment Method</mat-option>
+                <mat-option *ngFor="let paymentMehtod of PaymentMethods" [value]="paymentMehtod.Value">
+                  {{paymentMehtod.Name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="col-lg-12">Amount:</div>
+            <mat-form-field appearance="outline" class="col-12 hover">
+              <mat-label>Amount: </mat-label>
+              <input matInput placeholder="Amount" [(ngModel)]="billPayment.Amount"
+                [ngModelOptions]="{standalone:true}">
+            </mat-form-field>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="col-lg-12">Transaction Type:</div>
+            <mat-form-field class="col-md-12" appearance="outline">
+              <mat-select disableOptionCentering [(ngModel)]="billPayment.TransactionType" disabled>
+                <mat-option *ngFor="let transactionTypes of TransactionTypes" [value]="transactionTypes.Value">
+                  {{transactionTypes.Name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="col-lg-12">Note:</div>
+            <mat-form-field appearance="outline" class="col-12 hover">
+              <mat-label>Note: </mat-label>
+              <textarea  matInput placeholder="Note" [(ngModel)]="billPayment.Note"
+                [ngModelOptions]="{standalone:true}"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-green" (click)="updatePayments()">
+        Update {{paymentType}}
+      </button>
+      <button type="button" class="btn btn-green" (click)="closeProcedures()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

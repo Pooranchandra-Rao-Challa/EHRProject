@@ -154,8 +154,8 @@ export class PatientService extends APIEndPoint {
     return this._ProcessGetRequest<any>(this._sourceOfPaymentTypologyCodesUrl);
   }
 
-  InsuranceCompanyPlans() {
-    return this._ProcessGetRequest<any>(this._insuranceCompanyPlansUrl);
+  InsuranceCompanyPlans(ClinicId: string) {
+    return this._ProcessGetRequest<any>(`${this._insuranceCompanyPlansUrl}/${ClinicId}`);
   }
 
   InsurancDetails(reqparams: any) {
@@ -476,9 +476,50 @@ export class PatientService extends APIEndPoint {
   Prescriptions(reqparams: any){
     return this._ProcessPostRequest<any>(this._prescriptionsURL, reqparams);
   }
+/*export const URI_ENDPOINT_WITH_PARAMS = (serviceName:string,params: any[]) => `${environment.baseUrl}${serviceName}/${ parseParamsToUrlEncode(params).join('/')}`;
 
+function parseParamsToUrlEncode(params: any[]): any[]{
+    var returnValue: any[]=[];
+    params.forEach(param => returnValue.push(encodeURIComponent(param)));
+    return returnValue;
+}*/
   CheckEducationMaterial(reqparams: any){
     return this._ProcessPostRequest<any>(this._checkEducationMaterialURL,reqparams);
+  }
+
+  UpdatePatientEducationMaterial(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updatePatientEducationMaterialURL,reqparams);
+  }
+
+  DuplicateEncounter(reqparams){
+    return this._ProcessPostRequest<any>(this._duplicateEncounterURL,reqparams);
+  }
+
+  PatientBill(encounterId: string,patientId:string){
+    return this._ProcessGetRequest<any>(`${this._patientBillURL}/${encounterId}/${patientId}`);
+  }
+
+  BillView(billId: string){
+    return this._ProcessGetRequest<any>(`${this._billViewURL}/${billId}`);
+  }
+
+  CreateProgressNoteBill(reqparams: any){
+    return this._ProcessPostRequest<any>(this._createProgressNoteBillURL,reqparams);
+  }
+
+  ProceduresForBill(patientId: string){
+    return this._ProcessGetRequest<any>(`${this._proceduresForBillURL}/${patientId}`);
+  }
+  UpdateProceduresInBill(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateProceduresInBillURL,reqparams);
+  }
+
+  BillPayment(paymentId: any){
+    return this._ProcessGetRequest<any>(`${this._billPaymentURL}/${paymentId}`);
+  }
+
+  UpdateBillPayment(reqparams: any){
+    return this._ProcessPostRequest<any>(this._updateBillPaymentURL,reqparams);
   }
 
 

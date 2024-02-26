@@ -101,6 +101,9 @@ export class AddDiagnosesDialogComponent implements OnInit {
 
     this.patientService.CreateDiagnosis(reqparams).subscribe((resp) => {
       if (resp.IsSuccess) {
+        if(this.educationMaterial != null){
+          this.UpdateEducationMaterial(this.patientDiagnoses.Code);
+        }
         this.ref.close({
           "UpdatedModal": PatientChart.Diagnoses,
         });
@@ -143,6 +146,25 @@ export class AddDiagnosesDialogComponent implements OnInit {
             if (this.educationMaterial.strAttachments)
               this.educationMaterial.Attachments = JSON.parse(this.educationMaterial.strAttachments);
             this.educationMaterial.PatientId = this.currentPatient.PatientId;
+          }
+        },
+        error: (error) => { this.educationMaterial = null },
+        complete: () => {
+
+        }
+      })
+  }
+
+  UpdateEducationMaterial(code: string){
+    if (this.currentPatient)
+      this.patientService.UpdatePatientEducationMaterial({
+        ClinicId: this.authService.userValue.ClinicId,
+        PatientId: this.currentPatient.PatientId,
+        Code: code
+      }).subscribe({
+        next: (resp) => {
+          if (resp.IsSuccess) {
+            this.alertmsg.displayMessageDailog(ERROR_CODES["E2CD003"]);
           }
         },
         error: (error) => { this.educationMaterial = null },

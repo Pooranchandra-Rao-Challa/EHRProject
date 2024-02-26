@@ -28,6 +28,7 @@ export class Messages {
   strAttachments?: string;
   Read?: boolean;
   Isccda?: boolean;
+  New?: boolean;
 }
 
 export class MessageDialogInfo {

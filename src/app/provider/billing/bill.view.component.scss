@@ -1,0 +1,184 @@
+@import "../../../assets/cstm.material.scss";
+@import"../../../assets/common.scss";
+
+.patientbill {
+  width: 100%;
+  background-color: #41b6a6;
+  //height: calc(100vh - 188px);
+}
+
+::ng-deep #billview.clear .mat-form-field.mat-form-field-appearance-outline{
+  margin-bottom: 0 !important;
+}
+
+
+#billview.clear {
+
+
+  margin: auto;
+  width: 100%;
+  background-color: #f9f9f9;
+  color: black;
+  height: calc(100vh - 140px);
+  overflow: auto;
+
+  .bill-title {
+    padding: 10px 20px 0;
+    display: inline-flex;
+    width: 100%;
+    text-align: center;
+    background: #41b6a6;
+    color:white;
+  }
+
+.mat-table{
+  margin-left: -4px;
+  .mat-header-row{
+    background-color: #d74842;
+    border-top: 1px solid #e0e0e0;
+    .mat-header-cell{
+      color: white !important;
+    }
+  }
+}
+
+
+  .headerDivider {
+    border-left: 1px solid #38546d;
+    border-right: 1px solid #16222c;
+    height: 80px;
+    right: 249px;
+    top: 10px;
+  }
+
+  .vertical-line {
+    position: relative; /* ADDED */
+  }
+
+  .vertical-line:after {
+    content: '';
+    position: absolute;
+    border-left: 1px solid #cfcfcf;
+
+    height: 100%;
+  }
+
+  .vertical-line:last-child:after {
+    display: none; /* Hide the divider for the last block */
+  }
+
+
+  .title-content{
+    margin: 0 20px;
+    .title-bar {
+      div.patientName{
+        padding: 2px 4px;
+      }
+    }
+    .title-bar .firstrow{
+
+        padding: 30px 0 0 0;
+
+    }
+  }
+
+  .bill-ledger{
+    padding: 10px 20px;
+    display: inline-flex;
+    background-color:#d74842;
+    color: white;
+    width: 100%;
+    .left-ledger{
+      float:left;
+      padding-left: 10px;
+
+    }
+    .text{
+      font-size: 20px
+    }
+    .right-ledger{
+      float:right;
+      div{
+        padding-left:20px
+      }
+    }
+    .bill-content{
+      width: 100%;
+    }
+  }
+
+  .bill-details{
+    margin: auto;
+    width: 97.6%;;
+    height: calc(100vh - 490px);
+    overflow: hidden auto;
+  }
+
+  .primary-guarantor{
+    span{
+      padding-left:20px;
+    }
+  }
+  .bill-actions{
+    padding: 10px 20px;
+    margin-left: 5px;
+    display: inline-flex;
+    width: 100%;
+    .left-actions{
+      float:left;
+      display:flex;
+
+
+    }
+    .right-actions{
+      float:right;
+    }
+    .bill-content{
+      width: 100%;
+    }
+  }
+
+  .bill-consolidate{
+    padding-bottom: 10px;
+
+    .bill-results{
+      display: flex;
+      padding: 0 22px;
+    }
+    .bill-range{
+
+      white-space: nowrap;
+
+      div{
+        padding: 5px 2px;
+        text-align: center;
+
+      }
+      div:first-child{
+        background-color: #d74842;
+        color:white;
+      }
+    }
+
+    .bill-content{
+      border: 1px solid #cfcfcf;
+      display: flex;
+    }
+  }
+
+  .vertical-line-2 {
+    position: relative; /* ADDED */
+  }
+
+  .vertical-line-2:after {
+    content: '';
+    position: absolute;
+    border-left: 1px solid #cfcfcf;
+    height: 100%;
+  }
+
+  .vertical-line-2:last-child:after {
+    display: none; /* Hide the divider for the last block */
+  }
+
+}

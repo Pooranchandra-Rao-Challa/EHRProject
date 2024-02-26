@@ -124,20 +124,18 @@ export class SmartScheduleComponent implements OnInit {
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
-
     let dialogData: any;
 
     if (content === this.appointmentDialogComponent && action == Actions.view) {
       dialogData = this.PatientAppointmentInfo(data, action);
     }
     else if (content === this.encounterDialogComponent) {
-      dialogData = data;
+      dialogData = {appointment: data as unknown as ScheduledAppointment};
     } else if (content === this.completeAppointmentDialogComponent) {
       let d = data as ScheduledAppointment;
       d.StatusToUpdate = status;
       dialogData = d;
     }
-
     const ref = this.overlayService.open(content, dialogData);
 
     ref.afterClosed$.subscribe(res => {
@@ -250,7 +248,7 @@ export class SmartScheduleComponent implements OnInit {
     this.smartSchedulerService.ActiveAppointments(req).subscribe(resp => {
       this.dialogIsLoading = false;
       if (resp.IsSuccess) {
-        this.Appointments = resp.ListResult as ScheduledAppointment[];
+        this.Appointments = resp.ListResult as unknown as ScheduledAppointment[];
         this.NoofAppointment = this.Appointments.length;
         this.hasActiveAppointments = this.Appointments.filter(fn => fn.IsCurrent).length > 0
         this.hasFinishedAppointments = this.Appointments.filter(fn => fn.IsPast).length > 0
@@ -351,6 +349,16 @@ export class SmartScheduleComponent implements OnInit {
       return temp[0].Allowed;
     }
 
+
+    get CanViewAppointment(): boolean{
+      var permissions = this.authService.permissions();
+      if(!permissions) return false;
+      var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+      if(providerpermissions && providerpermissions.length == 1) return true;
+      var temp = permissions.filter(fn => fn.PolicyName == "AppointmentPolicy" && fn.MethodName == "show")
+      if(temp.length == 0) return false;
+      return temp[0].Allowed;
+    }
 }
 
 

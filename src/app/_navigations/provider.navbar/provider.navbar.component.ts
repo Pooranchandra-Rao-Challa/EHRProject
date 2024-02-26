@@ -5,7 +5,7 @@ import { NotifyMessageService } from 'src/app/_navigations/provider.layout/view.
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, Output, EventEmitter, TemplateRef, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from '../../_services/authentication.service';
-import { Actions, NewUser, User, UserLocations, ViewModel } from '../../_models';
+import { Actions, DrFirstAttributes, NewUser, User, UserLocations, ViewModel } from '../../_models';
 import { ViewChangeService } from '../provider.layout/view.notification.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { OverlayService } from 'src/app/overlay.service';
@@ -13,8 +13,8 @@ import { SettingsService } from 'src/app/_services/settings.service';
 import { UserDialogComponent } from 'src/app/dialogs/user.dialog/user.dialog.component';
 import { LockedComponent } from 'src/app/dialogs/locked/locked.component';
 import { DrfirstUrlChanged } from 'src/app/_navigations/provider.layout/view.notification.service'
-import { I } from '@angular/cdk/keycodes';
 import { DrFirstStartUpScreens } from 'src/environments/environment';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'provider-app-navbar',
   templateUrl: './provider.navbar.component.html',
@@ -38,6 +38,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
   menuwidth: number;
   providersDataSource: NewUser[];
   drfirstProviderUrl: string;
+  drFirstAttributes: DrFirstAttributes;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
@@ -61,6 +62,7 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     this.locationsInfo = JSON.parse(this.user.LocationInfo);
     this.user.CurrentLocation = this.locationsInfo[0].LocationId;
     this.viewModel = authenticationService.viewModel;
+    this.drFirstAttributes = this.authenticationService.GetDrFirstAttributes();
     //
   }
 
@@ -96,13 +98,29 @@ export class ProviderNavbarComponent implements OnInit, AfterViewInit {
     })
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
-      if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose){
-        //console.log(data.url);
+      if (data.urlfor == "Provider" && DrFirstStartUpScreens.Report == data.purpose) {
+
         window.open(data.url, 'mozillaTab');
       }
-
-
-
+    });
+    this.drfirstUrlChanged.hasData().subscribe(noData => {
+      if (noData)
+        Swal.fire({
+          title: 'eRx Not Registered !!!',
+          html: `<p class="swal-title-message">Register with Dr. First Services.</p>`,
+          showDenyButton: false,
+          showCancelButton: true,
+          showConfirmButton: false,
+          confirmButtonColor: '#FF810E',
+          confirmButtonText: 'View Progress Note',
+          cancelButtonText: 'Close',
+          allowOutsideClick: false,
+          customClass: {
+            cancelButton: 'swal2-error',
+            popup: 'swal2-success-popup',
+            container: ['swal2-container-high-zindex'],
+          }
+        })
     });
   }
 

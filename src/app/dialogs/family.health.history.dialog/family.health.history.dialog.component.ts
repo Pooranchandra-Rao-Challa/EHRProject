@@ -91,7 +91,6 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
 
     if (!this.familyMedicalHistory.Diagnoses) this.familyMedicalHistory.Diagnoses = [];
     this.familyMedicalHistory.Diagnoses.push(diagnosis);
-    //console.log(this.familyMedicalHistory);
 
     this.clearDiagnosisFields();
     this.disableAddDxbtn = true;
@@ -204,7 +203,6 @@ export class FamilyHealthHistoryDialogComponent implements OnInit {
         confirmButton: 'swal2-messaage'
       }
     }).then((result) => {
-      //console.log(result);
 
       if (result.isConfirmed) {
         Swal.fire({

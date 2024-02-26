@@ -166,7 +166,7 @@
             </div>
             <div class="d-flex justify-content-end mt-3 mx-4">
               <button type="button" class="btn btn-lg btn-orange" [disabled]="enablePatientInfo()"
-                (click)="updatePatientInformation()">Save</button>
+                (click)="updatePatientInformation()" *ngIf="CanUpdateProfile">Save</button>
             </div>
           </div>
           <div class="col-lg-12 col-md-12 col-12">
@@ -302,7 +302,7 @@
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" [disabled]="enableEmergencyContactInfo()"
-                  (click)="updateEmergencyContact()">Save</button>
+                  (click)="updateEmergencyContact()" *ngIf="CanUpdateProfile">Save</button>
               </div>
             </div>
           </div>
@@ -315,38 +315,7 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Next of kin</label>
             </div>
-            <!-- <div *ngIf="nkFirstName.errors && (nkFirstName.touched)" class="error-message-alignment">
-              <div class="error_message" *ngIf="nkFirstName.errors?.required">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Please enter First Name</p>
-              </div>
-              <div class="error_message" *ngIf="nkFirstName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <p class="errormessage">First name not valid, Use only Alphabets and space</p>
-              </div>
-            </div>
-            <div *ngIf="nkMiddleName.errors && (nkMiddleName.touched)" class="error-message-alignment">
-              <div class="error_message" *ngIf="nkMiddleName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Middle name not valid, Use only Alphabets and space</p>
-              </div>
-            </div>
-            <div *ngIf="nkLastName.errors && (nkLastName.touched)" class="error-message-alignment">
-              <div class="error_message" *ngIf="nkLastName.errors?.required">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Please enter Last Name</p>
-              </div>
-              <div class="error_message" *ngIf="nkLastName.errors?.pattern">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Last name not valid, Use only Alphabets and space</p>
-              </div>
-            </div>
-            <div *ngIf="nkRelationship.errors && (nkRelationship.touched)" class="error-message-alignment">
-              <div class="error_message" *ngIf="nkRelationship.errors?.required">
-                <span class="e_arrow"></span>
-                <p class="errormessage">Please select relationship with patient</p>
-              </div>
-            </div> -->
+
 
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
@@ -422,7 +391,7 @@
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" [disabled]="enableNextKinInfo()"
-                  (click)="updateNextOfKin()">Save</button>
+                  (click)="updateNextOfKin()" *ngIf="CanUpdateProfile">Save</button>
               </div>
 
             </div>
@@ -453,7 +422,7 @@
               </mat-radio-group>
             </div>
             <div class="d-flex justify-content-end mt-3 mx-3">
-              <button type="button" class="btn btn-lg btn-orange" (click)="updateImmunizationRegistry()">Save</button>
+              <button type="button" class="btn btn-lg btn-orange" (click)="updateImmunizationRegistry()" *ngIf="CanUpdateProfile">Save</button>
             </div>
           </div>
         </div>
@@ -465,8 +434,7 @@
             <div class="d-inline-flex p-2 mb-3">
               <label class="fs-4 profile-title">Contact Information</label>
             </div>
-            <!--
-           -->
+
             <div class="row  mx-2">
               <div class="col-lg-6 col-md-6 col-xl-4 col-12 my-2">
                 <label for="CELLPHONE" class="form-label label-design">Cell Phone</label>
@@ -588,9 +556,7 @@
                 <div class="form-group">
                   <div class="input-group">
                     <label class="control-label input-group-addon">State</label>
-                    <!-- <input class="form-control" [(ngModel)]="patientMyProfile.state" placeholder="State" type="text"
-                      id="State" name="State" [readonly]="!disableaddressverification"
-                      [class.contactinfoaddress-verfied]="!manuallybtn" /> (selectionChange)="onProviderChange($event.value)" -->
+
                       <mat-form-field  class="form-control col-md-12" >
                         <mat-select disableOptionCentering  [(ngModel)]="patientMyProfile.state" [class.contactinfoaddress-verfied]="!manuallybtn"
                         [disabled]="!disableaddressverification">
@@ -614,7 +580,7 @@
               </div>
               <div class="d-flex justify-content-end mt-3">
                 <button type="button" class="btn btn-lg btn-orange" [disabled]="enablePatientContactInfo()"
-                  (click)="updateContactInform()">Save</button>
+                  (click)="updateContactInform()" *ngIf="CanUpdateProfile">Save</button>
               </div>
             </div>
           </div>
@@ -628,19 +594,7 @@
               <label class="fs-4 profile-title">Patient Relationship</label>
             </div>
             <div class="row mx-2">
-              <!-- <div class="d-flex col-12 mx-lg-4 mx-2">
-                <div class="find-procedure">
-                  <div class="form-group">
-                    <div class="input-group py-3"><input type="text" name="search_procedure_code"
-                        id="search_procedure_code" class="form-control search-control"
-                        placeholder="Search Patient's Relationship">
-                      <button class="btn btn-info btn-md" type="button">
-                        <i class="fa fa-search "></i>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
+
               <mat-form-field appearance="outline" class="col-lg-6 col-12">
                 <input matInput #searchpatient class="form-control search-control" placeholder="Search Patient"
                   type="text" id="searchpatient" name="searchpatient" [matAutocomplete]="serachpatient"
@@ -678,10 +632,10 @@
                         <td>{{item?.RelationShip}}</td>
                         <td *ngIf="!item.HasAccess"><button class="btn btn-access allow-access" type="button"
                             data-bs-toggle="modal" data-bs-target="#RelationtoPatientModal"
-                            (click)="allowAccess(item)">Allow Access</button></td>
+                            (click)="allowAccess(item)" *ngIf="CanUpdateProfile">Allow Access</button></td>
                         <td *ngIf="item.HasAccess">
                           <button class="btn btn-access remove-access" type="button"
-                            (click)="removeAccessed(item)">Remove Access</button>
+                            (click)="removeAccessed(item)" *ngIf="CanUpdateProfile">Remove Access</button>
                         </td>
                       </tr>
                     </tbody>

@@ -6,11 +6,11 @@
           <li [class]="viewModel.SubView !== 'practice' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanViewPractice">
             <a class="ptitle2" (click)="onChangeViewState('practice')" href="javascript:void(0)">Practice</a>
           </li>
-          <li [class]="viewModel.SubView !== 'accesspermission' ? 'panel-heading2': 'active panel-heading2'">
+          <li [class]="viewModel.SubView !== 'accesspermission' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanViewAccessPermissions">
             <a href="#" class="ptitle2 m-0" (click)="onChangeViewState('accesspermission')"
               href="javascript:void(0)">Access Permission</a>
           </li>
-          <li [class]="viewModel.SubView !== 'schedule' ? 'panel-heading2': 'active panel-heading2'">
+          <li [class]="viewModel.SubView !== 'schedule' ? 'panel-heading2': 'active panel-heading2'" *ngIf="CanScheduleSettingPolicy">
             <a class="ptitle2 m-0" (click)="onChangeViewState('schedule')" href="javascript:void(0)">Schedule</a>
           </li>
           <li [class]="viewModel.SubView !== 'erx' ? 'panel-heading2': 'active panel-heading2'">

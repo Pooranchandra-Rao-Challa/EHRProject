@@ -198,6 +198,15 @@ export class AlertMessage {
  *
  * CalendarModule
  * Blockout: 1
+ *
+ * ---------------------------------------------
+ * Billing
+ *
+ * Prepare 1
+ * Payments 2
+ * WriteOff 4
+ * Adjustments 3
+ *
  * --------------------------------------------------
  * Patient Module
  *
@@ -417,6 +426,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Error for diagnoses
   'E2CD001': 'Diagnosis Updation error',
   'E2CD002': 'Diagnosis deletion error',
+  'E2CD003': 'Diagnosis education material updated.',
 
   //Message for medication in chart screen
   'M2CM001': 'Medication added successfully',
@@ -665,6 +675,10 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2PE001':'Not Registered patient in Dr first.',
 
   'ECPACDA001':'Could not generate CCDA report',
+
+  // Bulling Message
+
+  'M2I1001': 'Super bill for patient is updated.',
 };
 
 

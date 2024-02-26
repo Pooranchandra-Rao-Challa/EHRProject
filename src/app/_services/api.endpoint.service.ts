@@ -524,7 +524,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   get _createUpdateInsuranceCompanyPlanUrl() {
-    return this._baseUrl + "CreateInsurancePlan";
+    return this._baseUrl + "CreateInsuranceCompany";
   }
 
   get _evalPatientCDSAlertsUrl() {
@@ -1113,6 +1113,11 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "CheckEducationMaterial";
   }
 
+  get _updatePatientEducationMaterialURL() {
+    return this._baseUrl + "UpdatePatientEducationMaterial";
+  }
+
+
   get _deleteAlertURL() {
     return this._baseUrl + "DeleteAlert";
   }
@@ -1133,11 +1138,50 @@ export class APIEndPoint extends EndpointBase {
     return this._baseUrl + "PDFToBase64String";
   }
 
+  get _duplicateEncounterURL() {
+    return this._baseUrl + "DuplicateEncounter";
+  }
+
+  get _patientBillURL() {
+    return this._baseUrl + "PatientBill";
+  }
+
+  get _billViewURL() {
+    return this._baseUrl + "BillView";
+  }
+
+  get _createProgressNoteBillURL(){
+    return this._baseUrl + "CreateProgressNoteBill"
+  }
+
+  get _proceduresForBillURL(){
+    return this._baseUrl + "ProceduresForBill"
+  }
+
+  get _updateProceduresInBillURL(){
+    return this._baseUrl + "UpdateProceduresInBill"
+  }
+
+  get _billPaymentURL(){
+    return this._baseUrl + "BillPayment"
+  }
+
+  get _updateBillPaymentURL(){
+    return this._baseUrl + "UpdateBillPayment"
+  }
 
   constructor(public http: HttpClient) {
     super();
   }
 
+
+
+
+  _parseParamsToUrlEncode(params: any[]): string {
+    var returnValue: any[] = [];
+    params.forEach(param => returnValue.push(encodeURIComponent(param)));
+    return returnValue.join('/');
+  }
 
   _ProcessPostRequestWithHeaders<T>(apiurl: string, reqdata: any): Observable<T> {
     return this.http.post<T>(apiurl, reqdata, this.requestHeaders).pipe(
@@ -1169,7 +1213,7 @@ export class APIEndPoint extends EndpointBase {
 
   _ProcessGetRequest<T>(apiurl: string): Observable<T> {
 
-    return this.http.get<T>(apiurl,this.requestHeaders).pipe(
+    return this.http.get<T>(apiurl, this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1186,7 +1230,7 @@ export class APIEndPoint extends EndpointBase {
     );
   }
   _ProcessGetRequestWithId<T>(apiurl: string, id: string): Observable<T> {
-    return this.http.get<T>(`${apiurl}/${id}`,this.requestHeaders).pipe(
+    return this.http.get<T>(`${apiurl}/${id}`, this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1195,7 +1239,7 @@ export class APIEndPoint extends EndpointBase {
   }
 
   _ProcessGetRequestWith2Params<T>(apiurl: string, id1: string, id2: string): Observable<T> {
-    return this.http.get<T>(`${apiurl}/${id1}/${id2}`,this.requestHeaders).pipe(
+    return this.http.get<T>(`${apiurl}/${id1}/${id2}`, this.requestHeaders).pipe(
       tap((data) => {
         return data;
       }),
@@ -1205,13 +1249,13 @@ export class APIEndPoint extends EndpointBase {
 
   //Handel Errorss
   private _handleError(error: HttpErrorResponse) {
-    if(error){
-      if(error.error){
+    if (error) {
+      if (error.error) {
         console.error("An error occurred:", error.error.message);
-      }else{
+      } else {
         console.error("Error in accessing application");
-        if(error)
-        console.error(error);
+        if (error)
+          console.error(error);
       }
     }
 
@@ -1233,7 +1277,7 @@ export class APIEndPoint extends EndpointBase {
     // } else {
     //   console.error("serverside error", JSON.stringify(error));
     // }
-    if(error.error)
+    if (error.error)
       return throwError(error.error.Message);
     else return throwError(error);
 

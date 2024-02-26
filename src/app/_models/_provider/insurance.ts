@@ -2,6 +2,7 @@ export class    InsuranceDto {
     InsuranceId?: string;
     SubscriberName?: string;
     DateOfBirth?: string;
+    dob?:Date;
     Gender?: string;
     Street?:string;
     StreetAddress?: string;
@@ -21,7 +22,10 @@ export class    InsuranceDto {
     LocationId?:string;
     PatientId?:string;
     ProviderId?:string;
-
+    EmployeeName?:string;
+    GroupNo?:string;
+    GroupPlan?:string;
+    PlanType?:string;
 }
 export class SecondaryInsurance {
     InsuranceId?: string;

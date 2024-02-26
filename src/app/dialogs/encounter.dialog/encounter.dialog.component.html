@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
-        Encounter Note - {{encounterInfo.PatientName}} - {{location.LocationName}}
+        Progress Note - {{encounterInfo.PatientName}} - {{location.LocationName}}
       </h3>
       <span type="button" class="cross-mark col-1" (click)="closePopup()" aria-label="Close">
         X
@@ -22,7 +22,7 @@
                 <mat-form-field appearance="outline" class="col-12 cstm-datepicker-toggle">
                   <input matInput class="pointer" autocomplete="off" [matDatepicker]="startDate"
                     (click)="startDate.open()" readonly placeholder="Start Date" [(ngModel)]="encounterInfo.ServicedAt"
-                    (dateChange)="dateChange($event)" />
+                    (dateChange)="dateChange($event)" [min]="startDateForEncounter"/>
                   <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
                   <mat-datepicker #startDate></mat-datepicker>
                 </mat-form-field>
@@ -159,7 +159,7 @@
                       </div>
                       <div class="row">
                         <div class="col-lg-6 col-md-6 col-12 encounter-label encounter-sub-title">
-                          Additional Encounter Information:
+                          Additional Progress Note Information:
                         </div>
                       </div>
                       <div class="row">
@@ -176,7 +176,7 @@
                       </div>
                       <div class="row">
                         <div class="col-lg-6 col-md-6 col-12 encounter-label">
-                          Encounter Code
+                          Progress Note Code
                         </div>
                         <div class="col-lg-6 col-md-6 col-12" style="padding: 7px 10px 0 10px">
                           <medical-code-container [codeSystems]="codeSystemsForDocumentation" MinTermLength="3"
@@ -634,7 +634,7 @@
             <ng-container *ngTemplateOutlet="ProceduresCompleted"></ng-container>
           </mat-tab>
           <mat-tab label="Addenda" *ngIf="encounterInfo.EncounterId != null">
-            <div class="attenda-container" *ngIf="currentTabIndex == 6" style="padding:10px">
+            <div class="attenda-container" *ngIf="currentTabIndex == 6" style="padding:10px;height: calc(70vh - 220px);">
               <div class="content height-auto">
                 <div class="addenda_content">
                   <div class="descriptions" *ngFor="let addenda of encounterInfo.AddendaComments">
@@ -842,8 +842,7 @@
             <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
               <div class="content">
                 <div class="row">
-
-                  <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right">
+                  <div class="col-lg-12 col-md-12 col-12 mat-field-no-round-right" *ngIf="!encounterInfo.Signed">
                     <medical-code-container [codeSystems]="codeSystemsForDiagnosis"
                       (optionChanged)="optionChangedForDiagnosis($event)" [MinTermLength]="3"
                       [showSelectedValue]="false" [(Value)]="selectedDiagnosisValue"></medical-code-container>
@@ -895,8 +894,8 @@
                         <p class="text-capitalize-first">Primary DX</p>
                       </mat-header-cell>
                       <mat-cell *matCellDef="let item">
-                        <mat-checkbox [disabled]="item.DiagnosisId != null" class="encounter-checkbox"
-                          [(ngModel)]="item.PrimaryDx"></mat-checkbox>
+                        <mat-checkbox class="encounter-checkbox"
+                          [(ngModel)]="item.PrimaryDx" (change)="validatePrimaryDx(item)"></mat-checkbox>
                       </mat-cell>
                     </ng-container>
 
@@ -926,7 +925,7 @@
               <div class="content">
                 <div class="row">
 
-                  <div class="col-lg-12 col-md-12 col-12">
+                  <div class="col-lg-12 col-md-12 col-12" *ngIf="!encounterInfo.Signed">
                     <medical-code-container [codeSystems]="codeSystemsForProcedures"
                       (optionChanged)="onProceduresRecommended($event)" [MinTermLength]="2"
                       [(Value)]="selectedProcedureValue">
@@ -1021,7 +1020,7 @@
             <div class="encounter-tab-pane" id="encounter_diagnoses_tab">
               <div class="content">
                 <div class="row">
-                  <div class="col-lg-12 col-md-12 col-12">
+                  <div class="col-lg-12 col-md-12 col-12" *ngIf="!encounterInfo.Signed">
                     <medical-code-container [codeSystems]="codeSystemsForProcedures"
                       (optionChanged)="onProcedureCompleted($event)" [MinTermLength]="2"
                       [(Value)]="selectedProcedureValue"></medical-code-container>

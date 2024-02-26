@@ -1,4 +1,3 @@
-
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID, Injectable } from '@angular/core';
 import { HttpClientJsonpModule, JsonpInterceptor, HTTP_INTERCEPTORS,HttpClientModule,
   HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
@@ -45,9 +44,9 @@ import { ErxComponent } from '../../provider/erx/erx.component';
 import { BillingComponent } from '../../provider/billing/billing.component';
 import { MessagesComponent } from '../../provider/messages/messages.component';
 
-import { IConfig, NgxMaskModule } from 'ngx-mask'
+import {  NgxMaskModule } from 'ngx-mask'
 import { NgbDateUSParserFormatter } from '../../_helpers/ngb-date-us-parser-formatter';
-import { NgbDateParserFormatter, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { BreadcrumComponent } from '../breadcrum/breadcrum.component';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component'
 import { AdvancedDirectivesDialogComponent } from '../../dialogs/advanced.directives.dialog/advanced.directives.dialog.component';
@@ -55,7 +54,6 @@ import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sig
 
 import { OverlayComponent } from '../../overlay/overlay.component';
 import { OverlayService } from '../../overlay.service'
-//import { IConfig, NgxMaskModule } from 'ngx-mask'
 
 import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
 import { CqmreportsComponent } from "../../reports/cqmreports/cqmreports.component";
@@ -80,7 +78,6 @@ import { LocationDialogComponent } from 'src/app/dialogs/location.dialog/locatio
 import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
 import { ProcedureDialogComponent } from 'src/app/dialogs/procedure.dialog/procedure.dialog.component';
 import { NgxMatTimepickerModule } from 'ngx-mat-timepicker';
-// import { NgxNativeDateModule, NgxMatDatetimePickerModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { TeethSurfaceModule } from 'src/app/_components/teeth-surface/teeth-surface.module';
 import { PatientPortalAccountComponent } from 'src/app/dialogs/patient.dialog/patient.portal.account.dialog.component'
 import { PatientHealthPortalComponent } from 'src/app/dialogs/patient.dialog/patient.health.portal.component'
@@ -166,6 +163,10 @@ import { RxPrescriptionInfoDialogComponent } from 'src/app/dialogs/rx.prescripti
 import { ImmunizationDialogComponent } from 'src/app/dialogs/immunization.dialog/immunization.dialog.component';
 import { ImmunizationTableDialogComponent } from 'src/app/dialogs/immunization.table.dialog/immunization.table.dialog.component';
 import { EnableAuthenticatorComponent } from 'src/app/dialogs/user.dialog/enable.authenticator.component';
+import { SuperbillDialogComponent } from 'src/app/dialogs/superbill/superbill.component';
+import { ProceduresDialogComponent } from 'src/app/dialogs/procedure.dialog/procedures.dialog.component';
+import { BillViewComponent } from 'src/app/provider/billing/bill.view.component';
+import { PaymentsDialogComponent } from 'src/app/dialogs/payments.dialog/payments.dialog.component'
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -233,6 +234,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ImmunizationDialogComponent,
     ImmunizationTableDialogComponent,
     EnableAuthenticatorComponent,
+    SuperbillDialogComponent,
+    ProceduresDialogComponent,
+    PaymentsDialogComponent,
+    BillViewComponent
   ],
   declarations: [
     ProviderNavbarComponent,
@@ -302,6 +307,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     PatientEducationMaterialDialogComponent,
     CCdaDialogComponent,
     MessageDialogComponent,
+    ProceduresDialogComponent,
     DiagnosesTableDialogComponent,
     MedicationTableDialogComponent,
     TobaccoUseTableDialogComponent,
@@ -334,6 +340,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     ImmunizationDialogComponent,
     ImmunizationTableDialogComponent,
     EnableAuthenticatorComponent,
+    SuperbillDialogComponent,
+    BillViewComponent,
+    PaymentsDialogComponent,
   ],
   imports: [
     FullCalendarModule,
@@ -444,7 +453,10 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     RxPrescriptionInfoDialogComponent,
     ImmunizationDialogComponent,
     ImmunizationTableDialogComponent,
-    EnableAuthenticatorComponent
+    EnableAuthenticatorComponent,
+    ProceduresDialogComponent,
+    PaymentsDialogComponent,
+    SuperbillDialogComponent
   ]
 })
 export class ProviderModule {

@@ -672,4 +672,38 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     return temp[0].Allowed;
   }
 
+
+
+  get CanUpdateProcedure(): boolean {
+    var permissions = this.authService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "ProcedurePolicy" && fn.MethodName == "update")
+    if (temp.length == 0) return false;
+    console.log(temp);
+
+    return temp[0].Allowed;
+  }
+
+  get CanUpdateEncounter(): boolean {
+    var permissions = this.authService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "EncounterPolicy" && fn.MethodName == "update")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanViewDentalChart(): boolean {
+    var permissions = this.authService.permissions();
+    if (!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider")
+    if (providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "ChartPolicy" && fn.MethodName == "dental_show")
+    if (temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
 }

@@ -13,7 +13,6 @@ import { AuthenticationService } from 'src/app/_services/authentication.service'
 import { MessageDialogInfo, Messages } from 'src/app/_models/_provider/messages';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage';
-import { error } from 'console';
 
 
 @Component({
@@ -234,6 +233,7 @@ export class CCdaDialogComponent implements OnInit {
     if(!message.Attachments) message.Attachments = [];
     message.Attachments.push(resp.attachment as Attachment);
     message.Isccda = true;
+    message.New = true;
     return message;
   }
 

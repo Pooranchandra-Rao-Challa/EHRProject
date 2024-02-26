@@ -1,5 +1,6 @@
 <div class="scrollable-container access-permission mx-1 mb-3 border">
   <div class="general-content border">
+    <mat-progress-bar mode="indeterminate" bufferValue="20" value=100 *ngIf="this.savingEnabled"></mat-progress-bar>
     <p class="panel-title bg-color m-0 plabel">Access Permissions</p>
     <div class="example-container scrollable-mat-table">
       <mat-table class="access-permission-practice-table" [dataSource]="rolePermissions">
@@ -12,37 +13,37 @@
           <mat-cell *matCellDef="let rolePermission">{{rolePermission.PolicyMethod}}</mat-cell>
         </ng-container>
         <ng-container matColumnDef="admin">
-          <mat-header-cell *matHeaderCellDef>admin</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Admin</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'admin')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'admin')"></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="back_office">
-          <mat-header-cell *matHeaderCellDef>back_office</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Back Office</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'back_office')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'back_office')"></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="dentist">
-          <mat-header-cell *matHeaderCellDef>dentist</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Dentist</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'dentist')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'dentist')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="ehr1_administrator">
-          <mat-header-cell *matHeaderCellDef>ehr1_administrator</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>EHR1 Administrator</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'ehr1_administrator')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'ehr1_administrator')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="front_desk">
-          <mat-header-cell *matHeaderCellDef>front_desk</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Front Desk</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'front_desk')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'front_desk')" ></mat-checkbox>
           </mat-cell>
         </ng-container>
         <ng-container matColumnDef="hygientist">
-          <mat-header-cell *matHeaderCellDef>hygienist</mat-header-cell>
+          <mat-header-cell *matHeaderCellDef>Hygientist</mat-header-cell>
           <mat-cell *matCellDef="let rolePermission">
             <mat-checkbox [checked]="checkRolePermission(rolePermission.RoleAccesses,'hygientist')" (change)="toggleStatus($event,rolePermission.RoleAccesses,'hygientist')" ></mat-checkbox>
           </mat-cell>
@@ -51,11 +52,11 @@
         <mat-header-row *matHeaderRowDef="accessPermissionColumns"></mat-header-row>
         <mat-row *matRowDef="let row; columns: accessPermissionColumns"></mat-row>
       </mat-table>
-      <div class="norecords-found" *ngIf="accessPermissiondataSource?.length == 0">
+      <div class="norecords-found" *ngIf="rolePermissions?.length == 0">
         No Acces Permissions Found
       </div>
-      <div class="row my-3">
-        <div class="col-12">
+      <div class="row my-3" >
+        <div class="col-12" *ngIf="CanUpdateAccessPermissions">
           <button class="btn btn-green pull-right mx-2" (click)="SaveAccessPermission()" *ngIf="!savingEnabled">Save</button>
         </div>
       </div>

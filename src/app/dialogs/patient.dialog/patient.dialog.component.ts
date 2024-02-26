@@ -175,8 +175,6 @@ export class PatientDialogComponent {
       }
       else {
         av.IsValid = false;
-        //console.log(resp.Result);
-        //console.log(this.States);
 
         this.PatientData.City = resp.Result.City;
         this.PatientData.State =  resp.Result.State;

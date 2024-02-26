@@ -1,0 +1,585 @@
+<div class="modal-dialog" id="superbill-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title col-11 Helvetica-sans-serif-large" id="staticBackdropLabel">
+        Superbill for {{this.bill.EncounterInfo.PatientName}}
+      </h3>
+      <span type="button" class="cross-mark col-1" (click)="closeSuperbill()" aria-label="Close">
+        X
+      </span>
+    </div>
+    <div class="modal-body padding-unset">
+      <div class="superbill-content-header">
+        <div class="title col-lg-12" style="display: flex;">
+          <div class="left-pull col-lg-6"> Date: <span>{{bill.BillDate | date:"EEE, dd MMM, yyyy"}}</span></div>
+          <div class="right-pull col-lg-6"> Bill Id: <span>{{bill.Id}}</span></div>
+        </div>
+        <div class="buttons col-lg-12">
+          <button type="button" class="btn btn-green">Download</button>
+          <button type="button" class="btn btn-green">Print</button>
+          <button type="button" class="btn btn-green" (click)="onSaveBill()">Save as Draft</button>
+        </div>
+      </div>
+      <div>
+        <div class="superbill-body-header row">
+          Record of Services Provider
+        </div>
+        <div class="row">
+          <div class="col-lg-12 treatment-information">
+
+            <div class="def-bor">
+              <div class="corresponding-encounter ">
+                | CORRESPONDING PROGRESS NOTE: <b>{{billLabel}}</b>
+              </div>
+              <mat-table [dataSource]=this.bill.EncounterInfo.CompletedProcedures matSort matSortActive="ServicedAt"
+                matSortDirection="desc" matSortDisableClear>
+
+
+                <ng-container matColumnDef="PROCEDUREDATE">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header="ServicedAt">PROCEDURE DATE
+                    (MM/DD/CCYY)</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">
+                    {{procedure?.Date | date:'MM/dd/yyyy'}}
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="AREAOFORALCAVITY">
+                  <mat-header-cell *matHeaderCellDef>AREA OF ORAL CAVITY</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">
+
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TOOTHSYSTEM">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header="ToothNo">TOOTH SYSTEM</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">{{procedure.ToothSystem}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TOOTHNUMBERORLETTER">
+                  <mat-header-cell *matHeaderCellDef>TOOTH NUMBER OR LETTER
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">{{procedure.ToothNo}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TOOTHSURFACE">
+                  <mat-header-cell *matHeaderCellDef>TOOTH SURFACE</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">{{procedure.Surface}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="PROCEDURECODE">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header="Description">PROCEDURE CODE</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">{{procedure.Code}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="QTY">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header="Status">QTY
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">1</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="DESCRIPTION">
+                  <mat-header-cell *matHeaderCellDef>DESCRIPTION</mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">{{procedure?.Description}}</mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="FEE">
+                  <mat-header-cell *matHeaderCellDef>FEE
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let procedure">
+                    <mat-form-field appearance="outline" class="col-10 hover" style="padding-top:10px">
+                      <mat-label>Procedure Fee:</mat-label>
+                      <input matInput placeholder="Fee" [(ngModel)]="procedure.Fee" #procedureFee
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="procedureColumns" class="mat-cust-header"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: procedureColumns;">
+                </mat-row>
+              </mat-table>
+              <div class="corresponding-encounter ">MISSING TEETH INFORMATION (CLICK ON EACH MISSING TOOTH)
+
+              </div>
+              <div *ngFor="let rowNumber of noOfRows; let i = rowIndex;" style="display: flex;">
+                <div *ngFor="let tooth of noOfToothsInRow; let i = index; "
+                  style="display: flex; padding:10px; margin:10px" class="col-lg-1">
+
+                  <mat-checkbox [value]="(rowNumber - 1) * noOfToothsInRow.length + tooth"
+                    [(ngModel)]="this.bill.ToothInfo[(rowNumber - 1) * noOfToothsInRow.length + tooth -1].Available">
+                    <span>{{ (rowNumber - 1) * noOfToothsInRow.length + tooth}}</span>
+                  </mat-checkbox>
+                </div>
+              </div>
+
+              <div class="superbill-sub-header">
+                <div class="corresponding-encounter row">| DIAGNOSIS CODE LIST QUALIFIER:</div>
+                <div class="row">
+                  <div class="col-lg-4 diagnosis"
+                    *ngFor="let diagnosis of bill.EncounterInfo.Diagnoses;let i = rowIndex;">
+                    <!-- <span class="code">{{diagnosis.Code}}</span>:<span class="description">{{diagnosis.Description}}</span> -->
+                    <mat-expansion-panel hideToggle>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          {{diagnosis.Code}}
+                        </mat-panel-title>
+
+                      </mat-expansion-panel-header>
+                      <p>{{diagnosis.Description}}</p>
+                    </mat-expansion-panel>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="superbill-sub-header">
+                <div class="corresponding-encounter row">| Other Fee:</div>
+                <div class="all-fee">
+                  <div class="col-lg-2 pr-3">
+                    <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>First Fee: </mat-label>
+                      <input matInput placeholder="First Fee" [(ngModel)]="bill.FirstFee" #firstFee
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+
+                  </div>
+                  <div class="col-lg-1 pr-2 operator">+</div>
+                  <div class="col-lg-2 pr-3"> <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>Second Fee:</mat-label>
+                      <input matInput placeholder="Second Free" [(ngModel)]="bill.SecondFee" #secondFee
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-1 pr-2 operator">+</div>
+                  <div class="col-lg-2 pr-2 "><mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>Cost of All Procedures:</mat-label>
+                      <input matInput placeholder="All Procedure cost" [ngModel]="ProcedureCost" style="color: black;"
+                        [ngModelOptions]="{standalone:true}" disabled readonly>
+                    </mat-form-field></div>
+                  <div class="col-lg-1 pr-2 operator">=</div>
+                  <div class="col-lg-2 pr-3"> <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>Total Fee:</mat-label>
+                      <input matInput placeholder="Total Fee" [(ngModel)]="bill.TotalFee" style="color: black;"
+                        [ngModelOptions]="{standalone:true}" disabled readonly>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="bill.Insurance != null">
+
+
+        <div class="row">
+          <div class="superbill-body-header col-lg-12">
+            Insurance Company/Dental Benefit Plan Information
+          </div>
+
+          <div class="col-lg-12 treatment-information">
+            <div class="def-bor">
+
+              <div class="payer">
+
+                <div style="display:block">
+                  <div style="display:flex">
+                    <div class="col-lg-4">COMPANY/PLAN NAME</div>
+                    <div class="col-lg-4">ADDRESS</div>
+                    <div class="col-lg-4">CITY, STATE ZIP CODE</div>
+                  </div>
+                  <div style="display:flex">
+                    <div class="col-lg-4"><b>{{bill?.Payer.CompanyName}}/{{bill?.Insurance.PlanName}}</b></div>
+                    <div class="col-lg-4"><b>{{bill?.Payer.StreetAddress}}</b></div>
+                    <div class="col-lg-4"><b>{{bill?.Payer.City}}, {{bill?.Payer.State}} {{bill?.Payer.Zipcode}}</b></div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="superbill-body-header">
+            Policyholder/Subscriber Information
+          </div>
+          <div class="col-lg-12 treatment-information">
+
+            <div class="def-bor">
+
+              <div class="col-lg-12">
+                <div class="subscriber">
+                  <div style="display:block">
+                    <div style="display:flex">
+                      <div class="col-lg-4">POLICYHOLDER/SUBSCRIBER NAME (LAST, FIRST, MIDDLE INITIAL, SUFFIX)</div>
+                      <div class="col-lg-4">ADDRESS</div>
+                      <div class="col-lg-4">CITY, STATE ZIP CODE</div>
+                    </div>
+                    <div style="display:flex">
+                      <div class="col-lg-4"><b>{{bill?.Insurance.SubscriberName}}</b></div>
+                      <div class="col-lg-4"><b>{{bill?.Insurance.StreetAddress}}</b></div>
+                      <div class="col-lg-4"><b>{{bill?.Insurance.City}}, {{bill?.Insurance.State}}
+                        {{bill?.Insurance.ZIP}}</b></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="subscriber-data2">
+                <div class="col-lg-6 first-element">
+                  <div class="col-lg-12">DATE OF BIRTH</div>
+                  <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+                    <input class="pointer" matInput [matDatepicker]="dobPicker" placeholder="Date of Birth"
+                      [(ngModel)]="bill?.Insurance.dob" #dob="ngModel" name="DateofBirth"
+                      (click)="dobPicker.open()" required
+                      pattern="(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.]((19|20)\d\d)" disabled>
+                    <mat-datepicker-toggle matSuffix [for]="dobPicker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #dobPicker disabled="true"></mat-datepicker>
+                  </mat-form-field>
+                  <div *ngIf="dob.errors && (dob.touched)">
+                    <div class="error_message" *ngIf="dob.errors?.required">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage">Please select date of birth</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="col-lg-12">SEX</div>
+                  <div style="padding-top: 20px">
+                    <mat-radio-group [(ngModel)]="bill?.Insurance.Gender" [ngModelOptions]="{standalone: true}"
+                      disabled>
+                      <mat-radio-button [value]="sex.Value" *ngFor="let sex of Genders;">{{sex.Name}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+
+              </div>
+              <div class="subscriber-data2">
+                <div class="col-lg-6 first-element">
+                  <div class="col-lg-12">EMPLOYER NAME:</div>
+                  <mat-form-field appearance="outline" class="col-sm-6 hover">
+                    <mat-label>EMPLOYER NAME:</mat-label>
+                    <input matInput placeholder="Employer Name" [(ngModel)]="bill?.Insurance.EmployeeName"
+                      [ngModelOptions]="{standalone:true}" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <div class="col-lg-12">GROUP NUMBER:</div>
+                  <mat-form-field appearance="outline" class="col-6 hover">
+                    <mat-label>PLAN/GROUP NUMBER:</mat-label>
+                    <input matInput placeholder="Plan/Group Number" [(ngModel)]="bill?.Insurance.GroupNo"
+                      [ngModelOptions]="{standalone:true}" disabled>
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <div class="col-lg-12">GROUP PLAN:</div>
+                  <mat-form-field appearance="outline" class="col-6 hover">
+                    <mat-label>PLAN/GROUP NUMBER:</mat-label>
+                    <input matInput placeholder="Plan/Group Number" [(ngModel)]="bill?.Insurance.GroupPlan"
+                      [ngModelOptions]="{standalone:true}" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="subscriber-data2">
+                <div class="col-lg-8 first-element">
+                  <div class="col-lg-12">Subscriber No:</div>
+                  <mat-form-field appearance="outline" class="col-12 hover">
+                    <mat-label>Subscriber No:</mat-label>
+                    <input matInput placeholder="PatientId" [(ngModel)]="bill?.Insurance.SubscriberId"
+                      [ngModelOptions]="{standalone:true}" disabled>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+
+      </div>
+
+
+
+
+
+
+
+      <div class="row" *ngIf="bill.Insurance == null">
+
+
+        <div class="superbill-body-header col-lg-12">
+          Other Coverage
+        </div>
+        <div class="col-lg-12 treatment-information">
+          <div class="def-bor">
+            <div class="row other-coverage">
+              <div class="col-lg-7">
+
+                <div style="padding-top: 20px">
+                  <label class="gender-right-space required" style="margin-bottom:10px;font-size:15px;">COVERAGE
+                    TYPE:</label>
+                  <mat-radio-group [(ngModel)]="bill?.Coverage.CoverageType" name="CoverageType" [ngModelOptions]="{standalone: true}" required="true">
+
+                    <mat-radio-button [value]="plan.Value"
+                      *ngFor="let plan of CoveragePlans;">{{plan.Name}}</mat-radio-button>
+                  </mat-radio-group>
+
+
+                </div>
+              </div>
+              <div class="col-lg-5">
+                <div class="col-lg-12">PATIENT'S RELATIONSHIP TO POLICYHOLDER/SUBSCRIBER:</div>
+                <div style="padding-top: 20px">
+                  <mat-radio-group [(ngModel)]="bill.Coverage.Relationship" [ngModelOptions]="{standalone: true}" (change)="RelationChanged($event)">
+                    <mat-radio-button [value]="relation.Value"
+                      *ngFor="let relation of Releations;">{{relation.Name}}</mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row other-coverage">
+                <div class="col-lg-12">
+                  <div class="col-lg-12">NAME OF POLICYHOLDER/SUBSCRIBER (LAST, FIRST, MIDDLE INITIAL, SUFFIX)</div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <mat-form-field appearance="outline" class="col-12 hover">
+                        <mat-label>First Name: </mat-label>
+                        <input matInput placeholder="First Name" [(ngModel)]="bill?.Coverage.FirstName"
+                          [ngModelOptions]="{standalone:true}">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-4">
+                      <mat-form-field appearance="outline" class="col-12 hover">
+                        <mat-label>Last Name: </mat-label>
+                        <input matInput placeholder="Last Name" [(ngModel)]="bill?.Coverage.LastName"
+                          [ngModelOptions]="{standalone:true}">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                      <mat-form-field appearance="outline" class="col-12 hover">
+                        <mat-label>Middle (initials): </mat-label>
+                        <input matInput placeholder="Middle Name(Initials)" [(ngModel)]="bill?.Coverage.MiddleInitials"
+                          [ngModelOptions]="{standalone:true}">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-lg-2">
+                      <mat-form-field appearance="outline" class="col-12 hover">
+                        <mat-label>Suffix: </mat-label>
+                        <input matInput placeholder="Suffix" [(ngModel)]="bill?.Coverage.Suffix"
+                          [ngModelOptions]="{standalone:true}">
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="col-lg-12">DATE OF BIRTH</div>
+                  <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+                    <input class="pointer" matInput [matDatepicker]="coverageDoBPicker" placeholder="Date of Birth"
+                      [(ngModel)]="bill?.Coverage.DateofBirth" #coverageDoB="ngModel" name="DateofBirth"
+                      (click)="coverageDoBPicker.open()" required
+                      pattern="(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.]((19|20)\d\d)">
+                    <mat-datepicker-toggle matSuffix [for]="coverageDoBPicker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #coverageDoBPicker></mat-datepicker>
+                  </mat-form-field>
+                  <div *ngIf="coverageDoB.errors && (coverageDoB.touched)">
+                    <div class="error_message" *ngIf="coverageDoB.errors?.required">
+                      <span class="e_arrow"></span>
+                      <p class="errormessage">Please select date of birth</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-5">
+                  <div class="col-lg-12">SEX</div>
+                  <div style="padding-top: 20px">
+                    <mat-radio-group [(ngModel)]="bill.Coverage.Gender" [ngModelOptions]="{standalone: true}">
+                      <mat-radio-button [value]="sex.Value" *ngFor="let sex of Genders;">{{sex.Name}}</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="row other-coverage">
+                <div class="col-lg-4">
+                  <div class="col-lg-12">POLICYHOLDER/SUBSCRIBER ID (SSN OR ID#):</div>
+                  <mat-form-field appearance="outline" class="col-12 hover">
+                    <mat-label>POLICYHOLDER/SUBSCRIBER ID (SSN OR ID#):</mat-label>
+                    <input matInput placeholder="SSN OR ID#" [(ngModel)]="bill?.Coverage.SSN"
+                      [ngModelOptions]="{standalone:true}">
+                  </mat-form-field>
+                </div>
+                <div class="col-lg-3">
+                  <div class="col-lg-12">PLAN/GROUP:</div>
+                  <mat-form-field appearance="outline" class="col-12 hover">
+                    <mat-label>PLAN/GROUP:</mat-label>
+                    <input matInput placeholder="PLAN/GROUP" [(ngModel)]="bill?.Coverage.PlansandGroup"
+                      [ngModelOptions]="{standalone:true}">
+                  </mat-form-field>
+                </div>
+
+                <div class="col-lg-5">
+                  <div class="col-lg-12">PLAN NAME:</div>
+                  <mat-form-field appearance="outline" class="col-12 hover">
+                    <mat-label>PLAN NAME:</mat-label>
+                    <input matInput placeholder="PlanName" [(ngModel)]="bill?.Coverage.PlanName"
+                      [ngModelOptions]="{standalone:true}">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row other-coverage">
+                <div class="row">
+                  <div class="col-lg-12">OTHER INSURANCE COMPANY/DENTAL BENEFIT PLAN NAME, ADDRESS, CITY, STATE, ZIP
+                    CODE
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="col-lg-12">COMPANY NAME:</div>
+                    <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>COMPANY NAME:</mat-label>
+                      <input matInput placeholder="Company Name" [(ngModel)]="bill?.Coverage.CompanyName"
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="col-lg-12">ADDRESS:</div>
+                    <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>ADDRESS:</mat-label>
+                      <input matInput placeholder="Address" [(ngModel)]="bill?.Coverage.Address"
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="col-lg-12">CITY:</div>
+                    <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>CITY:</mat-label>
+                      <input matInput placeholder="City" [(ngModel)]="bill?.Coverage.City"
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="col-lg-12">STATE:</div>
+                    <mat-form-field class="col-md-12" appearance="outline">
+                      <mat-select disableOptionCentering [(ngModel)]="bill?.Coverage.State">
+                        <mat-option value="">Select State</mat-option>
+                        <mat-option *ngFor="let state of States" [value]="state.abbr">
+                          {{state.name}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-lg-2">
+                    <div class="col-lg-12">ZIP:</div>
+                    <mat-form-field appearance="outline" class="col-12 hover">
+                      <mat-label>ZIP:</mat-label>
+                      <input matInput placeholder="ZIP" [(ngModel)]="bill?.Coverage.ZIP"
+                        [ngModelOptions]="{standalone:true}">
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="superbill-body-header col-lg-12">
+          Record of Services Provider
+        </div>
+        <div class="col-lg-12 treatment-information">
+          <div class="def-bor">
+            <div class="row bill-treatment-information">
+              <div class="col-lg-3">
+                <label class="gender-right-space" style="margin-bottom:10px;font-size:15px;">PLACE OF TREATMENT:</label>
+                <br />
+                <mat-radio-group [(ngModel)]="bill.Place" [ngModelOptions]="{standalone: true}">
+                  <mat-radio-button [value]="place.Value"
+                    *ngFor="let place of PlaceOfTreatment;">{{place.Name}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-lg-3">
+                <label class="gender-right-space" style="margin-bottom:10px;font-size:15px;">IS TREATMENT FOR
+                  ORTHODONTICS?</label>
+                <br />
+                <mat-radio-group [(ngModel)]="bill.Orthodontic" [ngModelOptions]="{standalone: true}">
+                  <mat-radio-button [value]="true">Yes</mat-radio-button>
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <div class="col-lg-3">
+                <div class="col-lg-12">DATE APPLIANCE PLACED:</div>
+                <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+                  <input class="pointer" matInput [matDatepicker]="appliancedDatePicker"
+                    placeholder="Date of Appliance Placed" [(ngModel)]="bill.AppliancedAt" #appliancedDate="ngModel"
+                    name="AppliancedDate" (click)="appliancedDatePicker.open()" required
+                    pattern="(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.]((19|20)\d\d)">
+                  <mat-datepicker-toggle matSuffix [for]="appliancedDatePicker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #appliancedDatePicker></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+              <div class="col-lg-3">
+                <div class="col-lg-12">MONTHS OF TREATMENT:</div>
+                <mat-form-field appearance="outline" class="col-12 hover">
+                  <mat-label>MONTHS OF TREATMENT: </mat-label>
+                  <input matInput placeholder="Months of Treatment" [(ngModel)]="bill.Months"
+                    [ngModelOptions]="{standalone:true}">
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row bill-treatment-information">
+              <div class="col-lg-12">
+                <label class="gender-right-space" style="margin-bottom:10px;font-size:15px;">TREATMENT RESULTING
+                  FROM:</label>
+                <br />
+                <mat-radio-group [(ngModel)]="bill.TreatmentReason" [ngModelOptions]="{standalone: true}">
+                  <mat-radio-button [value]="reason.Value"
+                    *ngFor="let reason of TreatmentReasons;">{{reason.Name}}</mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+            <div class="row bill-treatment-information"
+              *ngIf="bill.TreatmentReason == 'accident' || bill.TreatmentReason == 'other'">
+              <div class="col-lg-3">
+                <div class="col-lg-12">DATE OF ACCIDENT:</div>
+                <mat-form-field appearance="outline" class="grey-matform grey-calendar">
+                  <input class="pointer" matInput [matDatepicker]="accidentedDatePicker" placeholder="Date of Accident"
+                    [(ngModel)]="bill.AccidentedAt" #accidentedDate="ngModel" name="AppliancedDate"
+                    (click)="accidentedDatePicker.open()" required
+                    pattern="(0[1-9]|1[012])[-\/.](0[1-9]|[12][0-9]|3[01])[-\/.]((19|20)\d\d)">
+                  <mat-datepicker-toggle matSuffix [for]="accidentedDatePicker">
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #accidentedDatePicker></mat-datepicker>
+                </mat-form-field>
+
+              </div>
+              <div class="col-lg-3">
+                <div class="col-lg-12">STATE:</div>
+                <mat-form-field class="col-md-12" appearance="outline">
+                  <mat-select disableOptionCentering [(ngModel)]="bill.State">
+                    <mat-option value="">Select State</mat-option>
+                    <mat-option *ngFor="let state of States" [value]="state.abbr">
+                      {{state.name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+    </div>
+  </div>
+</div>

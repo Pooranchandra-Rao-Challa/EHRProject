@@ -6,6 +6,7 @@ export class PatientProfile {
   LastName?: string;
   Sex?: string;
   DateOfBirth?: string;
+  Dob?:Date;
   strDateOfBirth?: string;
   DateOfDeath?: string;
   strDateOfDeath?: string;

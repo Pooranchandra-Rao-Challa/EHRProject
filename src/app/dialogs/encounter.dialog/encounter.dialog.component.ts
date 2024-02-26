@@ -3,7 +3,7 @@
 import { FormFieldValue } from './../../_components/advanced-medical-code-search/field-control/field-control-component';
 import { AddendaDoc, AddendaComment, DENTAL_SURFACES } from './../../_models/_provider/encounter';
 
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild, enableProdMode } from '@angular/core';
+import { Component, ElementRef, OnInit, TemplateRef, ViewChild,  } from '@angular/core';
 import { AuthenticationService } from 'src/app/_services/authentication.service';
 import { SmartSchedulerService } from 'src/app/_services/smart.scheduler.service';
 import { PatientService } from 'src/app/_services/patient.service';
@@ -19,29 +19,27 @@ import {
   MedicalCode
 } from 'src/app/_models/codes';
 import { MatRadioButton } from '@angular/material/radio';
-import { BehaviorSubject, combineLatest, fromEvent, merge, Observable, Subject } from 'rxjs'
+import { BehaviorSubject, Subject } from 'rxjs';
 import { OverlayService } from 'src/app/overlay.service';
-import { map, } from 'rxjs/operators';
 import { AlertMessage, ERROR_CODES } from './../../_alerts/alertMessage';
 import { ProviderPatient } from 'src/app/_models/_provider/Providerpatient';
-import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component'
+import { SignEncounterNoteComponent } from 'src/app/dialogs/encounter.dialog/sign.encounter.note.component';
 import { AddendaAttachDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.attach.document';
 import { SignAddendaDocumentComponent } from 'src/app/dialogs/encounter.dialog/attenda.document.sign.component';
 import { AddendaReviewDocumentComponent } from 'src/app/dialogs/encounter.dialog/addenda.review.document';
 import { AddendaCommentComponent } from 'src/app/dialogs/encounter.dialog/addenda.comment';
 import { VitalDialogComponent } from 'src/app/dialogs/vital.dalog/vital.dialog.component';
+import { SuperbillDialogComponent } from 'src/app/dialogs/superbill/superbill.component';
 
 import { DatePipe } from '@angular/common';
 import {
-  environment,
   MEDLINE_PLUS_URL,
-  MEDLINE_PLUS_LOINC,
-  MEDLINE_PLUS_RXNORM,
   MEDLINE_PLUS_SNOMED,
   MEDLINE_PLUS_ICD
 } from "src/environments/environment";
 import { MatTabChangeEvent } from '@angular/material/tabs/tab-group';
-import { FormContainerComponent } from 'src/app/_components/advanced-medical-code-search/form-container/form-container-component';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-encounter.dialog',
@@ -61,14 +59,10 @@ export class EncounterDialogComponent implements OnInit {
   completedProcedures = new BehaviorSubject<ProceduresInfo[]>([]);
   diagnosesInfo = new BehaviorSubject<EncounterDiagnosis[]>([]);
   vitalsInfo = new BehaviorSubject<VitalInfo[]>([]);
-  teethNumbers = [] // [0,1,2,3,4]
+  teethNumbers = []; // [0,1,2,3,4]
   @ViewChild('heightField', { static: true }) heightField: ElementRef;
-  // @ViewChild('weightField', { static: true }) weightField: ElementRef;
-  // heightValue$: Observable<number>;
-  // weightValue$: Observable<number>;
-  // bmi$: Observable<number>;
 
-  appointment: ScheduledAppointment
+  appointment: ScheduledAppointment;
   location: UserLocations;
   encounterInfo: EncounterInfo = new EncounterInfo;
   codeSystemsForDiagnosis: string[] = ['SNOMED/ICD10'];
@@ -76,12 +70,12 @@ export class EncounterDialogComponent implements OnInit {
   codeSystemsForDischarge: string[] = ['SNOMED'];
   codeSystemsForDocumentation: string[] = ['CPT'];
   codeSystemsForProcedures: string[] = ['CDT/CPT', 'HCPCS'];
-  selectedProcedureValue: FormFieldValue = { CodeSystem: 'CDT/CPT', SearchTerm: '' }
-  selectedDiagnosisValue: FormFieldValue = { CodeSystem: 'SNOMED/ICD10', SearchTerm: '' }
-  selectedReconcillationValue: FormFieldValue = { CodeSystem: 'SNOMED', SearchTerm: '' }
-  selectedDischargeValue: FormFieldValue = { CodeSystem: 'SNOMED', SearchTerm: '' }
-  selectedDocumentationValue: FormFieldValue = { CodeSystem: 'CPT', SearchTerm: '' }
-  selectedEncounterCodeValue: FormFieldValue = { CodeSystem: 'CPT', SearchTerm: '' }
+  selectedProcedureValue: FormFieldValue = { CodeSystem: 'CDT/CPT', SearchTerm: '' };
+  selectedDiagnosisValue: FormFieldValue = { CodeSystem: 'SNOMED/ICD10', SearchTerm: '' };
+  selectedReconcillationValue: FormFieldValue = { CodeSystem: 'SNOMED', SearchTerm: '' };
+  selectedDischargeValue: FormFieldValue = { CodeSystem: 'SNOMED', SearchTerm: '' };
+  selectedDocumentationValue: FormFieldValue = { CodeSystem: 'CPT', SearchTerm: '' };
+  selectedEncounterCodeValue: FormFieldValue = { CodeSystem: 'CPT', SearchTerm: '' };
   dentalSurfaces = DENTAL_SURFACES;
 
 
@@ -93,19 +87,21 @@ export class EncounterDialogComponent implements OnInit {
     { Id: 2, BloodType: 'Group B' },
     { Id: 3, BloodType: 'Group AB' },
     { Id: 4, BloodType: 'Group O' }
-  ]
+  ];
   dischargeCode: MedicalCode = {};
   dialogIsLoading: boolean = false;
   patient: ProviderPatient;
   signEncounterNoteComponent = SignEncounterNoteComponent;
-  addendaAttachDocumentComponent = AddendaAttachDocumentComponent
+  addendaAttachDocumentComponent = AddendaAttachDocumentComponent;
   signAddendaDocumentComponent = SignAddendaDocumentComponent;
   addendaReviewDocumentComponent = AddendaReviewDocumentComponent;
-  addendaCommentComponent = AddendaCommentComponent
+  addendaCommentComponent = AddendaCommentComponent;
   vitalDialogComponent = VitalDialogComponent;
+  superbillDialogComponent = SuperbillDialogComponent;
   isNavigateFromProductView: boolean = false;
   minDateToFinish = new Subject<string>();
   endDateForEncounter;
+  startDateForEncounter;
   currentTabIndex: number = 0;
   encounterAddendaColumns: string[] = ['Signed/Authorized', 'Name', 'DocumentType', 'Comments'];
 
@@ -122,34 +118,42 @@ export class EncounterDialogComponent implements OnInit {
 
     this.minDateToFinish.subscribe(e => {
       this.endDateForEncounter = new Date(e);
-    })
+    });
   }
 
   ngOnInit(): void {
 
     this.EnableNewEncounterData = this.authService.userValue.EnableStage3;
-    // this.heightValue$ = fromEvent<Event>(this.heightField.nativeElement, 'input')
-    //   .pipe(map(e => +(<HTMLInputElement>e.target).value));
-    // this.weightValue$ = fromEvent<Event>(this.weightField.nativeElement, 'input')
-    //   .pipe(map(e => +(<HTMLInputElement>e.target).value));
-    // this.bmi$ = combineLatest([this.heightValue$, this.weightValue$]).pipe(
-    //   map(([h, w]) => this.computeBmi(h, w)),
-    // )
 
     this.location = (JSON.parse(this.authService.userValue.LocationInfo) as UserLocations[])
       .filter((loc) => loc.LocationId === this.authService.userValue.CurrentLocation)[0];
 
     this.loadDefaults();
-    this.appointment = this.overlayref.RequestData as ScheduledAppointment
+
+    if(this.overlayref.RequestData instanceof  EncounterInfo)
+      this.encounterInfo = this.overlayref.RequestData as EncounterInfo;
+    else if(this.overlayref.RequestData.appointment){
+      this.appointment = this.overlayref.RequestData.appointment as ScheduledAppointment;
+      this.startDateForEncounter = new Date(this.datePipe.transform(this.appointment.AppointmentTime,"MM/dd/yyyy"));
+
+
+    }else if(this.overlayref.RequestData.ViewFrom == "ProcedureView"){
+      this.encounterInfo = {EncounterId: this.overlayref.RequestData.EncounterId,PatientId:this.overlayref.RequestData.PatientId }
+    }
+
+
+
 
     this.initEncoutnerView();
     this.loadEncouterView();
-    this.patientService.PatientProfile({ "PatientId": this.authService.viewModel.Patient.PatientId })
+    let patientId = this.appointment ? this.appointment.PatientId : this.encounterInfo.PatientId;
+    if(patientId)
+    this.patientService.PatientProfile({ "PatientId": patientId })
       .subscribe((resp) => {
         if (resp.IsSuccess) {
           this.patient = resp.Result as ProviderPatient;
         }
-      })
+      });
 
 
     this.isNavigateFromProductView = this.overlayref.RequestData["From"] == "ProcedureView";
@@ -166,19 +170,16 @@ export class EncounterDialogComponent implements OnInit {
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
     this.encounterInfo.Diagnoses.forEach(fn => {
-      fn.PatientEdn = "Medline Plus"
+      fn.PatientEdn = "Medline Plus";
       fn.MedLineUrl = this.medLinePlusUrl({
         Code: fn.Code,
         CodeSystem: fn.CodeSystem
-      })
-    })
+      });
+    });
     this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
     this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
     this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
 
-
-    // if (this.encounterInfo.Vital.CollectedAt != null)
-    //   this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
     this.endDateForEncounter = new Date(this.encounterInfo.ServicedAt);
   }
 
@@ -207,15 +208,22 @@ export class EncounterDialogComponent implements OnInit {
   }
   dateChange(e) {
     this.minDateToFinish.next(e.value.toString());
+    let providerId = this.appointment ? this.appointment.ProviderId : this.encounterInfo.ProviderId;
+    let patientId = this.appointment ? this.appointment.PatientId : this.encounterInfo.PatientId;
+    let serviceingDate = this.datePipe.transform(e.value,"MM/dd/yyyy");
+    this.patientService.DuplicateEncounter({
+      ProviderId: providerId,
+      PatientId: patientId,
+      strStartAt: serviceingDate
+    }).subscribe(resp =>{
+      if(resp.IsSuccess){
+        if(resp.Result.hasEncounter){
+          this.encounterInfo.ServicedAt = null;
+          this.openDuplicateDialog(resp.Result.encounterId,serviceingDate);
+        }
+      }
+    })
   }
-
-  // private computeBmi(height: number, weight: number): number {
-  //   const bmi = (weight / ((height) * (height))) * 703;
-  //   if(isNaN(bmi)) this.encounterInfo.Vital.BMI = null;
-  //   else
-  //     this.encounterInfo.Vital.BMI = Number(bmi.toFixed(2));
-  //   return Number(bmi.toFixed(2));
-  // }
 
   public encounterTabChanged(tabChangeEvent: MatTabChangeEvent): void {
     this.currentTabIndex = tabChangeEvent.index;
@@ -224,12 +232,12 @@ export class EncounterDialogComponent implements OnInit {
   initEncoutnerView() {
     if (this.EnableNewEncounterData) {
       this.encounterInfo.EncounterType = "Office Visit (1853490003)";
-      this.encounterInfo.EncounterCode = ""
+      this.encounterInfo.EncounterCode = "";
       this.encounterInfo.EncounterCodeSystem = "";
       this.encounterInfo.EncounterDescription = "";
     } else {
       this.encounterInfo.EncounterType = "";
-      this.encounterInfo.EncounterCode = "99213"
+      this.encounterInfo.EncounterCode = "99213";
       this.encounterInfo.EncounterCodeSystem = "SNOMED";
       this.encounterInfo.EncounterDescription = "Office or Other Outpatient Visit";
     }
@@ -251,15 +259,25 @@ export class EncounterDialogComponent implements OnInit {
 
   }
 
-  loadEncouterView() {
-    let requestdata = { "AppointmentId": null, "EncounterId": null }
+  loadEncouterView(encounterId: string = null) {
+    let requestdata = { "AppointmentId": null, "EncounterId": null };
     if (this.appointment != null)
       requestdata = {
         "EncounterId": this.appointment.EncounterId,
         "AppointmentId": this.appointment.EncounterId == null ?
           this.appointment.AppointmentId : null
       };
-
+    else if(encounterId != null){
+      requestdata = {
+        "EncounterId": encounterId,
+        "AppointmentId": null
+      };
+    }else if(this.encounterInfo && this.encounterInfo.EncounterId){
+      requestdata = {
+        "EncounterId": this.encounterInfo.EncounterId,
+        "AppointmentId": null
+      };
+    }
 
 
     this.dialogIsLoading = true;
@@ -268,33 +286,32 @@ export class EncounterDialogComponent implements OnInit {
         this.dialogIsLoading = false;
         if (resp.AffectedRecords == 1) {
           this.encounterInfo = resp.Result as EncounterInfo;
+
+
+
           if (this.encounterInfo.Vitals)
             this.encounterInfo.Vitals.forEach(vital => {
               if (vital.CollectedAt != null)
                 vital.CollectedTime = this.datePipe.transform(vital.CollectedAt, "hh:mm a");
-
             });
-          else this.encounterInfo.Vitals =[]
+          else this.encounterInfo.Vitals =[];
 
-          this.encounterInfo.PatientName = this.appointment.PatientName;
+          this.encounterInfo.PatientName = this.appointment ? this.appointment.PatientName : this.patient ? `${this.patient.FirstName} ${this.patient.LastName}` : "";
           this.diagnosesInfo.next(this.encounterInfo.Diagnoses);
           this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures);
           this.completedProcedures.next(this.encounterInfo.CompletedProcedures);
           this.vitalsInfo.next(this.encounterInfo.Vitals);
 
-          // if (this.encounterInfo.Vital.CollectedAt != null)
-          //   this.encounterInfo.Vital.CollectedTime = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "hh:mm a");
-
-          this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode
-          this.dischargeCode.Description = this.encounterInfo.DischargeStatus
+          this.dischargeCode.Code = this.encounterInfo.DischargeStatusCode;
+          this.dischargeCode.Description = this.encounterInfo.DischargeStatus;
           this.dischargeCode.CodeSystem = this.encounterInfo.DischargeStatusCodeSystem;
           this.encounterInfo.Diagnoses.forEach(fn => {
-            fn.PatientEdn = "Medline Plus"
+            fn.PatientEdn = "Medline Plus";
             fn.MedLineUrl = this.medLinePlusUrl({
               Code: fn.Code,
               CodeSystem: fn.CodeSystem
-            })
-          })
+            });
+          });
 
         } else {
           this.encounterInfo.ProviderId = this.authService.userValue.ProviderId;
@@ -302,20 +319,22 @@ export class EncounterDialogComponent implements OnInit {
           if (this.appointment != null) {
             this.encounterInfo.AppointmentId = this.appointment.AppointmentId;
             this.encounterInfo.PatientId = this.appointment.PatientId;
-            this.encounterInfo.PatientName = this.appointment.PatientName
+            this.encounterInfo.PatientName = this.appointment.PatientName;
           }
-
+          if(resp.AffectedRecords == 0 && this.appointment){
+            this.encounterInfo.ServicedAt = this.startDateForEncounter;
+          }else if(this.encounterInfo.EncounterId == null)
+            this.encounterInfo.ServicedAt = new Date();
         }
-
 
       } else {
         this.overlayref.close();
-        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE003"])
+        this.alertmsg.displayErrorDailog(ERROR_CODES["E2AE003"]);
       }
     });
   }
   documentationChanged(value) {
-    this.encounterInfo.CurrentMedicationDocumented = (value as MatRadioButton).value
+    this.encounterInfo.CurrentMedicationDocumented = (value as MatRadioButton).value;
     if (this.encounterInfo.CurrentMedicationDocumented == 2) {
       this.encounterInfo.EncounterCode = "";
       this.encounterInfo.EncounterDescription = "";
@@ -330,13 +349,13 @@ export class EncounterDialogComponent implements OnInit {
 
   onDischargeCodeChange(value: any) {
     this.encounterInfo.DischargeStatus = value.Description;
-    this.encounterInfo.DischargeStatusCode = value.Code
+    this.encounterInfo.DischargeStatusCode = value.Code;
     this.encounterInfo.DischargeStatusCodeSystem = value.CodeSystem;
   }
 
   onEncounterCodeChange(value: MedicalCode) {
     this.encounterInfo.EncounterDescription = value.Description;
-    this.encounterInfo.EncounterCode = value.Code
+    this.encounterInfo.EncounterCode = value.Code;
     this.encounterInfo.EncounterCodeSystem = value.CodeSystem;
   }
 
@@ -347,7 +366,7 @@ export class EncounterDialogComponent implements OnInit {
       this.recommendedProcedures.next(this.encounterInfo.RecommendedProcedures.filter(fn => fn.CanDelete === false));
     }
     else {
-      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"]);
       // Can't delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.
     }
   }
@@ -359,7 +378,7 @@ export class EncounterDialogComponent implements OnInit {
       this.completedProcedures.next(this.encounterInfo.CompletedProcedures.filter(fn => fn.CanDelete === false));
     }
     else {
-      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"])
+      this.alertmsg.displayErrorDailog(ERROR_CODES["E2CP1003"]);
       // Can't delete this procedure from encounter form, however this procedure can be deleted from the parent form i.e. Dental form.
     }
   }
@@ -385,9 +404,9 @@ export class EncounterDialogComponent implements OnInit {
 
   optionChangedForDiagnosis(value: MedicalCode) {
     let d: EncounterDiagnosis = new EncounterDiagnosis();
-    d.Code = value.Code
-    d.CodeSystem = value.CodeSystem
-    d.Description = value.Description
+    d.Code = value.Code;
+    d.CodeSystem = value.CodeSystem;
+    d.Description = value.Description;
     d.MedLineUrl = this.medLinePlusUrl(value);
     d.CanDelete = false;
     this.encounterInfo.Diagnoses.push(d);
@@ -396,9 +415,9 @@ export class EncounterDialogComponent implements OnInit {
 
   onProceduresRecommended(value: MedicalCode) {
     let p: ProceduresInfo = new ProceduresInfo();
-    p.Code = value.Code
-    p.CodeSystem = value.CodeSystem
-    p.Description = value.Description
+    p.Code = value.Code;
+    p.CodeSystem = value.CodeSystem;
+    p.Description = value.Description;
     p.CanDelete = false;
     p.Status = "Treatment planned";
     this.encounterInfo.RecommendedProcedures.push(p);
@@ -408,9 +427,9 @@ export class EncounterDialogComponent implements OnInit {
 
   onProcedureCompleted(value: MedicalCode) {
     let p: ProceduresInfo = new ProceduresInfo;
-    p.Code = value.Code
-    p.CodeSystem = value.CodeSystem
-    p.Description = value.Description
+    p.Code = value.Code;
+    p.CodeSystem = value.CodeSystem;
+    p.Description = value.Description;
     p.CanDelete = false;
     p.Status = "Completed";
     this.encounterInfo.CompletedProcedures.push(p);
@@ -432,16 +451,6 @@ export class EncounterDialogComponent implements OnInit {
   onToothSurfaceSelectedForRP(value, item, index) {
     item.Place = value;
   }
-
-  // showAssociateVitals: boolean = true;
-  // displayVitalsDialog(event) {
-  //   if (event == true) {
-  //     this.showAssociateVitals = true;
-  //   }
-  //   else {
-  //     this.showAssociateVitals = false;
-  //   }
-  // }
 
   closePopup() {
     this.overlayref.close({ "UpdatedModal": PatientChart.Encounters, refreshView: true, "saved": true });
@@ -480,27 +489,17 @@ export class EncounterDialogComponent implements OnInit {
     if (!this.encounterInfo.Vitals) this.encounterInfo.Vitals = [];
     this.encounterInfo.Vitals.forEach(vital => {
       if (vital.CollectedAt != null)
-        vital.strCollectedAt = this.datePipe.transform(vital.CollectedAt, "MM/dd/yyyy")
+        vital.strCollectedAt = this.datePipe.transform(vital.CollectedAt, "MM/dd/yyyy");
       if (vital.CollectedTime != null)
         vital.strCollectedAt = vital.strCollectedAt + " " + vital.CollectedTime;
 
     });
 
 
-
-    // if (this.encounterInfo.Vital.CollectedAt != null)
-    //   this.encounterInfo.Vital.strCollectedAt = this.datePipe.transform(this.encounterInfo.Vital.CollectedAt, "MM/dd/yyyy")
-
-    // if (this.encounterInfo.Vital.CollectedTime != null)
-    //   this.encounterInfo.Vital.strCollectedAt = this.encounterInfo.Vital.strCollectedAt + " " + this.encounterInfo.Vital.CollectedTime;
-
-    this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy")
+    this.encounterInfo.strServicedAt = this.datePipe.transform(this.encounterInfo.ServicedAt, "MM/dd/yyyy");
 
     if (this.encounterInfo.ServiceEndAt != null)
-      this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy")
-
-
-
+      this.encounterInfo.strServiceEndAt = this.datePipe.transform(this.encounterInfo.ServiceEndAt, "MM/dd/yyyy");
 
 
     this.patientService.CreateEncounter(this.encounterInfo).subscribe(resp => {
@@ -525,72 +524,16 @@ export class EncounterDialogComponent implements OnInit {
     });
   }
 
-  // collectAtRequired() {
-  //   return !(this.encounterInfo.Vital.CollectedAt == null ||
-  //     this.encounterInfo.Vital.CollectedTime == null || this.encounterInfo.Vital.Height == null ||
-  //     this.encounterInfo.Vital.Weight == null ||
-  //     this.encounterInfo.Vital.Temperature == null ||
-  //     this.encounterInfo.Vital.BPSystolic == null ||
-  //     this.encounterInfo.Vital.BPDiastolic == null ||
-  //     this.encounterInfo.Vital.O2Saturation == null ||
-  //     this.encounterInfo.Vital.Pulse == null ||
-  //     this.encounterInfo.Vital.RespiratoryRate == null ||
-  //     this.encounterInfo.Vital.BloodType == null)
-  // }
   enableSaveButtons() {
 
     if (this.encounterInfo.ReferredFrom == true) {
-      return !(this.encounterInfo.ReferralFrom)
+      return !(this.encounterInfo.ReferralFrom);
     }
     else if (this.encounterInfo.ReferredTo == true) {
-      return !(this.encounterInfo.ReferralTo)
+      return !(this.encounterInfo.ReferralTo);
     }
 
 
-    // let noCollectionDate = !this.encounterInfo.Vital.CollectedAt
-    // let noCollectionTime = !this.encounterInfo.Vital.CollectedTime
-    // let noBMI = !this.encounterInfo.Vital.Height && !this.encounterInfo.Vital.Weight;
-    // let noBP = !this.encounterInfo.Vital.BPDiastolic && !this.encounterInfo.Vital.BPSystolic;
-    // let noTemp = !this.encounterInfo.Vital.Temperature;
-    // let noBloodType = !this.encounterInfo.Vital.BloodType;
-    // let noO2 = !this.encounterInfo.Vital.O2Saturation;
-    // let noPulse = !this.encounterInfo.Vital.Pulse;
-    // let norr = !this.encounterInfo.Vital.RespiratoryRate;
-
-
-    // if((noCollectionDate || noCollectionTime)
-    // && (!noBMI || !noBP || !noTemp || !noBloodType || !noO2 || !noPulse || !norr)){
-    //     if(noCollectionDate) return true;
-    //     if(noCollectionTime) return true;
-    // }
-
-    // if(!noCollectionDate &&
-    //   !noCollectionTime){
-    //     if(noBMI && noBP && noTemp && noBloodType && noO2 && noPulse && norr) return true;
-    //     if(this.encounterInfo.Vital.Weight && !this.encounterInfo.Vital.Height) return true;
-    //     if(!this.encounterInfo.Vital.Weight && this.encounterInfo.Vital.Height) return true;
-    //     if(this.encounterInfo.Vital.BPDiastolic && !this.encounterInfo.Vital.BPSystolic) return true;
-    //     if(!this.encounterInfo.Vital.BPDiastolic && this.encounterInfo.Vital.BPSystolic) return true;
-    //     if(noCollectionTime) return true;
-    //     if(noCollectionDate) return true
-    // }
-
-
-
-    // if (this.encounterInfo.HealthInfoExchange == true &&
-    //   this.encounterInfo.ReferredTo == false
-    //   || this.encounterInfo.ReferralTo == ""
-    //   || this.encounterInfo.ReferralTo == null) {
-    //   this.messageflagSubject.next(true);
-    //   this.message = "Update the provider to whom you referring this patient."
-    // } else
-    //   if (this.encounterInfo.HealthInfoExchange == true &&
-    //     this.encounterInfo.ReferredFrom == false
-    //     || this.encounterInfo.ReferralFrom == ""
-    //     || this.encounterInfo.ReferralFrom == null) {
-    //     this.messageflagSubject.next(true);
-    //     this.message = "Update the provider from whom you redirected this patient."
-    //   } else this.messageflagSubject.next(false);;
   }
 
   checkRecommendedProceduresMandatoryFields() {
@@ -604,14 +547,14 @@ export class EncounterDialogComponent implements OnInit {
 
   medLinePlusUrl(code: MedicalCode): string {
     if (code.CodeSystem = "SNOMED") {
-      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_SNOMED)
+      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_SNOMED);
     } else {
-      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_ICD)
+      return MEDLINE_PLUS_URL(code.Code, MEDLINE_PLUS_ICD);
     }
   }
 
   recordSuperBill() {
-
+    this.openComponentDialog(this.superbillDialogComponent,{encounterInfo: this.encounterInfo, patient:this.patient}, Actions.view);
 
   }
 
@@ -619,15 +562,15 @@ export class EncounterDialogComponent implements OnInit {
     let addendum: AddendaComment = {};
     addendum.EncounterId = this.encounterInfo.EncounterId;
     addendum.ProviderId = this.encounterInfo.ProviderId;
-    this.openComponentDialog(this.addendaCommentComponent, addendum, Actions.add)
+    this.openComponentDialog(this.addendaCommentComponent, addendum, Actions.add);
   }
 
   attachDocuments() {
     let data = {
       "PatientId": this.encounterInfo.PatientId,
       "EncounterId": this.encounterInfo.EncounterId
-    }
-    this.openComponentDialog(this.addendaAttachDocumentComponent, data, Actions.add)
+    };
+    this.openComponentDialog(this.addendaAttachDocumentComponent, data, Actions.add);
   }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
@@ -645,7 +588,7 @@ export class EncounterDialogComponent implements OnInit {
         }
       } else if (content === this.signAddendaDocumentComponent) {
         if (res.data && res.data.Signed) {
-          this.SignAddendaDoc(res.data.Addenda as AddendaDoc)
+          this.SignAddendaDoc(res.data.Addenda as AddendaDoc);
         }
 
       } else if (content === this.addendaReviewDocumentComponent) {
@@ -660,19 +603,24 @@ export class EncounterDialogComponent implements OnInit {
         if (res.data && res.data.UpdateVital) {
           this.updateVital(res.data.data);
         }
+      } else if (content === this.superbillDialogComponent){
+        if(res.data && res.data.UpdateView == true){
+          //ref.close();
+          this.overlayref.close();
+        }
       }
     });
   }
 
   openVitalView(vital: VitalInfo = null) {
-    let action = Actions.edit
+    let action = Actions.edit;
     if (vital == null) {
       vital = {
         UnitSystem: "us",
         TempType: "unspecified",
         CanDelete: false
       };
-      let action = Actions.add
+      let action = Actions.add;
       vital.EncounterId = this.encounterInfo.EncounterId;
     }
     this.openComponentDialog(this.vitalDialogComponent, vital, action);
@@ -687,33 +635,33 @@ export class EncounterDialogComponent implements OnInit {
     addendadoc.Signed = true;
     this.patientService.SingAddendaDocs(addendadoc).subscribe(resp => {
       this.encounterAddendaDocs();
-    })
+    });
   }
 
   encounterAddendaDocs() {
     let requestParams = {
       "EncounterId": this.encounterInfo.EncounterId
-    }
+    };
     this.patientService.EncounterAddendaDocs(requestParams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.encounterInfo.AddendaDocs = resp.ListResult as AddendaDoc[];
       } else {
         this.encounterInfo.AddendaDocs = [];
       }
-    })
+    });
 
   }
   Addendums() {
     let requestParams = {
       "EncounterId": this.encounterInfo.EncounterId
-    }
+    };
     this.patientService.Addendums(requestParams).subscribe(resp => {
       if (resp.IsSuccess) {
         this.encounterInfo.AddendaComments = resp.ListResult as AddendaComment[];
       } else {
         this.encounterInfo.AddendaComments = [];
       }
-    })
+    });
   }
   onDocumentReview(addendadoc: AddendaDoc) {
     if (this.patient != null) addendadoc.PatientName = this.patient.FirstName + ' ' + this.patient.LastName;
@@ -722,5 +670,37 @@ export class EncounterDialogComponent implements OnInit {
     if (addendadoc.SelectedProviderId == null)
       addendadoc.SelectedProviderId = this.encounterInfo.ProviderId;
     this.openComponentDialog(this.addendaReviewDocumentComponent, addendadoc, Actions.add);
+  }
+
+  validatePrimaryDx(event){
+
+
+  }
+
+  openDuplicateDialog(encounterId,serviceingDate){
+    let date = this.datePipe.transform(serviceingDate,"EEEE, dd MMM, yyyy")
+    Swal.fire({
+      title: 'Redundant Encounter Warning!',
+      html: `<p class="swal-title-message">There is already an encounter recorded for this patient for selected date <b>${date}</b></p><div class="swal-note-message"><b>NOTE:</b>Once an Encounter Note has been signed, it cannot be edited. If you need to add additional notes to a signed Encounter Note, you can add Addenda. To add an addendum, click on the Addenda in signed progress note.</div>`,
+      showDenyButton: false,
+      showCancelButton: true,
+      confirmButtonColor: '#FF810E',
+      confirmButtonText: 'View Progress Note',
+      cancelButtonText: 'Cancel',
+      allowOutsideClick: false,
+      customClass: {
+        cancelButton: 'swal2-error',
+        popup:'swal2-success-popup',
+        container: ['swal2-container-high-zindex'],
+      }
+  }).then((result) => {
+
+      if (result.isConfirmed) {
+          this.loadEncouterView(encounterId);
+      } else
+          if (result.dismiss === Swal.DismissReason.cancel) {
+            this.overlayref.close();
+          }
+  });
   }
 }

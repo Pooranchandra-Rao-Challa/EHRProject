@@ -9,7 +9,6 @@ import { OverlayService } from 'src/app/overlay.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { NewAppointmentDialogComponent } from '../../dialogs/newappointment.dialog/newappointment.dialog.component';
 import { UpcomingAppointmentsDialogComponent } from '../../dialogs/upcoming.appointments.dialog/upcoming.appointments.dialog.component';
-//import { CompleteAppointmentDialogComponent } from 'src/app/dialogs/newappointment.dialog/complete.appointment.component';
 import { PatientDialogComponent } from 'src/app/dialogs/patient.dialog/patient.dialog.component';
 import { AlertMessage, ERROR_CODES } from 'src/app/_alerts/alertMessage'
 import { Router } from '@angular/router';
@@ -106,7 +105,7 @@ export class PatientScheduleComponent implements OnInit {
   }
 
   onPatientSelected(value: any) {
-    if (!value) return "";
+    if (!value || !this.CanCreateAppointment) return "";
     let patient = value.option.value;
     this.patients = [];
     if (patient != null) {
@@ -200,12 +199,39 @@ export class PatientScheduleComponent implements OnInit {
 
     return data;
   }
+
+  PatientAppointmentInfoForAdd(action?: Actions) {
+    let data = {} as AppointmentDialogInfo
+    this.PatientAppointment = {};
+
+    this.selectedPatient = null;
+    data.Title = "Add New Appointment";
+    data.status = action;
+
+    data.NavigationFrom = "Smart Schedule"
+
+
+    data.ClinicId = this.authService.userValue.ClinicId;
+    data.ProviderId = this.SelectedProviderId;
+    data.LocationId = this.SelectedLocationId;
+    data.PatientAppointment = {};
+    data.AppointmentTypes = this.AppointmentTypes;
+    data.PracticeProviders = this.PracticeProviders;
+    data.Locations = this.Locations;
+    data.Rooms = this.Rooms;
+
+    return data;
+  }
+
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
     let dialogData: any;
     if (content === this.appointmentDialogComponent && action == Actions.new) {
       dialogData = this.PatientAppointmentInfoFromSearch(data, action);
-    } else if (content === this.appointmentDialogComponent && action == Actions.view) {
+    } else if (content === this.appointmentDialogComponent && action == Actions.add) {
+      dialogData = this.PatientAppointmentInfoForAdd(action);
+    }
+    else if (content === this.appointmentDialogComponent && action == Actions.view) {
       dialogData = this.PatientAppointmentInfo(data, action);
     } else if (content === this.upcomingAppointmentsDialogComponent) {
       dialogData = this.PatientAppointmentInfoFromSearch(data, action);
@@ -239,6 +265,35 @@ export class PatientScheduleComponent implements OnInit {
     }
 
   }
+
+
+  get CanCreateAppointment(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "AppointmentPolicy" && fn.MethodName == "create")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+  get CanCreatePatient(): boolean{
+    var permissions = this.authService.permissions();
+    if(!permissions) return false;
+    var providerpermissions = permissions.filter(fn => fn.RoleName == "provider");
+    if(providerpermissions && providerpermissions.length == 1) return true;
+    var temp = permissions.filter(fn => fn.PolicyName == "PatientPolicy" && fn.MethodName == "create")
+    if(temp.length == 0) return false;
+    return temp[0].Allowed;
+  }
+
+
+  addAppointment(){
+    this.openComponentDialog(this.appointmentDialogComponent,null,Actions.add)
+  }
+
+
+
   // updateAppointmentStatus(appointment: ScheduledAppointment, status: string) {
   //   if (appointment.Status != status) {
   //     appointment.StatusToUpdate = status;

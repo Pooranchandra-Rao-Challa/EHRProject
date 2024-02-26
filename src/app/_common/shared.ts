@@ -20,6 +20,7 @@ import { PaginatorDirective } from 'src/app/_directives/pagination.directive'
 import { AttachmentPreviewComponent } from "src/app/_components/attachments/attachment.preview.component";
 import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 import { AutocompletePositionModule } from 'src/app/_directives/autocomplete-position.module';
+import { CurrencyMaskDirective } from 'src/app/_directives/currency-mask.directive'
 
 @NgModule({
   imports: [
@@ -48,6 +49,7 @@ import { AutocompletePositionModule } from 'src/app/_directives/autocomplete-pos
     npiValidatorDirective,
     ssnValidatorDirective,
     MouseOverHintDirective,
+    CurrencyMaskDirective,
     NunberMaskDirective,
     AlphaDirective,
     AttachmentPreviewComponent,
@@ -55,7 +57,7 @@ import { AutocompletePositionModule } from 'src/app/_directives/autocomplete-pos
   ],
   declarations: [GroupByPipe, FilterPipe, SearchPipe, TimeMaskDirective,TeethPlacePipe,NumberToWordsPipe,
     MouseOverHintDirective,SimplePaginationDirective,npiValidatorDirective,
-    ssnValidatorDirective,NunberMaskDirective,AlphaDirective,MaxValueDirective,MinValueDirective,
+    ssnValidatorDirective,NunberMaskDirective,AlphaDirective,MaxValueDirective,MinValueDirective,CurrencyMaskDirective,
     PaginatorDirective,AttachmentPreviewComponent,AttachmentNopreviewComponent,],
   providers : [
     EncryptDescryptService,

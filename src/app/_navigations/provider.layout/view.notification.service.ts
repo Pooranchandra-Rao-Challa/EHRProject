@@ -157,6 +157,7 @@ export class UpdateEmergencyAccess {
 @Injectable()
 export class DrfirstUrlChanged {
   private subject = new Subject<{ urlfor: string,purpose:string, url: string }>();
+  private noDrfirstParams = new Subject<boolean>();
 
   sendData(url: string, urlfor: string,purpose:string='report') {
     this.subject.next({ url: url,purpose, urlfor: urlfor });
@@ -168,6 +169,13 @@ export class DrfirstUrlChanged {
 
   getData(): Observable<{ urlfor: string,purpose:string, url: string }> {
     return this.subject.asObservable();
+  }
+
+  noData(flag:boolean){
+    this.noDrfirstParams.next(flag);
+  }
+  hasData() : Observable<boolean>{
+    return this.noDrfirstParams.asObservable();
   }
 }
 

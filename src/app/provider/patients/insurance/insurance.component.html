@@ -33,12 +33,7 @@
             </mat-form-field></div>
 
           </div>
-          <!-- <div *ngIf="subscriberName.errors && (subscriberName.touched)">
-            <div class="error_message" *ngIf="subscriberName.errors?.required">
-              <span class="text-danger"></span>
-              <p class="errormessage">Please enter subscriber name</p>
-            </div>
-          </div> -->
+
 
           <div class="row">
             <div class="col-lg-6 col-md-12 col-12">
@@ -73,19 +68,34 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+              Subscriber</label>
+            <div>
+              <mat-radio-group [(ngModel)]="primaryInsurance.RelationshipToSubscriber" (change)="updateSelfInsurance($event,'primary')">
+                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
+                </mat-radio-button>
+                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
+                </mat-radio-button>
+                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
+                </mat-radio-button>
+                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xl-9 col-lg-8 col-12">
               <label class="Helvetica-sans-serif-medium required">Address</label>
               <div class="input-group mb-3">
                 <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                   placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
-                  [(ngModel)]="primaryInsurance.Street" #Address required>
-                <!-- [disabled]="disableaddressverification" -->
+                  [(ngModel)]="primaryInsurance.Street" #Address required [disabled]="disableAutoPrimary">
               </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-12">
               <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-lg-4 mb-4 pull-right"
-                [disabled]="!primaryInsurance.Street || disableaddressverification"
+                [disabled]="!primaryInsurance.Street || disableaddressverification || disableAutoPrimary"
                 (click)="AddressVerification()">VERIFY</button>
             </div>
           </div>
@@ -172,34 +182,8 @@
                 data-bs-target="#Primary-Insurance-Details"> View Primary Insurance details</button>
             </div>
           </div>
-          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
-              Subscriber</label>
-            <div>
-              <mat-radio-group [(ngModel)]="primaryInsurance.RelationshipToSubscriber">
-                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
-                </mat-radio-button>
-                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
-                </mat-radio-button>
-                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
-                </mat-radio-button>
-                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div>
-          <!-- <div class="col-lg-12 col-md-12 col-sm-12">
 
-                        <div class="form-group">
-                            <select class="col-12 inputclassdropdown Helvetica-sans-serif-medium"
-                                [(ngModel)]="primaryInsurance.SourceOfPaymentTypology"
-                                (change)="onChange('primary',$event.target.value)">
-                                <option *ngFor="let country of SourceOfPaymentTypologyCodes" [value]="country.Code">
-                                    {{country.Code}}-{{country.Description}}</option>
 
-                            </select>
-                        </div>
-                    </div> -->
 
           <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -241,12 +225,6 @@
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp2></mat-datepicker>
               </mat-form-field>
-              <!-- <div *ngIf="startdate.errors && (startdate.touched)">
-                <div class="error_message" *ngIf="startdate.errors?.required">
-                  <span class="e_arrow"></span>
-                  <p class="errormessage">Please select start date</p>
-                </div>
-              </div> -->
             </div>
             <div class="col-md-6">
               <mat-form-field appearance="outline" class="calendaricon green-calendar col-md-12">
@@ -331,19 +309,35 @@
               </div>
             </div>
           </div>
+          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
+            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
+              Subscriber</label>
+            <div>
+              <mat-radio-group [(ngModel)]="secondaryInsurance.RelationshipToSubscriber" (change)="updateSelfInsurance($event,'secondary')">
+                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
+                </mat-radio-button>
+                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
+                </mat-radio-button>
+                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
+                </mat-radio-button>
+                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
+                </mat-radio-button>
+              </mat-radio-group>
+            </div>
+          </div>
           <div class="row">
             <div class="col-xl-9 col-lg-8 col-12">
               <label class="Helvetica-sans-serif-medium required">Address</label>
               <div class="input-group mb-3">
                 <input type="text" class="form-control patientInsuranceTab Helvetica-sans-serif-medium"
                   placeholder="Enter full address here" aria-label="Subscriber Name" aria-describedby="basic-addon1"
-                  [(ngModel)]="secondaryInsurance.Street" #Address>
+                  [(ngModel)]="secondaryInsurance.Street" #Address [disabled]="disableAutoSecondary">
                 <!-- [disabled]="secondarydisableaddressverification" -->
               </div>
             </div>
             <div class="col-xl-3 col-lg-4 col-12">
               <button class="btn btn-green btn-verify Helvetica-sans-serif-medium mt-lg-4 mb-4 pull-right"
-                [disabled]="!secondaryInsurance.Street || secondarydisableaddressverification"
+                [disabled]="!secondaryInsurance.Street || secondarydisableaddressverification || disableAutoSecondary"
                 (click)="secondaryAddressverfied()">VERIFY</button>
             </div>
           </div>
@@ -369,12 +363,7 @@
                 *ngIf="secondarymanuallybtn || secondarydisableaddressverification"
                 (click)="secondaryenterAddressManually()">Enter Address Manually</button>
             </div>
-            <!-- <div class="col-xl-3 col-lg-4 col-12" *ngIf="secondarymanuallybtn || secondarydisableaddressverification">
-              <div class="form-group">
-                <button class="btn-green btn btn-verify"
-                  (click)="secondaryenterAddressManually()">Enter Address Manually</button>
-              </div>
-            </div> -->
+
           </div>
           <br>
           <div class="row">
@@ -441,22 +430,7 @@
             </div>
           </div>
 
-          <div class="col-lg-12 col-md-12 col-xl-12 col-12 my-2">
-            <label for="" class="form-label label-design  mx-lg-1 required">Relationship to
-              Subscriber</label>
-            <div>
-              <mat-radio-group [(ngModel)]="secondaryInsurance.RelationshipToSubscriber">
-                <mat-radio-button value="Self" class="radio-btn-label label-design my-1">Self
-                </mat-radio-button>
-                <mat-radio-button value="Spouse" class="radio-btn-label label-design my-1">Spouse
-                </mat-radio-button>
-                <mat-radio-button value="Child" class="radio-btn-label label-design my-1">Child
-                </mat-radio-button>
-                <mat-radio-button value="Other" class="radio-btn-label label-design my-1">Other
-                </mat-radio-button>
-              </mat-radio-group>
-            </div>
-          </div>
+
           <div class="col-lg-12 col-md-12">
             <mat-label class="Helvetica-sans-serif-medium required">Source of Payment Typology </mat-label>
             <mat-form-field appearance="outline" class="col-lg-12 col-md-12 col-12 ddl-width ddhover">
@@ -494,12 +468,6 @@
                 </mat-datepicker-toggle>
                 <mat-datepicker #dp5 disabled="false"></mat-datepicker>
               </mat-form-field>
-              <!-- <div *ngIf="sstartdate.errors && (sstartdate.touched)">
-                                <div class="error_message" *ngIf="sstartdate.errors?.required">
-                                  <span class="e_arrow"></span>
-                                  <p class="errormessage">Please select start date</p>
-                                </div>
-                                </div> -->
             </div>
 
             <div class="col-md-6">

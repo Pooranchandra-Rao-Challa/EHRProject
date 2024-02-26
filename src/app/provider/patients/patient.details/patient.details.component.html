@@ -45,9 +45,9 @@
         Patient Actions
       </button>
       <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-        <li><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a>
+        <li *ngIf="CanUpdateProcedure"><a (click)="openComponentDialog(procedureDialogComponent,procedureInfo,ActionTypes.new)">Add Procedure</a>
         </li>
-        <li><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
+        <li *ngIf="CanUpdateEncounter"><a (click)="openComponentDialog(encounterDialogComponent,null,ActionTypes.new)">Add Encounter Note</a></li>
         <li>
           <hr class="dropdown-divider">
         </li>
@@ -114,7 +114,7 @@ display: list-item;">
       <button class="nav-link" id="pills-dentalchart-tab" data-bs-toggle="pill" data-bs-target="#pills-dentalchart"
         type="button" role="tab" aria-controls="pills-dentalchart"
         [class.active]="viewModel.PatientView == 'Dental Chart' ? true :false"
-        (click)="UpdatePatientView('Dental Chart')">Dental Chart</button>
+        (click)="UpdatePatientView('Dental Chart')" *ngIf="CanViewDentalChart">Dental Chart</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"

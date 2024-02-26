@@ -36,6 +36,7 @@ export class DrfirstService {
   }
 
   initDrFirstAttribute(providerId, DrFirstPatientId, startup) {
+
     if (this.drFirstAttributes === undefined) {
       this.utilityService.DrfirstProviderParams(providerId, undefined).subscribe(resp => {
         if (resp.IsSuccess) {
@@ -55,7 +56,6 @@ export class DrfirstService {
         this.prepareURL(startup, 'provider')
       } else {
         this.drFirstAttributes.DrFirstPatientId = DrFirstPatientId;
-        //this.authService.UpdateDrFirstAttribues(this.drFirstAttributes)
         this.prepareURL(startup, 'patient')
       }
     }
@@ -73,6 +73,9 @@ export class DrfirstService {
   }
 
   prepareURL(startup: string, urlFor: string) {
+    if(this.drFirstAttributes.VendorUserName == null){
+      this.drfirstUrlChanged.noData(true);
+    }
     var urlparams: string = ""
     switch (urlFor) {
       case 'provider':

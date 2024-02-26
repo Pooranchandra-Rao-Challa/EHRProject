@@ -13,6 +13,7 @@ import { BillingComponent } from '../../provider/billing/billing.component';
 import { MessagesComponent } from '../../provider/messages/messages.component';
 import { CategoryreportsComponent } from "../../reports/categoryreports/categoryreports.component";
 import { AuthGuard } from 'src/app/_helpers/auth.guard';
+import { BillViewComponent } from 'src/app/provider/billing/bill.view.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'directmsg', component: DirectMsgComponent, },
       { path: 'erx', component: ErxComponent,  },
       { path: 'billing', component: BillingComponent, },
+      { path: 'billview/:id/:PId', component: BillViewComponent, },
       { path: 'messages', component: MessagesComponent,  },
       { path: 'labsimaging', component: LabsImagingComponent,  },
       { path: 'categoryreports', component: CategoryreportsComponent,  }

@@ -10,7 +10,7 @@
       <div class="row">
         <div class="smart-schedule-header mt-2 mt-lg-0">
           <div class="row" style="align-items: center">
-            <div class="col-xl-2 col-lg-4 col-md-6 col-12 appointment-filter-datestring-bar">
+            <div class="col-xl-2 col-lg-4 col-md-6 col-12 appointment-filter-datestring-bar" style="width: 13%;">
               <b>{{ selectedWeekday }}</b>
             </div>
             <div class="col-xl-1 col-lg-2 col-md-6 col-12 appointment-filter-date-bar pt-2 pt-md-0">
@@ -65,19 +65,25 @@
                     <div class="col-md-3 col-3">Visit Status</div>
                     <div class="col-md-1 col-1 appt-type" style="white-space:nowrap">Appointment Type</div>
                     <div class="col-md-2 col-2 appointment-note">Notes</div>
-                    <div class="col-md-1 col-1">Encounter</div>
+                    <div class="col-md-1 col-1">Progress Note</div>
                   </div>
                   <div class="noappintment" *ngIf="!hasActiveAppointments">
                     You don't have any appointments for today
                   </div>
 
                   <div class="row text-center table-body"  *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsCurrent?'inline-flux':'none'}">
-                    <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent"
+                    <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent && CanViewAppointment"
                       (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                       &nbsp;
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
                     </div>
+                    <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent && !CanViewAppointment">
+                      {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
+                      &nbsp;
+                      Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
+                    </div>
+
                     <div class="col-md-2 col-2 appintment-link" *ngIf="appointment.IsCurrent"
                       (click)="onPatientSelection(appointment)">
                       <div>{{appointment.PatientName}}</div>
@@ -111,7 +117,7 @@
                     <div class="col-md-1 col-1 " *ngIf="appointment.IsCurrent">
                       <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)"
                       *ngIf="CanViewEncounter">
-                        Record Encounter
+                        Record Progress Note
                       </button>
                     </div>
                   </div>
