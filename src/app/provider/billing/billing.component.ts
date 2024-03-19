@@ -81,7 +81,6 @@ export class BillingComponent implements OnInit {
 
   //get the billing details
   getBills() {
-    console.log(this.filterData);
     if(this.filterData.FormDate != null)
     this.filterData.strFromDate =  this.datepipe.transform(this.filterData.FormDate,"MM/dd/yyyy");
     if(this.filterData.ToDate != null)
@@ -89,9 +88,6 @@ export class BillingComponent implements OnInit {
     if(this.filterData.Status)
     this.filterData.Statuses = this.filterData.Status.join(',');
     this.bs.BillingDetails(this.filterData).subscribe(resp => {
-      console.log(this.bills);
-      console.log(resp);
-
       if(resp.IsSuccess){
         this.bills = resp.ListResult;
       }else this.bills = [];

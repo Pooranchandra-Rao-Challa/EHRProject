@@ -139,6 +139,8 @@ export class EncounterDialogComponent implements OnInit {
 
     }else if(this.overlayref.RequestData.ViewFrom == "ProcedureView"){
       this.encounterInfo = {EncounterId: this.overlayref.RequestData.EncounterId,PatientId:this.overlayref.RequestData.PatientId }
+    }else if(this.overlayref.RequestData.ViewFrom == "BillView"){
+      this.encounterInfo = {EncounterId: this.overlayref.RequestData.EncounterId,PatientId:this.overlayref.RequestData.PatientId }
     }
 
 
@@ -169,6 +171,8 @@ export class EncounterDialogComponent implements OnInit {
 
     }
     this.encounterInfo.EnableNewEncounterData = this.EnableNewEncounterData;
+    if(!this.encounterInfo.Diagnoses) this.encounterInfo.Diagnoses =[]
+    if(!this.encounterInfo.Vitals)this.encounterInfo.Vitals = [];
     this.encounterInfo.Diagnoses.forEach(fn => {
       fn.PatientEdn = "Medline Plus";
       fn.MedLineUrl = this.medLinePlusUrl({

@@ -1,6 +1,5 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID, Injectable } from '@angular/core';
-import { HttpClientJsonpModule, JsonpInterceptor, HTTP_INTERCEPTORS,HttpClientModule,
-  HttpHandler, HttpRequest, HttpEvent } from '@angular/common/http';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, LOCALE_ID,  } from '@angular/core';
+import { HttpClientJsonpModule, HttpClientModule, } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

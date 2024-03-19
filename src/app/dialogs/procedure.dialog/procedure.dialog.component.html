@@ -277,7 +277,9 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-green" (click)="save()" [disabled]="enableSave()">
+      <div *ngIf="procedureInfo.Signed || procedureInfo.BillPrepared
+      " [class.is-singed]="procedureInfo.Signed || procedureInfo.BillPrepared">Record is singed can not change data.</div>
+      <button type="button" class="btn btn-green" (click)="save()" [disabled]="enableSave() || procedureInfo.Signed || procedureInfo.BillPrepared">
         Save
       </button>
       <button type="button" class="btn btn-green" (click)="cancel()">

@@ -73,7 +73,7 @@
 
                   <div class="row text-center table-body"  *ngFor="let appointment of Appointments" [ngStyle]="{display:appointment.IsCurrent?'inline-flux':'none'}">
                     <div class="col-md-1 col-1 appointment-time appintment-link" *ngIf="appointment.IsCurrent && CanViewAppointment"
-                      (click)="openComponentDialog(appointmentDialogComponent,appointment,ActionsType.view)">
+                      (click)="openAppointment(appointment,ActionsType.view)">
                       {{appointment.AppointmentTime | date:'MM/dd/yyyy'}}
                       &nbsp;
                       Time: {{appointment.AppointmentTime | date:'hh:mm a'}}
@@ -104,18 +104,18 @@
                       <img [class]="appointment.Status == 'In-Progress' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/in_progress.svg"
                         title="In-Progress" (click)="updateAppointmentStatusDirect(appointment,'In-Progress')"  [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'Completed' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/completed.svg"
-                        title="Completed" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'Completed')" [class.show-hover] = "appointment.IsCurrent"/>
+                        title="Completed" (click)="lockAppointment(appointment,ActionsType.view,'Completed')" [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'Cancelled' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/cancel.svg"
-                        title="Cancelled" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'Cancelled')" [class.show-hover] = "appointment.IsCurrent"/>
+                        title="Cancelled" (click)="lockAppointment(appointment,ActionsType.view,'Cancelled')" [class.show-hover] = "appointment.IsCurrent"/>
                       <img [class]="appointment.Status == 'No-Show' ? 'img-smart-status-highlight' : 'img-smart-status-dim'" src="assets/images/smart-schedule/no_show.svg"
-                        title="No-Show" (click)="openComponentDialog(completeAppointmentDialogComponent,appointment,ActionsType.view,'No-Show')" [class.show-hover] = "appointment.IsCurrent"/>
+                        title="No-Show" (click)="lockAppointment(appointment,ActionsType.view,'No-Show')" [class.show-hover] = "appointment.IsCurrent"/>
                     </div>
                     <div class="col-md-1 col-1 appt-type" *ngIf="appointment.IsCurrent">{{appointment.AppointmentType}}</div>
                     <div class="col-md-2 col-2 appointment-note" *ngIf="appointment.IsCurrent">
                       {{appointment.Notes}}
                     </div>
                     <div class="col-md-1 col-1 " *ngIf="appointment.IsCurrent">
-                      <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openComponentDialog(encounterDialogComponent,appointment,ActionsType.view)"
+                      <button class="btn btn-orange btn-encounter-padding" type="button" (click)="openEncounter(appointment,ActionsType.view)"
                       *ngIf="CanViewEncounter">
                         Record Progress Note
                       </button>

@@ -33,16 +33,12 @@ export class ProceduresDialogComponent implements OnInit {
   ngOnInit(): void {
     this.patientId = this.overlayref.RequestData.PatientId
     this.billId = this.overlayref.RequestData.BillId;
-    console.log(`billId: ${this.billId}, patientId : ${this.patientId}`);
-
     this.initPatientProcedures();
   }
 
   initPatientProcedures(){
     this.patientService.ProceduresForBill(this.patientId).subscribe(resp =>{
       if(resp.IsSuccess){
-        console.log(resp);
-
         this.procedures = resp.ListResult as any[];
       }
       //else this.bill = {};
@@ -54,10 +50,8 @@ export class ProceduresDialogComponent implements OnInit {
   }
 
   updateBillProcedurs(){
-    console.log(this.procedures);
     this.patientService.UpdateProceduresInBill({Procedures: this.procedures,BillId: this.billId,PatientId:this.patientId}).subscribe(resp =>{
       if(resp.IsSuccess){
-        console.log(resp);
         this.overlayref.close({'UpdateView': true})
       }
 

@@ -162,9 +162,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
 
     this.drfirstUrlChanged.getData().subscribe((data) => {
       if (data.urlfor == "Patient" && data.purpose == DrFirstStartUpScreens.Patient){
-
-        console.log(data.url);
-
         window.open(data.url,'mozillaTab')
       }
 
@@ -681,8 +678,6 @@ export class PatientDetailsComponent implements OnInit, AfterViewInit {
     if (providerpermissions && providerpermissions.length == 1) return true;
     var temp = permissions.filter(fn => fn.PolicyName == "ProcedurePolicy" && fn.MethodName == "update")
     if (temp.length == 0) return false;
-    console.log(temp);
-
     return temp[0].Allowed;
   }
 

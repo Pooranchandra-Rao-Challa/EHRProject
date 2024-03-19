@@ -383,6 +383,7 @@ export const ERROR_CODES: { [key: string]: string } = {
   'E2AA001': 'Appointment Add error',
   'E2AA002': 'Appointment Update error',
   'E2AA003': 'Appointment Deleted error',
+  'E2AA004': 'Patient may be inactive state or deleted',
 
 
   // Smart Schedulerl Encounters;
@@ -679,6 +680,9 @@ export const ERROR_CODES: { [key: string]: string } = {
   // Bulling Message
 
   'M2I1001': 'Super bill for patient is updated.',
+  'M2I1002': 'Payment recepit is updated.',
+
+  'E2I1001': 'Payment recepit is not updated.',
 };
 
 

@@ -1115,6 +1115,17 @@ i {
   z-index: 1000000 !important;
 }
 
+.swal2-container.swal2-center.swal2-container-refresh-token{
+  background-color:rgba(255, 255, 255, 0.137) !important;
+}
+
+.hide-body-on-refresh-token{
+  display: none;
+}
+.show-body-on-refresh-token{
+  display: block;
+}
+
 .pg-container .pg-container {
   display: flex;
   justify-content: center;

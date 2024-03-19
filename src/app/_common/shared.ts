@@ -21,7 +21,7 @@ import { AttachmentPreviewComponent } from "src/app/_components/attachments/atta
 import { AttachmentNopreviewComponent } from 'src/app/_components/attachments/attachment.nopreview.component'
 import { AutocompletePositionModule } from 'src/app/_directives/autocomplete-position.module';
 import { CurrencyMaskDirective } from 'src/app/_directives/currency-mask.directive'
-
+// import {NgxPrintModule} from 'ngx-print';
 @NgModule({
   imports: [
     QuickAppProMaterialModule,
@@ -31,6 +31,8 @@ import { CurrencyMaskDirective } from 'src/app/_directives/currency-mask.directi
     ReactiveFormsModule,
     FileUploadModule,
     FormsModule,
+
+    // NgxPrintModule,
    // QRCodeModule
   ],
   exports: [

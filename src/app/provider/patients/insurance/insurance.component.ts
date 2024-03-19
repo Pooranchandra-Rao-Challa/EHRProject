@@ -330,7 +330,6 @@ export class InsuranceComponent implements OnInit {
     this.cancel1 = false;
     this.resetTheInsurancePlansContentScrollPosition()
     this.InsuranceCompanyPlanList();
-    console.log(this.InsurancePlanList);
     (this.InsurancePlanList as []).forEach((element:any,index: number,values: any[]) => {
       if(element.InsuranceCompanyId == this.primaryInsurance.InsuranceCompanyPlanID
         || element.InsuranceCompanyId == this.selectingInsuranceCompanyPlanId){
@@ -424,8 +423,6 @@ export class InsuranceComponent implements OnInit {
   // get patient id
   getPatientDetails() {
     this.PatientDetails = this.authService.viewModel.Patient;
-    console.log(this.PatientDetails);
-
   }
 
   primaryInsurancePatientSearch: PatientSearch = {};
@@ -478,13 +475,10 @@ export class InsuranceComponent implements OnInit {
   }
 
   updateSelfInsurance(soruce,insuranceType: string) {
-    console.log(soruce);
 
     if(soruce.value.toLowerCase() == 'self'){
       this.patientservice.PatientProfile({PatientId: this.PatientDetails.PatientId}).subscribe((resp) =>{
         let patient = resp.Result as PatientProfile
-        console.log(patient);
-
         if (insuranceType == 'primary') {
           this.primaryInsurance.SubscriberName = `${patient.FirstName}${patient.MiddleName != null ? ' ' + patient.MiddleName : ''} ${patient.LastName}`;
           this.primaryInsurance.DateOfBirth = this.datePipe.transform(patient?.Dob, "yyyy-MM-dd");

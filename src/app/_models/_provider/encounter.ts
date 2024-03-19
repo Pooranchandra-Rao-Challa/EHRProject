@@ -325,6 +325,7 @@ export class ProceduresInfo implements IDeleteFlag {
   PatientName?: string;
   Place?: string;
   Signed?: boolean;
+  BillPrepared?: boolean;
 }
 
 export class VitalInfo {

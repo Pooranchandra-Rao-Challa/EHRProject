@@ -499,6 +499,10 @@ function parseParamsToUrlEncode(params: any[]): any[]{
     return this._ProcessGetRequest<any>(`${this._patientBillURL}/${encounterId}/${patientId}`);
   }
 
+  PatientBillForBillId(billId: string){
+    return this._ProcessGetRequest<any>(`${this._patientBillURL}/${billId}`);
+  }
+
   BillView(billId: string){
     return this._ProcessGetRequest<any>(`${this._billViewURL}/${billId}`);
   }

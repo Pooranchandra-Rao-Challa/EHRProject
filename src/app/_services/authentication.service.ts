@@ -337,8 +337,10 @@ export class AuthenticationService {
         denyButtonText: `Revoke Session`,
         timer: 60000,
         timerProgressBar: true,
+        backdrop:false,
         didOpen: () => {
           Swal.showLoading(Swal.getDenyButton())
+          this.hideBackView();
           const b = Swal.getHtmlContainer().querySelector('b')
           timerInterval = setInterval(() => {
             b.textContent = Math.floor(Swal.getTimerLeft() / 1000) + ''
@@ -346,16 +348,16 @@ export class AuthenticationService {
         },
         willClose: () => {
           clearInterval(timerInterval);
-
         },
         customClass: {
           confirmButton: 'confirm-refresh-session',
-          container: 'swal2-container-high-zindex',
+          container: ['swal2-container-high-zindex,swal2-container-refresh-token'],
         }
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
           clearInterval(timerInterval);
+          this.showBackView();
           this.refreshToken();
         } else
           if (result.dismiss === Swal.DismissReason.timer) {
@@ -366,6 +368,14 @@ export class AuthenticationService {
 
   }
 
+  hideBackView(){
+    document.getElementById('container-view').classList.add('hide-body-on-refresh-token');
+    document.getElementById('container-view').classList.remove('show-body-on-refresh-token');
+  }
+  showBackView(){
+    document.getElementById('container-view').classList.add('show-body-on-refresh-token');
+    document.getElementById('container-view').classList.remove('hide-body-on-refresh-token');
+  }
   revokeToken(error: any = '') {
     //if(this.ref) this.ref.close();
     if (!this.userValue || !this.userValue.JwtToken) {
@@ -417,7 +427,6 @@ export class AuthenticationService {
     //exp.setSeconds(0);
     iat.setSeconds(0);
     nbf.setSeconds(0);
-    console.log(exp);
     const today = new Date();
     const flag = today >= nbf && today >= iat && today <= exp;
     return flag
@@ -426,6 +435,7 @@ export class AuthenticationService {
   public startRefreshTokenTimer() {
     const jwtToken = jwtdecode(this.userValue.JwtToken) as unknown as any;
     const expires = new Date(jwtToken.exp * 1000);
+    console.log(expires);
     const timeout = expires.getTime() - (new Date()).getTime() - 60000;
     if (this.refreshTokenTimer) this.clearTimer();
     this.refreshTokenTimer = setTimeout(() => this.openRefeshDialog(), timeout);

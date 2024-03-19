@@ -29,12 +29,13 @@
     text-align: center;
     background: #41b6a6;
     color:white;
+    border-bottom: 1px solid #e0e0e0;
   }
 
 .mat-table{
   margin-left: -4px;
   .mat-header-row{
-    background-color: #d74842;
+    background-color: #41b6a6;
     border-top: 1px solid #e0e0e0;
     .mat-header-cell{
       color: white !important;
@@ -85,7 +86,7 @@
   .bill-ledger{
     padding: 10px 20px;
     display: inline-flex;
-    background-color:#d74842;
+    background-color:#41b6a6;
     color: white;
     width: 100%;
     .left-ledger{
@@ -111,7 +112,7 @@
     margin: auto;
     width: 97.6%;;
     height: calc(100vh - 490px);
-    overflow: hidden auto;
+    overflow: auto auto;
   }
 
   .primary-guarantor{
@@ -155,7 +156,7 @@
 
       }
       div:first-child{
-        background-color: #d74842;
+        background-color: #41b6a6;
         color:white;
       }
     }
@@ -181,4 +182,12 @@
     display: none; /* Hide the divider for the last block */
   }
 
+  .paymentItem{
+    cursor: pointer;
+    color:#41b6a6;
+    &:hover{
+      color:#41b6a6;
+      text-decoration: underline;
+    }
+  }
 }

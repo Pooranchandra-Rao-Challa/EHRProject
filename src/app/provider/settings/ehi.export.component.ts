@@ -101,8 +101,6 @@ export class EHIExportComponent implements OnInit {
   }
 
   ExportEHI() {
-    //console.log(`Export all patients: ${this.allPatients}`);
-    //console.log(`Export the patient: ${JSON.stringify(this.selectedPatient)}`);
     this.downloadinginprogress = true;
     let fileName = this.allPatients ? this.authService.userValue.ClinicId : this.selectedPatient.PatientId
     this.downloadService.DownloadPatientsCDA(this.allPatients?{ClinicId: this.authService.userValue.ClinicId}:{PatientId:this.selectedPatient.PatientId})
@@ -110,11 +108,9 @@ export class EHIExportComponent implements OnInit {
         (resp) => {
               if (resp.type === HttpEventType.DownloadProgress) {
                 const percentDone = Math.round(100 * resp.loaded / resp.total);
-                //console.log(percentDone);
                 this.value = percentDone;
               }
               if (resp.type === HttpEventType.Response) {
-                //console.log(resp.type );
                 const file = new Blob([resp.body], { type: 'application/zip' });
                 const document = window.URL.createObjectURL(file);
                 FileSaver.saveAs(document, fileName+".zip");

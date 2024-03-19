@@ -74,6 +74,7 @@ export class ScheduledAppointment{
   PrimaryPhone?: string;
   MobilePhone?: string;
   StatusToUpdate?: string;
+  Inactive?: boolean;
 }
 
 

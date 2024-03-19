@@ -43,8 +43,6 @@ export class SettingsComponent implements OnInit, AfterViewInit {
         finalize(() => this.loadingSubject.next(false))
       ).subscribe((viewname) => {
         this.loadingSubject.next(true);
-        //console.log(viewname);
-
         if (viewname == 'practice')
           this.loadPracticeComponent();
         else if (viewname == 'schedule')

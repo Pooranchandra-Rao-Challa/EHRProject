@@ -44,13 +44,13 @@ export class ProcedureDialogComponent implements OnInit {
     private utilityService: UtilityService,
     private alertmsg: AlertMessage,
     private datePipe: DatePipe) {
-      this.reasonCodes = REASON_CODES;
-      this.reasonCodes = this.reasonCodes.map((obj) => ({
-        Code: obj.Code,
-        Description: obj.Description,
-        CodeDescription: obj.Code + ' - ' + obj.Description
-      }));
-      this.reasonCodesFilter = this.reasonCodes.slice();
+    this.reasonCodes = REASON_CODES;
+    this.reasonCodes = this.reasonCodes.map((obj) => ({
+      Code: obj.Code,
+      Description: obj.Description,
+      CodeDescription: obj.Code + ' - ' + obj.Description
+    }));
+    this.reasonCodesFilter = this.reasonCodes.slice();
     let i = 1;
     while (this.teethNumbers.push(i++) < 32) {
       this.patient = authService.viewModel.Patient;
@@ -58,8 +58,9 @@ export class ProcedureDialogComponent implements OnInit {
     }
     if (overlayref.RequestData != null)
       this.procedureInfo = overlayref.RequestData;
+
     if (this.procedureInfo.Date)
-    this.endDateForProcedure = new Date(this.procedureInfo.Date);
+      this.endDateForProcedure = new Date(this.procedureInfo.Date);
 
     this.minDateToFinish.subscribe(minDate => {
       this.endDateForProcedure = new Date(minDate);

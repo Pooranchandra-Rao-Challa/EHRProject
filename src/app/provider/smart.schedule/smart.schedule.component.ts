@@ -97,30 +97,62 @@ export class SmartScheduleComponent implements OnInit {
   }
 
 
-  onPatientSelection(appoinment: ScheduledAppointment) {
+  onPatientSelection(appointment: ScheduledAppointment) {
+    if(appointment.Inactive){
+      this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+
+    }else{
+      this.smartSchedulerService.FilteredPatientsOfProvider({
+        "PatientId": appointment.PatientId,
+        "PageIndex": 0,
+        "PageSize": 10,
+        "SortField": "",
+        "SortDirection": "Asc"
+      }).pipe(
+        catchError(() => of([])),
+      )
+        .subscribe(resp => {
+          if (resp.IsSuccess) {
+            let p = (resp.ListResult as ProviderPatient[])[0];
+            this.authService.SetViewParam("Patient", p);
+            this.authService.SetViewParam("PatientView", "Chart");
+            this.authService.SetViewParam("View", "Patients");
+            this.viewChangeService.sendData("Patients");
+            this.router.navigate(["/provider/patientdetails"]);
+          }else{
+            this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+          }
+        });
 
 
-    this.smartSchedulerService.FilteredPatientsOfProvider({
-      "PatientId": appoinment.PatientId,
-      "PageIndex": 0,
-      "PageSize": 10,
-      "SortField": "",
-      "SortDirection": "Asc"
-    }).pipe(
-      catchError(() => of([])),
-    )
-      .subscribe(resp => {
-        if (resp.IsSuccess) {
-          let p = (resp.ListResult as ProviderPatient[])[0];
-          this.authService.SetViewParam("Patient", p);
-          this.authService.SetViewParam("PatientView", "Chart");
-          this.authService.SetViewParam("View", "Patients");
-          this.viewChangeService.sendData("Patients");
-          this.router.navigate(["/provider/patientdetails"]);
-        }
-      });
+    }
+
   }
 
+  openAppointment(appointment: ScheduledAppointment,action?: Actions){
+
+    if(appointment.Inactive){
+      this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+    }else{
+      this.openComponentDialog(this.appointmentDialogComponent,appointment,action);
+    }
+  }
+
+  lockAppointment(appointment: ScheduledAppointment,action?: Actions,status?: string){
+    if(appointment.Inactive){
+      this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+    }else{
+      this.openComponentDialog(this.completeAppointmentDialogComponent,appointment,action,status);
+    }
+  }
+
+  openEncounter(appointment: ScheduledAppointment,action?: Actions){
+    if(appointment.Inactive){
+      this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+    }else{
+      this.openComponentDialog(this.encounterDialogComponent,appointment,action);
+    }
+  }
 
   openComponentDialog(content: TemplateRef<any> | ComponentType<any> | string,
     data?: any, action?: Actions, status: string = "") {
@@ -303,8 +335,14 @@ export class SmartScheduleComponent implements OnInit {
   }
 
   updateAppointmentStatusDirect(appointment: ScheduledAppointment,StatusToUpdate: string){
-    appointment.StatusToUpdate = StatusToUpdate;
-    this.updateAppointmentStatus(appointment);
+    if(appointment.Inactive){
+      this.alertMessage.displayErrorDailog(ERROR_CODES["E2AA004"])
+    }else{
+      appointment.StatusToUpdate = StatusToUpdate;
+      this.updateAppointmentStatus(appointment);
+    }
+
+
   }
 
   updateAppointmentStatus(appointment: ScheduledAppointment) {

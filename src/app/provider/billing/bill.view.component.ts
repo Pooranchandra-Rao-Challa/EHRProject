@@ -3,14 +3,15 @@ import { DatePipe } from "@angular/common";
 import { Component, OnInit, TemplateRef } from "@angular/core";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { AlertMessage } from "src/app/_alerts/alertMessage";
-import { Actions, BillView } from "src/app/_models";
+import { Actions, BillPayment, BillView, SuperBill } from "src/app/_models";
 import { AuthenticationService } from "src/app/_services/authentication.service";
 import { PatientService } from "src/app/_services/patient.service";
 import { ComponentType } from '@angular/cdk/portal';
 import { ProceduresDialogComponent } from 'src/app/dialogs/procedure.dialog/procedures.dialog.component';
 import { PaymentsDialogComponent } from 'src/app/dialogs/payments.dialog/payments.dialog.component';
-
 import { OverlayService } from 'src/app/overlay.service';
+import { EncounterDialogComponent } from 'src/app/dialogs/encounter.dialog/encounter.dialog.component';
+import { SuperbillDialogComponent } from 'src/app/dialogs/superbill/superbill.component';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class BillViewComponent implements OnInit {
   billItems: BillItems[] = [];
   bsBillImtes: BehaviorSubject<BillItems[]> = new BehaviorSubject<BillItems[]>([]);
   displayedColumns = ['Transaction Date', 'Proc Date', 'Patient', 'Code', 'Description',
-    'Provider', 'Amount','First Fee','Second Fee','Total Fee','Payments', 'Running Balance'];
+    'Provider', 'Amount','First Fee','Second Fee','Total Fee','Payments', 'Adjustments', 'Running Balance'];
   proceduresDialog = ProceduresDialogComponent;
   paymentDialog = PaymentsDialogComponent;
   totalPayment: number = 0;
@@ -40,6 +41,8 @@ export class BillViewComponent implements OnInit {
   finalBalance: number = 0;
   positiveWriteOff: number = 0
   negativeWriteOff: number =0
+  encounterDialogComponent = EncounterDialogComponent;
+  superbillDialogComponent = SuperbillDialogComponent;
 
   constructor(public authService: AuthenticationService,
     private patientService: PatientService,
@@ -65,13 +68,14 @@ export class BillViewComponent implements OnInit {
         this.bill.Phones = JSON.parse(this.bill.strPhones);
         this.bill.Procedures = JSON.parse(this.bill.strProcedures);
         this.bill.Payments = JSON.parse(this.bill.strPayments);
-        console.log(this.bill);
         let runningBalance: number = 0;
         runningBalance+=Number(this.bill.TotalFee);
         this.totalFee = runningBalance;
         this.Portion90plus = this.totalFee;
         this.bill.Procedures.forEach(element => {
             this.billItems.push({
+              BillId: this.bill.BillId,
+              TransactionDate: this.bill.BillDate,
               ProcedureDate : element.StartDate,
               PatientName: element.PatientName,
               ProviderName: element.ProviderName,
@@ -82,6 +86,7 @@ export class BillViewComponent implements OnInit {
             })
         });
         this.billItems.push({
+          BillId: this.bill.BillId,
           TransactionDate: this.bill.BillDate,
           PatientName: this.bill.PatientName,
           ProviderName: this.bill.ProviderName,
@@ -95,26 +100,47 @@ export class BillViewComponent implements OnInit {
           let amount = 0;
           if(payment.TransactionType == "payment") {
             amount = Number(payment.Amount) * -1;
-            this.totalPayment += amount
+            this.totalPayment += amount;
+            this.billItems.push({
+              BillId: this.bill.BillId,
+              TransactionDate: payment.TransactionDate,
+              PatientName: this.bill.PatientName,
+              ProviderName: this.bill.ProviderName,
+              Payments: amount,
+              PaymentData: payment,
+              Description: "Payment"
+            });
           }
           else if(payment.TransactionType == "positive-adjustment"){
             amount = Number(payment.Amount)
-            this.positiveWriteOff += amount
+            this.positiveWriteOff += amount;
+            this.billItems.push({
+              BillId: this.bill.BillId,
+              TransactionDate: payment.TransactionDate,
+              PatientName: this.bill.PatientName,
+              ProviderName: this.bill.ProviderName,
+              Adjustments: amount,
+              PaymentData: payment,
+              Description: "Positive-Adjustment"
+            });
           }
           else if(payment.TransactionType == "negative-adjustment") {
             amount = Number(payment.Amount) * -1;
             this.negativeWriteOff += amount
+            this.billItems.push({
+              BillId: this.bill.BillId,
+              TransactionDate: payment.TransactionDate,
+              PatientName: this.bill.PatientName,
+              ProviderName: this.bill.ProviderName,
+              Adjustments: amount,
+              PaymentData: payment,
+              Description: "Negative-Adjustment"
+            });
           }
           runningBalance += amount
           this.finalBalance = this.totalFee + this.totalPayment
           this.PatientPortion = this.finalBalance + this.positiveWriteOff + this.negativeWriteOff - this.InsurancePortion;
-          this.billItems.push({
-            TransactionDate: payment.TransactionDate,
-            PatientName: this.bill.PatientName,
-            ProviderName: this.bill.ProviderName,
-            Payments: amount,
-            Description: payment.TransactionType
-          });
+
         });
         if(this.bill.Payments.length == 0){
           this.finalBalance = this.totalFee + this.totalPayment
@@ -122,15 +148,13 @@ export class BillViewComponent implements OnInit {
         }
 
         this.billItems.push({
+          BillId: this.bill.BillId,
           TransactionDate: this.bill.BillDate,
           PatientName: this.bill.PatientName,
           ProviderName: this.bill.ProviderName,
           RunningBalance: runningBalance,
           Description: "Total Amount"
         });
-
-
-        console.log(this.billItems);
         this.bsBillImtes.next(this.billItems);
       }else this.bill = {};
     });
@@ -139,10 +163,38 @@ export class BillViewComponent implements OnInit {
     this.openComponentDialog(this.proceduresDialog,{PatientId: this.patientId, BillId:this.billId}, Actions.view);
   }
 
-  openPayments(paymentType:string){
+  openPaymentForm(paymentType:string){
     this.openComponentDialog(this.paymentDialog,{PatientId: this.patientId, BillId:this.billId, PaymentType:paymentType}, Actions.view);
   }
 
+  openPaymentEditForm(paymentItem: BillItems){
+    let payment: BillPayment = paymentItem.PaymentData;
+    let transctionType = payment.TransactionType == 'payment' ? "Payment (-)" : payment.TransactionType == 'positive-adjustment' ? "Charge (+) Adjustment" : "negative-adjustment";
+    this.openComponentDialog(this.paymentDialog,{PatientId: this.patientId, PaymentItem: payment, BillId:this.billId, PaymentType:transctionType}, Actions.view);
+  }
+  recordSuperBill(bill: BillItems) {
+    this.initBillItemsWithBillId(bill.BillId);
+
+  }
+  initBillItemsWithBillId(billId:string){
+    this.patientService.PatientBillForBillId(billId).subscribe(resp => {
+      if (resp.IsSuccess) {
+        let thebill = resp.Result as SuperBill;
+        thebill.EncounterInfo.PatientName = this.bill.PatientName;
+        this.openComponentDialog(this.superbillDialogComponent,{bill: thebill,from:'BillView'}, Actions.view);
+      }
+    })
+  }
+  openEncounterView(){
+    let reqData: any = {};
+    reqData.PatientName = this.bill.PatientName;
+    reqData.PatientId = this.patientId;
+    reqData.EncounterId = this.bill.EncounterId;
+    reqData.ViewFrom = "BillView";
+    reqData["From"] = "BillView";
+    this.openComponentDialog(this.encounterDialogComponent,reqData, Actions.view);
+  }
+/** */
   closePayment(){
     history.back();
   }
@@ -165,13 +217,11 @@ export class BillViewComponent implements OnInit {
     const ref = this.overlayService.open(content, data, true);
     ref.afterClosed$.subscribe(res => {
       if (content === this.proceduresDialog) {
-
         if (res.data && res.data.UpdateView) {
           this.clearFeeTerms();
           this.initBillView();
         }
       }else if (content === this.paymentDialog) {
-
         if (res.data && res.data.UpdateView) {
           this.clearFeeTerms();
           this.initBillView();
@@ -183,11 +233,10 @@ export class BillViewComponent implements OnInit {
 }
 
 export class BillItems{
-
+  BillId?:string;
   TransactionDate?: Date;
   ProcedureDate?: Date;
   ProcedureId?: string;
-  PaymentId?: string;
   PatientName?: string;
   Code?: string;
   Description?: string;
@@ -198,4 +247,6 @@ export class BillItems{
   ProcFee?:number;
   Payments?: number;
   RunningBalance?: number;
+  Adjustments?: number
+  PaymentData?: BillPayment
 }
